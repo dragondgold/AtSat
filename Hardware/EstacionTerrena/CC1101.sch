@@ -1,0 +1,133 @@
+EESchema Schematic File Version 4
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 3 3
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L AXTEC_IC:CC1101 U3
+U 1 1 5B9A80AC
+P 5950 3900
+F 0 "U3" H 5350 4550 50  0000 L CNN
+F 1 "CC1101" H 5350 4450 50  0000 L CNN
+F 2 "" H 5650 3950 50  0001 C CNN
+F 3 "" H 5650 3950 50  0001 C CNN
+	1    5950 3900
+	1    0    0    -1  
+$EndComp
+Text HLabel 5150 3700 0    50   Input ~ 0
+SCLK
+Text HLabel 5150 3800 0    50   Output ~ 0
+SO
+Text HLabel 5750 3150 1    50   Input ~ 0
+SI
+Wire Wire Line
+	5750 3300 5750 3150
+Wire Wire Line
+	5350 3700 5150 3700
+Wire Wire Line
+	5350 3800 5150 3800
+$Comp
+L power:GND #PWR017
+U 1 1 5B9A819D
+P 5850 4650
+F 0 "#PWR017" H 5850 4400 50  0001 C CNN
+F 1 "GND" H 5855 4477 50  0000 C CNN
+F 2 "" H 5850 4650 50  0001 C CNN
+F 3 "" H 5850 4650 50  0001 C CNN
+	1    5850 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR020
+U 1 1 5B9A81B1
+P 6750 3300
+F 0 "#PWR020" H 6750 3050 50  0001 C CNN
+F 1 "GND" H 6755 3127 50  0000 C CNN
+F 2 "" H 6750 3300 50  0001 C CNN
+F 3 "" H 6750 3300 50  0001 C CNN
+	1    6750 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5850 4650 5850 4500
+Wire Wire Line
+	5850 3300 5850 3050
+Wire Wire Line
+	5850 3050 6150 3050
+Wire Wire Line
+	6750 3050 6750 3300
+Wire Wire Line
+	6150 3300 6150 3050
+Connection ~ 6150 3050
+Wire Wire Line
+	6150 3050 6750 3050
+$Comp
+L power:+3V3 #PWR021
+U 1 1 5B9A825B
+P 7000 3650
+F 0 "#PWR021" H 7000 3500 50  0001 C CNN
+F 1 "+3V3" H 7015 3823 50  0000 C CNN
+F 2 "" H 7000 3650 50  0001 C CNN
+F 3 "" H 7000 3650 50  0001 C CNN
+	1    7000 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6550 3700 6650 3700
+Wire Wire Line
+	7000 3700 7000 3650
+Wire Wire Line
+	6550 3800 6650 3800
+Wire Wire Line
+	6650 3800 6650 3700
+Connection ~ 6650 3700
+Wire Wire Line
+	6650 3700 7000 3700
+Wire Wire Line
+	6550 4100 6650 4100
+Wire Wire Line
+	6650 4100 6650 3800
+Connection ~ 6650 3800
+$Comp
+L power:+3V3 #PWR019
+U 1 1 5B9A8434
+P 6600 4550
+F 0 "#PWR019" H 6600 4400 50  0001 C CNN
+F 1 "+3V3" H 6615 4723 50  0000 C CNN
+F 2 "" H 6600 4550 50  0001 C CNN
+F 3 "" H 6600 4550 50  0001 C CNN
+	1    6600 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 4500 6050 4650
+Wire Wire Line
+	6050 4650 6600 4650
+Wire Wire Line
+	6600 4650 6600 4550
+$Comp
+L power:+3V3 #PWR018
+U 1 1 5B9A8574
+P 5950 2900
+F 0 "#PWR018" H 5950 2750 50  0001 C CNN
+F 1 "+3V3" H 5965 3073 50  0000 C CNN
+F 2 "" H 5950 2900 50  0001 C CNN
+F 3 "" H 5950 2900 50  0001 C CNN
+	1    5950 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5950 3300 5950 2900
+Text HLabel 8100 3950 2    50   BiDi ~ 0
+ANT
+$EndSCHEMATC

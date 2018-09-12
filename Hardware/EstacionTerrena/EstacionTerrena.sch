@@ -1,4 +1,65 @@
-EESchema Schematic File Version 2
-EELAYER 25 0
+EESchema Schematic File Version 4
+EELAYER 26 0
 EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 3
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Sheet
+S 5050 3600 600  850 
+U 5B9997DB
+F0 "USBaSPI" 50
+F1 "USBaSPI.sch" 50
+F2 "MOSI" O R 5650 4050 50 
+F3 "SCK" O R 5650 3950 50 
+F4 "MISO" I R 5650 4150 50 
+$EndSheet
+$Sheet
+S 6100 3600 600  850 
+U 5B9A8077
+F0 "CC1101" 50
+F1 "CC1101.sch" 50
+F2 "SCLK" I L 6100 3950 50 
+F3 "SO" O L 6100 4150 50 
+F4 "SI" I L 6100 4050 50 
+F5 "ANT" I R 6700 4000 50 
+$EndSheet
+Wire Wire Line
+	5650 3950 6100 3950
+Wire Wire Line
+	5650 4050 6100 4050
+Wire Wire Line
+	5650 4150 6100 4150
+$Comp
+L Connector:Conn_Coaxial J?
+U 1 1 5B9AA8AF
+P 7300 4000
+F 0 "J?" H 7399 3976 50  0000 L CNN
+F 1 "SMA" H 7399 3885 50  0000 L CNN
+F 2 "" H 7300 4000 50  0001 C CNN
+F 3 " ~" H 7300 4000 50  0001 C CNN
+	1    7300 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5B9AA918
+P 7300 4250
+F 0 "#PWR?" H 7300 4000 50  0001 C CNN
+F 1 "GND" H 7305 4077 50  0000 C CNN
+F 2 "" H 7300 4250 50  0001 C CNN
+F 3 "" H 7300 4250 50  0001 C CNN
+	1    7300 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 4250 7300 4200
 $EndSCHEMATC
