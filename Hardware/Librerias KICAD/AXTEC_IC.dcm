@@ -5,9 +5,19 @@ D 915MHz Impedance Matched/Balun/BPF Integrated Component for T.I. CC110X
 F https://ar.mouser.com/datasheet/2/611/0915BM15A0001-242333.pdf
 $ENDCMP
 #
+$CMP A2235-H
+D GPS Modules SiRFStarIV GPS receiver SMT ROM mod
+F http://update.maestro-wireless.com/GNSS/A2235-H/Maestro_GPS_Receiver_A2235_H_User_Manual_V13.pdf
+$ENDCMP
+#
 $CMP CC1101
-D Low-Power Sub-1 GHz RF Transceiver 
+D Low-Power Sub-1 GHz RF Transceiver
 F http://www.ti.com/lit/ds/symlink/cc1101.pdf
+$ENDCMP
+#
+$CMP CONUFL001-SMD
+D RF Connectors / Coaxial Connectors U.FL Straight Surface Mount Jack
+F https://componentsearchengine.com/Datasheets/1/CONUFL001-SMD.pdf
 $ENDCMP
 #
 $CMP MCP2210

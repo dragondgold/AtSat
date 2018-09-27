@@ -1,9 +1,10 @@
 EESchema Schematic File Version 4
+LIBS:PCB_A-cache
 EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 2
+Sheet 1 4
 Title "PCB_A"
 Date ""
 Rev "1.0.0"
@@ -105,13 +106,256 @@ D2 F7 FD DA 6B 00 00 60 22 3B 71 00 00 09 09 71 00 00 09 09 71 00 00 09 09 71 00
 EndData
 $EndBitmap
 $Sheet
-S 3600 3000 1000 1050
+S 3700 2000 550  600 
+U 5BA1A77A
+F0 "Cargador de batería" 50
+F1 "Cargador de batería.sch" 50
+F2 "VBat+" U R 4250 2100 50 
+F3 "VBat-" U R 4250 2200 50 
+F4 "VBUS" I R 4250 2350 50 
+F5 "ISET" I R 4250 2450 50 
+$EndSheet
+$Comp
+L Connector_Generic:Conn_02x02_Counter_Clockwise J?
+U 1 1 5BA1A81F
+P 7750 2250
+F 0 "J?" H 7800 2467 50  0000 C CNN
+F 1 "Conn_02x02_Counter_Clockwise" H 7800 2376 50  0000 C CNN
+F 2 "" H 7750 2250 50  0001 C CNN
+F 3 "~" H 7750 2250 50  0001 C CNN
+	1    7750 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x02_Counter_Clockwise J?
+U 1 1 5BA1A886
+P 7750 2900
+F 0 "J?" H 7800 3117 50  0000 C CNN
+F 1 "Conn_02x02_Counter_Clockwise" H 7800 3026 50  0000 C CNN
+F 2 "" H 7750 2900 50  0001 C CNN
+F 3 "~" H 7750 2900 50  0001 C CNN
+	1    7750 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x03 J?
+U 1 1 5BA1A8A6
+P 8250 4800
+F 0 "J?" H 8330 4842 50  0000 L CNN
+F 1 "Servo Paracaídas" H 8330 4751 50  0000 L CNN
+F 2 "" H 8250 4800 50  0001 C CNN
+F 3 "~" H 8250 4800 50  0001 C CNN
+	1    8250 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x03 J?
+U 1 1 5BA1A8E2
+P 8250 4300
+F 0 "J?" H 8330 4342 50  0000 L CNN
+F 1 "Servo Globo" H 8330 4251 50  0000 L CNN
+F 2 "" H 8250 4300 50  0001 C CNN
+F 3 "~" H 8250 4300 50  0001 C CNN
+	1    8250 4300
+	1    0    0    -1  
+$EndComp
+$Sheet
+S 3700 4000 550  200 
+U 5BA1A7F9
+F0 "GPS" 50
+F1 "GPS.sch" 50
+F2 "TX" O R 4250 4100 50 
+$EndSheet
+Text Label 4650 2100 0    50   ~ 0
+VBAT
+$Comp
+L power:GND #PWR?
+U 1 1 5BA1AC0E
+P 5100 2550
+F 0 "#PWR?" H 5100 2300 50  0001 C CNN
+F 1 "GND" H 5105 2377 50  0000 C CNN
+F 2 "" H 5100 2550 50  0001 C CNN
+F 3 "" H 5100 2550 50  0001 C CNN
+	1    5100 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 2550 5100 2200
+Wire Wire Line
+	5100 2200 4250 2200
+Text Label 4650 2350 0    50   ~ 0
+VBUS
+Text Label 4650 2450 0    50   ~ 0
+ISET
+Wire Wire Line
+	4250 2100 5000 2100
+Wire Wire Line
+	4250 2350 5000 2350
+Wire Wire Line
+	4250 2450 5000 2450
+Wire Wire Line
+	4250 3100 5000 3100
+Wire Wire Line
+	4250 3200 5000 3200
+Wire Wire Line
+	4250 3300 5000 3300
+Wire Wire Line
+	4250 4100 5000 4100
+Text Label 4650 3100 0    50   ~ 0
+SDO
+Text Label 4650 3200 0    50   ~ 0
+SDI
+Text Label 4650 3300 0    50   ~ 0
+SCLK
+Text Label 4650 4100 0    50   ~ 0
+GPS_TX
+Wire Wire Line
+	7550 2350 7150 2350
+Text Label 7200 2350 0    50   ~ 0
+VBUS
+Wire Wire Line
+	8050 2250 8450 2250
+Text Label 8200 2900 0    50   ~ 0
+ISET
+Wire Wire Line
+	8050 2350 8450 2350
+$Comp
+L power:GND #PWR?
+U 1 1 5BA1B3CD
+P 8450 2400
+F 0 "#PWR?" H 8450 2150 50  0001 C CNN
+F 1 "GND" H 8455 2227 50  0000 C CNN
+F 2 "" H 8450 2400 50  0001 C CNN
+F 3 "" H 8450 2400 50  0001 C CNN
+	1    8450 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8450 2400 8450 2350
+Connection ~ 8450 2350
+Wire Wire Line
+	8450 2350 8450 2250
+Wire Wire Line
+	7150 2900 7550 2900
+Wire Wire Line
+	7150 3000 7550 3000
+Text Label 7200 2900 0    50   ~ 0
+SDO
+Text Label 7200 3000 0    50   ~ 0
+SDI
+Text Label 8200 3000 0    50   ~ 0
+SCLK
+Wire Wire Line
+	8450 2900 8050 2900
+Wire Wire Line
+	8050 3000 8450 3000
+$Comp
+L Connector_Generic:Conn_02x02_Counter_Clockwise J?
+U 1 1 5BA1BDA0
+P 7750 3550
+F 0 "J?" H 7800 3767 50  0000 C CNN
+F 1 "Conn_02x02_Counter_Clockwise" H 7800 3676 50  0000 C CNN
+F 2 "" H 7750 3550 50  0001 C CNN
+F 3 "~" H 7750 3550 50  0001 C CNN
+	1    7750 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7150 3550 7550 3550
+Wire Wire Line
+	7150 3650 7550 3650
+Wire Wire Line
+	8050 3650 8450 3650
+Text Label 7200 3550 0    50   ~ 0
+GPS_TX
+$Comp
+L Switch:SW_SPDT SW?
+U 1 1 5BA3F421
+P 6750 2350
+F 0 "SW?" H 6750 2635 50  0000 C CNN
+F 1 "SW_SPDT" H 6750 2544 50  0000 C CNN
+F 2 "" H 6750 2350 50  0001 C CNN
+F 3 "" H 6750 2350 50  0001 C CNN
+	1    6750 2350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6950 2250 7550 2250
+Wire Wire Line
+	6550 2350 6150 2350
+Text Label 6200 2350 0    50   ~ 0
+VBAT
+$Comp
+L AXTEC_IC:CONUFL001-SMD U?
+U 1 1 5BA4343B
+P 5400 3550
+F 0 "U?" H 5400 3815 50  0000 C CNN
+F 1 "CONUFL001-SMD" H 5400 3724 50  0000 C CNN
+F 2 "" H 5400 3750 50  0001 C CNN
+F 3 "https://componentsearchengine.com/Datasheets/1/CONUFL001-SMD.pdf" H 5400 3750 50  0001 C CNN
+F 4 "CONUFL001-SMD" H 5500 3800 50  0001 C CNN "Manufacturer Part Number"
+	1    5400 3550
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4250 3550 5000 3550
+$Comp
+L power:GND #PWR?
+U 1 1 5BA447BF
+P 5900 3800
+F 0 "#PWR?" H 5900 3550 50  0001 C CNN
+F 1 "GND" H 5905 3627 50  0000 C CNN
+F 2 "" H 5900 3800 50  0001 C CNN
+F 3 "" H 5900 3800 50  0001 C CNN
+	1    5900 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5800 3550 5900 3550
+Wire Wire Line
+	5900 3550 5900 3650
+Wire Wire Line
+	5800 3650 5900 3650
+Connection ~ 5900 3650
+Wire Wire Line
+	5900 3650 5900 3800
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5BA42A3A
+P 8450 3550
+AR Path="/5BA17F9C/5BA42A3A" Ref="#PWR?"  Part="1" 
+AR Path="/5BA42A3A" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8450 3400 50  0001 C CNN
+F 1 "+3V3" H 8465 3723 50  0000 C CNN
+F 2 "" H 8450 3550 50  0001 C CNN
+F 3 "" H 8450 3550 50  0001 C CNN
+	1    8450 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8450 3550 8050 3550
+Wire Wire Line
+	8450 3650 8450 3550
+Connection ~ 8450 3550
+$Comp
+L power:GND #PWR?
+U 1 1 5BA437E3
+P 7150 3650
+F 0 "#PWR?" H 7150 3400 50  0001 C CNN
+F 1 "GND" H 7155 3477 50  0000 C CNN
+F 2 "" H 7150 3650 50  0001 C CNN
+F 3 "" H 7150 3650 50  0001 C CNN
+	1    7150 3650
+	1    0    0    -1  
+$EndComp
+$Sheet
+S 3700 2950 550  700 
 U 5BA17F9C
 F0 "CC1101" 50
 F1 "CC1101.sch" 50
-F2 "SDO" O R 4600 3150 50 
-F3 "SDI" I R 4600 3250 50 
-F4 "SCLK" O R 4600 3350 50 
-F5 "ANT" B R 4600 3800 50 
+F2 "SDO" O R 4250 3100 50 
+F3 "SDI" I R 4250 3200 50 
+F4 "SCLK" O R 4250 3300 50 
+F5 "ANT" B R 4250 3550 50 
 $EndSheet
 $EndSCHEMATC
