@@ -1,0 +1,13 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP BQ24091DGQT
+D Texas Instruments BQ24091DGQT, Battery Charge Controller, 1000mA, 10-Pin MSOP
+F http://www.ti.com/lit/gpn/bq24091
+$ENDCMP
+#
+$CMP NE555D
+D NE555DG4, Timer, 4.5 To 16V, 8-Pin SOIC-8
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+#End Doc Library
