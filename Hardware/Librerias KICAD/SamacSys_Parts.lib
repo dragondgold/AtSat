@@ -57,4 +57,34 @@ X VCC 8 1100 0 200 L 50 50 0 0 W
 ENDDRAW
 ENDDEF
 #
+# SSM3J338R,LF
+#
+DEF SSM3J338R,LF Q 0 30 Y Y 1 F N
+F0 "Q" 450 150 50 H V L CNN
+F1 "SSM3J338R,LF" 450 50 50 H V L CNN
+F2 "SamacSys_Parts:SSM3J332RLFT" 450 -50 50 H I L CNN
+F3 "http://toshiba.semicon-storage.com/info/docget.jsp?did=30384&prodName=SSM3J338R" 450 -150 50 H I L CNN
+F4 "MOSFET Small-signal MOSFET Vdss= -12V, ID= -6A" 450 -250 50 H I L CNN "Description"
+F5 "Toshiba" 450 -450 50 H I L CNN "Manufacturer_Name"
+F6 "SSM3J338R,LF" 450 -550 50 H I L CNN "Manufacturer Part Number"
+F7 "SSM3J338R,LF" 450 -850 50 H I L CNN "Arrow Part Number"
+F8 "https://www.arrow.com/en/products/ssm3j338rlf/toshiba" 450 -950 50 H I L CNN "Arrow Price/Stock"
+DRAW
+C 250 100 150 0 1 10 N
+P 2 0 1 6 230 -20 230 20 N
+P 2 0 1 6 230 0 300 0 N
+P 2 0 1 6 230 80 230 120 N
+P 2 0 1 6 230 220 230 180 N
+P 2 0 1 6 300 100 230 100 N
+P 2 0 1 6 300 100 300 -100 N
+P 2 0 1 6 300 200 230 200 N
+P 2 0 1 6 300 200 300 300 N
+P 3 0 1 6 100 0 200 0 200 200 N
+P 4 0 1 10 300 100 260 120 260 80 300 100 F
+X ~ 1 0 0 100 R 50 50 0 0 B
+X ~ 2 300 -200 100 U 50 50 0 0 B
+X ~ 3 300 400 100 D 50 50 0 0 B
+ENDDRAW
+ENDDEF
+#
 #End Library
