@@ -15,4 +15,15 @@ D MOSFET Small-signal MOSFET Vdss= -12V, ID= -6A
 F http://toshiba.semicon-storage.com/info/docget.jsp?did=30384&prodName=SSM3J338R
 $ENDCMP
 #
+$CMP Si7006-A20-IM1
+D Si7006 Digital RH temp sensor w filter Silicon Labs Si7006-A20-IM1 Temperature & Humidity Sensor, -40  +125 C, 6-Pin DFN
+F https://www.silabs.com/documents/public/data-sheets/Si7006-A20.pdf
+$ENDCMP
+#
+$CMP BQ27441DRZR-G1A
+D System-Side Impedance Track Battery Fuel (Gas) Gauge
+K
+F http://www.ti.com/lit/gpn/bq27441-g1
+$ENDCMP
+#
 #End Doc Library
