@@ -26,4 +26,16 @@ K
 F http://www.ti.com/lit/gpn/bq27441-g1
 $ENDCMP
 #
+$CMP MS563702BA03-50
+D Sensor Pressure 2bar Barometric SMD MS563702BA03-50, Barometric Pressure Sensor, 1200mbar 0 ??? 3.6 V Output, 4-Pin QFN
+K
+F http://docs-europe.electrocomponents.com/webdocs/142c/0900766b8142cddb.pdf
+$ENDCMP
+#
+$CMP BMX055
+D Small versatile 9-axis sensor module
+K
+F http://www.mouser.com/ds/2/621/BST-BMX055-DS000-02-586421.pdf
+$ENDCMP
+#
 #End Doc Library
