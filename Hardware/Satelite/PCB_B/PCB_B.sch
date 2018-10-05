@@ -108,8 +108,6 @@ $EndComp
 Wire Wire Line
 	9850 950  9300 950 
 Wire Wire Line
-	9850 1050 9300 1050
-Wire Wire Line
 	10350 950  10900 950 
 Wire Wire Line
 	10350 1050 10900 1050
@@ -141,10 +139,6 @@ Wire Wire Line
 	10350 3150 10900 3150
 Wire Wire Line
 	10350 3250 10900 3250
-Text Label 9400 950  0    50   ~ 0
-VBat
-Text Label 9400 1050 0    50   ~ 0
-VBUS
 $Comp
 L power:GND #PWR?
 U 1 1 5BB6B290
@@ -231,12 +225,12 @@ VBat_I_SENSE
 $Comp
 L MCU_ST_STM32F4:STM32F401RETx U?
 U 1 1 5BB6D45B
-P 5650 3000
-F 0 "U?" H 5600 4878 50  0000 C CNN
-F 1 "STM32F401RETx" H 5600 4787 50  0000 C CNN
-F 2 "Package_QFP:LQFP-64_10x10mm_P0.5mm" H 5050 1300 50  0001 R CNN
-F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00102166.pdf" H 5650 3000 50  0001 C CNN
-	1    5650 3000
+P 6600 3200
+F 0 "U?" H 6550 5078 50  0000 C CNN
+F 1 "STM32F401RETx" H 6550 4987 50  0000 C CNN
+F 2 "Package_QFP:LQFP-64_10x10mm_P0.5mm" H 6000 1500 50  0001 R CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00102166.pdf" H 6600 3200 50  0001 C CNN
+	1    6600 3200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -362,4 +356,185 @@ D2 F7 FD DA 6B 00 00 60 22 3B 71 00 00 09 09 71 00 00 09 09 71 00 00 09 09 71 00
 09 71 00 00 09 FD 17 3C 6D 9D 90 5F F2 D3 C3 00 00 00 00 49 45 4E 44 AE 42 60 82 
 EndData
 $EndBitmap
+$Comp
+L SamacSys_Parts:MIC5323-3.3YD5_TR IC?
+U 1 1 5BB7621F
+P 1450 6900
+F 0 "IC?" H 2000 7165 50  0000 C CNN
+F 1 "MIC5323-3.3YD5_TR" H 2000 7074 50  0000 C CNN
+F 2 "SOT95P280X100-5N" H 2400 7000 50  0001 L CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf" H 2400 6900 50  0001 L CNN
+F 4 "Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23" H 2400 6800 50  0001 L CNN "Description"
+F 5 "1" H 2400 6700 50  0001 L CNN "Height"
+F 6 "Micrel" H 2400 6600 50  0001 L CNN "Manufacturer_Name"
+F 7 "MIC5323-3.3YD5 TR" H 2400 6500 50  0001 L CNN "Manufacturer_Part_Number"
+F 8 "8855996P" H 2400 6400 50  0001 L CNN "RS Part Number"
+F 9 "http://uk.rs-online.com/web/p/products/8855996P" H 2400 6300 50  0001 L CNN "RS Price/Stock"
+F 10 "MIC5323-3.3YD5 TR" H 2400 6200 50  0001 L CNN "Arrow Part Number"
+F 11 "http://uk.rs-online.com/web/p/products/8855996P" H 2400 6100 50  0001 L CNN "Arrow Price/Stock"
+	1    1450 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5BB76226
+P 850 7050
+AR Path="/5BB122CA/5BB76226" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5BB76226" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5BB76226" Ref="C?"  Part="1" 
+AR Path="/5BB76226" Ref="C?"  Part="1" 
+F 0 "C?" H 758 7004 50  0000 R CNN
+F 1 "1uF" H 758 7095 50  0000 R CNN
+F 2 "" H 850 7050 50  0001 C CNN
+F 3 "~" H 850 7050 50  0001 C CNN
+	1    850  7050
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1450 6900 1350 6900
+Wire Wire Line
+	850  6900 850  6950
+$Comp
+L power:GND #PWR?
+U 1 1 5BB772C4
+P 850 7350
+F 0 "#PWR?" H 850 7100 50  0001 C CNN
+F 1 "GND" H 855 7177 50  0000 C CNN
+F 2 "" H 850 7350 50  0001 C CNN
+F 3 "" H 850 7350 50  0001 C CNN
+	1    850  7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BB772E6
+P 1200 7350
+F 0 "#PWR?" H 1200 7100 50  0001 C CNN
+F 1 "GND" H 1205 7177 50  0000 C CNN
+F 2 "" H 1200 7350 50  0001 C CNN
+F 3 "" H 1200 7350 50  0001 C CNN
+	1    1200 7350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1200 7350 1200 7000
+Wire Wire Line
+	1200 7000 1450 7000
+Wire Wire Line
+	850  7350 850  7150
+Wire Wire Line
+	1450 7100 1350 7100
+Wire Wire Line
+	1350 7100 1350 6900
+Connection ~ 1350 6900
+Wire Wire Line
+	1350 6900 850  6900
+$Comp
+L Device:C_Small C?
+U 1 1 5BB79007
+P 2750 7150
+AR Path="/5BB122CA/5BB79007" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5BB79007" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5BB79007" Ref="C?"  Part="1" 
+AR Path="/5BB79007" Ref="C?"  Part="1" 
+F 0 "C?" H 2658 7104 50  0000 R CNN
+F 1 "100nF" H 2658 7195 50  0000 R CNN
+F 2 "" H 2750 7150 50  0001 C CNN
+F 3 "~" H 2750 7150 50  0001 C CNN
+	1    2750 7150
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BB79C3E
+P 2750 7350
+F 0 "#PWR?" H 2750 7100 50  0001 C CNN
+F 1 "GND" H 2755 7177 50  0000 C CNN
+F 2 "" H 2750 7350 50  0001 C CNN
+F 3 "" H 2750 7350 50  0001 C CNN
+	1    2750 7350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2750 7250 2750 7350
+Wire Wire Line
+	2750 7050 2750 6900
+Wire Wire Line
+	2750 6900 2550 6900
+Wire Wire Line
+	2550 7000 3200 7000
+$Comp
+L Device:C_Small C?
+U 1 1 5BB7D925
+P 3200 7150
+AR Path="/5BB122CA/5BB7D925" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5BB7D925" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5BB7D925" Ref="C?"  Part="1" 
+AR Path="/5BB7D925" Ref="C?"  Part="1" 
+F 0 "C?" H 3108 7104 50  0000 R CNN
+F 1 "1uF" H 3108 7195 50  0000 R CNN
+F 2 "" H 3200 7150 50  0001 C CNN
+F 3 "~" H 3200 7150 50  0001 C CNN
+	1    3200 7150
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3200 7050 3200 7000
+$Comp
+L power:GND #PWR?
+U 1 1 5BB7E63C
+P 3200 7350
+F 0 "#PWR?" H 3200 7100 50  0001 C CNN
+F 1 "GND" H 3205 7177 50  0000 C CNN
+F 2 "" H 3200 7350 50  0001 C CNN
+F 3 "" H 3200 7350 50  0001 C CNN
+	1    3200 7350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3200 7350 3200 7250
+$Comp
+L power:+BATT #PWR?
+U 1 1 5BB7F55C
+P 9300 900
+F 0 "#PWR?" H 9300 750 50  0001 C CNN
+F 1 "+BATT" H 9315 1073 50  0000 C CNN
+F 2 "" H 9300 900 50  0001 C CNN
+F 3 "" H 9300 900 50  0001 C CNN
+	1    9300 900 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9300 950  9300 900 
+$Comp
+L power:VBUS #PWR?
+U 1 1 5BB802DA
+P 9000 900
+F 0 "#PWR?" H 9000 750 50  0001 C CNN
+F 1 "VBUS" H 9015 1073 50  0000 C CNN
+F 2 "" H 9000 900 50  0001 C CNN
+F 3 "" H 9000 900 50  0001 C CNN
+	1    9000 900 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9000 1050 9000 900 
+Wire Wire Line
+	9000 1050 9850 1050
+$Comp
+L power:+BATT #PWR?
+U 1 1 5BB81112
+P 850 6750
+F 0 "#PWR?" H 850 6600 50  0001 C CNN
+F 1 "+BATT" H 865 6923 50  0000 C CNN
+F 2 "" H 850 6750 50  0001 C CNN
+F 3 "" H 850 6750 50  0001 C CNN
+	1    850  6750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	850  6750 850  6900
+Connection ~ 850  6900
+Text Label 2900 7000 0    50   ~ 0
+3V3_INT
 $EndSCHEMATC

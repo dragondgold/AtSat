@@ -211,4 +211,29 @@ P 5 0 1 6 200 100 1000 100 1000 -1000 200 -1000 200 100 N
 ENDDRAW
 ENDDEF
 #
+#SamacSys ECAD Model MIC5323-3.3YD5_TR
+#/470538/9105/2.31/5/1/Integrated Circuit
+DEF MIC5323-3.3YD5_TR IC 0 30 Y Y 1 F N
+F0 "IC" 950 300 50 H V L CNN
+F1 "MIC5323-3.3YD5_TR" 950 200 50 H V L CNN
+F2 "SOT95P280X100-5N" 950 100 50 H I L CNN
+F3 "http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf" 950 0 50 H I L CNN
+F4 "Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23" 950 -100 50 H I L CNN "Description"
+F5 "1" 950 -200 50 H I L CNN "Height"
+F6 "Micrel" 950 -300 50 H I L CNN "Manufacturer_Name"
+F7 "MIC5323-3.3YD5 TR" 950 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "8855996P" 950 -500 50 H I L CNN "RS Part Number"
+F9 "http://uk.rs-online.com/web/p/products/8855996P" 950 -600 50 H I L CNN "RS Price/Stock"
+F10 "MIC5323-3.3YD5 TR" 950 -700 50 H I L CNN "Arrow Part Number"
+F11 "http://uk.rs-online.com/web/p/products/8855996P" 950 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+X VIN 1 0 0 200 R 50 50 0 0 B
+X GND 2 0 -100 200 R 50 50 0 0 B
+X EN 3 0 -200 200 R 50 50 0 0 B
+X BYP 4 1100 0 200 L 50 50 0 0 B
+X VOUT 5 1100 -100 200 L 50 50 0 0 B
+P 5 0 1 6 200 100 900 100 900 -300 200 -300 200 100 N
+ENDDRAW
+ENDDEF
+#
 #End Library

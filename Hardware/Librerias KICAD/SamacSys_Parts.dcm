@@ -38,4 +38,10 @@ K
 F http://www.mouser.com/ds/2/621/BST-BMX055-DS000-02-586421.pdf
 $ENDCMP
 #
+$CMP MIC5323-3.3YD5_TR
+D Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23
+K
+F http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf
+$ENDCMP
+#
 #End Doc Library
