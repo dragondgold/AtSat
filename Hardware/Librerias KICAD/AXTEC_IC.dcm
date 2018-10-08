@@ -1,5 +1,10 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP +3V3_Internal
+D Power flag, +3.3V
+K power-flag
+$ENDCMP
+#
 $CMP 0915BM15A0001
 D 915MHz Impedance Matched/Balun/BPF Integrated Component for T.I. CC110X
 F https://ar.mouser.com/datasheet/2/611/0915BM15A0001-242333.pdf

@@ -1,6 +1,21 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# +3V3_Internal
+#
+DEF +3V3_Internal #PWR 0 40 Y Y 1 F N
+F0 "#PWR" 0 400 50 H I C CNN
+F1 "+3V3_Internal" 0 300 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 2 1 1 0 -30 50 0 100 N
+P 2 1 1 0 0 0 0 100 N
+P 2 1 1 0 0 100 30 50 N
+X +3V3_Internal 1 0 0 0 U 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
 # 0915BM15A0001
 #
 DEF 0915BM15A0001 U 0 40 Y Y 1 F N

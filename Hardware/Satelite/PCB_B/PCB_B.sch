@@ -215,7 +215,7 @@ F0 "Power 5V" 50
 F1 "Power 5V.sch" 50
 F2 "VBAT" I R 1850 4300 50 
 F3 "CTRL" I R 1850 4400 50 
-F4 "3V3" I R 1850 4700 50 
+F4 "5V" I R 1850 4700 50 
 F5 "ISENSE" O R 1850 4600 50 
 $EndSheet
 Wire Wire Line
@@ -535,6 +535,18 @@ $EndComp
 Wire Wire Line
 	850  6750 850  6900
 Connection ~ 850  6900
-Text Label 2900 7000 0    50   ~ 0
-3V3_INT
+Wire Wire Line
+	3200 6800 3200 7000
+Connection ~ 3200 7000
+$Comp
+L AXTEC_IC:+3V3_Internal #PWR?
+U 1 1 5BBB29E5
+P 3200 6800
+F 0 "#PWR?" H 3200 7200 50  0001 C CNN
+F 1 "+3V3_Internal" H 3185 6973 50  0000 C CNN
+F 2 "" H 3200 6800 50  0001 C CNN
+F 3 "" H 3200 6800 50  0001 C CNN
+	1    3200 6800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
