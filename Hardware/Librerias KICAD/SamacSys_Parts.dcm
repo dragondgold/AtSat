@@ -1,8 +1,48 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP BMX055
+D Small versatile 9-axis sensor module
+F http://www.mouser.com/ds/2/621/BST-BMX055-DS000-02-586421.pdf
+$ENDCMP
+#
 $CMP BQ24091DGQT
 D Texas Instruments BQ24091DGQT, Battery Charge Controller, 1000mA, 10-Pin MSOP
 F http://www.ti.com/lit/gpn/bq24091
+$ENDCMP
+#
+$CMP BQ24392RSER
+D SPST USB 2.0 High-Speed Switch With Battery Charging Detection
+F http://www.ti.com/lit/gpn/bq24392
+$ENDCMP
+#
+$CMP BQ27441DRZR-G1A
+D System-Side Impedance Track Battery Fuel (Gas) Gauge
+F http://www.ti.com/lit/gpn/bq27441-g1
+$ENDCMP
+#
+$CMP LFXTAL016178
+D IQD FREQUENCY PRODUCTS - LFXTAL016178 - CRYSTAL, 32.768KHZ, 6PF, SMD
+F http://www.iqdfrequencyproducts.com/products/pn/LFXTAL016178Bulk.pdf
+$ENDCMP
+#
+$CMP MCP1501T-33E_CHY
+D Voltage References Precision Buffered Voltage Reference
+F https://componentsearchengine.com/Datasheets/1/MCP1501T-33E_CHY.pdf
+$ENDCMP
+#
+$CMP MCP1642B-50I_MS
+D Switching Voltage Regulators Step-up DC/DC Reg 1 MHz, 1.6A, 5Vout
+F http://ww1.microchip.com/downloads/en/DeviceDoc/20005253A.pdf
+$ENDCMP
+#
+$CMP MIC5323-3.3YD5_TR
+D Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23
+F http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf
+$ENDCMP
+#
+$CMP MS563702BA03-50
+D Sensor Pressure 2bar Barometric SMD MS563702BA03-50, Barometric Pressure Sensor, 1200mbar 0 ??? 3.6 V Output, 4-Pin QFN
+F http://docs-europe.electrocomponents.com/webdocs/142c/0900766b8142cddb.pdf
 $ENDCMP
 #
 $CMP NE555D
@@ -20,34 +60,15 @@ D Si7006 Digital RH temp sensor w filter Silicon Labs Si7006-A20-IM1 Temperature
 F https://www.silabs.com/documents/public/data-sheets/Si7006-A20.pdf
 $ENDCMP
 #
-$CMP BQ27441DRZR-G1A
-D System-Side Impedance Track Battery Fuel (Gas) Gauge
-K
-F http://www.ti.com/lit/gpn/bq27441-g1
+$CMP TXB0304RUTR
+D Texas Instruments TXB0304RUTR, Logic Level Translator, Voltage Level, 3-State, 0.9  3.6 V, 12-Pin UQFN
+F http://www.ti.com/lit/ds/symlink/txb0304.pdf
 $ENDCMP
 #
-$CMP MS563702BA03-50
-D Sensor Pressure 2bar Barometric SMD MS563702BA03-50, Barometric Pressure Sensor, 1200mbar 0 ??? 3.6 V Output, 4-Pin QFN
+$CMP TCA9802DGKR
+D Level-Translating I2C Bus Buffer/Repeater
 K
-F http://docs-europe.electrocomponents.com/webdocs/142c/0900766b8142cddb.pdf
-$ENDCMP
-#
-$CMP BMX055
-D Small versatile 9-axis sensor module
-K
-F http://www.mouser.com/ds/2/621/BST-BMX055-DS000-02-586421.pdf
-$ENDCMP
-#
-$CMP MIC5323-3.3YD5_TR
-D Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23
-K
-F http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf
-$ENDCMP
-#
-$CMP MCP1642B-50I_MS
-D Switching Voltage Regulators Step-up DC/DC Reg 1 MHz, 1.6A, 5Vout
-K
-F http://ww1.microchip.com/downloads/en/DeviceDoc/20005253A.pdf
+F http://www.ti.com/lit/gpn/tca9802
 $ENDCMP
 #
 #End Doc Library

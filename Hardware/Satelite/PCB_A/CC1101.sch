@@ -31,19 +31,6 @@ Text HLabel 3150 3300 0    50   Output ~ 0
 SO
 Text HLabel 3150 3100 0    50   Input ~ 0
 SI
-$Comp
-L power:GND #PWR032
-U 1 1 5B9A819D
-P 3850 4150
-F 0 "#PWR032" H 3850 3900 50  0001 C CNN
-F 1 "GND" H 3855 3977 50  0000 C CNN
-F 2 "" H 3850 4150 50  0001 C CNN
-F 3 "" H 3850 4150 50  0001 C CNN
-	1    3850 4150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3850 4150 3850 4000
 Text HLabel 8750 3500 2    50   BiDi ~ 0
 ANT
 $Bitmap
@@ -700,4 +687,8 @@ Wire Wire Line
 Connection ~ 4450 4200
 Wire Wire Line
 	4450 4450 4450 4500
+Text HLabel 3850 4200 3    50   Input ~ 0
+CS
+Wire Wire Line
+	3850 4200 3850 4000
 $EndSCHEMATC

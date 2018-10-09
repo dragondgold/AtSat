@@ -96,7 +96,7 @@ Wire Wire Line
 	6750 4700 6750 4900
 Text HLabel 2950 4100 0    50   Input ~ 0
 VBAT
-Text HLabel 7000 4400 2    50   Output ~ 0
+Text HLabel 7600 4400 2    50   Output ~ 0
 5V
 Wire Wire Line
 	3100 4100 2950 4100
@@ -108,8 +108,6 @@ Wire Wire Line
 Connection ~ 6500 4400
 Wire Wire Line
 	6500 4400 6750 4400
-Wire Wire Line
-	7000 4400 6750 4400
 Connection ~ 6750 4400
 $Comp
 L Amplifier_Current:INA194 U?
@@ -391,4 +389,226 @@ Wire Wire Line
 Connection ~ 3500 4100
 Wire Wire Line
 	3500 4100 4050 4100
+$Comp
+L Device:R R?
+U 1 1 5C27BA5D
+P 7250 4600
+AR Path="/5BB6C3A1/5C27BA5D" Ref="R?"  Part="1" 
+AR Path="/5BB6C83B/5C27BA5D" Ref="R?"  Part="1" 
+F 0 "R?" H 7180 4508 50  0000 R CNN
+F 1 "30k" H 7180 4600 50  0000 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 7180 4600 50  0001 C CNN
+F 3 "~" H 7250 4600 50  0001 C CNN
+F 4 "1%" H 7180 4692 50  0000 R CNN "Tolerance"
+F 5 "KRL1632E-M-R120-F-T5" V 7250 4600 50  0001 C CNN "Manufacturer Part Number"
+	1    7250 4600
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7250 4450 7250 4400
+Wire Wire Line
+	7250 4400 7600 4400
+$Comp
+L Device:R R?
+U 1 1 5C27BA6A
+P 7250 5100
+AR Path="/5BB6C3A1/5C27BA6A" Ref="R?"  Part="1" 
+AR Path="/5BB6C83B/5C27BA6A" Ref="R?"  Part="1" 
+F 0 "R?" H 7180 5008 50  0000 R CNN
+F 1 "56k" H 7180 5100 50  0000 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 7180 5100 50  0001 C CNN
+F 3 "~" H 7250 5100 50  0001 C CNN
+F 4 "1%" H 7180 5192 50  0000 R CNN "Tolerance"
+F 5 "KRL1632E-M-R120-F-T5" V 7250 5100 50  0001 C CNN "Manufacturer Part Number"
+	1    7250 5100
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C27BA72
+P 7250 5300
+AR Path="/5BB6C3A1/5C27BA72" Ref="#PWR?"  Part="1" 
+AR Path="/5BB6C83B/5C27BA72" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 7250 5050 50  0001 C CNN
+F 1 "GND" H 7255 5127 50  0000 C CNN
+F 2 "" H 7250 5300 50  0001 C CNN
+F 3 "" H 7250 5300 50  0001 C CNN
+	1    7250 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7250 5250 7250 5300
+Text HLabel 9300 4950 2    50   Output ~ 0
+VSENSE
+$Comp
+L Amplifier_Operational:MCP6001-OT U?
+U 1 1 5C27BA7C
+P 8500 4950
+AR Path="/5BB6C3A1/5C27BA7C" Ref="U?"  Part="1" 
+AR Path="/5BB6C83B/5C27BA7C" Ref="U?"  Part="1" 
+F 0 "U?" H 8550 4750 50  0000 L CNN
+F 1 "MCP6001-OT" H 8550 4650 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5" H 8400 4750 50  0001 L CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" H 8500 5150 50  0001 C CNN
+	1    8500 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L AXTEC_IC:+3V3_Internal #PWR?
+U 1 1 5C27BA83
+P 8400 4150
+AR Path="/5BB6C3A1/5C27BA83" Ref="#PWR?"  Part="1" 
+AR Path="/5BB6C83B/5C27BA83" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8400 4550 50  0001 C CNN
+F 1 "+3V3_Internal" H 8385 4323 50  0000 C CNN
+F 2 "" H 8400 4150 50  0001 C CNN
+F 3 "" H 8400 4150 50  0001 C CNN
+	1    8400 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5C27BA8A
+P 8600 4350
+AR Path="/5BB122CA/5C27BA8A" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5C27BA8A" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5C27BA8A" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5C27BA8A" Ref="C?"  Part="1" 
+AR Path="/5BB6C83B/5C27BA8A" Ref="C?"  Part="1" 
+F 0 "C?" H 8508 4304 50  0000 R CNN
+F 1 "1uF" H 8508 4395 50  0000 R CNN
+F 2 "" H 8600 4350 50  0001 C CNN
+F 3 "~" H 8600 4350 50  0001 C CNN
+F 4 "10V" H 8600 4350 50  0001 C CNN "Voltage"
+	1    8600 4350
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5C27BA92
+P 8950 4350
+AR Path="/5BB122CA/5C27BA92" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5C27BA92" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5C27BA92" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5C27BA92" Ref="C?"  Part="1" 
+AR Path="/5BB6C83B/5C27BA92" Ref="C?"  Part="1" 
+F 0 "C?" H 8858 4304 50  0000 R CNN
+F 1 "100n" H 8858 4395 50  0000 R CNN
+F 2 "" H 8950 4350 50  0001 C CNN
+F 3 "~" H 8950 4350 50  0001 C CNN
+F 4 "10V" H 8950 4350 50  0001 C CNN "Voltage"
+	1    8950 4350
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8200 5050 7850 5050
+Wire Wire Line
+	7850 5500 9150 5500
+Wire Wire Line
+	9150 5500 9150 4950
+Wire Wire Line
+	9150 4950 8800 4950
+$Comp
+L power:GND #PWR?
+U 1 1 5C27BA9E
+P 8400 5250
+AR Path="/5BB6C3A1/5C27BA9E" Ref="#PWR?"  Part="1" 
+AR Path="/5BB6C83B/5C27BA9E" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8400 5000 50  0001 C CNN
+F 1 "GND" H 8405 5077 50  0000 C CNN
+F 2 "" H 8400 5250 50  0001 C CNN
+F 3 "" H 8400 5250 50  0001 C CNN
+	1    8400 5250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8400 4150 8400 4250
+Wire Wire Line
+	8950 4250 8600 4250
+Connection ~ 8400 4250
+Wire Wire Line
+	8400 4250 8400 4650
+Connection ~ 8600 4250
+Wire Wire Line
+	8600 4250 8400 4250
+$Comp
+L power:GND #PWR?
+U 1 1 5C27BAAA
+P 8600 4450
+AR Path="/5BB6C3A1/5C27BAAA" Ref="#PWR?"  Part="1" 
+AR Path="/5BB6C83B/5C27BAAA" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8600 4200 50  0001 C CNN
+F 1 "GND" H 8605 4277 50  0000 C CNN
+F 2 "" H 8600 4450 50  0001 C CNN
+F 3 "" H 8600 4450 50  0001 C CNN
+	1    8600 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C27BAB0
+P 8950 4450
+AR Path="/5BB6C3A1/5C27BAB0" Ref="#PWR?"  Part="1" 
+AR Path="/5BB6C83B/5C27BAB0" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8950 4200 50  0001 C CNN
+F 1 "GND" H 8955 4277 50  0000 C CNN
+F 2 "" H 8950 4450 50  0001 C CNN
+F 3 "" H 8950 4450 50  0001 C CNN
+	1    8950 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9300 4950 9150 4950
+Connection ~ 9150 4950
+Connection ~ 7250 4400
+Wire Wire Line
+	6750 4400 7250 4400
+Wire Wire Line
+	7250 4750 7250 4850
+Wire Wire Line
+	7850 5050 7850 5500
+Wire Wire Line
+	7250 4850 7550 4850
+Connection ~ 7250 4850
+Wire Wire Line
+	7250 4850 7250 4950
+$Comp
+L Device:C_Small C?
+U 1 1 5C2825F0
+P 7550 5100
+AR Path="/5BB122CA/5C2825F0" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5C2825F0" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5C2825F0" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5C2825F0" Ref="C?"  Part="1" 
+AR Path="/5BB6C83B/5C2825F0" Ref="C?"  Part="1" 
+F 0 "C?" H 7458 5054 50  0000 R CNN
+F 1 "10n" H 7458 5145 50  0000 R CNN
+F 2 "" H 7550 5100 50  0001 C CNN
+F 3 "~" H 7550 5100 50  0001 C CNN
+F 4 "10V" H 7550 5100 50  0001 C CNN "Voltage"
+	1    7550 5100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7550 5000 7550 4850
+Connection ~ 7550 4850
+Wire Wire Line
+	7550 4850 8200 4850
+$Comp
+L power:GND #PWR?
+U 1 1 5C283540
+P 7550 5300
+AR Path="/5BB6C3A1/5C283540" Ref="#PWR?"  Part="1" 
+AR Path="/5BB6C83B/5C283540" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 7550 5050 50  0001 C CNN
+F 1 "GND" H 7555 5127 50  0000 C CNN
+F 2 "" H 7550 5300 50  0001 C CNN
+F 3 "" H 7550 5300 50  0001 C CNN
+	1    7550 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7550 5300 7550 5200
+Text Notes 7150 5700 0    50   ~ 0
+fc = 815 Hz
 $EndSCHEMATC

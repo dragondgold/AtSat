@@ -1,6 +1,42 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# BMX055
+#
+DEF BMX055 IC 0 30 Y Y 1 F N
+F0 "IC" 1050 300 50 H V L CNN
+F1 "BMX055" 1050 200 50 H V L CNN
+F2 "LGA_PACKAGE_20_PINS" 1050 100 50 H I L CNN
+F3 "http://www.mouser.com/ds/2/621/BST-BMX055-DS000-02-586421.pdf" 1050 0 50 H I L CNN
+F4 "Small versatile 9-axis sensor module" 1050 -100 50 H I L CNN "Description"
+F5 "Bosch Sensortec" 1050 -300 50 H I L CNN "Manufacturer_Name"
+F6 "BMX055" 1050 -400 50 H I L CNN "Manufacturer_Part_Number"
+F7 "BMX055" 1050 -700 50 H I L CNN "Arrow Part Number"
+DRAW
+P 5 0 1 6 200 100 1000 100 1000 -1000 200 -1000 200 100 N
+X INT2 1 0 0 200 R 50 50 0 0 B
+X INT5 10 0 -900 200 R 50 50 0 0 B
+X SDX 11 1200 0 200 L 50 50 0 0 B
+X SDO2 12 1200 -100 200 L 50 50 0 0 B
+X VDDIO 13 1200 -200 200 L 50 50 0 0 B
+X INT3 14 1200 -300 200 L 50 50 0 0 B
+X INT4 15 1200 -400 200 L 50 50 0 0 B
+X CSB1 16 1200 -500 200 L 50 50 0 0 B
+X SDO1 17 1200 -600 200 L 50 50 0 0 B
+X NC_2 18 1200 -700 200 L 50 50 0 0 B
+X INT1 19 1200 -800 200 L 50 50 0 0 B
+X DRDYM 2 0 -100 200 R 50 50 0 0 B
+X CSB3 20 1200 -900 200 L 50 50 0 0 B
+X VDD 3 0 -200 200 R 50 50 0 0 B
+X GNDA 4 0 -300 200 R 50 50 0 0 B
+X CSB2 5 0 -400 200 R 50 50 0 0 B
+X GNDIO 6 0 -500 200 R 50 50 0 0 B
+X PS 7 0 -600 200 R 50 50 0 0 B
+X NC_1 8 0 -700 200 R 50 50 0 0 B
+X SCX 9 0 -800 200 R 50 50 0 0 B
+ENDDRAW
+ENDDEF
+#
 # BQ24091DGQT
 #
 DEF BQ24091DGQT U 0 30 Y Y 1 F N
@@ -28,6 +64,196 @@ X NC 6 0 -500 200 R 50 50 0 0 P
 X ISET2 7 1300 -400 200 L 50 50 0 0 I
 X ~CHG 8 1300 -300 200 L 50 50 0 0 O
 X TS 9 1300 -200 200 L 50 50 0 0 I
+ENDDRAW
+ENDDEF
+#
+# BQ24392RSER
+#
+DEF BQ24392RSER IC 0 30 Y Y 1 F N
+F0 "IC" 1350 300 50 H V L CNN
+F1 "BQ24392RSER" 1350 200 50 H V L CNN
+F2 "RSE(R-PUQFN-N10)" 1350 100 50 H I L CNN
+F3 "http://www.ti.com/lit/gpn/bq24392" 1350 0 50 H I L CNN
+F4 "SPST USB 2.0 High-Speed Switch With Battery Charging Detection" 1350 -100 50 H I L CNN "Description"
+F5 "Texas Instruments" 1350 -300 50 H I L CNN "Manufacturer_Name"
+F6 "BQ24392RSER" 1350 -400 50 H I L CNN "Manufacturer Part Number"
+F7 "8279327P" 1350 -500 50 H I L CNN "RS Part Number"
+F8 "http://uk.rs-online.com/web/p/products/8279327P" 1350 -600 50 H I L CNN "RS Price/Stock"
+F9 "BQ24392RSER" 1350 -700 50 H I L CNN "Arrow Part Number"
+F10 "https://www.arrow.com/en/products/bq24392rser/texas-instruments" 1350 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 6 1 1 6 200 100 1300 100 1300 -600 750 -600 200 -600 200 100 N
+X SW_OPEN 1 0 -500 200 R 50 50 0 0 O
+X CHG_DET 10 0 -200 200 R 50 50 0 0 O
+X DM_HOST 2 0 0 200 R 50 50 0 0 B
+X DP_HOST 3 0 -100 200 R 50 50 0 0 B
+X CHG_AL_N 4 0 -300 200 R 50 50 0 0 C
+X GOOD_BAT 5 0 -400 200 R 50 50 0 0 I
+X GND 6 1500 -500 200 L 50 50 0 0 W
+X DP_CON 7 1500 -200 200 L 50 50 0 0 B
+X DM_CON 8 1500 -300 200 L 50 50 0 0 B
+X VBUS 9 1500 0 200 L 50 50 0 0 W
+ENDDRAW
+ENDDEF
+#
+# BQ27441DRZR-G1A
+#
+DEF BQ27441DRZR-G1A IC 0 30 Y Y 1 F N
+F0 "IC" 1050 300 50 H V L CNN
+F1 "BQ27441DRZR-G1A" 1050 200 50 H V L CNN
+F2 "BQ27441DRZRG1A" 1050 100 50 H I L CNN
+F3 "http://www.ti.com/lit/gpn/bq27441-g1" 1050 0 50 H I L CNN
+F4 "System-Side Impedance Track Battery Fuel (Gas) Gauge" 1050 -100 50 H I L CNN "Description"
+F5 "Texas Instruments" 1050 -300 50 H I L CNN "Manufacturer_Name"
+F6 "BQ27441DRZR-G1A" 1050 -400 50 H I L CNN "Manufacturer_Part_Number"
+F7 "BQ27441DRZR-G1A" 1050 -700 50 H I L CNN "Arrow Part Number"
+F8 "https://www.arrow.com/en/products/bq27441drzr-g1a/texas-instruments" 1050 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 5 0 1 6 200 100 1000 100 1000 -700 200 -700 200 100 N
+X SDA 1 0 0 200 R 50 50 0 0 B
+X BIN 10 1200 -200 200 L 50 50 0 0 B
+X NC_3 11 1200 -300 200 L 50 50 0 0 B
+X GPOUT 12 1200 -400 200 L 50 50 0 0 B
+X EP 13 1200 -500 200 L 50 50 0 0 B
+X SCL 2 0 -100 200 R 50 50 0 0 B
+X VSS 3 0 -200 200 R 50 50 0 0 B
+X NC_1 4 0 -300 200 R 50 50 0 0 B
+X VDD 5 0 -400 200 R 50 50 0 0 B
+X BAT 6 0 -500 200 R 50 50 0 0 B
+X SRN 7 0 -600 200 R 50 50 0 0 B
+X SRP 8 1200 0 200 L 50 50 0 0 B
+X NC_2 9 1200 -100 200 L 50 50 0 0 B
+ENDDRAW
+ENDDEF
+#
+# LFXTAL016178
+#
+DEF LFXTAL016178 Y 0 30 Y Y 1 F N
+F0 "Y" 150 350 50 H V L CNN
+F1 "LFXTAL016178" 150 250 50 H V L CNN
+F2 "LFXTAL016178_1" 150 150 50 H I L CNN
+F3 "http://www.iqdfrequencyproducts.com/products/pn/LFXTAL016178Bulk.pdf" 150 50 50 H I L CNN
+F4 "IQD FREQUENCY PRODUCTS - LFXTAL016178 - CRYSTAL, 32.768KHZ, 6PF, SMD" 150 -50 50 H I L CNN "Description"
+F5 "IQD" 150 -250 50 H I L CNN "Manufacturer_Name"
+F6 "LFXTAL016178" 150 -350 50 H I L CNN "Manufacturer Part Number"
+F7 "1484350P" 150 -450 50 H I L CNN "RS Part Number"
+F8 "http://uk.rs-online.com/web/p/products/1484350P" 150 -550 50 H I L CNN "RS Price/Stock"
+F9 "LFXTAL016178" 150 -650 50 H I L CNN "Arrow Part Number"
+F10 "http://uk.rs-online.com/web/p/products/1484350P" 150 -750 50 H I L CNN "Arrow Price/Stock"
+DRAW
+S -45 100 45 -100 1 1 12 N
+P 2 1 1 0 -100 0 -80 0 N
+P 2 1 1 20 -80 -50 -80 50 N
+P 2 1 1 0 0 -150 0 -140 N
+P 2 1 1 0 0 140 0 150 N
+P 2 1 1 20 80 -50 80 50 N
+P 2 1 1 0 80 0 100 0 N
+P 4 1 1 0 -100 -90 -100 -140 100 -140 100 -90 N
+P 4 1 1 0 -100 90 -100 140 100 140 100 90 N
+X 1 1 -150 0 50 R 50 50 1 1 P
+X 2 2 0 200 50 D 50 50 1 1 P
+X 3 3 0 -200 50 U 50 50 1 1 P
+X 4 4 150 0 50 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# MCP1501T-33E_CHY
+#
+DEF MCP1501T-33E_CHY IC 0 30 Y Y 1 F N
+F0 "IC" 1050 300 50 H V L CNN
+F1 "MCP1501T-33E_CHY" 1050 200 50 H V L CNN
+F2 "SOT95P270X145-6N" 1050 100 50 H I L CNN
+F3 "https://componentsearchengine.com/Datasheets/1/MCP1501T-33E_CHY.pdf" 1050 0 50 H I L CNN
+F4 "Voltage References Precision Buffered Voltage Reference" 1050 -100 50 H I L CNN "Description"
+F5 "1.45" 1050 -200 50 H I L CNN "Height"
+F6 "Microchip" 1050 -300 50 H I L CNN "Manufacturer_Name"
+F7 "MCP1501T-33E/CHY" 1050 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "MCP1501T-33E/CHY" 1050 -700 50 H I L CNN "Arrow Part Number"
+F9 "https://www.arrow.com/en/products/mcp1501t-33echy/microchip-technology" 1050 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 5 0 1 6 200 100 1000 100 1000 -300 200 -300 200 100 N
+X OUT 1 0 0 200 R 50 50 0 0 w
+X GND_1 2 0 -100 200 R 50 50 0 0 W
+X GND_2 3 0 -200 200 R 50 50 0 0 W
+X ~SHDN 4 1200 -100 200 L 50 50 0 0 I
+X GND_3 5 1200 -200 200 L 50 50 0 0 W
+X VDD 6 1200 0 200 L 50 50 0 0 W
+ENDDRAW
+ENDDEF
+#
+# MCP1642B-50I_MS
+#
+DEF MCP1642B-50I_MS IC 0 30 Y Y 1 F N
+F0 "IC" 950 300 50 H V L CNN
+F1 "MCP1642B-50I_MS" 950 200 50 H V L CNN
+F2 "SOP65P490X110-8N" 950 100 50 H I L CNN
+F3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20005253A.pdf" 950 0 50 H I L CNN
+F4 "Switching Voltage Regulators Step-up DC/DC Reg 1 MHz, 1.6A, 5Vout" 950 -100 50 H I L CNN "Description"
+F5 "1.1" 950 -200 50 H I L CNN "Height"
+F6 "Microchip" 950 -300 50 H I L CNN "Manufacturer_Name"
+F7 "MCP1642B-50I/MS" 950 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "70567327" 950 -700 50 H I L CNN "Allied_Number"
+F9 "https://www.alliedelec.com/microchip-technology-inc-mcp1642b-50i-ms/70567327/" 950 -800 50 H I L CNN "Allied Price/Stock"
+F10 "MCP1642B-50I/MS" 950 -900 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/mcp1642b-50ims/microchip-technology" 950 -1000 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 5 0 1 6 200 100 900 100 900 -400 200 -400 200 100 N
+X EN 1 0 0 200 R 50 50 0 0 B
+X NC 2 0 -100 200 R 50 50 0 0 B
+X PG 3 0 -200 200 R 50 50 0 0 B
+X VOUT 4 0 -300 200 R 50 50 0 0 B
+X SW 5 1100 -300 200 L 50 50 0 0 B
+X PGND 6 1100 -200 200 L 50 50 0 0 B
+X SGND 7 1100 -100 200 L 50 50 0 0 B
+X VIN 8 1100 0 200 L 50 50 0 0 B
+ENDDRAW
+ENDDEF
+#
+# MIC5323-3.3YD5_TR
+#
+DEF MIC5323-3.3YD5_TR IC 0 30 Y Y 1 F N
+F0 "IC" 950 300 50 H V L CNN
+F1 "MIC5323-3.3YD5_TR" 950 200 50 H V L CNN
+F2 "SOT95P280X100-5N" 950 100 50 H I L CNN
+F3 "http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf" 950 0 50 H I L CNN
+F4 "Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23" 950 -100 50 H I L CNN "Description"
+F5 "1" 950 -200 50 H I L CNN "Height"
+F6 "Micrel" 950 -300 50 H I L CNN "Manufacturer_Name"
+F7 "MIC5323-3.3YD5 TR" 950 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "8855996P" 950 -500 50 H I L CNN "RS Part Number"
+F9 "http://uk.rs-online.com/web/p/products/8855996P" 950 -600 50 H I L CNN "RS Price/Stock"
+F10 "MIC5323-3.3YD5 TR" 950 -700 50 H I L CNN "Arrow Part Number"
+F11 "http://uk.rs-online.com/web/p/products/8855996P" 950 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 5 0 1 6 200 100 900 100 900 -300 200 -300 200 100 N
+X VIN 1 0 0 200 R 50 50 0 0 B
+X GND 2 0 -100 200 R 50 50 0 0 B
+X EN 3 0 -200 200 R 50 50 0 0 B
+X BYP 4 1100 0 200 L 50 50 0 0 B
+X VOUT 5 1100 -100 200 L 50 50 0 0 B
+ENDDRAW
+ENDDEF
+#
+# MS563702BA03-50
+#
+DEF MS563702BA03-50 IC 0 30 Y Y 1 F N
+F0 "IC" 850 300 50 H V L CNN
+F1 "MS563702BA03-50" 850 200 50 H V L CNN
+F2 "MS5637_1" 850 100 50 H I L CNN
+F3 "http://docs-europe.electrocomponents.com/webdocs/142c/0900766b8142cddb.pdf" 850 0 50 H I L CNN
+F4 "Sensor Pressure 2bar Barometric SMD MS563702BA03-50, Barometric Pressure Sensor, 1200mbar 0 ??? 3.6 V Output, 4-Pin QFN" 850 -100 50 H I L CNN "Description"
+F5 "TE Connectivity" 850 -300 50 H I L CNN "Manufacturer_Name"
+F6 "MS563702BA03-50" 850 -400 50 H I L CNN "Manufacturer_Part_Number"
+F7 "1704370" 850 -500 50 H I L CNN "RS Part Number"
+F8 "http://uk.rs-online.com/web/p/products/1704370" 850 -600 50 H I L CNN "RS Price/Stock"
+F9 "MS563702BA03-50" 850 -700 50 H I L CNN "Arrow Part Number"
+F10 "https://www.arrow.com/en/products/ms563702ba03-50/te-connectivity" 850 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 5 0 1 6 200 100 800 100 800 -200 200 -200 200 100 N
+X VDD 1 0 0 200 R 50 50 0 0 B
+X SDA 2 0 -100 200 R 50 50 0 0 B
+X SCL 3 1000 0 200 L 50 50 0 0 B
+X GND 4 1000 -100 200 L 50 50 0 0 B
 ENDDRAW
 ENDDEF
 #
@@ -114,154 +340,61 @@ X TPAD 7 600 -800 200 U 50 50 0 0 P
 ENDDRAW
 ENDDEF
 #
-#SamacSys ECAD Model BQ27441DRZR-G1A
-#/564341/9105/2.31/13/4/Integrated Circuit
-DEF BQ27441DRZR-G1A IC 0 30 Y Y 1 F N
-F0 "IC" 1050 300 50 H V L CNN
-F1 "BQ27441DRZR-G1A" 1050 200 50 H V L CNN
-F2 "BQ27441DRZRG1A" 1050 100 50 H I L CNN
-F3 "http://www.ti.com/lit/gpn/bq27441-g1" 1050 0 50 H I L CNN
-F4 "System-Side Impedance Track Battery Fuel (Gas) Gauge" 1050 -100 50 H I L CNN "Description"
-F5 "" 1050 -200 50 H I L CNN "Height"
-F6 "Texas Instruments" 1050 -300 50 H I L CNN "Manufacturer_Name"
-F7 "BQ27441DRZR-G1A" 1050 -400 50 H I L CNN "Manufacturer_Part_Number"
-F8 "" 1050 -500 50 H I L CNN "RS Part Number"
-F9 "" 1050 -600 50 H I L CNN "RS Price/Stock"
-F10 "BQ27441DRZR-G1A" 1050 -700 50 H I L CNN "Arrow Part Number"
-F11 "https://www.arrow.com/en/products/bq27441drzr-g1a/texas-instruments" 1050 -800 50 H I L CNN "Arrow Price/Stock"
-DRAW
-X SDA 1 0 0 200 R 50 50 0 0 B
-X SCL 2 0 -100 200 R 50 50 0 0 B
-X VSS 3 0 -200 200 R 50 50 0 0 B
-X NC_1 4 0 -300 200 R 50 50 0 0 B
-X VDD 5 0 -400 200 R 50 50 0 0 B
-X BAT 6 0 -500 200 R 50 50 0 0 B
-X SRN 7 0 -600 200 R 50 50 0 0 B
-X SRP 8 1200 0 200 L 50 50 0 0 B
-X NC_2 9 1200 -100 200 L 50 50 0 0 B
-X BIN 10 1200 -200 200 L 50 50 0 0 B
-X NC_3 11 1200 -300 200 L 50 50 0 0 B
-X GPOUT 12 1200 -400 200 L 50 50 0 0 B
-X EP 13 1200 -500 200 L 50 50 0 0 B
-P 5 0 1 6 200 100 1000 100 1000 -700 200 -700 200 100 N
-ENDDRAW
-ENDDEF
+# TXB0304RUTR
 #
-#SamacSys ECAD Model MS563702BA03-50
-#/337970/9105/2.31/4/3/Integrated Circuit
-DEF MS563702BA03-50 IC 0 30 Y Y 1 F N
-F0 "IC" 850 300 50 H V L CNN
-F1 "MS563702BA03-50" 850 200 50 H V L CNN
-F2 "MS5637_1" 850 100 50 H I L CNN
-F3 "http://docs-europe.electrocomponents.com/webdocs/142c/0900766b8142cddb.pdf" 850 0 50 H I L CNN
-F4 "Sensor Pressure 2bar Barometric SMD MS563702BA03-50, Barometric Pressure Sensor, 1200mbar 0 ??? 3.6 V Output, 4-Pin QFN" 850 -100 50 H I L CNN "Description"
-F5 "" 850 -200 50 H I L CNN "Height"
-F6 "TE Connectivity" 850 -300 50 H I L CNN "Manufacturer_Name"
-F7 "MS563702BA03-50" 850 -400 50 H I L CNN "Manufacturer_Part_Number"
-F8 "1704370" 850 -500 50 H I L CNN "RS Part Number"
-F9 "http://uk.rs-online.com/web/p/products/1704370" 850 -600 50 H I L CNN "RS Price/Stock"
-F10 "MS563702BA03-50" 850 -700 50 H I L CNN "Arrow Part Number"
-F11 "https://www.arrow.com/en/products/ms563702ba03-50/te-connectivity" 850 -800 50 H I L CNN "Arrow Price/Stock"
-DRAW
-X VDD 1 0 0 200 R 50 50 0 0 B
-X SDA 2 0 -100 200 R 50 50 0 0 B
-X SCL 3 1000 0 200 L 50 50 0 0 B
-X GND 4 1000 -100 200 L 50 50 0 0 B
-P 5 0 1 6 200 100 800 100 800 -200 200 -200 200 100 N
-ENDDRAW
-ENDDEF
-#
-#SamacSys ECAD Model BMX055
-#/232518/9105/2.31/20/3/Integrated Circuit
-DEF BMX055 IC 0 30 Y Y 1 F N
-F0 "IC" 1050 300 50 H V L CNN
-F1 "BMX055" 1050 200 50 H V L CNN
-F2 "LGA_PACKAGE_20_PINS" 1050 100 50 H I L CNN
-F3 "http://www.mouser.com/ds/2/621/BST-BMX055-DS000-02-586421.pdf" 1050 0 50 H I L CNN
-F4 "Small versatile 9-axis sensor module" 1050 -100 50 H I L CNN "Description"
-F5 "" 1050 -200 50 H I L CNN "Height"
-F6 "Bosch Sensortec" 1050 -300 50 H I L CNN "Manufacturer_Name"
-F7 "BMX055" 1050 -400 50 H I L CNN "Manufacturer_Part_Number"
-F8 "" 1050 -500 50 H I L CNN "RS Part Number"
-F9 "" 1050 -600 50 H I L CNN "RS Price/Stock"
-F10 "BMX055" 1050 -700 50 H I L CNN "Arrow Part Number"
-F11 "" 1050 -800 50 H I L CNN "Arrow Price/Stock"
-DRAW
-X INT2 1 0 0 200 R 50 50 0 0 B
-X DRDYM 2 0 -100 200 R 50 50 0 0 B
-X VDD 3 0 -200 200 R 50 50 0 0 B
-X GNDA 4 0 -300 200 R 50 50 0 0 B
-X CSB2 5 0 -400 200 R 50 50 0 0 B
-X GNDIO 6 0 -500 200 R 50 50 0 0 B
-X PS 7 0 -600 200 R 50 50 0 0 B
-X NC_1 8 0 -700 200 R 50 50 0 0 B
-X SCX 9 0 -800 200 R 50 50 0 0 B
-X INT5 10 0 -900 200 R 50 50 0 0 B
-X SDX 11 1200 0 200 L 50 50 0 0 B
-X SDO2 12 1200 -100 200 L 50 50 0 0 B
-X VDDIO 13 1200 -200 200 L 50 50 0 0 B
-X INT3 14 1200 -300 200 L 50 50 0 0 B
-X INT4 15 1200 -400 200 L 50 50 0 0 B
-X CSB1 16 1200 -500 200 L 50 50 0 0 B
-X SDO1 17 1200 -600 200 L 50 50 0 0 B
-X NC_2 18 1200 -700 200 L 50 50 0 0 B
-X INT1 19 1200 -800 200 L 50 50 0 0 B
-X CSB3 20 1200 -900 200 L 50 50 0 0 B
-P 5 0 1 6 200 100 1000 100 1000 -1000 200 -1000 200 100 N
-ENDDRAW
-ENDDEF
-#
-#SamacSys ECAD Model MIC5323-3.3YD5_TR
-#/470538/9105/2.31/5/1/Integrated Circuit
-DEF MIC5323-3.3YD5_TR IC 0 30 Y Y 1 F N
+DEF TXB0304RUTR IC 0 30 Y Y 1 F N
 F0 "IC" 950 300 50 H V L CNN
-F1 "MIC5323-3.3YD5_TR" 950 200 50 H V L CNN
-F2 "SOT95P280X100-5N" 950 100 50 H I L CNN
-F3 "http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf" 950 0 50 H I L CNN
-F4 "Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23" 950 -100 50 H I L CNN "Description"
-F5 "1" 950 -200 50 H I L CNN "Height"
-F6 "Micrel" 950 -300 50 H I L CNN "Manufacturer_Name"
-F7 "MIC5323-3.3YD5 TR" 950 -400 50 H I L CNN "Manufacturer_Part_Number"
-F8 "8855996P" 950 -500 50 H I L CNN "RS Part Number"
-F9 "http://uk.rs-online.com/web/p/products/8855996P" 950 -600 50 H I L CNN "RS Price/Stock"
-F10 "MIC5323-3.3YD5 TR" 950 -700 50 H I L CNN "Arrow Part Number"
-F11 "http://uk.rs-online.com/web/p/products/8855996P" 950 -800 50 H I L CNN "Arrow Price/Stock"
+F1 "TXB0304RUTR" 950 200 50 H V L CNN
+F2 "RUT(R-PUQFN-N12)" 950 100 50 H I L CNN
+F3 "http://www.ti.com/lit/ds/symlink/txb0304.pdf" 950 0 50 H I L CNN
+F4 "Texas Instruments TXB0304RUTR, Logic Level Translator, Voltage Level, 3-State, 0.9  3.6 V, 12-Pin UQFN" 950 -100 50 H I L CNN "Description"
+F5 "Texas Instruments" 950 -300 50 H I L CNN "Manufacturer_Name"
+F6 "TXB0304RUTR" 950 -400 50 H I L CNN "Manufacturer_Part_Number"
+F7 "1628461" 950 -500 50 H I L CNN "RS Part Number"
+F8 "http://uk.rs-online.com/web/p/products/1628461" 950 -600 50 H I L CNN "RS Price/Stock"
+F9 "TXB0304RUTR" 950 -700 50 H I L CNN "Arrow Part Number"
+F10 "https://www.arrow.com/en/products/txb0304rutr/texas-instruments" 950 -800 50 H I L CNN "Arrow Price/Stock"
 DRAW
-X VIN 1 0 0 200 R 50 50 0 0 B
-X GND 2 0 -100 200 R 50 50 0 0 B
-X EN 3 0 -200 200 R 50 50 0 0 B
-X BYP 4 1100 0 200 L 50 50 0 0 B
-X VOUT 5 1100 -100 200 L 50 50 0 0 B
-P 5 0 1 6 200 100 900 100 900 -300 200 -300 200 100 N
+P 5 0 1 6 200 100 900 100 900 -600 200 -600 200 100 N
+X VCCA 1 0 0 200 R 50 50 0 0 W
+X B1 10 1100 -100 200 L 50 50 0 0 B
+X VCCB 11 1100 0 200 L 50 50 0 0 W
+X OE 12 1100 -500 200 L 50 50 0 0 I
+X A1 2 0 -100 200 R 50 50 0 0 B
+X A2 3 0 -200 200 R 50 50 0 0 B
+X A3 4 0 -300 200 R 50 50 0 0 B
+X A4 5 0 -400 200 R 50 50 0 0 B
+X GND 6 0 -500 200 R 50 50 0 0 W
+X B4 7 1100 -400 200 L 50 50 0 0 B
+X B3 8 1100 -300 200 L 50 50 0 0 B
+X B2 9 1100 -200 200 L 50 50 0 0 B
 ENDDRAW
 ENDDEF
 #
-#SamacSys ECAD Model MCP1642B-50I_MS
-#/339440/9105/2.31/8/4/Integrated Circuit
-DEF MCP1642B-50I_MS IC 0 30 Y Y 1 F N
-F0 "IC" 950 300 50 H V L CNN
-F1 "MCP1642B-50I_MS" 950 200 50 H V L CNN
+#SamacSys ECAD Model TCA9802DGKR
+#/1493875/9105/2.31/8/0/Undefined or Miscellaneous
+DEF TCA9802DGKR U 0 30 Y Y 1 F N
+F0 "U" 950 300 50 H V L CNN
+F1 "TCA9802DGKR" 950 200 50 H V L CNN
 F2 "SOP65P490X110-8N" 950 100 50 H I L CNN
-F3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20005253A.pdf" 950 0 50 H I L CNN
-F4 "Switching Voltage Regulators Step-up DC/DC Reg 1 MHz, 1.6A, 5Vout" 950 -100 50 H I L CNN "Description"
+F3 "http://www.ti.com/lit/gpn/tca9802" 950 0 50 H I L CNN
+F4 "Level-Translating I2C Bus Buffer/Repeater" 950 -100 50 H I L CNN "Description"
 F5 "1.1" 950 -200 50 H I L CNN "Height"
-F6 "Microchip" 950 -300 50 H I L CNN "Manufacturer_Name"
-F7 "MCP1642B-50I/MS" 950 -400 50 H I L CNN "Manufacturer_Part_Number"
+F6 "Texas Instruments" 950 -300 50 H I L CNN "Manufacturer_Name"
+F7 "TCA9802DGKR" 950 -400 50 H I L CNN "Manufacturer_Part_Number"
 F8 "" 950 -500 50 H I L CNN "RS Part Number"
 F9 "" 950 -600 50 H I L CNN "RS Price/Stock"
-F10 "70567327" 950 -700 50 H I L CNN "Allied_Number"
-F11 "https://www.alliedelec.com/microchip-technology-inc-mcp1642b-50i-ms/70567327/" 950 -800 50 H I L CNN "Allied Price/Stock"
-F12 "MCP1642B-50I/MS" 950 -900 50 H I L CNN "Arrow Part Number"
-F13 "https://www.arrow.com/en/products/mcp1642b-50ims/microchip-technology" 950 -1000 50 H I L CNN "Arrow Price/Stock"
+F10 "TCA9802DGKR" 950 -700 50 H I L CNN "Arrow Part Number"
+F11 "" 950 -800 50 H I L CNN "Arrow Price/Stock"
 DRAW
-X EN 1 0 0 200 R 50 50 0 0 B
-X NC 2 0 -100 200 R 50 50 0 0 B
-X PG 3 0 -200 200 R 50 50 0 0 B
-X VOUT 4 0 -300 200 R 50 50 0 0 B
-X VIN 8 1100 0 200 L 50 50 0 0 B
-X SGND 7 1100 -100 200 L 50 50 0 0 B
-X PGND 6 1100 -200 200 L 50 50 0 0 B
-X SW 5 1100 -300 200 L 50 50 0 0 B
+X VCCA 1 0 0 200 R 50 50 0 0 B
+X SCLA 2 0 -100 200 R 50 50 0 0 B
+X SDAA 3 0 -200 200 R 50 50 0 0 B
+X GND 4 0 -300 200 R 50 50 0 0 B
+X VCCB 8 1100 0 200 L 50 50 0 0 B
+X SCLB 7 1100 -100 200 L 50 50 0 0 B
+X SDAB 6 1100 -200 200 L 50 50 0 0 B
+X EN 5 1100 -300 200 L 50 50 0 0 B
 P 5 0 1 6 200 100 900 100 900 -400 200 -400 200 100 N
 ENDDRAW
 ENDDEF

@@ -117,28 +117,6 @@ F5 "CHG" O R 1550 3050 50
 F6 "CHG_DISABLE" I R 1550 2750 50 
 $EndSheet
 $Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J4
-U 1 1 5BA1A81F
-P 8550 2500
-F 0 "J4" H 8600 2717 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 8600 2626 50  0000 C CNN
-F 2 "" H 8550 2500 50  0001 C CNN
-F 3 "~" H 8550 2500 50  0001 C CNN
-	1    8550 2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J5
-U 1 1 5BA1A886
-P 8550 3150
-F 0 "J5" H 8600 3367 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 8600 3276 50  0000 C CNN
-F 2 "" H 8550 3150 50  0001 C CNN
-F 3 "~" H 8550 3150 50  0001 C CNN
-	1    8550 3150
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector_Generic:Conn_01x03 J3
 U 1 1 5BA1A8A6
 P 5350 5450
@@ -197,71 +175,49 @@ Wire Wire Line
 	8350 2600 7950 2600
 Text Label 8000 2600 0    50   ~ 0
 VBUS
-Wire Wire Line
-	8850 2500 9450 2500
-Text Label 9000 4500 0    50   ~ 0
+Text Label 9500 3100 0    50   ~ 0
 ISET
-Wire Wire Line
-	8850 2600 9450 2600
 $Comp
 L power:GND #PWR012
 U 1 1 5BA1B3CD
-P 9450 2650
-F 0 "#PWR012" H 9450 2400 50  0001 C CNN
-F 1 "GND" H 9455 2477 50  0000 C CNN
-F 2 "" H 9450 2650 50  0001 C CNN
-F 3 "" H 9450 2650 50  0001 C CNN
-	1    9450 2650
+P 7700 2750
+F 0 "#PWR012" H 7700 2500 50  0001 C CNN
+F 1 "GND" H 7705 2577 50  0000 C CNN
+F 2 "" H 7700 2750 50  0001 C CNN
+F 3 "" H 7700 2750 50  0001 C CNN
+	1    7700 2750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9450 2650 9450 2600
-Connection ~ 9450 2600
+	7950 2900 8350 2900
 Wire Wire Line
-	9450 2600 9450 2500
-Wire Wire Line
-	7950 3150 8350 3150
-Wire Wire Line
-	7950 3250 8350 3250
-Text Label 8000 3150 0    50   ~ 0
+	7950 3000 8350 3000
+Text Label 8000 2900 0    50   ~ 0
 SDO
-Text Label 8000 3250 0    50   ~ 0
+Text Label 8000 3000 0    50   ~ 0
 SDI
-Text Label 9000 3250 0    50   ~ 0
+Text Label 8000 3200 0    50   ~ 0
 SCLK
 Wire Wire Line
-	8850 3250 9450 3250
-$Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J6
-U 1 1 5BA1BDA0
-P 8550 3800
-F 0 "J6" H 8600 4017 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 8600 3926 50  0000 C CNN
-F 2 "" H 8550 3800 50  0001 C CNN
-F 3 "~" H 8550 3800 50  0001 C CNN
-	1    8550 3800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7950 3800 8350 3800
-Text Label 8000 3800 0    50   ~ 0
+	7950 3200 8350 3200
+Text Label 9500 2700 0    50   ~ 0
 GPS_TX
 $Comp
 L Switch:SW_SPDT SW1
 U 1 1 5BA3F421
-P 7550 2600
-F 0 "SW1" H 7550 2885 50  0000 C CNN
-F 1 "SW_SPDT" H 7550 2794 50  0000 C CNN
-F 2 "" H 7550 2600 50  0001 C CNN
-F 3 "" H 7550 2600 50  0001 C CNN
-	1    7550 2600
-	1    0    0    -1  
+P 7550 2400
+F 0 "SW1" H 7300 2500 50  0000 C CNN
+F 1 "SW_SPDT" H 7300 2600 50  0000 C CNN
+F 2 "" H 7550 2400 50  0001 C CNN
+F 3 "" H 7550 2400 50  0001 C CNN
+	1    7550 2400
+	1    0    0    1   
 $EndComp
 Wire Wire Line
 	7750 2500 7950 2500
 Wire Wire Line
-	7350 2600 6950 2600
-Text Label 7000 2600 0    50   ~ 0
+	7350 2400 6950 2400
+Text Label 7000 2400 0    50   ~ 0
 VBAT
 $Comp
 L AXTEC_IC:CONUFL001-SMD U1
@@ -300,14 +256,14 @@ Wire Wire Line
 $Comp
 L power:+3V3 #PWR?
 U 1 1 5BA42A3A
-P 7750 3750
+P 9250 2750
 AR Path="/5BA17F9C/5BA42A3A" Ref="#PWR?"  Part="1" 
 AR Path="/5BA42A3A" Ref="#PWR014"  Part="1" 
-F 0 "#PWR014" H 7750 3600 50  0001 C CNN
-F 1 "+3V3" H 7765 3923 50  0000 C CNN
-F 2 "" H 7750 3750 50  0001 C CNN
-F 3 "" H 7750 3750 50  0001 C CNN
-	1    7750 3750
+F 0 "#PWR014" H 9250 2600 50  0001 C CNN
+F 1 "+3V3" H 9265 2923 50  0000 C CNN
+F 2 "" H 9250 2750 50  0001 C CNN
+F 3 "" H 9250 2750 50  0001 C CNN
+	1    9250 2750
 	1    0    0    -1  
 $EndComp
 $Sheet
@@ -319,6 +275,7 @@ F2 "SDO" O R 1550 3600 50
 F3 "SDI" I R 1550 3700 50 
 F4 "SCLK" O R 1550 3800 50 
 F5 "ANT" B R 1550 4050 50 
+F6 "CS" I R 1550 3500 50 
 $EndSheet
 Wire Wire Line
 	1550 2750 2300 2750
@@ -328,31 +285,20 @@ Text Label 1950 3050 0    50   ~ 0
 CHG
 Text Label 1950 2750 0    50   ~ 0
 CHG_DISABLE
-$Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J7
-U 1 1 5BADC74A
-P 8550 4500
-F 0 "J7" H 8600 4717 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 8600 4626 50  0000 C CNN
-F 2 "" H 8550 4500 50  0001 C CNN
-F 3 "~" H 8550 4500 50  0001 C CNN
-	1    8550 4500
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	7650 4500 8350 4500
+	9450 2900 10050 2900
 Wire Wire Line
-	7650 4600 8350 4600
-Text Label 7800 4500 0    50   ~ 0
+	9450 3000 10050 3000
+Text Label 9500 2900 0    50   ~ 0
 CHG
-Text Label 7800 4600 0    50   ~ 0
+Text Label 9500 3000 0    50   ~ 0
 CHG_DISABLE
 Wire Wire Line
-	9250 4500 8850 4500
+	10050 3100 9450 3100
 Wire Wire Line
-	8850 4600 9250 4600
+	9450 3200 10050 3200
 Wire Wire Line
-	8850 3150 9450 3150
+	7950 3100 8350 3100
 $Comp
 L Connector_Generic:Conn_01x02 J2
 U 1 1 5BAE15D7
@@ -523,128 +469,83 @@ Connection ~ 7950 2500
 Wire Wire Line
 	7950 2500 8350 2500
 $Comp
-L Device:LED D2
-U 1 1 5BAFC4D0
-P 6850 1600
-F 0 "D2" V 6795 1678 50  0000 L CNN
-F 1 "LED" V 6886 1678 50  0000 L CNN
-F 2 "" H 6850 1600 50  0001 C CNN
-F 3 "~" H 6850 1600 50  0001 C CNN
-	1    6850 1600
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5BAFC4D7
-P 6850 1200
-AR Path="/5BA17F9C/5BAFC4D7" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5BAFC4D7" Ref="R?"  Part="1" 
-AR Path="/5BA1A77A/5BAFC4D7" Ref="R?"  Part="1" 
-AR Path="/5BAFC4D7" Ref="R2"  Part="1" 
-F 0 "R2" V 6950 1200 50  0000 L CNN
-F 1 "1k" V 6750 1200 50  0000 L CNN
-F 2 "" V 6780 1200 50  0001 C CNN
-F 3 "~" H 6850 1200 50  0001 C CNN
-	1    6850 1200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6850 1450 6850 1350
-$Comp
-L power:GND #PWR07
-U 1 1 5BAFC4DF
-P 6850 1750
-F 0 "#PWR07" H 6850 1500 50  0001 C CNN
-F 1 "GND" H 6855 1577 50  0000 C CNN
-F 2 "" H 6850 1750 50  0001 C CNN
-F 3 "" H 6850 1750 50  0001 C CNN
-	1    6850 1750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6850 800  6850 1050
-$Comp
 L Device:LED D1
 U 1 1 5BAFD8C1
-P 6250 1600
-F 0 "D1" V 6195 1678 50  0000 L CNN
-F 1 "LED" V 6286 1678 50  0000 L CNN
-F 2 "" H 6250 1600 50  0001 C CNN
-F 3 "~" H 6250 1600 50  0001 C CNN
-	1    6250 1600
+P 6950 1600
+F 0 "D1" V 6895 1678 50  0000 L CNN
+F 1 "LED" V 6986 1678 50  0000 L CNN
+F 2 "" H 6950 1600 50  0001 C CNN
+F 3 "~" H 6950 1600 50  0001 C CNN
+	1    6950 1600
 	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5BAFD8C8
-P 6250 1200
+P 6950 1200
 AR Path="/5BA17F9C/5BAFD8C8" Ref="R?"  Part="1" 
 AR Path="/5BA1A7F9/5BAFD8C8" Ref="R?"  Part="1" 
 AR Path="/5BA1A77A/5BAFD8C8" Ref="R?"  Part="1" 
 AR Path="/5BAFD8C8" Ref="R1"  Part="1" 
-F 0 "R1" V 6350 1200 50  0000 L CNN
-F 1 "1k" V 6150 1200 50  0000 L CNN
-F 2 "" V 6180 1200 50  0001 C CNN
-F 3 "~" H 6250 1200 50  0001 C CNN
-	1    6250 1200
+F 0 "R1" V 7050 1200 50  0000 L CNN
+F 1 "1k" V 6850 1200 50  0000 L CNN
+F 2 "" V 6880 1200 50  0001 C CNN
+F 3 "~" H 6950 1200 50  0001 C CNN
+	1    6950 1200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6250 1450 6250 1350
+	6950 1450 6950 1350
 $Comp
 L power:GND #PWR05
 U 1 1 5BAFD8D0
-P 6250 1750
-F 0 "#PWR05" H 6250 1500 50  0001 C CNN
-F 1 "GND" H 6255 1577 50  0000 C CNN
-F 2 "" H 6250 1750 50  0001 C CNN
-F 3 "" H 6250 1750 50  0001 C CNN
-	1    6250 1750
+P 6950 1750
+F 0 "#PWR05" H 6950 1500 50  0001 C CNN
+F 1 "GND" H 6955 1577 50  0000 C CNN
+F 2 "" H 6950 1750 50  0001 C CNN
+F 3 "" H 6950 1750 50  0001 C CNN
+	1    6950 1750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6250 800  6250 1050
-Text Label 6250 950  1    50   ~ 0
+	6950 800  6950 1050
+Text Label 6950 950  1    50   ~ 0
 P1
-Text Label 6850 950  1    50   ~ 0
-P2
-Text Label 9000 4600 0    50   ~ 0
+Text Label 9500 3200 0    50   ~ 0
 P1
 Wire Wire Line
-	8850 3800 9450 3800
-Text Label 9000 3800 0    50   ~ 0
-P2
+	9450 2500 10050 2500
 $Comp
 L Mechanical:MountingHole MH1
 U 1 1 5BB03020
-P 10050 2900
-F 0 "MH1" H 10150 2946 50  0000 L CNN
-F 1 "MountingHole" H 10150 2855 50  0000 L CNN
-F 2 "" H 10050 2900 50  0001 C CNN
-F 3 "~" H 10050 2900 50  0001 C CNN
-	1    10050 2900
+P 9000 4300
+F 0 "MH1" H 9100 4346 50  0000 L CNN
+F 1 "MountingHole" H 9100 4255 50  0000 L CNN
+F 2 "" H 9000 4300 50  0001 C CNN
+F 3 "~" H 9000 4300 50  0001 C CNN
+	1    9000 4300
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole MH2
 U 1 1 5BB03098
-P 10050 3200
-F 0 "MH2" H 10150 3246 50  0000 L CNN
-F 1 "MountingHole" H 10150 3155 50  0000 L CNN
-F 2 "" H 10050 3200 50  0001 C CNN
-F 3 "~" H 10050 3200 50  0001 C CNN
-	1    10050 3200
+P 9000 4600
+F 0 "MH2" H 9100 4646 50  0000 L CNN
+F 1 "MountingHole" H 9100 4555 50  0000 L CNN
+F 2 "" H 9000 4600 50  0001 C CNN
+F 3 "~" H 9000 4600 50  0001 C CNN
+	1    9000 4600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole MH3
 U 1 1 5BB03132
-P 10050 3500
-F 0 "MH3" H 10150 3546 50  0000 L CNN
-F 1 "MountingHole" H 10150 3455 50  0000 L CNN
-F 2 "" H 10050 3500 50  0001 C CNN
-F 3 "~" H 10050 3500 50  0001 C CNN
-	1    10050 3500
+P 9000 4900
+F 0 "MH3" H 9100 4946 50  0000 L CNN
+F 1 "MountingHole" H 9100 4855 50  0000 L CNN
+F 2 "" H 9000 4900 50  0001 C CNN
+F 3 "~" H 9000 4900 50  0001 C CNN
+	1    9000 4900
 	1    0    0    -1  
 $EndComp
 $Sheet
@@ -712,42 +613,23 @@ Text Label 3200 1600 0    50   ~ 0
 SDA
 Text Label 3200 1700 0    50   ~ 0
 GPOUT
-$Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J?
-U 1 1 5BB5DFD1
-P 8550 5200
-F 0 "J?" H 8600 5417 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 8600 5326 50  0000 C CNN
-F 2 "" H 8550 5200 50  0001 C CNN
-F 3 "~" H 8550 5200 50  0001 C CNN
-	1    8550 5200
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	7650 5200 8350 5200
-Wire Wire Line
-	9250 5200 8850 5200
-Wire Wire Line
-	8850 5300 9250 5300
-Text Label 9000 5200 0    50   ~ 0
+	9450 3300 10050 3300
+Text Label 8000 3300 0    50   ~ 0
 SDA
-Text Label 9000 5300 0    50   ~ 0
+Text Label 8000 3400 0    50   ~ 0
 SCL
-Text Label 7800 5200 0    50   ~ 0
+Text Label 9500 3300 0    50   ~ 0
 GPOUT
-Text Label 9000 3150 0    50   ~ 0
+Text Label 9500 2500 0    50   ~ 0
 S_GLOBO
-Text Label 9000 3900 0    50   ~ 0
+Text Label 9500 2600 0    50   ~ 0
 S_PARACAIDAS
 Wire Wire Line
-	7750 3750 7750 3900
+	9450 2600 10050 2600
 Wire Wire Line
-	7750 3900 8350 3900
-Wire Wire Line
-	8850 3900 9450 3900
-Wire Wire Line
-	8350 5300 7650 5300
-Text Label 7800 5300 0    50   ~ 0
+	10050 3400 9450 3400
+Text Label 9500 3400 0    50   ~ 0
 VBat_I_SENSE
 $Sheet
 S 4050 1200 650  450 
@@ -773,4 +655,51 @@ Wire Wire Line
 	4700 1350 5350 1350
 Text Label 4800 1350 0    50   ~ 0
 VBat_I_SENSE
+Text Label 8000 3100 0    50   ~ 0
+CS
+Wire Wire Line
+	1550 3500 2300 3500
+Text Label 1950 3500 0    50   ~ 0
+CS
+$Comp
+L Connector_Generic:Conn_01x10 J?
+U 1 1 5BBD1AA4
+P 8550 2900
+F 0 "J?" H 8630 2892 50  0000 L CNN
+F 1 "Conn_01x10" H 8630 2801 50  0000 L CNN
+F 2 "Connector_PinHeader_1.27mm:PinHeader_1x10_P1.27mm_Vertical" H 8550 2900 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/M50-353-1100851.pdf" H 8550 2900 50  0001 C CNN
+F 4 "M50-3531042" H 8550 2900 50  0001 C CNN "Manufacturer Part Number"
+	1    8550 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8350 2800 8350 2700
+Connection ~ 8350 2700
+Wire Wire Line
+	7700 2700 7700 2750
+Wire Wire Line
+	7700 2700 8350 2700
+Wire Wire Line
+	7950 3300 8350 3300
+Wire Wire Line
+	8350 3400 7950 3400
+$Comp
+L Connector_Generic:Conn_01x10 J?
+U 1 1 5BBE7DCC
+P 10250 2900
+F 0 "J?" H 10330 2892 50  0000 L CNN
+F 1 "Conn_01x10" H 10330 2801 50  0000 L CNN
+F 2 "Connector_PinHeader_1.27mm:PinHeader_1x10_P1.27mm_Vertical" H 10250 2900 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/M50-353-1100851.pdf" H 10250 2900 50  0001 C CNN
+F 4 "M50-3531042" H 10250 2900 50  0001 C CNN "Manufacturer Part Number"
+	1    10250 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9450 2700 10050 2700
+Wire Wire Line
+	10050 2800 9250 2800
+Wire Wire Line
+	9250 2800 9250 2750
 $EndSCHEMATC
