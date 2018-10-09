@@ -44,4 +44,10 @@ K
 F http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf
 $ENDCMP
 #
+$CMP MCP1642B-50I_MS
+D Switching Voltage Regulators Step-up DC/DC Reg 1 MHz, 1.6A, 5Vout
+K
+F http://ww1.microchip.com/downloads/en/DeviceDoc/20005253A.pdf
+$ENDCMP
+#
 #End Doc Library

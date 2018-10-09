@@ -236,4 +236,34 @@ P 5 0 1 6 200 100 900 100 900 -300 200 -300 200 100 N
 ENDDRAW
 ENDDEF
 #
+#SamacSys ECAD Model MCP1642B-50I_MS
+#/339440/9105/2.31/8/4/Integrated Circuit
+DEF MCP1642B-50I_MS IC 0 30 Y Y 1 F N
+F0 "IC" 950 300 50 H V L CNN
+F1 "MCP1642B-50I_MS" 950 200 50 H V L CNN
+F2 "SOP65P490X110-8N" 950 100 50 H I L CNN
+F3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20005253A.pdf" 950 0 50 H I L CNN
+F4 "Switching Voltage Regulators Step-up DC/DC Reg 1 MHz, 1.6A, 5Vout" 950 -100 50 H I L CNN "Description"
+F5 "1.1" 950 -200 50 H I L CNN "Height"
+F6 "Microchip" 950 -300 50 H I L CNN "Manufacturer_Name"
+F7 "MCP1642B-50I/MS" 950 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "" 950 -500 50 H I L CNN "RS Part Number"
+F9 "" 950 -600 50 H I L CNN "RS Price/Stock"
+F10 "70567327" 950 -700 50 H I L CNN "Allied_Number"
+F11 "https://www.alliedelec.com/microchip-technology-inc-mcp1642b-50i-ms/70567327/" 950 -800 50 H I L CNN "Allied Price/Stock"
+F12 "MCP1642B-50I/MS" 950 -900 50 H I L CNN "Arrow Part Number"
+F13 "https://www.arrow.com/en/products/mcp1642b-50ims/microchip-technology" 950 -1000 50 H I L CNN "Arrow Price/Stock"
+DRAW
+X EN 1 0 0 200 R 50 50 0 0 B
+X NC 2 0 -100 200 R 50 50 0 0 B
+X PG 3 0 -200 200 R 50 50 0 0 B
+X VOUT 4 0 -300 200 R 50 50 0 0 B
+X VIN 8 1100 0 200 L 50 50 0 0 B
+X SGND 7 1100 -100 200 L 50 50 0 0 B
+X PGND 6 1100 -200 200 L 50 50 0 0 B
+X SW 5 1100 -300 200 L 50 50 0 0 B
+P 5 0 1 6 200 100 900 100 900 -400 200 -400 200 100 N
+ENDDRAW
+ENDDEF
+#
 #End Library

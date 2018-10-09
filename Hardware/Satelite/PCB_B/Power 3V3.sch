@@ -14,4 +14,326 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L Regulator_Switching:ADP2108AUJ-3.3 U?
+U 1 1 5BBA6889
+P 5500 4400
+F 0 "U?" H 5500 4725 50  0000 C CNN
+F 1 "ADP2108AUJ-3.3" H 5500 4634 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:TSOT-23-5" H 5550 4150 50  0001 L CNN
+F 3 "http://www.analog.com/media/en/technical-documentation/data-sheets/ADP2108.pdf" H 5250 4050 50  0001 C CNN
+	1    5500 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5BBA88BD
+P 4400 4550
+AR Path="/5BB122CA/5BBA88BD" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5BBA88BD" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5BBA88BD" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5BBA88BD" Ref="C?"  Part="1" 
+F 0 "C?" H 4308 4504 50  0000 R CNN
+F 1 "10uF" H 4308 4595 50  0000 R CNN
+F 2 "" H 4400 4550 50  0001 C CNN
+F 3 "~" H 4400 4550 50  0001 C CNN
+F 4 "10V" H 4400 4550 50  0001 C CNN "Voltage"
+	1    4400 4550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5200 4300 4400 4300
+Wire Wire Line
+	4400 4300 4400 4450
+$Comp
+L power:GND #PWR?
+U 1 1 5BBA8A01
+P 4400 4800
+F 0 "#PWR?" H 4400 4550 50  0001 C CNN
+F 1 "GND" H 4405 4627 50  0000 C CNN
+F 2 "" H 4400 4800 50  0001 C CNN
+F 3 "" H 4400 4800 50  0001 C CNN
+	1    4400 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BBA8A27
+P 5500 4800
+F 0 "#PWR?" H 5500 4550 50  0001 C CNN
+F 1 "GND" H 5505 4627 50  0000 C CNN
+F 2 "" H 5500 4800 50  0001 C CNN
+F 3 "" H 5500 4800 50  0001 C CNN
+	1    5500 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4400 4650 4400 4800
+Wire Wire Line
+	5500 4800 5500 4700
+$Comp
+L Device:C_Small C?
+U 1 1 5BBA8ADD
+P 6950 4500
+AR Path="/5BB122CA/5BBA8ADD" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5BBA8ADD" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5BBA8ADD" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5BBA8ADD" Ref="C?"  Part="1" 
+F 0 "C?" H 6858 4454 50  0000 R CNN
+F 1 "10uF" H 6858 4545 50  0000 R CNN
+F 2 "" H 6950 4500 50  0001 C CNN
+F 3 "~" H 6950 4500 50  0001 C CNN
+F 4 "10V" H 6950 4500 50  0001 C CNN "Voltage"
+	1    6950 4500
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:L_Core_Iron L?
+U 1 1 5BBA8BBD
+P 6000 4300
+F 0 "L?" V 6225 4300 50  0000 C CNN
+F 1 "1uH" V 6134 4300 50  0000 C CNN
+F 2 "Inductor_SMD:L_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 4300 50  0001 C CNN
+F 3 "~" H 6000 4300 50  0001 C CNN
+F 4 "LQM21PN1R0MC0D" V 6000 4300 50  0001 C CNN "Manufacturer Part Number"
+	1    6000 4300
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5850 4300 5800 4300
+Wire Wire Line
+	6950 4300 6950 4400
+$Comp
+L power:GND #PWR?
+U 1 1 5BBA8CC8
+P 6950 4800
+F 0 "#PWR?" H 6950 4550 50  0001 C CNN
+F 1 "GND" H 6955 4627 50  0000 C CNN
+F 2 "" H 6950 4800 50  0001 C CNN
+F 3 "" H 6950 4800 50  0001 C CNN
+	1    6950 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6950 4600 6950 4800
+Text HLabel 4250 4300 0    50   Input ~ 0
+VBAT
+Text HLabel 7200 4300 2    50   Output ~ 0
+3V3
+Wire Wire Line
+	4400 4300 4250 4300
+Connection ~ 4400 4300
+Text HLabel 4950 4400 0    50   Input ~ 0
+CTRL
+Wire Wire Line
+	4950 4400 5200 4400
+Wire Wire Line
+	6700 4500 6700 4300
+Connection ~ 6700 4300
+Wire Wire Line
+	6700 4300 6950 4300
+Wire Wire Line
+	6150 4300 6200 4300
+Wire Wire Line
+	5800 4500 6700 4500
+Wire Wire Line
+	7200 4300 6950 4300
+Connection ~ 6950 4300
+$Comp
+L Amplifier_Current:INA194 U?
+U 1 1 5BBAC7D2
+P 6450 2500
+F 0 "U?" V 6496 2159 50  0000 R CNN
+F 1 "INA194" V 6405 2159 50  0000 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5" H 6450 2500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/ina193.pdf" H 6450 2500 50  0001 C CNN
+	1    6450 2500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5BBACA67
+P 6450 4300
+F 0 "R?" V 6153 4300 50  0000 C CNN
+F 1 "120m" V 6244 4300 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 6380 4300 50  0001 C CNN
+F 3 "~" H 6450 4300 50  0001 C CNN
+F 4 "1%" V 6335 4300 50  0000 C CNN "Tolerance"
+F 5 "KRL1632E-M-R120-F-T5" V 6450 4300 50  0001 C CNN "Manufacturer Part Number"
+	1    6450 4300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6600 4300 6700 4300
+$Comp
+L Device:R R?
+U 1 1 5BBACF91
+P 6200 3700
+F 0 "R?" H 6130 3609 50  0000 R CNN
+F 1 "50R" H 6130 3700 50  0000 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 6130 3700 50  0001 C CNN
+F 3 "~" H 6200 3700 50  0001 C CNN
+F 4 "1%" H 6130 3791 50  0000 R CNN "Tolerance"
+F 5 "KRL1632E-M-R120-F-T5" V 6200 3700 50  0001 C CNN "Manufacturer Part Number"
+	1    6200 3700
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5BBACFF0
+P 6700 3700
+F 0 "R?" H 6630 3609 50  0000 R CNN
+F 1 "50R" H 6630 3700 50  0000 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 6630 3700 50  0001 C CNN
+F 3 "~" H 6700 3700 50  0001 C CNN
+F 4 "1%" H 6630 3791 50  0000 R CNN "Tolerance"
+F 5 "KRL1632E-M-R120-F-T5" V 6700 3700 50  0001 C CNN "Manufacturer Part Number"
+	1    6700 3700
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6200 3850 6200 4300
+Connection ~ 6200 4300
+Wire Wire Line
+	6200 4300 6300 4300
+Wire Wire Line
+	6700 3850 6700 4300
+$Comp
+L Device:C_Small C?
+U 1 1 5BBAD54B
+P 6450 3200
+AR Path="/5BB122CA/5BBAD54B" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5BBAD54B" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5BBAD54B" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5BBAD54B" Ref="C?"  Part="1" 
+F 0 "C?" H 6358 3154 50  0000 R CNN
+F 1 "1uF" H 6358 3245 50  0000 R CNN
+F 2 "" H 6450 3200 50  0001 C CNN
+F 3 "~" H 6450 3200 50  0001 C CNN
+F 4 "10V" H 6450 3200 50  0001 C CNN "Voltage"
+	1    6450 3200
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	6550 3200 6700 3200
+Wire Wire Line
+	6700 3200 6700 3550
+Wire Wire Line
+	6350 3200 6200 3200
+Wire Wire Line
+	6200 3200 6200 3550
+Wire Wire Line
+	6200 3200 6200 2900
+Wire Wire Line
+	6200 2900 6350 2900
+Wire Wire Line
+	6350 2900 6350 2800
+Connection ~ 6200 3200
+Wire Wire Line
+	6550 2800 6550 2900
+Wire Wire Line
+	6550 2900 6700 2900
+Wire Wire Line
+	6700 2900 6700 3200
+Connection ~ 6700 3200
+$Comp
+L AXTEC_IC:+3V3_Internal #PWR?
+U 1 1 5BBB2E44
+P 5300 2500
+F 0 "#PWR?" H 5300 2900 50  0001 C CNN
+F 1 "+3V3_Internal" H 5285 2673 50  0000 C CNN
+F 2 "" H 5300 2500 50  0001 C CNN
+F 3 "" H 5300 2500 50  0001 C CNN
+	1    5300 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5BBB2E69
+P 5800 2800
+AR Path="/5BB122CA/5BBB2E69" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5BBB2E69" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5BBB2E69" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5BBB2E69" Ref="C?"  Part="1" 
+F 0 "C?" H 5708 2754 50  0000 R CNN
+F 1 "1uF" H 5708 2845 50  0000 R CNN
+F 2 "" H 5800 2800 50  0001 C CNN
+F 3 "~" H 5800 2800 50  0001 C CNN
+F 4 "10V" H 5800 2800 50  0001 C CNN "Voltage"
+	1    5800 2800
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5BBB2EFC
+P 5450 2800
+AR Path="/5BB122CA/5BBB2EFC" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5BBB2EFC" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5BBB2EFC" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5BBB2EFC" Ref="C?"  Part="1" 
+F 0 "C?" H 5358 2754 50  0000 R CNN
+F 1 "100n" H 5358 2845 50  0000 R CNN
+F 2 "" H 5450 2800 50  0001 C CNN
+F 3 "~" H 5450 2800 50  0001 C CNN
+F 4 "10V" H 5450 2800 50  0001 C CNN "Voltage"
+	1    5450 2800
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5300 2500 5300 2600
+Wire Wire Line
+	5300 2600 5450 2600
+Wire Wire Line
+	5800 2700 5800 2600
+Connection ~ 5800 2600
+Wire Wire Line
+	5800 2600 6150 2600
+Wire Wire Line
+	5450 2700 5450 2600
+Connection ~ 5450 2600
+Wire Wire Line
+	5450 2600 5800 2600
+$Comp
+L power:GND #PWR?
+U 1 1 5BBB3B4A
+P 5450 2900
+F 0 "#PWR?" H 5450 2650 50  0001 C CNN
+F 1 "GND" H 5455 2727 50  0000 C CNN
+F 2 "" H 5450 2900 50  0001 C CNN
+F 3 "" H 5450 2900 50  0001 C CNN
+	1    5450 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BBB3B6B
+P 5800 2900
+F 0 "#PWR?" H 5800 2650 50  0001 C CNN
+F 1 "GND" H 5805 2727 50  0000 C CNN
+F 2 "" H 5800 2900 50  0001 C CNN
+F 3 "" H 5800 2900 50  0001 C CNN
+	1    5800 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BBB3D93
+P 7000 2850
+F 0 "#PWR?" H 7000 2600 50  0001 C CNN
+F 1 "GND" H 7005 2677 50  0000 C CNN
+F 2 "" H 7000 2850 50  0001 C CNN
+F 3 "" H 7000 2850 50  0001 C CNN
+	1    7000 2850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7000 2850 7000 2600
+Wire Wire Line
+	7000 2600 6750 2600
+Text HLabel 6700 1950 2    50   Output ~ 0
+ISENSE
+Wire Wire Line
+	6700 1950 6450 1950
+Wire Wire Line
+	6450 1950 6450 2200
 $EndSCHEMATC
