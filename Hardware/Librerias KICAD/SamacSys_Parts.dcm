@@ -20,6 +20,11 @@ D System-Side Impedance Track Battery Fuel (Gas) Gauge
 F http://www.ti.com/lit/gpn/bq27441-g1
 $ENDCMP
 #
+$CMP CSTNE16M0V530000R0
+D Resonators 16.0000MHz 15pF SMD CHP Resntr
+F https://www.murata.com/en-eu/products/productdata/8801162231838/SPEC-CSTNE16M0V530000R0.pdf?1519875007000
+$ENDCMP
+#
 $CMP LFXTAL016178
 D IQD FREQUENCY PRODUCTS - LFXTAL016178 - CRYSTAL, 32.768KHZ, 6PF, SMD
 F http://www.iqdfrequencyproducts.com/products/pn/LFXTAL016178Bulk.pdf
@@ -60,15 +65,14 @@ D Si7006 Digital RH temp sensor w filter Silicon Labs Si7006-A20-IM1 Temperature
 F https://www.silabs.com/documents/public/data-sheets/Si7006-A20.pdf
 $ENDCMP
 #
+$CMP TCA9802DGKR
+D Level-Translating I2C Bus Buffer/Repeater
+F http://www.ti.com/lit/gpn/tca9802
+$ENDCMP
+#
 $CMP TXB0304RUTR
 D Texas Instruments TXB0304RUTR, Logic Level Translator, Voltage Level, 3-State, 0.9  3.6 V, 12-Pin UQFN
 F http://www.ti.com/lit/ds/symlink/txb0304.pdf
-$ENDCMP
-#
-$CMP TCA9802DGKR
-D Level-Translating I2C Bus Buffer/Repeater
-K
-F http://www.ti.com/lit/gpn/tca9802
 $ENDCMP
 #
 #End Doc Library
