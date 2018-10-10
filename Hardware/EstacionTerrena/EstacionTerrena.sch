@@ -40,18 +40,16 @@ Wire Wire Line
 Wire Wire Line
 	5650 4150 6100 4150
 $Comp
-L power:GND #PWR0101
+L power:GND #PWR01
 U 1 1 5B9AA918
-P 7250 4300
-F 0 "#PWR0101" H 7250 4050 50  0001 C CNN
-F 1 "GND" H 7255 4127 50  0000 C CNN
-F 2 "" H 7250 4300 50  0001 C CNN
-F 3 "" H 7250 4300 50  0001 C CNN
-	1    7250 4300
+P 7250 4350
+F 0 "#PWR01" H 7250 4100 50  0001 C CNN
+F 1 "GND" H 7255 4177 50  0000 C CNN
+F 2 "" H 7250 4350 50  0001 C CNN
+F 3 "" H 7250 4350 50  0001 C CNN
+	1    7250 4350
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7250 4300 7250 4250
 $Bitmap
 Pos 8300 6800
 Scale 1.000000
@@ -141,17 +139,44 @@ B2 00 00 01 88 2C 00 40 00 22 0B 00 10 C0 AF 69 9A 7A 8F 81 4C CE 5D 68 97 CB A5
 F6 00 00 00 00 49 45 4E 44 AE 42 60 82 
 EndData
 $EndBitmap
+Wire Wire Line
+	7050 4050 6700 4050
 $Comp
-L Connector:Conn_Coaxial J2
-U 1 1 5B9AA8AF
+L SamacSys_Parts:5-1814832-1 J1
+U 1 1 5BEE5678
 P 7250 4050
-F 0 "J2" H 7349 4026 50  0000 L CNN
-F 1 "SMA" H 7349 3935 50  0000 L CNN
-F 2 "" H 7250 4050 50  0001 C CNN
-F 3 " ~" H 7250 4050 50  0001 C CNN
+F 0 "J1" H 7491 4026 50  0000 L CNN
+F 1 "5-1814832-1" H 7491 3934 50  0000 L CNN
+F 2 "5-1814832-1" H 7650 4150 50  0001 L CNN
+F 3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1814832&DocType=Customer+Drawing&DocLang=English" H 7650 4050 50  0001 L CNN
+F 4 "SUBMINIATURE COAX" H 7650 3950 50  0001 L CNN "Description"
+F 5 "TE Connectivity" H 7650 3750 50  0001 L CNN "Manufacturer_Name"
+F 6 "5-1814832-1" H 7650 3650 50  0001 L CNN "Manufacturer Part Number"
+F 7 "1355074" H 7450 3550 50  0001 L CNN "RS Part Number"
+F 8 "http://uk.rs-online.com/web/p/products/1355074" H 7650 3450 50  0001 L CNN "RS Price/Stock"
+F 9 "70084637" H 7650 3350 50  0001 L CNN "Allied_Number"
+F 10 "https://www.alliedelec.com/te-connectivity-5-1814832-1/70084637/" H 7650 3250 50  0001 L CNN "Allied Price/Stock"
+F 11 "5-1814832-1" H 7650 3150 50  0001 L CNN "Arrow Part Number"
+F 12 "https://www.arrow.com/en/products/5-1814832-1/te-connectivity" H 7650 3050 50  0001 L CNN "Arrow Price/Stock"
 	1    7250 4050
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7050 4050 6700 4050
+	7150 4250 7150 4300
+Wire Wire Line
+	7150 4300 7250 4300
+Wire Wire Line
+	7450 4300 7450 4250
+Wire Wire Line
+	7350 4250 7350 4300
+Connection ~ 7350 4300
+Wire Wire Line
+	7350 4300 7450 4300
+Wire Wire Line
+	7250 4250 7250 4300
+Connection ~ 7250 4300
+Wire Wire Line
+	7250 4300 7350 4300
+Wire Wire Line
+	7250 4350 7250 4300
 $EndSCHEMATC

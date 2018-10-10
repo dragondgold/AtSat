@@ -1,5 +1,15 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP 0915BM15A0001E
+D Signal Conditioning 915MHz BALUN/FILTER
+F http://www.mouser.com/datasheet/2/611/0915BM15A0001-242333.pdf
+$ENDCMP
+#
+$CMP 5-1814832-1
+D SUBMINIATURE COAX
+F http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1814832&DocType=Customer+Drawing&DocLang=English
+$ENDCMP
+#
 $CMP BMX055
 D Small versatile 9-axis sensor module
 F http://www.mouser.com/ds/2/621/BST-BMX055-DS000-02-586421.pdf
