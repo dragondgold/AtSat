@@ -180,10 +180,10 @@ Wire Wire Line
 Wire Wire Line
 	7250 4350 7250 4300
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H1
 U 1 1 5BBFD953
 P 8500 3350
-F 0 "H?" H 8600 3401 50  0000 L CNN
+F 0 "H1" H 8600 3401 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8600 3309 50  0000 L CNN
 F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 8500 3350 50  0001 C CNN
 F 3 "~" H 8500 3350 50  0001 C CNN
@@ -191,10 +191,10 @@ F 3 "~" H 8500 3350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H2
 U 1 1 5BBFDA3A
 P 8500 3850
-F 0 "H?" H 8600 3901 50  0000 L CNN
+F 0 "H2" H 8600 3901 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8600 3809 50  0000 L CNN
 F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 8500 3850 50  0001 C CNN
 F 3 "~" H 8500 3850 50  0001 C CNN
@@ -202,10 +202,10 @@ F 3 "~" H 8500 3850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H3
 U 1 1 5BBFDA66
 P 8500 4350
-F 0 "H?" H 8600 4401 50  0000 L CNN
+F 0 "H3" H 8600 4401 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8600 4309 50  0000 L CNN
 F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 8500 4350 50  0001 C CNN
 F 3 "~" H 8500 4350 50  0001 C CNN
@@ -213,10 +213,10 @@ F 3 "~" H 8500 4350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H4
 U 1 1 5BBFDA96
 P 8500 4850
-F 0 "H?" H 8600 4901 50  0000 L CNN
+F 0 "H4" H 8600 4901 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8600 4809 50  0000 L CNN
 F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 8500 4850 50  0001 C CNN
 F 3 "~" H 8500 4850 50  0001 C CNN
@@ -224,10 +224,10 @@ F 3 "~" H 8500 4850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0101
 U 1 1 5BBFDACC
 P 8500 3450
-F 0 "#PWR?" H 8500 3200 50  0001 C CNN
+F 0 "#PWR0101" H 8500 3200 50  0001 C CNN
 F 1 "GND" H 8505 3277 50  0000 C CNN
 F 2 "" H 8500 3450 50  0001 C CNN
 F 3 "" H 8500 3450 50  0001 C CNN
@@ -235,10 +235,10 @@ F 3 "" H 8500 3450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0102
 U 1 1 5BBFDAE9
 P 8500 3950
-F 0 "#PWR?" H 8500 3700 50  0001 C CNN
+F 0 "#PWR0102" H 8500 3700 50  0001 C CNN
 F 1 "GND" H 8505 3777 50  0000 C CNN
 F 2 "" H 8500 3950 50  0001 C CNN
 F 3 "" H 8500 3950 50  0001 C CNN
@@ -246,10 +246,10 @@ F 3 "" H 8500 3950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0103
 U 1 1 5BBFDB80
 P 8500 4450
-F 0 "#PWR?" H 8500 4200 50  0001 C CNN
+F 0 "#PWR0103" H 8500 4200 50  0001 C CNN
 F 1 "GND" H 8505 4277 50  0000 C CNN
 F 2 "" H 8500 4450 50  0001 C CNN
 F 3 "" H 8500 4450 50  0001 C CNN
@@ -257,14 +257,25 @@ F 3 "" H 8500 4450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0104
 U 1 1 5BBFDB9D
 P 8500 4950
-F 0 "#PWR?" H 8500 4700 50  0001 C CNN
+F 0 "#PWR0104" H 8500 4700 50  0001 C CNN
 F 1 "GND" H 8505 4777 50  0000 C CNN
 F 2 "" H 8500 4950 50  0001 C CNN
 F 3 "" H 8500 4950 50  0001 C CNN
 	1    8500 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Graphic:Logo_Open_Hardware_Large #LOGO?
+U 1 1 5BBFDFCD
+P 1050 7300
+F 0 "#LOGO?" H 1050 7800 50  0001 C CNN
+F 1 "Logo_Open_Hardware_Large" H 1050 6900 50  0001 C CNN
+F 2 "Symbol:OSHW-Logo2_9.8x8mm_SilkScreen" H 1050 7300 50  0001 C CNN
+F 3 "~" H 1050 7300 50  0001 C CNN
+	1    1050 7300
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
