@@ -442,9 +442,9 @@ F 4 "TPD2E2U06DRLR" H 2600 4150 50  0001 C CNN "Manufacturer Part Number"
 	1    2600 4150
 	1    0    0    -1  
 $EndComp
-Text Label 2100 4050 0    50   ~ 0
-D-
 Text Label 2100 4250 0    50   ~ 0
+D-
+Text Label 2100 4050 0    50   ~ 0
 D+
 Wire Wire Line
 	2100 4250 2300 4250
@@ -659,4 +659,8 @@ F 6 "EMK107B7104KAHT" H 9250 4500 50  0001 C CNN "Manufacturer Part Number"
 	1    9250 4500
 	1    0    0    -1  
 $EndComp
+Text Label 3000 4250 0    50   ~ 0
+D-
+Wire Wire Line
+	2900 4250 3000 4250
 $EndSCHEMATC
