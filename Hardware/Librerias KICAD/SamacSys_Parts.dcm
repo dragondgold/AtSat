@@ -30,6 +30,11 @@ D System-Side Impedance Track Battery Fuel (Gas) Gauge
 F http://www.ti.com/lit/gpn/bq27441-g1
 $ENDCMP
 #
+$CMP CC1101RGP
+D Texas Instruments CC1101RGP, RF Transceiver IC Triple Band 1.8  3.6 V 20-Pin QFN
+F http://www.ti.com/lit/ds/symlink/cc1101.pdf
+$ENDCMP
+#
 $CMP CSTNE16M0V530000R0
 D Resonators 16.0000MHz 15pF SMD CHP Resntr
 F https://www.murata.com/en-eu/products/productdata/8801162231838/SPEC-CSTNE16M0V530000R0.pdf?1519875007000
