@@ -2404,299 +2404,60 @@ Connection ~ 14750 2250
 Wire Wire Line
 	14750 2250 14750 1850
 $Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J?
-U 1 1 5BC2EFB1
-P 13350 3600
-F 0 "J?" H 13400 3818 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 13400 3726 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 13350 3600 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/527/ssq_th-1370157.pdf" H 13350 3600 50  0001 C CNN
-F 4 "SSQ-102-03-T-D" H 13350 3600 50  0001 C CNN "Manufacturer Part Number"
-	1    13350 3600
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR?
-U 1 1 5BC2EFB8
-P 15750 3500
-F 0 "#PWR?" H 15750 3350 50  0001 C CNN
-F 1 "+3V3" H 15764 3675 50  0000 C CNN
-F 2 "" H 15750 3500 50  0001 C CNN
-F 3 "" H 15750 3500 50  0001 C CNN
-	1    15750 3500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR?
-U 1 1 5BC2EFBE
-P 14350 3500
-F 0 "#PWR?" H 14350 3350 50  0001 C CNN
-F 1 "+3V3" H 14364 3675 50  0000 C CNN
-F 2 "" H 14350 3500 50  0001 C CNN
-F 3 "" H 14350 3500 50  0001 C CNN
-	1    14350 3500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	15300 3600 15750 3600
-Wire Wire Line
-	15750 3600 15750 3500
-Wire Wire Line
-	14800 3600 14350 3600
-Wire Wire Line
-	14350 3600 14350 3500
-$Comp
-L power:GND #PWR?
-U 1 1 5BC2EFC8
-P 14700 3700
-F 0 "#PWR?" H 14700 3450 50  0001 C CNN
-F 1 "GND" H 14704 3526 50  0000 C CNN
-F 2 "" H 14700 3700 50  0001 C CNN
-F 3 "" H 14700 3700 50  0001 C CNN
-	1    14700 3700
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BC2EFCE
-P 15400 3700
-F 0 "#PWR?" H 15400 3450 50  0001 C CNN
-F 1 "GND" H 15404 3526 50  0000 C CNN
-F 2 "" H 15400 3700 50  0001 C CNN
-F 3 "" H 15400 3700 50  0001 C CNN
-	1    15400 3700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	15300 3700 15400 3700
-Wire Wire Line
-	14700 3700 14800 3700
-Wire Wire Line
-	15750 4050 15750 4150
-Wire Wire Line
-	15750 4150 15300 4150
-Wire Wire Line
-	15750 4250 15300 4250
-$Comp
 L power:+BATT #PWR?
 U 1 1 5BC2EFE0
-P 15750 4050
-F 0 "#PWR?" H 15750 3900 50  0001 C CNN
-F 1 "+BATT" H 15764 4225 50  0000 C CNN
-F 2 "" H 15750 4050 50  0001 C CNN
-F 3 "" H 15750 4050 50  0001 C CNN
-	1    15750 4050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5BC2EFE6
-P 14350 4050
-F 0 "#PWR?" H 14350 3900 50  0001 C CNN
-F 1 "+5V" H 14364 4225 50  0000 C CNN
-F 2 "" H 14350 4050 50  0001 C CNN
-F 3 "" H 14350 4050 50  0001 C CNN
-	1    14350 4050
+P 15600 3200
+F 0 "#PWR?" H 15600 3050 50  0001 C CNN
+F 1 "+BATT" H 15614 3375 50  0000 C CNN
+F 2 "" H 15600 3200 50  0001 C CNN
+F 3 "" H 15600 3200 50  0001 C CNN
+	1    15600 3200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	14350 4050 14350 4150
+	13100 3350 12650 3350
 Wire Wire Line
-	14350 4150 14800 4150
-$Comp
-L power:GND #PWR?
-U 1 1 5BC2EFEE
-P 14700 4250
-F 0 "#PWR?" H 14700 4000 50  0001 C CNN
-F 1 "GND" H 14704 4076 50  0000 C CNN
-F 2 "" H 14700 4250 50  0001 C CNN
-F 3 "" H 14700 4250 50  0001 C CNN
-	1    14700 4250
-	1    0    0    -1  
-$EndComp
+	13100 3450 12650 3450
 Wire Wire Line
-	14800 4250 14700 4250
+	12650 3750 13100 3750
 Wire Wire Line
-	13150 3600 12700 3600
+	13100 3850 12650 3850
 Wire Wire Line
-	14800 4800 14350 4800
+	13500 3350 13950 3350
 Wire Wire Line
-	15300 4700 15750 4700
+	13950 3450 13500 3450
 Wire Wire Line
-	15300 4800 15750 4800
+	12650 3550 13100 3550
 Wire Wire Line
-	15300 5250 15800 5250
-Wire Wire Line
-	14800 5250 14350 5250
-$Comp
-L power:GND #PWR?
-U 1 1 5BC2F001
-P 14700 5400
-F 0 "#PWR?" H 14700 5150 50  0001 C CNN
-F 1 "GND" H 14704 5226 50  0000 C CNN
-F 2 "" H 14700 5400 50  0001 C CNN
-F 3 "" H 14700 5400 50  0001 C CNN
-	1    14700 5400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BC2F007
-P 15400 5400
-F 0 "#PWR?" H 15400 5150 50  0001 C CNN
-F 1 "GND" H 15404 5226 50  0000 C CNN
-F 2 "" H 15400 5400 50  0001 C CNN
-F 3 "" H 15400 5400 50  0001 C CNN
-	1    15400 5400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	15400 5400 15400 5350
-Wire Wire Line
-	15400 5350 15300 5350
-Wire Wire Line
-	14700 5400 14700 5350
-Wire Wire Line
-	14700 5350 14800 5350
-Wire Wire Line
-	14800 4700 14350 4700
-Wire Wire Line
-	14100 4500 13650 4500
-Wire Wire Line
-	12700 4600 13150 4600
-Wire Wire Line
-	13650 4600 14100 4600
-Wire Wire Line
-	12700 4500 13150 4500
-Wire Wire Line
-	13150 3700 12700 3700
-Wire Wire Line
-	12700 4050 13150 4050
-Wire Wire Line
-	13150 4150 12700 4150
-Wire Wire Line
-	13650 4050 14100 4050
-Wire Wire Line
-	14100 4150 13650 4150
-Wire Wire Line
-	13650 3700 14100 3700
-Wire Wire Line
-	14100 3600 13650 3600
+	13100 3650 12650 3650
 Text Notes 13150 2900 0    118  ~ 0
 Conector de expansión
 Wire Notes Line
 	12500 2700 16000 2700
 Wire Notes Line
-	12500 5750 12500 2700
-$Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J?
-U 1 1 5BC2F02F
-P 13350 4050
-F 0 "J?" H 13400 4268 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 13400 4176 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 13350 4050 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/527/ssq_th-1370157.pdf" H 13350 4050 50  0001 C CNN
-F 4 "SSQ-102-03-T-D" H 13350 4050 50  0001 C CNN "Manufacturer Part Number"
-	1    13350 4050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J?
-U 1 1 5BC2F037
-P 13350 4500
-F 0 "J?" H 13400 4718 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 13400 4626 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 13350 4500 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/527/ssq_th-1370157.pdf" H 13350 4500 50  0001 C CNN
-F 4 "SSQ-102-03-T-D" H 13350 4500 50  0001 C CNN "Manufacturer Part Number"
-	1    13350 4500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J?
-U 1 1 5BC2F03F
-P 15000 3600
-F 0 "J?" H 15050 3818 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 15050 3726 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 15000 3600 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/527/ssq_th-1370157.pdf" H 15000 3600 50  0001 C CNN
-F 4 "SSQ-102-03-T-D" H 15000 3600 50  0001 C CNN "Manufacturer Part Number"
-	1    15000 3600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J?
-U 1 1 5BC2F047
-P 15000 4150
-F 0 "J?" H 15050 4368 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 15050 4276 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 15000 4150 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/527/ssq_th-1370157.pdf" H 15000 4150 50  0001 C CNN
-F 4 "SSQ-102-03-T-D" H 15000 4150 50  0001 C CNN "Manufacturer Part Number"
-	1    15000 4150
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J?
-U 1 1 5BC2F04F
-P 15000 4700
-F 0 "J?" H 15050 4918 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 15050 4826 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 15000 4700 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/527/ssq_th-1370157.pdf" H 15000 4700 50  0001 C CNN
-F 4 "SSQ-102-03-T-D" H 15000 4700 50  0001 C CNN "Manufacturer Part Number"
-	1    15000 4700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_02x02_Counter_Clockwise J?
-U 1 1 5BC2F057
-P 15000 5250
-F 0 "J?" H 15050 5468 50  0000 C CNN
-F 1 "Conn_02x02_Counter_Clockwise" H 15050 5376 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 15000 5250 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/527/ssq_th-1370157.pdf" H 15000 5250 50  0001 C CNN
-F 4 "SSQ-102-03-T-D" H 15000 5250 50  0001 C CNN "Manufacturer Part Number"
-	1    15000 5250
-	1    0    0    -1  
-$EndComp
+	12500 4350 12500 2700
 Wire Notes Line
-	16000 5750 12500 5750
+	16000 4350 12500 4350
 Wire Notes Line
 	16000 5800 12500 5800
 Wire Notes Line
-	16000 2700 16000 5750
+	16000 2700 16000 4350
 Wire Notes Line
 	16000 8050 16000 5800
-Wire Wire Line
-	15750 4250 15750 4150
-Connection ~ 15750 4150
-Text Label 12750 3600 0    50   ~ 0
+Text Label 12700 3350 0    50   ~ 0
 EXT_IO0
-Text Label 12750 3700 0    50   ~ 0
+Text Label 12700 3450 0    50   ~ 0
 EXT_IO1
-Text Label 13750 3700 0    50   ~ 0
+Text Label 12700 3550 0    50   ~ 0
 EXT_IO2
-Text Label 13750 3600 0    50   ~ 0
+Text Label 12700 3650 0    50   ~ 0
 EXT_IO3
-Text Label 12750 4050 0    50   ~ 0
+Text Label 12700 3750 0    50   ~ 0
 EXT_IO4
-Text Label 12750 4150 0    50   ~ 0
+Text Label 12700 3850 0    50   ~ 0
 EXT_IO5
-Text Label 13750 4150 0    50   ~ 0
+Text Label 13550 3350 0    50   ~ 0
 EXT_IO6
-Text Label 14400 4700 0    50   ~ 0
-EXT_SDO
-Text Label 14400 4800 0    50   ~ 0
-EXT_SDI
-Text Label 15400 4800 0    50   ~ 0
-EXT_CS
-Text Label 15400 4700 0    50   ~ 0
-EXT_SCLK
-Text Label 15400 5250 0    50   ~ 0
-SDA_EXT
-Text Label 14400 5250 0    50   ~ 0
-SCL_EXT
 Text Label 8350 5200 0    50   ~ 0
 I_SENSE_BATT
 Connection ~ 15250 9450
@@ -2768,4 +2529,145 @@ F 3 "" H 7550 7850 50  0001 C CNN
 	1    7550 7850
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector_Generic:Conn_01x06 J?
+U 1 1 5BC56A7A
+P 13300 3550
+F 0 "J?" H 12900 3150 50  0000 L CNN
+F 1 "Conn_01x06" H 12900 3050 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 13300 3550 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/527/ssw_sm-1370305.pdf" H 13300 3550 50  0001 C CNN
+F 4 "SSW-106-03-T-S" H 13300 3550 50  0001 C CNN "Manufacturer Part Number"
+	1    13300 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x06 J?
+U 1 1 5BCDDDB2
+P 14150 3550
+F 0 "J?" H 13750 3150 50  0000 L CNN
+F 1 "Conn_01x06" H 13750 3050 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 14150 3550 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/527/ssw_sm-1370305.pdf" H 14150 3550 50  0001 C CNN
+F 4 "SSW-106-03-T-S" H 14150 3550 50  0001 C CNN "Manufacturer Part Number"
+	1    14150 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13950 3550 13500 3550
+Wire Wire Line
+	13500 3650 13950 3650
+Wire Wire Line
+	13500 3750 13950 3750
+Wire Wire Line
+	13500 3850 13950 3850
+Wire Wire Line
+	14350 3350 14800 3350
+Wire Wire Line
+	14800 3450 14350 3450
+$Comp
+L Connector_Generic:Conn_01x06 J?
+U 1 1 5BDEEDE1
+P 15000 3550
+F 0 "J?" H 14600 3150 50  0000 L CNN
+F 1 "Conn_01x06" H 14600 3050 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 15000 3550 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/527/ssw_sm-1370305.pdf" H 15000 3550 50  0001 C CNN
+F 4 "SSW-106-03-T-S" H 15000 3550 50  0001 C CNN "Manufacturer Part Number"
+	1    15000 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14800 3550 14350 3550
+Wire Wire Line
+	14350 3650 14800 3650
+Wire Wire Line
+	14350 3750 14800 3750
+Wire Wire Line
+	14350 3850 14800 3850
+Text Label 14400 3350 0    50   ~ 0
+EXT_SDO
+Text Label 14400 3450 0    50   ~ 0
+EXT_SDI
+Text Label 14400 3550 0    50   ~ 0
+EXT_SCLK
+Text Label 14400 3650 0    50   ~ 0
+EXT_CS
+Text Label 14400 3750 0    50   ~ 0
+SCL_EXT
+Text Label 14400 3850 0    50   ~ 0
+SDA_EXT
+$Comp
+L Connector_Generic:Conn_01x06 J?
+U 1 1 5BE13703
+P 15850 3550
+F 0 "J?" H 15450 3150 50  0000 L CNN
+F 1 "Conn_01x06" H 15450 3050 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 15850 3550 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/527/ssw_sm-1370305.pdf" H 15850 3550 50  0001 C CNN
+F 4 "SSW-106-03-T-S" H 15850 3550 50  0001 C CNN "Manufacturer Part Number"
+	1    15850 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	15600 3200 15600 3350
+Wire Wire Line
+	15600 3350 15650 3350
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5BE5CE22
+P 15350 3200
+F 0 "#PWR?" H 15350 3050 50  0001 C CNN
+F 1 "+3V3" H 15364 3375 50  0000 C CNN
+F 2 "" H 15350 3200 50  0001 C CNN
+F 3 "" H 15350 3200 50  0001 C CNN
+	1    15350 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	15350 3200 15350 3450
+Wire Wire Line
+	15350 3450 15650 3450
+$Comp
+L power:+5V #PWR?
+U 1 1 5BE813DA
+P 15150 3200
+F 0 "#PWR?" H 15150 3050 50  0001 C CNN
+F 1 "+5V" H 15164 3375 50  0000 C CNN
+F 2 "" H 15150 3200 50  0001 C CNN
+F 3 "" H 15150 3200 50  0001 C CNN
+	1    15150 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	15150 3200 15150 3550
+Wire Wire Line
+	15150 3550 15650 3550
+$Comp
+L power:GND #PWR?
+U 1 1 5BEA5E64
+P 15350 4050
+F 0 "#PWR?" H 15350 3800 50  0001 C CNN
+F 1 "GND" H 15354 3876 50  0000 C CNN
+F 2 "" H 15350 4050 50  0001 C CNN
+F 3 "" H 15350 4050 50  0001 C CNN
+	1    15350 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	15650 3650 15600 3650
+Wire Wire Line
+	15350 3650 15350 4050
+Wire Wire Line
+	15650 3750 15600 3750
+Wire Wire Line
+	15600 3750 15600 3650
+Connection ~ 15600 3650
+Wire Wire Line
+	15600 3650 15350 3650
+Wire Wire Line
+	15650 3850 15600 3850
+Wire Wire Line
+	15600 3850 15600 3750
+Connection ~ 15600 3750
 $EndSCHEMATC
