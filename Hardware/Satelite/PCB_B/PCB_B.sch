@@ -1,8 +1,7 @@
 EESchema Schematic File Version 4
-LIBS:PCB_B-cache
 EELAYER 26 0
 EELAYER END
-$Descr A3 16535 11693
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 1 6
 Title ""
@@ -14,98 +13,398 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L Connector_Generic:Conn_01x10 J?
+U 1 1 5BC0F04F
+P 9300 1750
+F 0 "J?" H 9379 1742 50  0000 L CNN
+F 1 "Conn_01x10" H 9379 1650 50  0000 L CNN
+F 2 "Connector_PinHeader_1.27mm:PinHeader_1x10_P1.27mm_Vertical" H 9300 1750 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/M50-353-1100851.pdf" H 9300 1750 50  0001 C CNN
+F 4 "M50-3531042" H 9300 1750 50  0001 C CNN "Manufacturer Part Number"
+	1    9300 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+BATT #PWR?
+U 1 1 5BC0F0ED
+P 4650 1400
+F 0 "#PWR?" H 4650 1250 50  0001 C CNN
+F 1 "+BATT" H 4664 1575 50  0000 C CNN
+F 2 "" H 4650 1400 50  0001 C CNN
+F 3 "" H 4650 1400 50  0001 C CNN
+	1    4650 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9000 1450 9100 1450
+Wire Wire Line
+	9100 1350 9000 1350
+Wire Wire Line
+	9000 1350 9000 1450
+$Comp
+L power:GND #PWR?
+U 1 1 5BC0F134
+P 8450 1650
+F 0 "#PWR?" H 8450 1400 50  0001 C CNN
+F 1 "GND" H 8454 1476 50  0000 C CNN
+F 2 "" H 8450 1650 50  0001 C CNN
+F 3 "" H 8450 1650 50  0001 C CNN
+	1    8450 1650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9100 1550 9000 1550
+Wire Wire Line
+	9100 1650 9000 1650
+Wire Wire Line
+	9000 1650 9000 1550
+Connection ~ 9000 1550
+Wire Wire Line
+	9000 1550 8450 1550
+Wire Wire Line
+	9100 1750 8700 1750
+Wire Wire Line
+	9100 1850 8700 1850
+Wire Wire Line
+	9100 1950 8700 1950
+Wire Wire Line
+	9100 2050 8700 2050
+Wire Wire Line
+	9100 2150 8700 2150
+Wire Wire Line
+	9100 2250 8500 2250
+Text Label 8750 1750 0    50   ~ 0
+SDO
+Text Label 8750 1850 0    50   ~ 0
+SDI
+Text Label 8750 1950 0    50   ~ 0
+CS
+Text Label 8750 2050 0    50   ~ 0
+SCLK
+Text Label 8750 2150 0    50   ~ 0
+S_GLOBO
+Text Label 8550 2250 0    50   ~ 0
+S_PARACAIDAS
+$Comp
+L Connector_Generic:Conn_01x10 J?
+U 1 1 5BC0FB95
+P 10400 1750
+F 0 "J?" H 10479 1742 50  0000 L CNN
+F 1 "Conn_01x10" H 10479 1650 50  0000 L CNN
+F 2 "Connector_PinHeader_1.27mm:PinHeader_1x10_P1.27mm_Vertical" H 10400 1750 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/M50-353-1100851.pdf" H 10400 1750 50  0001 C CNN
+F 4 "M50-3531042" H 10400 1750 50  0001 C CNN "Manufacturer Part Number"
+	1    10400 1750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10200 1350 9800 1350
+Wire Wire Line
+	10200 1450 9800 1450
+Text Label 9850 1350 0    50   ~ 0
+GPS_TX
+Text Label 9850 1450 0    50   ~ 0
+P1
+Wire Notes Line
+	8100 550  11150 550 
+Wire Notes Line
+	11150 550  11150 2400
+Wire Notes Line
+	11150 2400 8100 2400
+Wire Notes Line
+	8100 2400 8100 550 
+Text Notes 8700 750  0    118  ~ 0
+Conectores a PCB_A
+Wire Wire Line
+	8450 1550 8450 1650
 $Sheet
-S 1250 1200 500  200 
-U 5BB122CA
-F0 "Sensor temperatura y humedad" 50
-F1 "Sensor temperatura y humedad.sch" 50
-$EndSheet
-Text HLabel 1750 1350 0    50   Input ~ 0
-SCL
-Text HLabel 1750 1250 0    50   BiDi ~ 0
-SDA
-$Sheet
-S 1250 1750 500  200 
-U 5BB12371
-F0 "Sensor presión" 50
-F1 "Sensor presión.sch" 50
-$EndSheet
-Text HLabel 1750 1800 0    50   BiDi ~ 0
-SDA
-Text HLabel 1750 1900 0    50   Input ~ 0
-SCL
-$Sheet
-S 1250 2300 500  550 
-U 5BB123AC
-F0 "IMU" 50
-F1 "IMU.sch" 50
-$EndSheet
-Text HLabel 1750 2350 0    50   BiDi ~ 0
-SDA
-Text HLabel 1750 2450 0    50   Input ~ 0
-SCL
-Text HLabel 1750 2600 0    50   Output ~ 0
-ACC_INT
-Text HLabel 1750 2700 0    50   Output ~ 0
-MAG_INT
-Text HLabel 1750 2800 0    50   Output ~ 0
-GYRO_INT
-$Sheet
-S 1350 8150 550  650 
-U 5BB6C3A1
+S 5800 4050 550  600 
+U 5BC13C37
 F0 "Power 3V3" 50
 F1 "Power 3V3.sch" 50
-F2 "VBAT" I R 1900 8250 50 
-F3 "3V3" O R 1900 8750 50 
-F4 "CTRL" I R 1900 8350 50 
-F5 "ISENSE" O R 1900 8550 50 
-F6 "VSENSE" O R 1900 8650 50 
+F2 "VBAT" I R 6350 4150 50 
+F3 "ISENSE" O R 6350 4350 50 
+F4 "VSENSE" O R 6350 4450 50 
+F5 "3V3" O R 6350 4550 50 
 $EndSheet
 $Sheet
-S 1350 9100 550  650 
-U 5BB6C83B
+S 5800 3050 550  600 
+U 5BC14C3C
 F0 "Power 5V" 50
 F1 "Power 5V.sch" 50
-F2 "VBAT" I R 1900 9200 50 
-F3 "CTRL" I R 1900 9300 50 
-F4 "5V" I R 1900 9700 50 
-F5 "ISENSE" O R 1900 9500 50 
-F6 "VSENSE" O R 1900 9600 50 
+F2 "VBAT" I R 6350 3150 50 
+F3 "ISENSE" O R 6350 3350 50 
+F4 "VSENSE" O R 6350 3450 50 
+F5 "5V" O R 6350 3550 50 
 $EndSheet
+$Comp
+L power:+BATT #PWR?
+U 1 1 5BC15FE9
+P 7300 3050
+F 0 "#PWR?" H 7300 2900 50  0001 C CNN
+F 1 "+BATT" H 7314 3225 50  0000 C CNN
+F 2 "" H 7300 3050 50  0001 C CNN
+F 3 "" H 7300 3050 50  0001 C CNN
+	1    7300 3050
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	1750 1250 2100 1250
+	7300 3050 7300 3150
 Wire Wire Line
-	1750 1350 2200 1350
+	7300 3150 7300 4150
+Connection ~ 7300 3150
 Wire Wire Line
-	1750 1800 2100 1800
+	6350 3150 7300 3150
 Wire Wire Line
-	2100 1800 2100 1250
-Connection ~ 2100 1250
+	6350 4150 7300 4150
 Wire Wire Line
-	2100 1250 2950 1250
+	6350 3350 7000 3350
 Wire Wire Line
-	1750 1900 2200 1900
+	6350 3450 7000 3450
 Wire Wire Line
-	2200 1900 2200 1350
-Connection ~ 2200 1350
+	6350 4350 7000 4350
 Wire Wire Line
-	2200 1350 2950 1350
+	6350 4450 7000 4450
+Text Label 6450 3350 0    50   ~ 0
+I_SENSE_5V
+Text Label 6450 3450 0    50   ~ 0
+V_SENSE_5V
+Text Label 6450 4350 0    50   ~ 0
+I_SENSE_3V3
+Text Label 6450 4450 0    50   ~ 0
+V_SENSE_3V3
+$Comp
+L power:+5V #PWR?
+U 1 1 5BC19990
+P 7150 3450
+F 0 "#PWR?" H 7150 3300 50  0001 C CNN
+F 1 "+5V" H 7164 3625 50  0000 C CNN
+F 2 "" H 7150 3450 50  0001 C CNN
+F 3 "" H 7150 3450 50  0001 C CNN
+	1    7150 3450
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	1750 2350 2100 2350
+	7150 3450 7150 3550
 Wire Wire Line
-	2100 2350 2100 1800
-Connection ~ 2100 1800
+	7150 3550 6350 3550
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5BC19E91
+P 7150 4450
+F 0 "#PWR?" H 7150 4300 50  0001 C CNN
+F 1 "+3V3" H 7164 4625 50  0000 C CNN
+F 2 "" H 7150 4450 50  0001 C CNN
+F 3 "" H 7150 4450 50  0001 C CNN
+	1    7150 4450
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	1750 2450 2200 2450
+	7150 4450 7150 4550
 Wire Wire Line
-	2200 2450 2200 1900
-Connection ~ 2200 1900
-Text Label 2750 1250 0    50   ~ 0
-SDA
-Text Label 2750 1350 0    50   ~ 0
-SCL
+	6350 4550 7150 4550
+Text Notes 6000 2650 0    118  ~ 0
+Reguladores
+$Comp
+L AXTEC_IC:+3V3_Internal #PWR?
+U 1 1 5BC1A978
+P 10550 5600
+AR Path="/5BB6C3A1/5BC1A978" Ref="#PWR?"  Part="1" 
+AR Path="/5BB6C83B/5BC1A978" Ref="#PWR?"  Part="1" 
+AR Path="/5BC14C3C/5BC1A978" Ref="#PWR?"  Part="1" 
+AR Path="/5BC1A978" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 10550 6000 50  0001 C CNN
+F 1 "+3V3_Internal" H 10535 5773 50  0000 C CNN
+F 2 "" H 10550 5600 50  0001 C CNN
+F 3 "" H 10550 5600 50  0001 C CNN
+	1    10550 5600
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	5000 2450 8050 2450
+Wire Notes Line
+	8050 2450 8050 4850
+Wire Notes Line
+	8050 4850 5000 4850
+Wire Notes Line
+	5000 4850 5000 2450
+$Comp
+L SamacSys_Parts:MIC5323-3.3YD5_TR U?
+U 1 1 5BC1C484
+P 9600 5750
+F 0 "U?" H 9600 6067 50  0000 C CNN
+F 1 "MIC5323-3.3YD5_TR" H 9600 5975 50  0000 C CNN
+F 2 "SOT95P280X100-5N" H 10550 5850 50  0001 L CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf" H 10550 5750 50  0001 L CNN
+F 4 "Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23" H 10550 5650 50  0001 L CNN "Description"
+F 5 "1" H 10550 5550 50  0001 L CNN "Height"
+F 6 "Micrel" H 10550 5450 50  0001 L CNN "Manufacturer_Name"
+F 7 "MIC5323-3.3YD5 TR" H 10550 5350 50  0001 L CNN "Manufacturer Part Number"
+F 8 "8855996P" H 10550 5250 50  0001 L CNN "RS Part Number"
+F 9 "http://uk.rs-online.com/web/p/products/8855996P" H 10550 5150 50  0001 L CNN "RS Price/Stock"
+F 10 "MIC5323-3.3YD5 TR" H 10550 5050 50  0001 L CNN "Arrow Part Number"
+F 11 "http://uk.rs-online.com/web/p/products/8855996P" H 10550 4950 50  0001 L CNN "Arrow Price/Stock"
+	1    9600 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5BC1C6A8
+P 8600 6000
+AR Path="/5BB122CA/5BC1C6A8" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5BC1C6A8" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5BC1C6A8" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5BC1C6A8" Ref="C?"  Part="1" 
+AR Path="/5BB6C83B/5BC1C6A8" Ref="C?"  Part="1" 
+AR Path="/5BC14C3C/5BC1C6A8" Ref="C?"  Part="1" 
+AR Path="/5BC1C6A8" Ref="C?"  Part="1" 
+F 0 "C?" H 8508 5954 50  0000 R CNN
+F 1 "2.2uF" H 8508 6045 50  0000 R CNN
+F 2 "" H 8600 6000 50  0001 C CNN
+F 3 "~" H 8600 6000 50  0001 C CNN
+F 4 "10V" H 8600 6000 50  0001 C CNN "Voltage"
+	1    8600 6000
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:+BATT #PWR?
+U 1 1 5BC1CAF8
+P 8600 5600
+F 0 "#PWR?" H 8600 5450 50  0001 C CNN
+F 1 "+BATT" H 8614 5775 50  0000 C CNN
+F 2 "" H 8600 5600 50  0001 C CNN
+F 3 "" H 8600 5600 50  0001 C CNN
+	1    8600 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8600 5600 8600 5700
+Wire Wire Line
+	8600 5700 9150 5700
+Wire Wire Line
+	8600 5900 8600 5700
+Connection ~ 8600 5700
+$Comp
+L power:GND #PWR?
+U 1 1 5BC1D4AF
+P 8600 6200
+F 0 "#PWR?" H 8600 5950 50  0001 C CNN
+F 1 "GND" H 8604 6026 50  0000 C CNN
+F 2 "" H 8600 6200 50  0001 C CNN
+F 3 "" H 8600 6200 50  0001 C CNN
+	1    8600 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8600 6200 8600 6100
+Wire Wire Line
+	9150 5800 9200 5800
+Wire Wire Line
+	9150 5800 9150 5700
+Connection ~ 9150 5700
+Wire Wire Line
+	9150 5700 9200 5700
+$Comp
+L power:GND #PWR?
+U 1 1 5BC1E4A2
+P 9600 6200
+F 0 "#PWR?" H 9600 5950 50  0001 C CNN
+F 1 "GND" H 9604 6026 50  0000 C CNN
+F 2 "" H 9600 6200 50  0001 C CNN
+F 3 "" H 9600 6200 50  0001 C CNN
+	1    9600 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9600 6000 9600 6200
+$Comp
+L Device:C_Small C?
+U 1 1 5BC1EB06
+P 10550 6050
+AR Path="/5BB122CA/5BC1EB06" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5BC1EB06" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5BC1EB06" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5BC1EB06" Ref="C?"  Part="1" 
+AR Path="/5BB6C83B/5BC1EB06" Ref="C?"  Part="1" 
+AR Path="/5BC14C3C/5BC1EB06" Ref="C?"  Part="1" 
+AR Path="/5BC1EB06" Ref="C?"  Part="1" 
+F 0 "C?" H 10458 6004 50  0000 R CNN
+F 1 "2.2uF" H 10458 6095 50  0000 R CNN
+F 2 "" H 10550 6050 50  0001 C CNN
+F 3 "~" H 10550 6050 50  0001 C CNN
+F 4 "10V" H 10550 6050 50  0001 C CNN "Voltage"
+	1    10550 6050
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	10550 5600 10550 5700
+Wire Wire Line
+	10550 5700 10000 5700
+Wire Wire Line
+	10550 5700 10550 5950
+Connection ~ 10550 5700
+$Comp
+L power:GND #PWR?
+U 1 1 5BC1FF7A
+P 10550 6200
+F 0 "#PWR?" H 10550 5950 50  0001 C CNN
+F 1 "GND" H 10554 6026 50  0000 C CNN
+F 2 "" H 10550 6200 50  0001 C CNN
+F 3 "" H 10550 6200 50  0001 C CNN
+	1    10550 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10550 6150 10550 6200
+$Comp
+L Device:C_Small C?
+U 1 1 5BC2066B
+P 10100 6050
+AR Path="/5BB122CA/5BC2066B" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5BC2066B" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5BC2066B" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5BC2066B" Ref="C?"  Part="1" 
+AR Path="/5BB6C83B/5BC2066B" Ref="C?"  Part="1" 
+AR Path="/5BC14C3C/5BC2066B" Ref="C?"  Part="1" 
+AR Path="/5BC2066B" Ref="C?"  Part="1" 
+F 0 "C?" H 10008 6004 50  0000 R CNN
+F 1 "100nF" H 10008 6095 50  0000 R CNN
+F 2 "" H 10100 6050 50  0001 C CNN
+F 3 "~" H 10100 6050 50  0001 C CNN
+F 4 "10V" H 10100 6050 50  0001 C CNN "Voltage"
+	1    10100 6050
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	10000 5800 10100 5800
+Wire Wire Line
+	10100 5800 10100 5950
+$Comp
+L power:GND #PWR?
+U 1 1 5BC20E11
+P 10100 6200
+F 0 "#PWR?" H 10100 5950 50  0001 C CNN
+F 1 "GND" H 10104 6026 50  0000 C CNN
+F 2 "" H 10100 6200 50  0001 C CNN
+F 3 "" H 10100 6200 50  0001 C CNN
+	1    10100 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10100 6150 10100 6200
+Wire Notes Line
+	8100 4900 11150 4900
+Wire Notes Line
+	11150 4900 11150 6500
+Wire Notes Line
+	11150 6500 8100 6500
+Wire Notes Line
+	8100 6500 8100 4900
+Text Notes 8850 5150 0    118  ~ 0
+Regulador Interno
 $Bitmap
-Pos 12950 10250
+Pos 8100 6800
 Scale 1.000000
 Data
 89 50 4E 47 0D 0A 1A 0A 00 00 00 0D 49 48 44 52 00 00 02 71 00 00 00 AA 08 06 00 00 00 C2 EB 19 
@@ -195,2671 +494,341 @@ D2 F7 FD DA 6B 00 00 60 22 3B 71 00 00 09 09 71 00 00 09 09 71 00 00 09 09 71 00
 09 71 00 00 09 FD 17 3C 6D 9D 90 5F F2 D3 C3 00 00 00 00 49 45 4E 44 AE 42 60 82 
 EndData
 $EndBitmap
-$Comp
-L Device:C_Small C?
-U 1 1 5BB76226
-P 800 10500
-AR Path="/5BB122CA/5BB76226" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BB76226" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BB76226" Ref="C?"  Part="1" 
-AR Path="/5BB76226" Ref="C?"  Part="1" 
-F 0 "C?" H 708 10454 50  0000 R CNN
-F 1 "1uF" H 708 10545 50  0000 R CNN
-F 2 "" H 800 10500 50  0001 C CNN
-F 3 "~" H 800 10500 50  0001 C CNN
-	1    800  10500
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
-	800  10350 800  10400
-$Comp
-L power:GND #PWR?
-U 1 1 5BB772C4
-P 800 10800
-F 0 "#PWR?" H 800 10550 50  0001 C CNN
-F 1 "GND" H 805 10627 50  0000 C CNN
-F 2 "" H 800 10800 50  0001 C CNN
-F 3 "" H 800 10800 50  0001 C CNN
-	1    800  10800
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BB772E6
-P 1900 10800
-F 0 "#PWR?" H 1900 10550 50  0001 C CNN
-F 1 "GND" H 1905 10627 50  0000 C CNN
-F 2 "" H 1900 10800 50  0001 C CNN
-F 3 "" H 1900 10800 50  0001 C CNN
-	1    1900 10800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	800  10800 800  10600
-$Comp
-L Device:C_Small C?
-U 1 1 5BB79007
-P 2700 10600
-AR Path="/5BB122CA/5BB79007" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BB79007" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BB79007" Ref="C?"  Part="1" 
-AR Path="/5BB79007" Ref="C?"  Part="1" 
-F 0 "C?" H 2608 10554 50  0000 R CNN
-F 1 "100nF" H 2608 10645 50  0000 R CNN
-F 2 "" H 2700 10600 50  0001 C CNN
-F 3 "~" H 2700 10600 50  0001 C CNN
-	1    2700 10600
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BB79C3E
-P 2700 10800
-F 0 "#PWR?" H 2700 10550 50  0001 C CNN
-F 1 "GND" H 2705 10627 50  0000 C CNN
-F 2 "" H 2700 10800 50  0001 C CNN
-F 3 "" H 2700 10800 50  0001 C CNN
-	1    2700 10800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2700 10700 2700 10800
-$Comp
-L Device:C_Small C?
-U 1 1 5BB7D925
-P 3150 10500
-AR Path="/5BB122CA/5BB7D925" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BB7D925" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BB7D925" Ref="C?"  Part="1" 
-AR Path="/5BB7D925" Ref="C?"  Part="1" 
-F 0 "C?" H 3058 10454 50  0000 R CNN
-F 1 "1uF" H 3058 10545 50  0000 R CNN
-F 2 "" H 3150 10500 50  0001 C CNN
-F 3 "~" H 3150 10500 50  0001 C CNN
-	1    3150 10500
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	3150 10400 3150 10350
-$Comp
-L power:GND #PWR?
-U 1 1 5BB7E63C
-P 3150 10800
-F 0 "#PWR?" H 3150 10550 50  0001 C CNN
-F 1 "GND" H 3155 10627 50  0000 C CNN
-F 2 "" H 3150 10800 50  0001 C CNN
-F 3 "" H 3150 10800 50  0001 C CNN
-	1    3150 10800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3150 10800 3150 10600
-$Comp
-L power:+BATT #PWR?
-U 1 1 5BB7F55C
-P 13300 1350
-F 0 "#PWR?" H 13300 1200 50  0001 C CNN
-F 1 "+BATT" H 13315 1523 50  0000 C CNN
-F 2 "" H 13300 1350 50  0001 C CNN
-F 3 "" H 13300 1350 50  0001 C CNN
-	1    13300 1350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VBUS #PWR?
-U 1 1 5BB802DA
-P 13000 1350
-F 0 "#PWR?" H 13000 1200 50  0001 C CNN
-F 1 "VBUS" H 13015 1523 50  0000 C CNN
-F 2 "" H 13000 1350 50  0001 C CNN
-F 3 "" H 13000 1350 50  0001 C CNN
-	1    13000 1350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+BATT #PWR?
-U 1 1 5BB81112
-P 800 10200
-F 0 "#PWR?" H 800 10050 50  0001 C CNN
-F 1 "+BATT" H 815 10373 50  0000 C CNN
-F 2 "" H 800 10200 50  0001 C CNN
-F 3 "" H 800 10200 50  0001 C CNN
-	1    800  10200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	800  10200 800  10350
-Connection ~ 800  10350
-Wire Wire Line
-	3150 10250 3150 10350
-Connection ~ 3150 10350
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5BBB29E5
-P 3150 10250
-F 0 "#PWR?" H 3150 10650 50  0001 C CNN
-F 1 "+3V3_Internal" H 3135 10423 50  0000 C CNN
-F 2 "" H 3150 10250 50  0001 C CNN
-F 3 "" H 3150 10250 50  0001 C CNN
-	1    3150 10250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:USB_B_Micro J?
-U 1 1 5BBBF74C
-P 15200 9000
-F 0 "J?" H 14971 8991 50  0000 R CNN
-F 1 "USB_B_Micro" H 14971 8900 50  0000 R CNN
-F 2 "" H 15350 8950 50  0001 C CNN
-F 3 "~" H 15350 8950 50  0001 C CNN
-	1    15200 9000
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:VBUS #PWR?
-U 1 1 5BBBFAE6
-P 14600 8750
-F 0 "#PWR?" H 14600 8600 50  0001 C CNN
-F 1 "VBUS" H 14615 8923 50  0000 C CNN
-F 2 "" H 14600 8750 50  0001 C CNN
-F 3 "" H 14600 8750 50  0001 C CNN
-	1    14600 8750
-	1    0    0    -1  
-$EndComp
-Text Label 12550 8900 0    50   ~ 0
-D+
-Text Label 12550 8800 0    50   ~ 0
-D-
-$Comp
-L power:GND #PWR?
-U 1 1 5BBC2A6C
-P 15250 9500
-F 0 "#PWR?" H 15250 9250 50  0001 C CNN
-F 1 "GND" H 15255 9327 50  0000 C CNN
-F 2 "" H 15250 9500 50  0001 C CNN
-F 3 "" H 15250 9500 50  0001 C CNN
-	1    15250 9500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+BATT #PWR?
-U 1 1 5BBC6037
-P 2750 8100
-F 0 "#PWR?" H 2750 7950 50  0001 C CNN
-F 1 "+BATT" H 2765 8273 50  0000 C CNN
-F 2 "" H 2750 8100 50  0001 C CNN
-F 3 "" H 2750 8100 50  0001 C CNN
-	1    2750 8100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2750 8100 2750 8250
-Wire Wire Line
-	2750 8250 1900 8250
-Wire Wire Line
-	2750 8250 2750 9200
-Wire Wire Line
-	2750 9200 1900 9200
-Connection ~ 2750 8250
-Wire Wire Line
-	1900 8350 2400 8350
-Wire Wire Line
-	1900 9300 2400 9300
-Text Label 1950 8350 0    50   ~ 0
-3V_ENABLE
-Text Label 1950 9300 0    50   ~ 0
-5V_ENABLE
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5BBCDAF6
-P 14300 1350
-F 0 "#PWR?" H 14300 1750 50  0001 C CNN
-F 1 "+3V3_Internal" H 14285 1523 50  0000 C CNN
-F 2 "" H 14300 1350 50  0001 C CNN
-F 3 "" H 14300 1350 50  0001 C CNN
-	1    14300 1350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1900 8550 2400 8550
-Wire Wire Line
-	1900 9500 2400 9500
-Text Label 1950 8550 0    50   ~ 0
-3V_I_SENSE
-Text Label 1950 9500 0    50   ~ 0
-5V_I_SENSE
-$Comp
-L power:+3V3 #PWR?
-U 1 1 5BBD6A6C
-P 2600 8550
-F 0 "#PWR?" H 2600 8400 50  0001 C CNN
-F 1 "+3V3" H 2615 8723 50  0000 C CNN
-F 2 "" H 2600 8550 50  0001 C CNN
-F 3 "" H 2600 8550 50  0001 C CNN
-	1    2600 8550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1900 8750 2600 8750
-Wire Wire Line
-	2600 8750 2600 8550
-$Comp
-L power:+5V #PWR?
-U 1 1 5BBD82EE
-P 2600 9500
-F 0 "#PWR?" H 2600 9350 50  0001 C CNN
-F 1 "+5V" H 2615 9673 50  0000 C CNN
-F 2 "" H 2600 9500 50  0001 C CNN
-F 3 "" H 2600 9500 50  0001 C CNN
-	1    2600 9500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2600 9500 2600 9700
-Wire Wire Line
-	1900 9700 2600 9700
-Wire Wire Line
-	14900 9100 14350 9100
-Wire Wire Line
-	14350 9000 14900 9000
-Wire Wire Line
-	15200 9400 15200 9500
-Wire Wire Line
-	15200 9500 15250 9500
-Wire Wire Line
-	15300 9400 15300 9500
-Wire Wire Line
-	15300 9500 15250 9500
-Connection ~ 15250 9500
-$Comp
-L SamacSys_Parts:BQ24392RSER IC?
-U 1 1 5BBE8A84
-P 12850 8800
-F 0 "IC?" H 13600 9065 50  0000 C CNN
-F 1 "BQ24392RSER" H 13600 8974 50  0000 C CNN
-F 2 "RSE(R-PUQFN-N10)" H 14200 8900 50  0001 L CNN
-F 3 "http://www.ti.com/lit/gpn/bq24392" H 14200 8800 50  0001 L CNN
-F 4 "SPST USB 2.0 High-Speed Switch With Battery Charging Detection" H 14200 8700 50  0001 L CNN "Description"
-F 5 "Texas Instruments" H 14200 8500 50  0001 L CNN "Manufacturer_Name"
-F 6 "BQ24392RSER" H 14200 8400 50  0001 L CNN "Manufacturer Part Number"
-F 7 "8279327P" H 14200 8300 50  0001 L CNN "RS Part Number"
-F 8 "http://uk.rs-online.com/web/p/products/8279327P" H 14200 8200 50  0001 L CNN "RS Price/Stock"
-F 9 "BQ24392RSER" H 14200 8100 50  0001 L CNN "Arrow Part Number"
-F 10 "https://www.arrow.com/en/products/bq24392rser/texas-instruments" H 14200 8000 50  0001 L CNN "Arrow Price/Stock"
-	1    12850 8800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	14350 8800 14600 8800
-Wire Wire Line
-	14600 8750 14600 8800
-Connection ~ 14600 8800
-Wire Wire Line
-	14600 8800 14900 8800
-$Comp
-L power:GND #PWR?
-U 1 1 5BBEBEBA
-P 14500 9500
-F 0 "#PWR?" H 14500 9250 50  0001 C CNN
-F 1 "GND" H 14505 9327 50  0000 C CNN
-F 2 "" H 14500 9500 50  0001 C CNN
-F 3 "" H 14500 9500 50  0001 C CNN
-	1    14500 9500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	14350 9300 14500 9300
-Wire Wire Line
-	14500 9300 14500 9500
-Wire Wire Line
-	12850 8800 12500 8800
-Wire Wire Line
-	12500 8900 12850 8900
-Wire Wire Line
-	12850 9000 12250 9000
-Wire Wire Line
-	12850 9100 12250 9100
-Wire Wire Line
-	12850 9300 12250 9300
-Text Label 12300 9000 0    50   ~ 0
-CHG_DETECT
-Text Label 12300 9100 0    50   ~ 0
-CHG_ALLOWED
-$Comp
-L power:VBUS #PWR?
-U 1 1 5BC0A264
-P 12100 8750
-F 0 "#PWR?" H 12100 8600 50  0001 C CNN
-F 1 "VBUS" H 12115 8923 50  0000 C CNN
-F 2 "" H 12100 8750 50  0001 C CNN
-F 3 "" H 12100 8750 50  0001 C CNN
-	1    12100 8750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	12100 8750 12100 9200
-Wire Wire Line
-	12100 9200 12850 9200
-Text Label 12300 9300 0    50   ~ 0
-SW_OPEN
-Wire Notes Line
-	11900 8100 16000 8100
-Wire Notes Line
-	16000 8100 16000 9800
-Wire Notes Line
-	16000 9800 11900 9800
-Wire Notes Line
-	11900 9800 11900 8100
-Text Notes 12550 8350 0    118  ~ 0
-USB y detección de cargador
-Wire Notes Line
-	550  11150 3550 11150
-Wire Notes Line
-	3550 11150 3550 7300
-Wire Notes Line
-	3550 7300 550  7300
-Wire Notes Line
-	550  7300 550  11150
-Text Notes 650  7650 0    118  ~ 0
-Alimentación externa e interna
-Wire Notes Line
-	12500 2550 16000 2550
-Wire Notes Line
-	16000 2550 16000 550 
-Wire Notes Line
-	16000 550  12500 550 
-Wire Notes Line
-	12500 550  12500 2550
-Text Notes 13250 850  0    118  ~ 0
-Conectores para PCB_A
-Wire Notes Line
-	550  3050 3550 3050
-Wire Notes Line
-	3550 3050 3550 550 
-Wire Notes Line
-	3550 550  550  550 
-Wire Notes Line
-	550  550  550  3050
-Text Notes 1600 850  0    118  ~ 0
-Sensores
-$Comp
-L SamacSys_Parts:MCP1501T-33E_CHY IC?
-U 1 1 5BC3E089
-P 2700 6550
-F 0 "IC?" H 3300 6816 50  0000 C CNN
-F 1 "MCP1501T-33E_CHY" H 3300 6724 50  0000 C CNN
-F 2 "SOT95P270X145-6N" H 3750 6650 50  0001 L CNN
-F 3 "https://componentsearchengine.com/Datasheets/1/MCP1501T-33E_CHY.pdf" H 3750 6550 50  0001 L CNN
-F 4 "Voltage References Precision Buffered Voltage Reference" H 3750 6450 50  0001 L CNN "Description"
-F 5 "1.45" H 3750 6350 50  0001 L CNN "Height"
-F 6 "Microchip" H 3750 6250 50  0001 L CNN "Manufacturer_Name"
-F 7 "MCP1501T-33E/CHY" H 3750 6150 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "MCP1501T-33E/CHY" H 3750 5850 50  0001 L CNN "Arrow Part Number"
-F 9 "https://www.arrow.com/en/products/mcp1501t-33echy/microchip-technology" H 3750 5750 50  0001 L CNN "Arrow Price/Stock"
-	1    2700 6550
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5BC3E35C
-P 1150 6700
-AR Path="/5BB122CA/5BC3E35C" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BC3E35C" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BC3E35C" Ref="C?"  Part="1" 
-AR Path="/5BC3E35C" Ref="C?"  Part="1" 
-F 0 "C?" H 1058 6654 50  0000 R CNN
-F 1 "1uF" H 1058 6745 50  0000 R CNN
-F 2 "" H 1150 6700 50  0001 C CNN
-F 3 "~" H 1150 6700 50  0001 C CNN
-	1    1150 6700
-	1    0    0    1   
-$EndComp
-$Comp
-L power:+BATT #PWR?
-U 1 1 5BC3E6F0
-P 1150 6450
-F 0 "#PWR?" H 1150 6300 50  0001 C CNN
-F 1 "+BATT" H 1165 6623 50  0000 C CNN
-F 2 "" H 1150 6450 50  0001 C CNN
-F 3 "" H 1150 6450 50  0001 C CNN
-	1    1150 6450
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	1150 6550 1150 6450
-Wire Wire Line
-	1150 6600 1150 6550
-Connection ~ 1150 6550
-$Comp
-L power:GND #PWR?
-U 1 1 5BC4278A
-P 1150 6850
-F 0 "#PWR?" H 1150 6600 50  0001 C CNN
-F 1 "GND" H 1155 6677 50  0000 C CNN
-F 2 "" H 1150 6850 50  0001 C CNN
-F 3 "" H 1150 6850 50  0001 C CNN
-	1    1150 6850
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	1150 6800 1150 6850
-Wire Wire Line
-	1500 6550 1400 6550
-Wire Wire Line
-	1500 6650 1400 6650
-Wire Wire Line
-	1400 6650 1400 6550
-Connection ~ 1400 6550
-Wire Wire Line
-	1400 6550 1150 6550
-$Comp
-L power:GND #PWR?
-U 1 1 5BC4AB0B
-P 1400 6850
-F 0 "#PWR?" H 1400 6600 50  0001 C CNN
-F 1 "GND" H 1405 6677 50  0000 C CNN
-F 2 "" H 1400 6850 50  0001 C CNN
-F 3 "" H 1400 6850 50  0001 C CNN
-	1    1400 6850
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	1500 6750 1400 6750
-Wire Wire Line
-	1400 6750 1400 6850
-$Comp
-L power:GND #PWR?
-U 1 1 5BC4CEB3
-P 2800 6850
-F 0 "#PWR?" H 2800 6600 50  0001 C CNN
-F 1 "GND" H 2805 6677 50  0000 C CNN
-F 2 "" H 2800 6850 50  0001 C CNN
-F 3 "" H 2800 6850 50  0001 C CNN
-	1    2800 6850
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	2800 6650 2800 6750
-Wire Wire Line
-	2800 6650 2700 6650
-Wire Wire Line
-	2700 6750 2800 6750
-Connection ~ 2800 6750
-Wire Wire Line
-	2800 6750 2800 6850
-$Comp
-L power:GND #PWR?
-U 1 1 5BC608AD
-P 7550 5950
-F 0 "#PWR?" H 7550 5700 50  0001 C CNN
-F 1 "GND" H 7554 5776 50  0000 C CNN
-F 2 "" H 7550 5950 50  0001 C CNN
-F 3 "" H 7550 5950 50  0001 C CNN
-	1    7550 5950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7350 5750 7350 5900
-Wire Wire Line
-	7350 5900 7450 5900
-Wire Wire Line
-	7450 5750 7450 5900
-Connection ~ 7450 5900
-Wire Wire Line
-	7550 5750 7550 5900
-Wire Wire Line
-	7650 5750 7650 5900
-Wire Wire Line
-	7650 5900 7550 5900
-Connection ~ 7550 5900
-Wire Wire Line
-	7750 5750 7750 5900
-Wire Wire Line
-	7750 5900 7650 5900
-Connection ~ 7650 5900
-Wire Wire Line
-	7450 5900 7550 5900
-Wire Wire Line
-	7550 5900 7550 5950
-$Comp
-L SamacSys_Parts:LFXTAL016178 Y?
-U 1 1 5BC75272
-P 6150 5500
-F 0 "Y?" V 6450 5500 50  0000 R CNN
-F 1 "LFXTAL016178" V 6550 5500 50  0000 R CNN
-F 2 "LFXTAL016178_1" H 6300 5650 50  0001 L CNN
-F 3 "http://www.iqdfrequencyproducts.com/products/pn/LFXTAL016178Bulk.pdf" H 6300 5550 50  0001 L CNN
-F 4 "IQD FREQUENCY PRODUCTS - LFXTAL016178 - CRYSTAL, 32.768KHZ, 6PF, SMD" H 6300 5450 50  0001 L CNN "Description"
-F 5 "IQD" H 6300 5250 50  0001 L CNN "Manufacturer_Name"
-F 6 "LFXTAL016178" H 6300 5150 50  0001 L CNN "Manufacturer Part Number"
-F 7 "1484350P" H 6300 5050 50  0001 L CNN "RS Part Number"
-F 8 "http://uk.rs-online.com/web/p/products/1484350P" H 6300 4950 50  0001 L CNN "RS Price/Stock"
-F 9 "LFXTAL016178" H 6300 4850 50  0001 L CNN "Arrow Part Number"
-F 10 "http://uk.rs-online.com/web/p/products/1484350P" H 6300 4750 50  0001 L CNN "Arrow Price/Stock"
-F 11 "32.768 kHz" V 6650 5300 50  0000 C CNN "Frequency"
-	1    6150 5500
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	6150 5350 6150 5300
-Wire Wire Line
-	6150 5300 6500 5300
-Wire Wire Line
-	6500 5300 6500 5450
-Wire Wire Line
-	6500 5550 6500 5700
-Wire Wire Line
-	6500 5700 6150 5700
-Wire Wire Line
-	6150 5700 6150 5650
-$Comp
-L Device:C_Small C?
-U 1 1 5BC94AEA
-P 5800 5300
-AR Path="/5BB122CA/5BC94AEA" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BC94AEA" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BC94AEA" Ref="C?"  Part="1" 
-AR Path="/5BC94AEA" Ref="C?"  Part="1" 
-F 0 "C?" H 5708 5254 50  0000 R CNN
-F 1 "4.3pF" H 5708 5345 50  0000 R CNN
-F 2 "" H 5800 5300 50  0001 C CNN
-F 3 "~" H 5800 5300 50  0001 C CNN
-	1    5800 5300
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5BC94D72
-P 5800 5700
-AR Path="/5BB122CA/5BC94D72" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BC94D72" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BC94D72" Ref="C?"  Part="1" 
-AR Path="/5BC94D72" Ref="C?"  Part="1" 
-F 0 "C?" H 5708 5654 50  0000 R CNN
-F 1 "4.3pF" H 5708 5745 50  0000 R CNN
-F 2 "" H 5800 5700 50  0001 C CNN
-F 3 "~" H 5800 5700 50  0001 C CNN
-	1    5800 5700
-	0    1    -1   0   
-$EndComp
-Wire Wire Line
-	5900 5300 6150 5300
-Connection ~ 6150 5300
-Wire Wire Line
-	5900 5700 6150 5700
-Connection ~ 6150 5700
-$Comp
-L power:GND #PWR?
-U 1 1 5BC9F41E
-P 5700 5300
-F 0 "#PWR?" H 5700 5050 50  0001 C CNN
-F 1 "GND" H 5705 5127 50  0000 C CNN
-F 2 "" H 5700 5300 50  0001 C CNN
-F 3 "" H 5700 5300 50  0001 C CNN
-	1    5700 5300
-	0    1    -1   0   
-$EndComp
-Wire Wire Line
-	6500 5450 6850 5450
-Wire Wire Line
-	6500 5550 6850 5550
-$Comp
-L power:GND #PWR?
-U 1 1 5BCC93FB
-P 5700 5700
-F 0 "#PWR?" H 5700 5450 50  0001 C CNN
-F 1 "GND" H 5705 5527 50  0000 C CNN
-F 2 "" H 5700 5700 50  0001 C CNN
-F 3 "" H 5700 5700 50  0001 C CNN
-	1    5700 5700
-	0    1    -1   0   
-$EndComp
-$Comp
-L Device:Crystal Y?
-U 1 1 5BCC99A8
-P 6150 3600
-F 0 "Y?" V 6058 3731 50  0000 L CNN
-F 1 "Crystal" V 6150 3731 50  0000 L CNN
-F 2 "" H 6150 3600 50  0001 C CNN
-F 3 "~" H 6150 3600 50  0001 C CNN
-F 4 "8 MHz" V 6242 3731 50  0000 L CNN "Frequency"
-F 5 "LFXTAL029665" V 6150 3600 50  0001 C CNN "Manufacturer Part Number"
-	1    6150 3600
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	6650 3550 6650 3400
-Wire Wire Line
-	6650 3400 6150 3400
-Wire Wire Line
-	6150 3400 6150 3450
-Wire Wire Line
-	6650 3650 6650 3800
-Wire Wire Line
-	6650 3800 6150 3800
-Wire Wire Line
-	6150 3800 6150 3750
-$Comp
-L Device:C_Small C?
-U 1 1 5BCD5103
-P 5800 3400
-AR Path="/5BB122CA/5BCD5103" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BCD5103" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BCD5103" Ref="C?"  Part="1" 
-AR Path="/5BCD5103" Ref="C?"  Part="1" 
-F 0 "C?" H 5708 3354 50  0000 R CNN
-F 1 "20pF" H 5708 3445 50  0000 R CNN
-F 2 "" H 5800 3400 50  0001 C CNN
-F 3 "~" H 5800 3400 50  0001 C CNN
-	1    5800 3400
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5BCD51F9
-P 5800 3800
-AR Path="/5BB122CA/5BCD51F9" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BCD51F9" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BCD51F9" Ref="C?"  Part="1" 
-AR Path="/5BCD51F9" Ref="C?"  Part="1" 
-F 0 "C?" H 5708 3754 50  0000 R CNN
-F 1 "20pF" H 5708 3845 50  0000 R CNN
-F 2 "" H 5800 3800 50  0001 C CNN
-F 3 "~" H 5800 3800 50  0001 C CNN
-	1    5800 3800
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BCDD088
-P 5700 3400
-F 0 "#PWR?" H 5700 3150 50  0001 C CNN
-F 1 "GND" H 5705 3227 50  0000 C CNN
-F 2 "" H 5700 3400 50  0001 C CNN
-F 3 "" H 5700 3400 50  0001 C CNN
-	1    5700 3400
-	0    1    -1   0   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BCDD0BB
-P 5700 3800
-F 0 "#PWR?" H 5700 3550 50  0001 C CNN
-F 1 "GND" H 5705 3627 50  0000 C CNN
-F 2 "" H 5700 3800 50  0001 C CNN
-F 3 "" H 5700 3800 50  0001 C CNN
-	1    5700 3800
-	0    1    -1   0   
-$EndComp
-Text Label 2800 6550 0    50   ~ 0
-+VREF
-Wire Wire Line
-	2700 6550 3100 6550
-Wire Notes Line
-	550  5800 3550 5800
-Wire Notes Line
-	3550 5800 3550 7200
-Wire Notes Line
-	3550 7200 550  7200
-Wire Notes Line
-	550  7200 550  5800
-Text Notes 1600 6100 0    118  ~ 0
-+VREF ADC
-Wire Wire Line
-	5900 3400 6150 3400
-Connection ~ 6150 3400
-Wire Wire Line
-	5900 3800 6150 3800
-Connection ~ 6150 3800
-Wire Wire Line
-	6650 3550 6850 3550
-Wire Wire Line
-	6650 3650 6850 3650
-$Comp
-L Device:C_Small C?
-U 1 1 5BD3AE0B
-P 8900 1500
-AR Path="/5BB122CA/5BD3AE0B" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BD3AE0B" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BD3AE0B" Ref="C?"  Part="1" 
-AR Path="/5BD3AE0B" Ref="C?"  Part="1" 
-F 0 "C?" H 8808 1454 50  0000 R CNN
-F 1 "100nF" H 8808 1545 50  0000 R CNN
-F 2 "" H 8900 1500 50  0001 C CNN
-F 3 "~" H 8900 1500 50  0001 C CNN
-	1    8900 1500
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	7450 1350 7550 1350
-Connection ~ 7550 1350
-Wire Wire Line
-	7550 1350 7650 1350
-Connection ~ 7650 1350
-Wire Wire Line
-	7650 1350 7750 1350
-Connection ~ 7750 1350
-$Comp
-L Device:C_Small C?
-U 1 1 5BD5FE2A
-P 8100 1500
-AR Path="/5BB122CA/5BD5FE2A" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BD5FE2A" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BD5FE2A" Ref="C?"  Part="1" 
-AR Path="/5BD5FE2A" Ref="C?"  Part="1" 
-F 0 "C?" H 8008 1454 50  0000 R CNN
-F 1 "100nF" H 8008 1545 50  0000 R CNN
-F 2 "" H 8100 1500 50  0001 C CNN
-F 3 "~" H 8100 1500 50  0001 C CNN
-	1    8100 1500
-	1    0    0    1   
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5BD5FE92
-P 8500 1500
-AR Path="/5BB122CA/5BD5FE92" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BD5FE92" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BD5FE92" Ref="C?"  Part="1" 
-AR Path="/5BD5FE92" Ref="C?"  Part="1" 
-F 0 "C?" H 8408 1454 50  0000 R CNN
-F 1 "100nF" H 8408 1545 50  0000 R CNN
-F 2 "" H 8500 1500 50  0001 C CNN
-F 3 "~" H 8500 1500 50  0001 C CNN
-	1    8500 1500
-	1    0    0    1   
-$EndComp
-Connection ~ 8900 1350
-$Comp
-L Device:C_Small C?
-U 1 1 5BD5FF49
-P 9300 1500
-AR Path="/5BB122CA/5BD5FF49" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BD5FF49" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BD5FF49" Ref="C?"  Part="1" 
-AR Path="/5BD5FF49" Ref="C?"  Part="1" 
-F 0 "C?" H 9208 1454 50  0000 R CNN
-F 1 "100nF" H 9208 1545 50  0000 R CNN
-F 2 "" H 9300 1500 50  0001 C CNN
-F 3 "~" H 9300 1500 50  0001 C CNN
-	1    9300 1500
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	8900 1350 9300 1350
-Wire Wire Line
-	8900 1400 8900 1350
-Wire Wire Line
-	7750 1350 8100 1350
-Wire Wire Line
-	8500 1400 8500 1350
-Connection ~ 8500 1350
-Wire Wire Line
-	8500 1350 8900 1350
-Wire Wire Line
-	8100 1400 8100 1350
-Connection ~ 8100 1350
-Wire Wire Line
-	8100 1350 8500 1350
-Wire Wire Line
-	9300 1350 9300 1400
-$Comp
-L power:GND #PWR?
-U 1 1 5BD79A67
-P 8100 1600
-F 0 "#PWR?" H 8100 1350 50  0001 C CNN
-F 1 "GND" H 8105 1427 50  0000 C CNN
-F 2 "" H 8100 1600 50  0001 C CNN
-F 3 "" H 8100 1600 50  0001 C CNN
-	1    8100 1600
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BD79AA6
-P 8500 1600
-F 0 "#PWR?" H 8500 1350 50  0001 C CNN
-F 1 "GND" H 8505 1427 50  0000 C CNN
-F 2 "" H 8500 1600 50  0001 C CNN
-F 3 "" H 8500 1600 50  0001 C CNN
-	1    8500 1600
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BD79AE5
-P 8900 1600
-F 0 "#PWR?" H 8900 1350 50  0001 C CNN
-F 1 "GND" H 8905 1427 50  0000 C CNN
-F 2 "" H 8900 1600 50  0001 C CNN
-F 3 "" H 8900 1600 50  0001 C CNN
-	1    8900 1600
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BD79B24
-P 9300 1600
-F 0 "#PWR?" H 9300 1350 50  0001 C CNN
-F 1 "GND" H 9305 1427 50  0000 C CNN
-F 2 "" H 9300 1600 50  0001 C CNN
-F 3 "" H 9300 1600 50  0001 C CNN
-	1    9300 1600
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5BD79F8C
-P 8500 1350
-F 0 "#PWR?" H 8500 1750 50  0001 C CNN
-F 1 "+3V3_Internal" H 8485 1523 50  0000 C CNN
-F 2 "" H 8500 1350 50  0001 C CNN
-F 3 "" H 8500 1350 50  0001 C CNN
-	1    8500 1350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5BD7AA8E
-P 9700 1500
-AR Path="/5BB122CA/5BD7AA8E" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BD7AA8E" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BD7AA8E" Ref="C?"  Part="1" 
-AR Path="/5BD7AA8E" Ref="C?"  Part="1" 
-F 0 "C?" H 9608 1454 50  0000 R CNN
-F 1 "4.7uF" H 9608 1545 50  0000 R CNN
-F 2 "" H 9700 1500 50  0001 C CNN
-F 3 "~" H 9700 1500 50  0001 C CNN
-	1    9700 1500
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	9300 1350 9700 1350
-Wire Wire Line
-	9700 1350 9700 1400
-Connection ~ 9300 1350
-$Comp
-L power:GND #PWR?
-U 1 1 5BD8015D
-P 9700 1600
-F 0 "#PWR?" H 9700 1350 50  0001 C CNN
-F 1 "GND" H 9705 1427 50  0000 C CNN
-F 2 "" H 9700 1600 50  0001 C CNN
-F 3 "" H 9700 1600 50  0001 C CNN
-	1    9700 1600
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5BD8C302
-P 5750 2500
-AR Path="/5BB122CA/5BD8C302" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BD8C302" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BD8C302" Ref="C?"  Part="1" 
-AR Path="/5BD8C302" Ref="C?"  Part="1" 
-F 0 "C?" H 5658 2454 50  0000 R CNN
-F 1 "100nF" H 5658 2545 50  0000 R CNN
-F 2 "" H 5750 2500 50  0001 C CNN
-F 3 "~" H 5750 2500 50  0001 C CNN
-	1    5750 2500
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	6850 2350 5750 2350
-Wire Wire Line
-	5750 2400 5750 2350
-$Comp
-L power:GND #PWR?
-U 1 1 5BD9730B
-P 5750 2600
-F 0 "#PWR?" H 5750 2350 50  0001 C CNN
-F 1 "GND" H 5755 2427 50  0000 C CNN
-F 2 "" H 5750 2600 50  0001 C CNN
-F 3 "" H 5750 2600 50  0001 C CNN
-	1    5750 2600
-	-1   0    0    -1  
-$EndComp
-Text Label 5800 2350 0    50   ~ 0
-NRST
-Wire Wire Line
-	8250 4350 8650 4350
-Text Label 8350 4350 0    50   ~ 0
-SWO
-Wire Wire Line
-	8250 3650 8650 3650
-Text Label 8350 3650 0    50   ~ 0
-SWDIO
-Wire Wire Line
-	8250 3750 8650 3750
-Text Label 8350 3750 0    50   ~ 0
-SWCLK
-$Comp
-L Connector_Generic:Conn_01x06 J?
-U 1 1 5BDAF099
-P 1500 4000
-F 0 "J?" V 1700 3950 50  0000 L CNN
-F 1 "Conn_01x06" V 1600 3750 50  0000 L CNN
-F 2 "" H 1500 4000 50  0001 C CNN
-F 3 "~" H 1500 4000 50  0001 C CNN
-	1    1500 4000
-	0    -1   -1   0   
-$EndComp
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5BDAF2CE
-P 950 4400
-F 0 "#PWR?" H 950 4800 50  0001 C CNN
-F 1 "+3V3_Internal" H 935 4575 50  0000 C CNN
-F 2 "" H 950 4400 50  0001 C CNN
-F 3 "" H 950 4400 50  0001 C CNN
-	1    950  4400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1300 4200 1300 4450
-$Comp
-L power:GND #PWR?
-U 1 1 5BDB513C
-P 1500 4250
-F 0 "#PWR?" H 1500 4000 50  0001 C CNN
-F 1 "GND" H 1505 4077 50  0000 C CNN
-F 2 "" H 1500 4250 50  0001 C CNN
-F 3 "" H 1500 4250 50  0001 C CNN
-	1    1500 4250
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	1500 4200 1500 4250
-Text Label 1400 4800 1    50   ~ 0
-SWCLK
-Wire Wire Line
-	1400 4200 1400 4850
-Text Label 1600 4800 1    50   ~ 0
-SWDIO
-Wire Wire Line
-	1600 4200 1600 4850
-Text Label 1700 4800 1    50   ~ 0
-NRST
-Wire Wire Line
-	1700 4200 1700 4850
-Text Label 1800 4800 1    50   ~ 0
-SWO
-Wire Wire Line
-	1800 4200 1800 4850
-Wire Notes Line
-	550  3150 550  5050
-Wire Notes Line
-	550  5050 2300 5050
-Wire Notes Line
-	2300 5050 2300 3150
-Wire Notes Line
-	2300 3150 550  3150
-Text Notes 800  3600 0    118  ~ 0
-Header \nprogramación
-Wire Wire Line
-	950  4450 950  4400
-Wire Wire Line
-	950  4450 1300 4450
-$Comp
-L power:GND #PWR?
-U 1 1 5BE1AFC1
-P 10950 10900
-F 0 "#PWR?" H 10950 10650 50  0001 C CNN
-F 1 "GND" H 10954 10726 50  0000 C CNN
-F 2 "" H 10950 10900 50  0001 C CNN
-F 3 "" H 10950 10900 50  0001 C CNN
-	1    10950 10900
-	1    0    0    -1  
-$EndComp
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5BE35EB9
-P 9600 9650
-F 0 "#PWR?" H 9600 10050 50  0001 C CNN
-F 1 "+3V3_Internal" H 9585 9823 50  0000 C CNN
-F 2 "" H 9600 9650 50  0001 C CNN
-F 3 "" H 9600 9650 50  0001 C CNN
-	1    9600 9650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9750 10150 9600 10150
-Wire Wire Line
-	9750 10250 9300 10250
-Wire Wire Line
-	9750 10350 9300 10350
-Wire Wire Line
-	9750 10450 9300 10450
-Wire Wire Line
-	9750 10550 9300 10550
-Text Label 9350 10250 0    50   ~ 0
-SDO
-Text Label 9350 10350 0    50   ~ 0
-SDI
-Text Label 9350 10450 0    50   ~ 0
-SCLK
-Text Label 9350 10550 0    50   ~ 0
-CS
-Wire Wire Line
-	11200 10250 10750 10250
-Wire Wire Line
-	11200 10350 10750 10350
-Wire Wire Line
-	11200 10450 10750 10450
-Wire Wire Line
-	11200 10550 10750 10550
-Text Label 10800 10250 0    50   ~ 0
-EXT_SDO
-Text Label 10800 10350 0    50   ~ 0
-EXT_SDI
-Text Label 10800 10450 0    50   ~ 0
-EXT_SCLK
-Text Label 10800 10550 0    50   ~ 0
-EXT_CS
-Wire Wire Line
-	9600 9650 9600 9700
-$Comp
-L Device:C_Small C?
-U 1 1 5BE9A192
-P 9450 9800
-AR Path="/5BB122CA/5BE9A192" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BE9A192" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BE9A192" Ref="C?"  Part="1" 
-AR Path="/5BE9A192" Ref="C?"  Part="1" 
-F 0 "C?" H 9358 9754 50  0000 R CNN
-F 1 "100nF" H 9358 9845 50  0000 R CNN
-F 2 "" H 9450 9800 50  0001 C CNN
-F 3 "~" H 9450 9800 50  0001 C CNN
-	1    9450 9800
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	9450 9700 9600 9700
-Connection ~ 9600 9700
-Wire Wire Line
-	9600 9700 9600 10150
-$Comp
-L power:GND #PWR?
-U 1 1 5BEA1F12
-P 9450 9900
-F 0 "#PWR?" H 9450 9650 50  0001 C CNN
-F 1 "GND" H 9454 9726 50  0000 C CNN
-F 2 "" H 9450 9900 50  0001 C CNN
-F 3 "" H 9450 9900 50  0001 C CNN
-	1    9450 9900
-	1    0    0    -1  
-$EndComp
-Text Notes 9800 9300 0    118  ~ 0
-Buffer SPI
-Text Label 8350 5550 0    50   ~ 0
-SDO
-Text Label 8350 5450 0    50   ~ 0
-SDI
-Wire Wire Line
-	8250 5350 8650 5350
-Text Label 8350 5350 0    50   ~ 0
-SCLK
-Text Label 8350 5250 0    50   ~ 0
-CS
-Wire Wire Line
-	8250 5250 8650 5250
-Wire Notes Line
-	11700 11150 11700 9000
-Wire Notes Line
-	8900 11150 11700 11150
-Wire Notes Line
-	8900 9000 8900 11150
-Wire Notes Line
-	11700 9000 8900 9000
-$Comp
-L SamacSys_Parts:TCA9802DGKR U?
-U 1 1 5BFA3047
-P 6850 10350
-F 0 "U?" H 7400 10616 50  0000 C CNN
-F 1 "TCA9802DGKR" H 7400 10524 50  0000 C CNN
-F 2 "SOP65P490X110-8N" H 7800 10450 50  0001 L CNN
-F 3 "http://www.ti.com/lit/gpn/tca9802" H 7800 10350 50  0001 L CNN
-F 4 "Level-Translating I2C Bus Buffer/Repeater" H 7800 10250 50  0001 L CNN "Description"
-F 5 "1.1" H 7800 10150 50  0001 L CNN "Height"
-F 6 "Texas Instruments" H 7800 10050 50  0001 L CNN "Manufacturer_Name"
-F 7 "TCA9802DGKR" H 7800 9950 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "" H 7800 9850 50  0001 L CNN "RS Part Number"
-F 9 "" H 7800 9750 50  0001 L CNN "RS Price/Stock"
-F 10 "TCA9802DGKR" H 7800 9650 50  0001 L CNN "Arrow Part Number"
-F 11 "" H 7800 9550 50  0001 L CNN "Arrow Price/Stock"
-	1    6850 10350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR?
-U 1 1 5BFA3EA3
-P 8100 9850
-F 0 "#PWR?" H 8100 9700 50  0001 C CNN
-F 1 "+3V3" H 8115 10023 50  0000 C CNN
-F 2 "" H 8100 9850 50  0001 C CNN
-F 3 "" H 8100 9850 50  0001 C CNN
-	1    8100 9850
-	1    0    0    -1  
-$EndComp
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5BFA3EF0
-P 6650 9850
-F 0 "#PWR?" H 6650 10250 50  0001 C CNN
-F 1 "+3V3_Internal" H 6635 10023 50  0000 C CNN
-F 2 "" H 6650 9850 50  0001 C CNN
-F 3 "" H 6650 9850 50  0001 C CNN
-	1    6650 9850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5BFA3FC1
-P 6500 10000
-AR Path="/5BB122CA/5BFA3FC1" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BFA3FC1" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BFA3FC1" Ref="C?"  Part="1" 
-AR Path="/5BFA3FC1" Ref="C?"  Part="1" 
-F 0 "C?" H 6408 9954 50  0000 R CNN
-F 1 "100nF" H 6408 10045 50  0000 R CNN
-F 2 "" H 6500 10000 50  0001 C CNN
-F 3 "~" H 6500 10000 50  0001 C CNN
-	1    6500 10000
-	1    0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BFA4037
-P 6500 10100
-F 0 "#PWR?" H 6500 9850 50  0001 C CNN
-F 1 "GND" H 6504 9926 50  0000 C CNN
-F 2 "" H 6500 10100 50  0001 C CNN
-F 3 "" H 6500 10100 50  0001 C CNN
-	1    6500 10100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6650 9850 6650 9900
-Wire Wire Line
-	6650 10350 6850 10350
-Wire Wire Line
-	6500 9900 6650 9900
-Connection ~ 6650 9900
-Wire Wire Line
-	6650 9900 6650 10350
-$Comp
-L Device:C_Small C?
-U 1 1 5BFCC9F0
-P 8250 10000
-AR Path="/5BB122CA/5BFCC9F0" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BFCC9F0" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BFCC9F0" Ref="C?"  Part="1" 
-AR Path="/5BFCC9F0" Ref="C?"  Part="1" 
-F 0 "C?" H 8158 9954 50  0000 R CNN
-F 1 "100nF" H 8158 10045 50  0000 R CNN
-F 2 "" H 8250 10000 50  0001 C CNN
-F 3 "~" H 8250 10000 50  0001 C CNN
-	1    8250 10000
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	8100 9850 8100 9900
-Wire Wire Line
-	8100 9900 8250 9900
-Wire Wire Line
-	7950 10350 8100 10350
-Wire Wire Line
-	8100 9900 8100 10350
-Connection ~ 8100 9900
-$Comp
-L power:GND #PWR?
-U 1 1 5BFE204C
-P 8250 10100
-F 0 "#PWR?" H 8250 9850 50  0001 C CNN
-F 1 "GND" H 8254 9926 50  0000 C CNN
-F 2 "" H 8250 10100 50  0001 C CNN
-F 3 "" H 8250 10100 50  0001 C CNN
-	1    8250 10100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6850 10450 6550 10450
-Wire Wire Line
-	6850 10550 6550 10550
-$Comp
-L power:GND #PWR?
-U 1 1 5BFF968E
-P 6750 10700
-F 0 "#PWR?" H 6750 10450 50  0001 C CNN
-F 1 "GND" H 6754 10526 50  0000 C CNN
-F 2 "" H 6750 10700 50  0001 C CNN
-F 3 "" H 6750 10700 50  0001 C CNN
-	1    6750 10700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6850 10650 6750 10650
-Wire Wire Line
-	6750 10650 6750 10700
-Text Label 6650 10450 0    50   ~ 0
-SDA
-Text Label 6650 10550 0    50   ~ 0
-SCL
-Wire Wire Line
-	7950 10450 8400 10450
-Wire Wire Line
-	7950 10550 8400 10550
-Wire Wire Line
-	7950 10650 8400 10650
-Text Label 8000 10450 0    50   ~ 0
-SDA_EXT
-Text Label 8000 10550 0    50   ~ 0
-SCL_EXT
-Text Label 8000 10650 0    50   ~ 0
-I2C_EN
-Wire Notes Line
-	8800 9000 8800 11150
-Wire Notes Line
-	8800 11150 6000 11150
-Wire Notes Line
-	6000 11150 6000 9000
-Wire Notes Line
-	6000 9000 8800 9000
-Text Notes 6950 9300 0    118  ~ 0
-Buffer I2C
-Text Label 8500 3350 2    50   ~ 0
-SDA
-Text Label 8500 3250 2    50   ~ 0
-SCL
-Text Label 6400 4950 0    50   ~ 0
-SDA_CHG
-Text Label 6450 4450 0    50   ~ 0
-I2C_EN
-Text Label 6150 4550 0    50   ~ 0
-SPI_BUFFER_EN
-Wire Wire Line
-	8250 2350 8900 2350
-Text Label 8350 2550 0    50   ~ 0
-CHG_DETECT
-Text Label 8350 4150 0    50   ~ 0
-CHG_ALLOWED
-Text Label 8350 4250 0    50   ~ 0
-SW_OPEN
-Text Label 8350 3450 0    50   ~ 0
-D-
-Text Label 8350 3550 0    50   ~ 0
-D+
-Wire Wire Line
-	8250 3450 8650 3450
-Wire Wire Line
-	8250 3550 8650 3550
-Wire Wire Line
-	8250 2550 8900 2550
-Wire Wire Line
-	8250 4150 8900 4150
-Wire Wire Line
-	8250 4250 8900 4250
-Text Label 8350 4750 0    50   ~ 0
+	9000 1350 8450 1350
+Connection ~ 9000 1350
+Text Label 8450 1350 0    50   ~ 0
+BATT_INTERNO
+Text Label 7150 1650 0    50   ~ 0
+BATT_INTERNO
+$Sheet
+S 6300 1550 600  350 
+U 5BC24746
+F0 "Sensado Corriente" 50
+F1 "Sensado Corriente.sch" 50
+F2 "VIN" I R 6900 1650 50 
+F3 "VOUT" O L 6300 1650 50 
+F4 "ISENSE" O R 6900 1800 50 
+$EndSheet
+Wire Wire Line
+	6900 1650 7750 1650
+Wire Wire Line
+	6900 1800 7750 1800
+Text Label 7150 1800 0    50   ~ 0
+I_SENSE_BATT
+$Sheet
+S 4850 1550 750  650 
+U 5BC28DAC
+F0 "Fuel Gauge" 50
+F1 "Fuel Gauge.sch" 50
+F2 "VBAT" B R 5600 1650 50 
+F3 "SYS" B L 4850 1650 50 
+F4 "GPOUT" O R 5600 1800 50 
+F5 "SDA" B R 5600 1900 50 
+F6 "SCL" I R 5600 2000 50 
+$EndSheet
+Wire Wire Line
+	5600 1650 6300 1650
+Wire Wire Line
+	5600 1800 6100 1800
+Text Label 5800 1800 0    50   ~ 0
 GPOUT
-Text Label 8350 4950 0    50   ~ 0
-CHG
-Text Label 8350 4850 0    50   ~ 0
-CHG_DISABLE
-Text Label 8350 4650 0    50   ~ 0
-ISET
-Text Label 8350 5050 0    50   ~ 0
-P1
-Text Label 6400 4050 0    50   ~ 0
-S_GLOBO
-Text Label 6200 4150 0    50   ~ 0
-S_PARACAIDAS
-Text Label 6150 5150 0    50   ~ 0
-GPS_TX
 Wire Wire Line
-	6100 5150 6850 5150
+	5600 1900 6100 1900
 Wire Wire Line
-	8250 2750 8900 2750
-Wire Wire Line
-	8250 2850 8900 2850
-Wire Wire Line
-	8250 4850 8900 4850
-Wire Wire Line
-	8250 4950 8700 4950
-Wire Wire Line
-	8250 4650 8700 4650
-Wire Wire Line
-	8250 4750 8700 4750
-Wire Wire Line
-	8250 5050 8700 5050
-Text Label 8350 4450 0    50   ~ 0
-5V_ENABLE
-Text Label 8350 4550 0    50   ~ 0
-3V_ENABLE
-Wire Wire Line
-	8250 4450 8900 4450
-Wire Wire Line
-	8250 4550 8900 4550
-Wire Wire Line
-	1900 8650 2400 8650
-Text Label 1950 8650 0    50   ~ 0
-3V_V_SENSE
-Wire Wire Line
-	1900 9600 2400 9600
-Text Label 1950 9600 0    50   ~ 0
-5V_V_SENSE
-Wire Wire Line
-	8250 2650 8900 2650
-Text Label 8350 2350 0    50   ~ 0
-3V_I_SENSE
-Text Label 8350 2750 0    50   ~ 0
-3V_V_SENSE
-Text Label 8350 2850 0    50   ~ 0
-5V_I_SENSE
-Text Label 8350 2650 0    50   ~ 0
-5V_V_SENSE
-Wire Wire Line
-	6850 4450 6400 4450
-Wire Wire Line
-	6850 4550 6100 4550
-Text Label 8350 5150 0    50   ~ 0
-VBat_I_SENSE
-Wire Wire Line
-	6850 4050 6100 4050
-Wire Wire Line
-	6850 4150 6100 4150
-$Comp
-L Connector_Generic:Conn_01x10 J?
-U 1 1 5C3B2FCA
-P 13750 1850
-F 0 "J?" H 13829 1842 50  0000 L CNN
-F 1 "Conn_01x10" H 13829 1750 50  0000 L CNN
-F 2 "Connector_PinHeader_1.27mm:PinHeader_1x10_P1.27mm_Vertical" H 13750 1850 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/181/M50-353-1100851.pdf" H 13750 1850 50  0001 C CNN
-F 4 "M50-3531042" H 13750 1850 50  0001 C CNN "Manufacturer Part Number"
-	1    13750 1850
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	13550 1450 13300 1450
-Wire Wire Line
-	13300 1350 13300 1450
-Wire Wire Line
-	13000 1350 13000 1550
-Wire Wire Line
-	13000 1550 13550 1550
-Wire Wire Line
-	13550 1750 13550 1650
-$Comp
-L power:GND #PWR?
-U 1 1 5C4123B6
-P 13000 1700
-F 0 "#PWR?" H 13000 1450 50  0001 C CNN
-F 1 "GND" H 13005 1527 50  0000 C CNN
-F 2 "" H 13000 1700 50  0001 C CNN
-F 3 "" H 13000 1700 50  0001 C CNN
-	1    13000 1700
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	13550 1650 13000 1650
-Wire Wire Line
-	13000 1650 13000 1700
-Connection ~ 13550 1650
-Wire Wire Line
-	13150 1850 13550 1850
-Wire Wire Line
-	13550 1950 13150 1950
-Wire Wire Line
-	13150 2050 13550 2050
-Wire Wire Line
-	13550 2150 13150 2150
-Wire Wire Line
-	13550 2250 13150 2250
-Wire Wire Line
-	13550 2350 13150 2350
-Text Label 13200 1850 0    50   ~ 0
-SDO
-Text Label 13200 1950 0    50   ~ 0
-SDI
-Text Label 13200 2050 0    50   ~ 0
-CS
-Text Label 13200 2150 0    50   ~ 0
-SCLK
-Text Label 13350 2250 2    50   ~ 0
+	5600 2000 6100 2000
+Text Label 5800 1900 0    50   ~ 0
 SDA
-Text Label 13350 2350 2    50   ~ 0
+Text Label 5800 2000 0    50   ~ 0
 SCL
-$Comp
-L Connector_Generic:Conn_01x10 J?
-U 1 1 5C476DD1
-P 15250 1850
-F 0 "J?" H 15329 1842 50  0000 L CNN
-F 1 "Conn_01x10" H 15329 1750 50  0000 L CNN
-F 2 "" H 15250 1850 50  0001 C CNN
-F 3 "~" H 15250 1850 50  0001 C CNN
-	1    15250 1850
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	14300 1350 14300 1750
-Wire Wire Line
-	14300 1750 15050 1750
-Wire Wire Line
-	15050 1450 14450 1450
-Wire Wire Line
-	15050 1550 14450 1550
-Wire Wire Line
-	15050 1650 14450 1650
-Wire Wire Line
-	15050 1850 14450 1850
-Wire Wire Line
-	15050 1950 14450 1950
-Wire Wire Line
-	15050 2050 14450 2050
-Wire Wire Line
-	15050 2150 14450 2150
-Wire Wire Line
-	15050 2250 14450 2250
-Wire Wire Line
-	15050 2350 14450 2350
-Text Label 14500 1450 0    50   ~ 0
-S_GLOBO
-Text Label 14500 1550 0    50   ~ 0
-S_PARACAIDAS
-Text Label 14500 1850 0    50   ~ 0
-CHG
-Text Label 14500 1950 0    50   ~ 0
-CHG_DISABLE
-Text Label 14500 2050 0    50   ~ 0
-ISET
-Text Label 14500 2150 0    50   ~ 0
-P1
-Text Label 14500 2250 0    50   ~ 0
-GPOUT
-Text Label 14500 2350 0    50   ~ 0
-VBat_I_SENSE
-Wire Notes Line
-	16000 5650 16000 2650
-Wire Notes Line
-	16000 2650 12500 2650
-Text Notes 13200 2950 0    118  ~ 0
-Conectores para PCB_B
-$Comp
-L Device:R R?
-U 1 1 5BC0B03C
-P 10150 2850
-F 0 "R?" H 10220 2896 50  0000 L CNN
-F 1 "10K" H 10220 2804 50  0000 L CNN
-F 2 "" V 10080 2850 50  0001 C CNN
-F 3 "~" H 10150 2850 50  0001 C CNN
-	1    10150 2850
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10150 3250 10150 3000
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5BC1DDE1
-P 10150 2450
-F 0 "#PWR?" H 10150 2850 50  0001 C CNN
-F 1 "+3V3_Internal" H 10135 2623 50  0000 C CNN
-F 2 "" H 10150 2450 50  0001 C CNN
-F 3 "" H 10150 2450 50  0001 C CNN
-	1    10150 2450
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5BC1DEA5
-P 5750 4650
-F 0 "R?" H 5820 4696 50  0000 L CNN
-F 1 "10K" H 5820 4604 50  0000 L CNN
-F 2 "" V 5680 4650 50  0001 C CNN
-F 3 "~" H 5750 4650 50  0001 C CNN
-	1    5750 4650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5750 4800 5750 4950
-Wire Wire Line
-	5750 4950 6850 4950
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5BC307DD
-P 5750 4500
-F 0 "#PWR?" H 5750 4900 50  0001 C CNN
-F 1 "+3V3_Internal" H 5735 4673 50  0000 C CNN
-F 2 "" H 5750 4500 50  0001 C CNN
-F 3 "" H 5750 4500 50  0001 C CNN
-	1    5750 4500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6550 5050 6850 5050
-Wire Wire Line
-	6850 4750 6550 4750
-Text Label 6600 4250 0    50   ~ 0
-IO0
-Text Label 6600 4350 0    50   ~ 0
-IO1
-Text Label 6600 4650 0    50   ~ 0
-IO2
-Wire Wire Line
-	6850 4250 6550 4250
-Wire Wire Line
-	6550 4350 6850 4350
-Text Label 6600 4750 0    50   ~ 0
-IO3
-Text Label 6600 5050 0    50   ~ 0
-IO4
-Wire Wire Line
-	6850 4650 6550 4650
-Text Label 6600 5250 0    50   ~ 0
-IO5
-Wire Notes Line
-	12500 2650 12500 5650
-Wire Notes Line
-	12500 5650 16000 5650
-$Comp
-L SamacSys_Parts:NTB0104BQ,115 U?
-U 1 1 5BF92185
-P 9750 10150
-F 0 "U?" H 10250 10416 50  0000 C CNN
-F 1 "NTB0104BQ,115" H 10250 10324 50  0000 C CNN
-F 2 "NTB0104BQ115" H 11500 10200 50  0001 L CNN
-F 3 "http://www.nxp.com/documents/data_sheet/NTB0104.pdf" H 11500 10100 50  0001 L CNN
-F 4 "NXP - NTB0104BQ,115 - TRANSCEIVER, BIDIR TRANSLATOR, DHVQFN14" H 11500 10000 50  0001 L CNN "Description"
-F 5 "1" H 11500 9900 50  0001 L CNN "Height"
-F 6 "Nexperia" H 11500 9800 50  0001 L CNN "Manufacturer_Name"
-F 7 "NTB0104BQ,115" H 11500 9700 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "NTB0104BQ,115" H 11500 9400 50  0001 L CNN "Arrow Part Number"
-F 9 "https://www.arrow.com/en/products/ntb0104bq115/nxp-semiconductors" H 11500 9300 50  0001 L CNN "Arrow Price/Stock"
-	1    9750 10150
-	1    0    0    -1  
-$EndComp
-$Comp
-L SamacSys_Parts:MIC5323-3.3YD5_TR U?
-U 1 1 5C0BF1F5
-P 1900 10400
-F 0 "U?" H 1900 10717 50  0000 C CNN
-F 1 "MIC5323-3.3YD5_TR" H 1900 10625 50  0000 C CNN
-F 2 "SOT95P280X100-5N" H 2850 10500 50  0001 L CNN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf" H 2850 10400 50  0001 L CNN
-F 4 "Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23" H 2850 10300 50  0001 L CNN "Description"
-F 5 "1" H 2850 10200 50  0001 L CNN "Height"
-F 6 "Micrel" H 2850 10100 50  0001 L CNN "Manufacturer_Name"
-F 7 "MIC5323-3.3YD5 TR" H 2850 10000 50  0001 L CNN "Manufacturer Part Number"
-F 8 "8855996P" H 2850 9900 50  0001 L CNN "RS Part Number"
-F 9 "http://uk.rs-online.com/web/p/products/8855996P" H 2850 9800 50  0001 L CNN "RS Price/Stock"
-F 10 "MIC5323-3.3YD5 TR" H 2850 9700 50  0001 L CNN "Arrow Part Number"
-F 11 "http://uk.rs-online.com/web/p/products/8855996P" H 2850 9600 50  0001 L CNN "Arrow Price/Stock"
-	1    1900 10400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	800  10350 1400 10350
-Wire Wire Line
-	1900 10800 1900 10650
-Wire Wire Line
-	1500 10450 1400 10450
-Wire Wire Line
-	1400 10450 1400 10350
-Wire Wire Line
-	1500 10350 1400 10350
-Connection ~ 1400 10350
-Wire Wire Line
-	2300 10350 3150 10350
-Wire Wire Line
-	2300 10450 2700 10450
-Wire Wire Line
-	2700 10450 2700 10500
-$Comp
-L SamacSys_Parts:SSM3J338R,LF Q?
-U 1 1 5C2117E2
-P 13850 7000
-F 0 "Q?" V 14418 7100 50  0000 C CNN
-F 1 "SSM3J338R,LF" V 14326 7100 50  0000 C CNN
-F 2 "SamacSys_Parts:SSM3J332RLFT" H 14300 6950 50  0001 L CNN
-F 3 "http://toshiba.semicon-storage.com/info/docget.jsp?did=30384&prodName=SSM3J338R" H 14300 6850 50  0001 L CNN
-F 4 "MOSFET Small-signal MOSFET Vdss= -12V, ID= -6A" H 14300 6750 50  0001 L CNN "Description"
-F 5 "Toshiba" H 14300 6550 50  0001 L CNN "Manufacturer_Name"
-F 6 "SSM3J338R,LF" H 14300 6450 50  0001 L CNN "Manufacturer Part Number"
-F 7 "SSM3J338R,LF" H 14300 6150 50  0001 L CNN "Arrow Part Number"
-F 8 "https://www.arrow.com/en/products/ssm3j338rlf/toshiba" H 14300 6050 50  0001 L CNN "Arrow Price/Stock"
-	1    13850 7000
-	0    -1   -1   0   
-$EndComp
-$Comp
-L SamacSys_Parts:SSM3J338R,LF Q?
-U 1 1 5C2117EE
-P 13850 7650
-F 0 "Q?" V 14418 7750 50  0000 C CNN
-F 1 "SSM3J338R,LF" V 14326 7750 50  0000 C CNN
-F 2 "SamacSys_Parts:SSM3J332RLFT" H 14300 7600 50  0001 L CNN
-F 3 "http://toshiba.semicon-storage.com/info/docget.jsp?did=30384&prodName=SSM3J338R" H 14300 7500 50  0001 L CNN
-F 4 "MOSFET Small-signal MOSFET Vdss= -12V, ID= -6A" H 14300 7400 50  0001 L CNN "Description"
-F 5 "Toshiba" H 14300 7200 50  0001 L CNN "Manufacturer_Name"
-F 6 "SSM3J338R,LF" H 14300 7100 50  0001 L CNN "Manufacturer Part Number"
-F 7 "SSM3J338R,LF" H 14300 6800 50  0001 L CNN "Arrow Part Number"
-F 8 "https://www.arrow.com/en/products/ssm3j338rlf/toshiba" H 14300 6700 50  0001 L CNN "Arrow Price/Stock"
-	1    13850 7650
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	13850 7650 13850 7700
-Wire Wire Line
-	13850 7700 14050 7700
-Wire Wire Line
-	13850 7000 13850 7050
-Wire Wire Line
-	13850 7050 14050 7050
-$Comp
-L Device:R R?
-U 1 1 5C2117F9
-P 14050 6850
-F 0 "R?" H 14120 6896 50  0000 L CNN
-F 1 "10K" H 14120 6804 50  0000 L CNN
-F 2 "" V 13980 6850 50  0001 C CNN
-F 3 "~" H 14050 6850 50  0001 C CNN
-	1    14050 6850
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	14050 7000 14050 7050
-Connection ~ 14050 7050
-$Comp
-L Device:R R?
-U 1 1 5C211802
-P 14050 7500
-F 0 "R?" H 14120 7546 50  0000 L CNN
-F 1 "10K" H 14120 7454 50  0000 L CNN
-F 2 "" V 13980 7500 50  0001 C CNN
-F 3 "~" H 14050 7500 50  0001 C CNN
-	1    14050 7500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	14050 7650 14050 7700
-Connection ~ 14050 7700
-$Comp
-L Device:C_Small C?
-U 1 1 5C2283D4
-P 11100 9800
-AR Path="/5BB122CA/5C2283D4" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5C2283D4" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5C2283D4" Ref="C?"  Part="1" 
-AR Path="/5C2283D4" Ref="C?"  Part="1" 
-F 0 "C?" H 11008 9754 50  0000 R CNN
-F 1 "100nF" H 11008 9845 50  0000 R CNN
-F 2 "" H 11100 9800 50  0001 C CNN
-F 3 "~" H 11100 9800 50  0001 C CNN
-	1    11100 9800
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	10950 9650 10950 9700
-Wire Wire Line
-	10950 9700 11100 9700
-Wire Wire Line
-	10950 9700 10950 10150
-Connection ~ 10950 9700
-$Comp
-L power:GND #PWR?
-U 1 1 5C2283DF
-P 11100 9900
-F 0 "#PWR?" H 11100 9650 50  0001 C CNN
-F 1 "GND" H 11104 9726 50  0000 C CNN
-F 2 "" H 11100 9900 50  0001 C CNN
-F 3 "" H 11100 9900 50  0001 C CNN
-	1    11100 9900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10750 10150 10950 10150
-$Comp
-L power:VDD #PWR?
-U 1 1 5C27F231
-P 10950 9650
-F 0 "#PWR?" H 10950 9500 50  0001 C CNN
-F 1 "VDD" H 10967 9825 50  0000 C CNN
-F 2 "" H 10950 9650 50  0001 C CNN
-F 3 "" H 10950 9650 50  0001 C CNN
-	1    10950 9650
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VDD #PWR?
-U 1 1 5C294E4A
-P 13300 6550
-F 0 "#PWR?" H 13300 6400 50  0001 C CNN
-F 1 "VDD" H 13317 6725 50  0000 C CNN
-F 2 "" H 13300 6550 50  0001 C CNN
-F 3 "" H 13300 6550 50  0001 C CNN
-	1    13300 6550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	13300 6550 13300 6700
-Wire Wire Line
-	13300 7350 13450 7350
-Wire Wire Line
-	13450 6700 13300 6700
-Connection ~ 13300 6700
-Wire Wire Line
-	13300 6700 13300 7350
-Wire Wire Line
-	14050 7050 14950 7050
-Wire Wire Line
-	14050 7700 15000 7700
-$Comp
-L power:+3V3 #PWR?
-U 1 1 5C2EE791
-P 14400 6650
-F 0 "#PWR?" H 14400 6500 50  0001 C CNN
-F 1 "+3V3" H 14415 6823 50  0000 C CNN
-F 2 "" H 14400 6650 50  0001 C CNN
-F 3 "" H 14400 6650 50  0001 C CNN
-	1    14400 6650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	14400 6650 14400 6700
-Wire Wire Line
-	14400 6700 14050 6700
-Connection ~ 14050 6700
-$Comp
-L power:+5V #PWR?
-U 1 1 5C30537D
-P 14400 7300
-F 0 "#PWR?" H 14400 7150 50  0001 C CNN
-F 1 "+5V" H 14415 7473 50  0000 C CNN
-F 2 "" H 14400 7300 50  0001 C CNN
-F 3 "" H 14400 7300 50  0001 C CNN
-	1    14400 7300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	14400 7300 14400 7350
-Wire Wire Line
-	14400 7350 14050 7350
-Connection ~ 14050 7350
-Text Label 14350 7050 0    50   ~ 0
-ENABLE_5V_IO
-Text Label 14350 7700 0    50   ~ 0
-ENABLE_3V3_IO
-Wire Notes Line
-	12500 5750 12500 8000
-Wire Notes Line
-	12500 8000 16000 8000
-Wire Notes Line
-	16000 8000 16000 5750
-Wire Notes Line
-	16000 5750 12500 5750
-Text Notes 13200 6100 0    118  ~ 0
-Selección de tensión IO
-Text Label 8350 2950 0    50   ~ 0
-ENABLE_5V_IO
-Text Label 8350 3850 0    50   ~ 0
-ENABLE_3V3_IO
-Wire Wire Line
-	10950 10900 10950 10800
-Wire Wire Line
-	10950 10800 10800 10800
-Wire Wire Line
-	10750 10900 10800 10900
-Wire Wire Line
-	10800 10900 10800 10800
-Connection ~ 10800 10800
-Wire Wire Line
-	10800 10800 10750 10800
-Text Label 9100 10800 0    50   ~ 0
-SPI_BUFFER_EN
-Wire Wire Line
-	9750 10800 9100 10800
-Wire Wire Line
-	8250 2950 8900 2950
-Wire Wire Line
-	8250 3850 8900 3850
-Wire Wire Line
-	6850 5250 6550 5250
-$Comp
-L Connector_Generic:Conn_01x10 J?
-U 1 1 5CE563C4
-P 13400 4300
-F 0 "J?" H 13050 3700 50  0000 L CNN
-F 1 "Conn_01x10" H 13050 3600 50  0000 L CNN
-F 2 "Connector_PinHeader_1.27mm:PinHeader_1x10_P1.27mm_Vertical" H 13400 4300 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/181/M50-353-1100851.pdf" H 13400 4300 50  0001 C CNN
-F 4 "M50-3531042" H 13400 4300 50  0001 C CNN "Manufacturer Part Number"
-	1    13400 4300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR?
-U 1 1 5CE56489
-P 13150 3750
-F 0 "#PWR?" H 13150 3600 50  0001 C CNN
-F 1 "+3V3" H 13165 3923 50  0000 C CNN
-F 2 "" H 13150 3750 50  0001 C CNN
-F 3 "" H 13150 3750 50  0001 C CNN
-	1    13150 3750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	13150 3750 13150 3900
-Wire Wire Line
-	13150 4000 13200 4000
-Wire Wire Line
-	13200 3900 13150 3900
-Connection ~ 13150 3900
-Wire Wire Line
-	13150 3900 13150 4000
-$Comp
-L power:+5V #PWR?
-U 1 1 5CEB614E
-P 12950 3750
-F 0 "#PWR?" H 12950 3600 50  0001 C CNN
-F 1 "+5V" H 12965 3923 50  0000 C CNN
-F 2 "" H 12950 3750 50  0001 C CNN
-F 3 "" H 12950 3750 50  0001 C CNN
-	1    12950 3750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	12950 3750 12950 4200
-Wire Wire Line
-	12950 4200 13150 4200
-Wire Wire Line
-	13200 4300 13150 4300
-Wire Wire Line
-	13150 4300 13150 4200
-Connection ~ 13150 4200
-Wire Wire Line
-	13150 4200 13200 4200
-$Comp
-L power:+BATT #PWR?
-U 1 1 5CEE7A77
-P 12750 3750
-F 0 "#PWR?" H 12750 3600 50  0001 C CNN
-F 1 "+BATT" H 12765 3923 50  0000 C CNN
-F 2 "" H 12750 3750 50  0001 C CNN
-F 3 "" H 12750 3750 50  0001 C CNN
-	1    12750 3750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	13200 4500 13150 4500
-Wire Wire Line
-	13150 4500 13150 4600
-Wire Wire Line
-	13150 4600 13200 4600
-Wire Wire Line
-	13150 4500 12750 4500
-Connection ~ 13150 4500
-Wire Wire Line
-	12750 3750 12750 4500
-$Comp
-L power:GND #PWR?
-U 1 1 5CF34BDC
-P 12800 4850
-F 0 "#PWR?" H 12800 4600 50  0001 C CNN
-F 1 "GND" H 12805 4677 50  0000 C CNN
-F 2 "" H 12800 4850 50  0001 C CNN
-F 3 "" H 12800 4850 50  0001 C CNN
-	1    12800 4850
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	13200 4100 12800 4100
-Wire Wire Line
-	12800 4100 12800 4400
-Wire Wire Line
-	13200 4400 12800 4400
-Connection ~ 12800 4400
-Wire Wire Line
-	12800 4400 12800 4700
-Wire Wire Line
-	13200 4700 13150 4700
-Connection ~ 12800 4700
-$Comp
-L Connector_Generic:Conn_01x10 J?
-U 1 1 5CF9E620
-P 14500 4300
-F 0 "J?" H 14150 3700 50  0000 L CNN
-F 1 "Conn_01x10" H 14150 3600 50  0000 L CNN
-F 2 "Connector_PinHeader_1.27mm:PinHeader_1x10_P1.27mm_Vertical" H 14500 4300 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/181/M50-353-1100851.pdf" H 14500 4300 50  0001 C CNN
-F 4 "M50-3531042" H 14500 4300 50  0001 C CNN "Manufacturer Part Number"
-	1    14500 4300
-	1    0    0    -1  
-$EndComp
+$Sheet
+S 3150 1450 650  650 
+U 5BC300BF
+F0 "Cargador de batería" 50
+F1 "Cargador de batería.sch" 50
+F2 "VBAT" B R 3800 1650 50 
+F3 "VIN" I R 3800 1550 50 
+F4 "CHG_DISABLE" I R 3800 1800 50 
+F5 "ISET" I R 3800 1900 50 
+F6 "CHG" O R 3800 2000 50 
+$EndSheet
+Wire Wire Line
+	4650 1400 4650 1650
 $Comp
 L power:VBUS #PWR?
-U 1 1 5CF9F10D
-P 14250 3750
-F 0 "#PWR?" H 14250 3600 50  0001 C CNN
-F 1 "VBUS" H 14265 3923 50  0000 C CNN
-F 2 "" H 14250 3750 50  0001 C CNN
-F 3 "" H 14250 3750 50  0001 C CNN
-	1    14250 3750
+U 1 1 5BC35CC7
+P 4350 1400
+F 0 "#PWR?" H 4350 1250 50  0001 C CNN
+F 1 "VBUS" H 4364 1575 50  0000 C CNN
+F 2 "" H 4350 1400 50  0001 C CNN
+F 3 "" H 4350 1400 50  0001 C CNN
+	1    4350 1400
 	1    0    0    -1  
 $EndComp
-Text Label 13950 4000 0    50   ~ 0
-SCL_EXT
-Text Label 13950 4100 0    50   ~ 0
-SDA_EXT
-Text Label 14500 1650 0    50   ~ 0
-GPS_TX
-Text Label 13950 4200 0    50   ~ 0
-GPS_TX
-Text Label 13950 4300 0    50   ~ 0
-EXT_SDO
-Text Label 13950 4400 0    50   ~ 0
-EXT_SDI
-Text Label 13950 4500 0    50   ~ 0
-EXT_SCLK
 Wire Wire Line
-	13950 4000 14300 4000
+	4350 1400 4350 1550
+Connection ~ 4650 1650
 Wire Wire Line
-	13950 4100 14300 4100
+	4650 1650 4850 1650
 Wire Wire Line
-	13950 4200 14300 4200
+	3800 1550 4350 1550
 Wire Wire Line
-	13950 4300 14300 4300
+	3800 1650 4650 1650
 Wire Wire Line
-	13950 4400 14300 4400
+	3800 1800 4350 1800
 Wire Wire Line
-	13950 4500 14300 4500
+	3800 1900 4350 1900
 Wire Wire Line
-	13950 4600 14300 4600
-Wire Wire Line
-	14250 3750 14250 3900
-Wire Wire Line
-	14250 3900 14300 3900
-Text Label 13950 4600 0    50   ~ 0
-EXT_CS
-$Comp
-L power:GND #PWR?
-U 1 1 5D1980D2
-P 13950 4850
-F 0 "#PWR?" H 13950 4600 50  0001 C CNN
-F 1 "GND" H 13955 4677 50  0000 C CNN
-F 2 "" H 13950 4850 50  0001 C CNN
-F 3 "" H 13950 4850 50  0001 C CNN
-	1    13950 4850
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	14300 4700 14250 4700
-Wire Wire Line
-	13950 4700 13950 4850
-Wire Wire Line
-	14300 4800 14250 4800
-Wire Wire Line
-	14250 4800 14250 4700
-Connection ~ 14250 4700
-Wire Wire Line
-	14250 4700 13950 4700
-Wire Wire Line
-	12800 4700 12800 4850
-Wire Wire Line
-	13200 4800 13150 4800
-Wire Wire Line
-	13150 4800 13150 4700
-Connection ~ 13150 4700
-Wire Wire Line
-	13150 4700 12800 4700
+	3800 2000 4350 2000
+Text Label 3850 1800 0    50   ~ 0
+CHG_DISABLE
+Text Label 3850 1900 0    50   ~ 0
+ISET
+Text Label 3850 2000 0    50   ~ 0
+CHG
+Wire Notes Line
+	8050 2400 8050 550 
+Wire Notes Line
+	8050 550  2800 550 
+Wire Notes Line
+	2800 550  2800 2400
+Wire Notes Line
+	2800 2400 8050 2400
+Text Notes 4300 750  0    118  ~ 0
+Administración de Batería
 $Comp
 L Connector_Generic:Conn_01x10 J?
-U 1 1 5D22963E
-P 15600 4300
-F 0 "J?" H 15250 3700 50  0000 L CNN
-F 1 "Conn_01x10" H 15250 3600 50  0000 L CNN
-F 2 "Connector_PinHeader_1.27mm:PinHeader_1x10_P1.27mm_Vertical" H 15600 4300 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/181/M50-353-1100851.pdf" H 15600 4300 50  0001 C CNN
-F 4 "M50-3531042" H 15600 4300 50  0001 C CNN "Manufacturer Part Number"
-	1    15600 4300
+U 1 1 5BC4CE98
+P 9050 3650
+F 0 "J?" H 8650 3000 50  0000 L CNN
+F 1 "Conn_01x10" H 8650 2900 50  0000 L CNN
+F 2 "Connector_PinHeader_1.27mm:PinHeader_1x10_P1.27mm_Vertical" H 9050 3650 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/M50-353-1100851.pdf" H 9050 3650 50  0001 C CNN
+F 4 "M50-3531042" H 9050 3650 50  0001 C CNN "Manufacturer Part Number"
+	1    9050 3650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	15050 4000 15400 4000
+	8750 3350 8850 3350
 Wire Wire Line
-	15050 4100 15400 4100
+	8850 3250 8750 3250
 Wire Wire Line
-	15050 4200 15400 4200
-Wire Wire Line
-	15050 4300 15400 4300
-Wire Wire Line
-	15050 4400 15400 4400
-Wire Wire Line
-	15050 4500 15400 4500
-Wire Wire Line
-	15050 4600 15400 4600
+	8750 3250 8750 3350
 $Comp
 L power:GND #PWR?
-U 1 1 5D22965B
-P 14900 4850
-F 0 "#PWR?" H 14900 4600 50  0001 C CNN
-F 1 "GND" H 14905 4677 50  0000 C CNN
-F 2 "" H 14900 4850 50  0001 C CNN
-F 3 "" H 14900 4850 50  0001 C CNN
-	1    14900 4850
-	-1   0    0    -1  
-$EndComp
-$Comp
-L MCU_ST_STM32F3:STM32F303RETx U?
-U 1 1 5D26B4F6
-P 7550 3950
-F 0 "U?" H 6700 5850 50  0000 C CNN
-F 1 "STM32F303RETx" H 6950 5750 50  0000 C CNN
-F 2 "Package_QFP:LQFP-64_10x10mm_P0.5mm" H 6950 2250 50  0001 R CNN
-F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00118585.pdf" H 7550 3950 50  0001 C CNN
-	1    7550 3950
+U 1 1 5BC4CEA2
+P 8250 3550
+F 0 "#PWR?" H 8250 3300 50  0001 C CNN
+F 1 "GND" H 8254 3376 50  0000 C CNN
+F 2 "" H 8250 3550 50  0001 C CNN
+F 3 "" H 8250 3550 50  0001 C CNN
+	1    8250 3550
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7350 1350 7450 1350
-Connection ~ 7450 1350
+	8850 3450 8750 3450
 Wire Wire Line
-	7850 2150 7850 1950
-Text Label 7850 1950 0    50   ~ 0
-+VREF
+	8850 3550 8750 3550
 Wire Wire Line
-	7850 1950 8100 1950
+	8750 3550 8750 3450
+Connection ~ 8750 3450
 Wire Wire Line
-	7750 1350 7750 2150
+	8750 3450 8250 3450
 Wire Wire Line
-	7650 1350 7650 2150
+	8850 3650 8450 3650
 Wire Wire Line
-	7550 1350 7550 2150
+	8850 3750 8450 3750
 Wire Wire Line
-	7450 1350 7450 2150
+	8850 3850 8450 3850
 Wire Wire Line
-	7350 1350 7350 2150
+	8850 3950 8450 3950
+Wire Wire Line
+	8850 4050 8450 4050
+Wire Wire Line
+	8850 4150 8250 4150
+Text Label 8500 3650 0    50   ~ 0
+SDO
+Text Label 8500 3750 0    50   ~ 0
+SDI
+Text Label 8500 3850 0    50   ~ 0
+CS
+Text Label 8500 3950 0    50   ~ 0
+SCLK
+Text Label 8500 4050 0    50   ~ 0
+S_GLOBO
+Text Label 8300 4150 0    50   ~ 0
+S_PARACAIDAS
 $Comp
-L Device:R R?
-U 1 1 5D561E82
-P 10500 2850
-F 0 "R?" H 10570 2896 50  0000 L CNN
-F 1 "10K" H 10570 2804 50  0000 L CNN
-F 2 "" V 10430 2850 50  0001 C CNN
-F 3 "~" H 10500 2850 50  0001 C CNN
-	1    10500 2850
+L Connector_Generic:Conn_01x10 J?
+U 1 1 5BC4CEBA
+P 9950 3650
+F 0 "J?" H 9550 3000 50  0000 L CNN
+F 1 "Conn_01x10" H 9550 2900 50  0000 L CNN
+F 2 "Connector_PinHeader_1.27mm:PinHeader_1x10_P1.27mm_Vertical" H 9950 3650 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/M50-353-1100851.pdf" H 9950 3650 50  0001 C CNN
+F 4 "M50-3531042" H 9950 3650 50  0001 C CNN "Manufacturer Part Number"
+	1    9950 3650
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	10150 2550 10500 2550
-Wire Wire Line
-	10500 2550 10500 2700
-Wire Wire Line
-	10150 2550 10150 2700
-Connection ~ 10150 2550
-Wire Wire Line
-	10150 2450 10150 2550
-Wire Wire Line
-	10500 3000 10500 3350
-Wire Wire Line
-	8250 5450 8650 5450
-Wire Wire Line
-	8250 5550 8650 5550
-Text Label 8350 3150 0    50   ~ 0
-SCL_CHG
-$Comp
-L Device:R R?
-U 1 1 5D82EEAE
-P 9850 2850
-F 0 "R?" H 9920 2896 50  0000 L CNN
-F 1 "10K" H 9920 2804 50  0000 L CNN
-F 2 "" V 9780 2850 50  0001 C CNN
-F 3 "~" H 9850 2850 50  0001 C CNN
-	1    9850 2850
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9850 3000 9850 3150
-Wire Wire Line
-	9850 2700 9850 2550
-Wire Wire Line
-	9850 2550 10150 2550
-Wire Wire Line
-	6850 5350 6550 5350
-Text Label 6600 5350 0    50   ~ 0
-IO6
-$Comp
-L power:GND #PWR?
-U 1 1 5DC2EAD4
-P 10950 8650
-F 0 "#PWR?" H 10950 8400 50  0001 C CNN
-F 1 "GND" H 10954 8476 50  0000 C CNN
-F 2 "" H 10950 8650 50  0001 C CNN
-F 3 "" H 10950 8650 50  0001 C CNN
-	1    10950 8650
-	1    0    0    -1  
-$EndComp
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5DC2EADA
-P 9600 7400
-F 0 "#PWR?" H 9600 7800 50  0001 C CNN
-F 1 "+3V3_Internal" H 9585 7573 50  0000 C CNN
-F 2 "" H 9600 7400 50  0001 C CNN
-F 3 "" H 9600 7400 50  0001 C CNN
-	1    9600 7400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9750 7900 9600 7900
-Wire Wire Line
-	9750 8000 9300 8000
-Wire Wire Line
-	9750 8100 9300 8100
-Wire Wire Line
-	9750 8200 9300 8200
-Wire Wire Line
-	9750 8300 9300 8300
-Wire Wire Line
-	11200 8000 10750 8000
-Wire Wire Line
-	11200 8100 10750 8100
-Wire Wire Line
-	11200 8200 10750 8200
-Wire Wire Line
-	11200 8300 10750 8300
-Wire Wire Line
-	9600 7400 9600 7450
-$Comp
-L Device:C_Small C?
-U 1 1 5DC2EAF2
-P 9450 7550
-AR Path="/5BB122CA/5DC2EAF2" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5DC2EAF2" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5DC2EAF2" Ref="C?"  Part="1" 
-AR Path="/5DC2EAF2" Ref="C?"  Part="1" 
-F 0 "C?" H 9358 7504 50  0000 R CNN
-F 1 "100nF" H 9358 7595 50  0000 R CNN
-F 2 "" H 9450 7550 50  0001 C CNN
-F 3 "~" H 9450 7550 50  0001 C CNN
-	1    9450 7550
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	9450 7450 9600 7450
-Connection ~ 9600 7450
-Wire Wire Line
-	9600 7450 9600 7900
-$Comp
-L power:GND #PWR?
-U 1 1 5DC2EAFC
-P 9450 7650
-F 0 "#PWR?" H 9450 7400 50  0001 C CNN
-F 1 "GND" H 9454 7476 50  0000 C CNN
-F 2 "" H 9450 7650 50  0001 C CNN
-F 3 "" H 9450 7650 50  0001 C CNN
-	1    9450 7650
-	1    0    0    -1  
-$EndComp
-Text Notes 9800 7050 0    118  ~ 0
-Buffer IO_A
+Text Label 9250 3250 0    50   ~ 0
+GPS_TX
+Text Label 9250 3350 0    50   ~ 0
+P1
 Wire Notes Line
-	11700 8900 11700 6750
+	8100 2450 11150 2450
 Wire Notes Line
-	8900 8900 11700 8900
+	11150 2450 11150 4850
 Wire Notes Line
-	8900 6750 8900 8900
+	11150 4850 8100 4850
 Wire Notes Line
-	11700 6750 8900 6750
+	8100 4850 8100 2450
+Text Notes 8700 2650 0    118  ~ 0
+Conectores a PCB_C
+Wire Wire Line
+	8250 3450 8250 3550
+Wire Wire Line
+	8750 3100 8750 3250
+Connection ~ 8750 3250
 $Comp
-L SamacSys_Parts:NTB0104BQ,115 U?
-U 1 1 5DC2EB0D
-P 9750 7900
-F 0 "U?" H 10250 8166 50  0000 C CNN
-F 1 "NTB0104BQ,115" H 10250 8074 50  0000 C CNN
-F 2 "NTB0104BQ115" H 11500 7950 50  0001 L CNN
-F 3 "http://www.nxp.com/documents/data_sheet/NTB0104.pdf" H 11500 7850 50  0001 L CNN
-F 4 "NXP - NTB0104BQ,115 - TRANSCEIVER, BIDIR TRANSLATOR, DHVQFN14" H 11500 7750 50  0001 L CNN "Description"
-F 5 "1" H 11500 7650 50  0001 L CNN "Height"
-F 6 "Nexperia" H 11500 7550 50  0001 L CNN "Manufacturer_Name"
-F 7 "NTB0104BQ,115" H 11500 7450 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "NTB0104BQ,115" H 11500 7150 50  0001 L CNN "Arrow Part Number"
-F 9 "https://www.arrow.com/en/products/ntb0104bq115/nxp-semiconductors" H 11500 7050 50  0001 L CNN "Arrow Price/Stock"
-	1    9750 7900
+L power:+BATT #PWR?
+U 1 1 5BC5A6CB
+P 8750 3100
+F 0 "#PWR?" H 8750 2950 50  0001 C CNN
+F 1 "+BATT" H 8764 3275 50  0000 C CNN
+F 2 "" H 8750 3100 50  0001 C CNN
+F 3 "" H 8750 3100 50  0001 C CNN
+	1    8750 3100
 	1    0    0    -1  
 $EndComp
+Text Label 9250 3450 0    50   ~ 0
+I_SENSE_5V
+Text Label 9250 3550 0    50   ~ 0
+V_SENSE_5V
+Text Label 9250 3650 0    50   ~ 0
+I_SENSE_3V3
+Text Label 9250 3750 0    50   ~ 0
+V_SENSE_3V3
+Wire Wire Line
+	9250 3250 9750 3250
+Wire Wire Line
+	9250 3350 9750 3350
+Wire Wire Line
+	9250 3450 9750 3450
+Wire Wire Line
+	9250 3550 9750 3550
+Wire Wire Line
+	9250 3650 9750 3650
+Wire Wire Line
+	9250 3750 9750 3750
+Text Label 9250 3850 0    50   ~ 0
+I_SENSE_BATT
+Wire Wire Line
+	9750 3850 9250 3850
+Text Label 9250 3950 0    50   ~ 0
+GPOUT
+Text Label 9250 4050 0    50   ~ 0
+SDA
+Text Label 9250 4150 0    50   ~ 0
+SCL
+Wire Wire Line
+	9250 3950 9750 3950
+Wire Wire Line
+	9750 4050 9250 4050
+Wire Wire Line
+	9250 4150 9750 4150
 $Comp
-L Device:C_Small C?
-U 1 1 5DC2EB14
-P 11100 7550
-AR Path="/5BB122CA/5DC2EB14" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5DC2EB14" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5DC2EB14" Ref="C?"  Part="1" 
-AR Path="/5DC2EB14" Ref="C?"  Part="1" 
-F 0 "C?" H 11008 7504 50  0000 R CNN
-F 1 "100nF" H 11008 7595 50  0000 R CNN
-F 2 "" H 11100 7550 50  0001 C CNN
-F 3 "~" H 11100 7550 50  0001 C CNN
-	1    11100 7550
-	-1   0    0    1   
+L Connector_Generic:Conn_01x10 J?
+U 1 1 5BC7FFF4
+P 11000 3650
+F 0 "J?" H 10600 3000 50  0000 L CNN
+F 1 "Conn_01x10" H 10600 2900 50  0000 L CNN
+F 2 "Connector_PinHeader_1.27mm:PinHeader_1x10_P1.27mm_Vertical" H 11000 3650 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/M50-353-1100851.pdf" H 11000 3650 50  0001 C CNN
+F 4 "M50-3531042" H 11000 3650 50  0001 C CNN "Manufacturer Part Number"
+	1    11000 3650
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	10950 7400 10950 7450
+	10300 3250 10800 3250
 Wire Wire Line
-	10950 7450 11100 7450
+	10300 3350 10800 3350
+Text Label 10300 3250 0    50   ~ 0
+CHG_DISABLE
+Text Label 10300 3350 0    50   ~ 0
+ISET
+Text Label 10300 3450 0    50   ~ 0
+CHG
 Wire Wire Line
-	10950 7450 10950 7900
-Connection ~ 10950 7450
+	10800 3450 10300 3450
+$Comp
+L power:+5V #PWR?
+U 1 1 5BC8ECE5
+P 10200 3100
+F 0 "#PWR?" H 10200 2950 50  0001 C CNN
+F 1 "+5V" H 10214 3275 50  0000 C CNN
+F 2 "" H 10200 3100 50  0001 C CNN
+F 3 "" H 10200 3100 50  0001 C CNN
+	1    10200 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10200 3100 10200 3550
+Wire Wire Line
+	10200 3550 10750 3550
+Wire Wire Line
+	10800 3650 10750 3650
+Wire Wire Line
+	10750 3650 10750 3550
+Connection ~ 10750 3550
+Wire Wire Line
+	10750 3550 10800 3550
 $Comp
 L power:GND #PWR?
-U 1 1 5DC2EB1F
-P 11100 7650
-F 0 "#PWR?" H 11100 7400 50  0001 C CNN
-F 1 "GND" H 11104 7476 50  0000 C CNN
-F 2 "" H 11100 7650 50  0001 C CNN
-F 3 "" H 11100 7650 50  0001 C CNN
-	1    11100 7650
+U 1 1 5BC93C84
+P 10200 4250
+F 0 "#PWR?" H 10200 4000 50  0001 C CNN
+F 1 "GND" H 10204 4076 50  0000 C CNN
+F 2 "" H 10200 4250 50  0001 C CNN
+F 3 "" H 10200 4250 50  0001 C CNN
+	1    10200 4250
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	10750 7900 10950 7900
+	10200 4250 10200 4150
+Wire Wire Line
+	10200 3750 10750 3750
+Wire Wire Line
+	10800 3850 10750 3850
+Wire Wire Line
+	10750 3850 10750 3750
+Connection ~ 10750 3750
+Wire Wire Line
+	10750 3750 10800 3750
 $Comp
-L power:VDD #PWR?
-U 1 1 5DC2EB26
-P 10950 7400
-F 0 "#PWR?" H 10950 7250 50  0001 C CNN
-F 1 "VDD" H 10967 7575 50  0000 C CNN
-F 2 "" H 10950 7400 50  0001 C CNN
-F 3 "" H 10950 7400 50  0001 C CNN
-	1    10950 7400
+L power:+3V3 #PWR?
+U 1 1 5BC9BC2D
+P 10350 4000
+F 0 "#PWR?" H 10350 3850 50  0001 C CNN
+F 1 "+3V3" H 10364 4175 50  0000 C CNN
+F 2 "" H 10350 4000 50  0001 C CNN
+F 3 "" H 10350 4000 50  0001 C CNN
+	1    10350 4000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	10950 8650 10950 8550
+	10800 4050 10750 4050
 Wire Wire Line
-	10950 8550 10800 8550
+	10350 4050 10350 4000
 Wire Wire Line
-	10750 8650 10800 8650
+	10800 3950 10750 3950
 Wire Wire Line
-	10800 8650 10800 8550
-Connection ~ 10800 8550
+	10750 3950 10750 4050
+Connection ~ 10750 4050
 Wire Wire Line
-	10800 8550 10750 8550
-Text Label 9350 8550 0    50   ~ 0
-IO_A_EN
+	10750 4050 10350 4050
 Wire Wire Line
-	9750 8550 9300 8550
-$Comp
-L power:GND #PWR?
-U 1 1 5DC53ED7
-P 8050 8650
-F 0 "#PWR?" H 8050 8400 50  0001 C CNN
-F 1 "GND" H 8054 8476 50  0000 C CNN
-F 2 "" H 8050 8650 50  0001 C CNN
-F 3 "" H 8050 8650 50  0001 C CNN
-	1    8050 8650
-	1    0    0    -1  
-$EndComp
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5DC53EDD
-P 6700 7400
-F 0 "#PWR?" H 6700 7800 50  0001 C CNN
-F 1 "+3V3_Internal" H 6685 7573 50  0000 C CNN
-F 2 "" H 6700 7400 50  0001 C CNN
-F 3 "" H 6700 7400 50  0001 C CNN
-	1    6700 7400
-	1    0    0    -1  
-$EndComp
+	10800 4150 10200 4150
+Connection ~ 10200 4150
 Wire Wire Line
-	6850 7900 6700 7900
-Wire Wire Line
-	6700 7400 6700 7450
-$Comp
-L Device:C_Small C?
-U 1 1 5DC53EF5
-P 6550 7550
-AR Path="/5BB122CA/5DC53EF5" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5DC53EF5" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5DC53EF5" Ref="C?"  Part="1" 
-AR Path="/5DC53EF5" Ref="C?"  Part="1" 
-F 0 "C?" H 6458 7504 50  0000 R CNN
-F 1 "100nF" H 6458 7595 50  0000 R CNN
-F 2 "" H 6550 7550 50  0001 C CNN
-F 3 "~" H 6550 7550 50  0001 C CNN
-	1    6550 7550
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	6550 7450 6700 7450
-Connection ~ 6700 7450
-Wire Wire Line
-	6700 7450 6700 7900
-$Comp
-L power:GND #PWR?
-U 1 1 5DC53EFF
-P 6550 7650
-F 0 "#PWR?" H 6550 7400 50  0001 C CNN
-F 1 "GND" H 6554 7476 50  0000 C CNN
-F 2 "" H 6550 7650 50  0001 C CNN
-F 3 "" H 6550 7650 50  0001 C CNN
-	1    6550 7650
-	1    0    0    -1  
-$EndComp
-Text Notes 6900 7050 0    118  ~ 0
-Buffer IO_B
-Wire Notes Line
-	8800 8900 8800 6750
-Wire Notes Line
-	6000 8900 8800 8900
-Wire Notes Line
-	6000 6750 6000 8900
-Wire Notes Line
-	8800 6750 6000 6750
-$Comp
-L SamacSys_Parts:NTB0104BQ,115 U?
-U 1 1 5DC53F10
-P 6850 7900
-F 0 "U?" H 7350 8166 50  0000 C CNN
-F 1 "NTB0104BQ,115" H 7350 8074 50  0000 C CNN
-F 2 "NTB0104BQ115" H 8600 7950 50  0001 L CNN
-F 3 "http://www.nxp.com/documents/data_sheet/NTB0104.pdf" H 8600 7850 50  0001 L CNN
-F 4 "NXP - NTB0104BQ,115 - TRANSCEIVER, BIDIR TRANSLATOR, DHVQFN14" H 8600 7750 50  0001 L CNN "Description"
-F 5 "1" H 8600 7650 50  0001 L CNN "Height"
-F 6 "Nexperia" H 8600 7550 50  0001 L CNN "Manufacturer_Name"
-F 7 "NTB0104BQ,115" H 8600 7450 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "NTB0104BQ,115" H 8600 7150 50  0001 L CNN "Arrow Part Number"
-F 9 "https://www.arrow.com/en/products/ntb0104bq115/nxp-semiconductors" H 8600 7050 50  0001 L CNN "Arrow Price/Stock"
-	1    6850 7900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DC53F17
-P 8200 7550
-AR Path="/5BB122CA/5DC53F17" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5DC53F17" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5DC53F17" Ref="C?"  Part="1" 
-AR Path="/5DC53F17" Ref="C?"  Part="1" 
-F 0 "C?" H 8108 7504 50  0000 R CNN
-F 1 "100nF" H 8108 7595 50  0000 R CNN
-F 2 "" H 8200 7550 50  0001 C CNN
-F 3 "~" H 8200 7550 50  0001 C CNN
-	1    8200 7550
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	8050 7400 8050 7450
-Wire Wire Line
-	8050 7450 8200 7450
-Wire Wire Line
-	8050 7450 8050 7900
-Connection ~ 8050 7450
-$Comp
-L power:GND #PWR?
-U 1 1 5DC53F22
-P 8200 7650
-F 0 "#PWR?" H 8200 7400 50  0001 C CNN
-F 1 "GND" H 8204 7476 50  0000 C CNN
-F 2 "" H 8200 7650 50  0001 C CNN
-F 3 "" H 8200 7650 50  0001 C CNN
-	1    8200 7650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7850 7900 8050 7900
-$Comp
-L power:VDD #PWR?
-U 1 1 5DC53F29
-P 8050 7400
-F 0 "#PWR?" H 8050 7250 50  0001 C CNN
-F 1 "VDD" H 8067 7575 50  0000 C CNN
-F 2 "" H 8050 7400 50  0001 C CNN
-F 3 "" H 8050 7400 50  0001 C CNN
-	1    8050 7400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8050 8650 8050 8550
-Wire Wire Line
-	8050 8550 7900 8550
-Wire Wire Line
-	7850 8650 7900 8650
-Wire Wire Line
-	7900 8650 7900 8550
-Connection ~ 7900 8550
-Wire Wire Line
-	7900 8550 7850 8550
-Wire Wire Line
-	15400 4800 15300 4800
-Wire Wire Line
-	14900 4800 14900 4850
-Wire Wire Line
-	15400 3900 14900 3900
-Wire Wire Line
-	14900 3900 14900 4800
-Connection ~ 14900 4800
-Text Label 15100 4000 0    50   ~ 0
-EXT_IO0
-Text Label 15100 4100 0    50   ~ 0
-EXT_IO1
-Text Label 15100 4200 0    50   ~ 0
-EXT_IO2
-Text Label 15100 4300 0    50   ~ 0
-EXT_IO3
-Text Label 15100 4400 0    50   ~ 0
-EXT_IO4
-Text Label 15100 4500 0    50   ~ 0
-EXT_IO5
-Text Label 15100 4600 0    50   ~ 0
-EXT_IO6
-Text Label 10850 8000 0    50   ~ 0
-EXT_IO0
-Text Label 9350 8000 0    50   ~ 0
-IO0
-Text Label 9350 8100 0    50   ~ 0
-IO1
-Text Label 9350 8200 0    50   ~ 0
-IO2
-Text Label 9350 8300 0    50   ~ 0
-IO3
-Text Label 10850 8100 0    50   ~ 0
-EXT_IO1
-Text Label 10850 8200 0    50   ~ 0
-EXT_IO2
-Text Label 10850 8300 0    50   ~ 0
-EXT_IO3
-Wire Wire Line
-	6850 8000 6400 8000
-Wire Wire Line
-	6850 8100 6400 8100
-Wire Wire Line
-	6850 8200 6400 8200
-Text Label 6450 8550 0    50   ~ 0
-IO_B_EN
-Wire Wire Line
-	6850 8550 6400 8550
-Text Label 6450 8000 0    50   ~ 0
-IO4
-Text Label 6450 8100 0    50   ~ 0
-IO5
-Text Label 6450 8200 0    50   ~ 0
-IO6
-Wire Wire Line
-	8300 8000 7850 8000
-Wire Wire Line
-	8300 8100 7850 8100
-Wire Wire Line
-	8300 8200 7850 8200
-Text Label 7950 8000 0    50   ~ 0
-EXT_IO4
-Text Label 7950 8100 0    50   ~ 0
-EXT_IO5
-Text Label 7950 8200 0    50   ~ 0
-EXT_IO6
-Text Label 6150 4850 0    50   ~ 0
-IO_A_EN
-Text Label 6200 3950 0    50   ~ 0
-IO_B_EN
-Text Label 8350 3050 0    50   ~ 0
-VBat_I_SENSE
-Wire Wire Line
-	8250 3050 8900 3050
-Wire Wire Line
-	8250 3150 9850 3150
-Wire Wire Line
-	8250 3250 10150 3250
-Wire Wire Line
-	8250 3350 10500 3350
-Text Label 8350 2450 0    50   ~ 0
-3V_I_SENSE
-Text Label 8350 4050 0    50   ~ 0
-5V_I_SENSE
-Wire Wire Line
-	6100 4850 6850 4850
-Wire Wire Line
-	6850 3950 6850 3850
-Wire Wire Line
-	6100 3950 6850 3950
-Wire Wire Line
-	15400 4700 15300 4700
-Wire Wire Line
-	15300 4700 15300 4800
-Connection ~ 15300 4800
-Wire Wire Line
-	15300 4800 14900 4800
-$Comp
-L Connector_Generic:Conn_01x03 J?
-U 1 1 5E51E963
-P 6150 2950
-F 0 "J?" V 6350 2950 50  0000 C CNN
-F 1 "JUMPER" V 6250 2950 50  0000 C CNN
-F 2 "" H 6150 2950 50  0001 C CNN
-F 3 "~" H 6150 2950 50  0001 C CNN
-	1    6150 2950
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	6350 2950 6700 2950
-Wire Wire Line
-	6700 2950 6700 2550
-Wire Wire Line
-	6700 2550 6850 2550
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5E58E4CE
-P 6400 2750
-F 0 "#PWR?" H 6400 3150 50  0001 C CNN
-F 1 "+3V3_Internal" H 6385 2923 50  0000 C CNN
-F 2 "" H 6400 2750 50  0001 C CNN
-F 3 "" H 6400 2750 50  0001 C CNN
-	1    6400 2750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6400 2750 6400 2850
-Wire Wire Line
-	6400 2850 6350 2850
-$Comp
-L power:GND #PWR?
-U 1 1 5E5B466E
-P 6400 3100
-F 0 "#PWR?" H 6400 2850 50  0001 C CNN
-F 1 "GND" H 6405 2927 50  0000 C CNN
-F 2 "" H 6400 3100 50  0001 C CNN
-F 3 "" H 6400 3100 50  0001 C CNN
-	1    6400 3100
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	6350 3050 6400 3050
-Wire Wire Line
-	6400 3050 6400 3100
-$Comp
-L Device:C_Small C?
-U 1 1 5E5DB995
-P 9100 5300
-AR Path="/5BB122CA/5E5DB995" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5E5DB995" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5E5DB995" Ref="C?"  Part="1" 
-AR Path="/5E5DB995" Ref="C?"  Part="1" 
-F 0 "C?" H 9008 5254 50  0000 R CNN
-F 1 "100nF" H 9008 5345 50  0000 R CNN
-F 2 "" H 9100 5300 50  0001 C CNN
-F 3 "~" H 9100 5300 50  0001 C CNN
-	1    9100 5300
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	9100 5150 9100 5200
-Wire Wire Line
-	8250 5150 9100 5150
-$Comp
-L power:GND #PWR?
-U 1 1 5E629CB7
-P 9100 5400
-F 0 "#PWR?" H 9100 5150 50  0001 C CNN
-F 1 "GND" H 9104 5226 50  0000 C CNN
-F 2 "" H 9100 5400 50  0001 C CNN
-F 3 "" H 9100 5400 50  0001 C CNN
-	1    9100 5400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E629D24
-P 9100 4200
-AR Path="/5BB122CA/5E629D24" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5E629D24" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5E629D24" Ref="C?"  Part="1" 
-AR Path="/5E629D24" Ref="C?"  Part="1" 
-F 0 "C?" H 9008 4154 50  0000 R CNN
-F 1 "100nF" H 9008 4245 50  0000 R CNN
-F 2 "" H 9100 4200 50  0001 C CNN
-F 3 "~" H 9100 4200 50  0001 C CNN
-	1    9100 4200
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	8250 4050 9100 4050
-Wire Wire Line
-	9100 4050 9100 4100
-$Comp
-L power:GND #PWR?
-U 1 1 5E677B4C
-P 9100 4300
-F 0 "#PWR?" H 9100 4050 50  0001 C CNN
-F 1 "GND" H 9104 4126 50  0000 C CNN
-F 2 "" H 9100 4300 50  0001 C CNN
-F 3 "" H 9100 4300 50  0001 C CNN
-	1    9100 4300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E677BBB
-P 9100 2600
-AR Path="/5BB122CA/5E677BBB" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5E677BBB" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5E677BBB" Ref="C?"  Part="1" 
-AR Path="/5E677BBB" Ref="C?"  Part="1" 
-F 0 "C?" H 9008 2554 50  0000 R CNN
-F 1 "100nF" H 9008 2645 50  0000 R CNN
-F 2 "" H 9100 2600 50  0001 C CNN
-F 3 "~" H 9100 2600 50  0001 C CNN
-	1    9100 2600
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	9100 2450 9100 2500
-Wire Wire Line
-	8250 2450 9100 2450
-$Comp
-L power:GND #PWR?
-U 1 1 5E6ECD86
-P 9100 2700
-F 0 "#PWR?" H 9100 2450 50  0001 C CNN
-F 1 "GND" H 9104 2526 50  0000 C CNN
-F 2 "" H 9100 2700 50  0001 C CNN
-F 3 "" H 9100 2700 50  0001 C CNN
-	1    9100 2700
-	1    0    0    -1  
-$EndComp
+	10200 4150 10200 3750
 $EndSCHEMATC
