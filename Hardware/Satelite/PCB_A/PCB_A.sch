@@ -454,39 +454,6 @@ P1
 Wire Wire Line
 	9300 2550 9900 2550
 $Comp
-L Mechanical:MountingHole MH1
-U 1 1 5BB03020
-P 9000 4300
-F 0 "MH1" H 9100 4346 50  0000 L CNN
-F 1 "MountingHole" H 9100 4255 50  0000 L CNN
-F 2 "" H 9000 4300 50  0001 C CNN
-F 3 "~" H 9000 4300 50  0001 C CNN
-	1    9000 4300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole MH2
-U 1 1 5BB03098
-P 9000 4600
-F 0 "MH2" H 9100 4646 50  0000 L CNN
-F 1 "MountingHole" H 9100 4555 50  0000 L CNN
-F 2 "" H 9000 4600 50  0001 C CNN
-F 3 "~" H 9000 4600 50  0001 C CNN
-	1    9000 4600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole MH3
-U 1 1 5BB03132
-P 9000 4900
-F 0 "MH3" H 9100 4946 50  0000 L CNN
-F 1 "MountingHole" H 9100 4855 50  0000 L CNN
-F 2 "" H 9000 4900 50  0001 C CNN
-F 3 "~" H 9000 4900 50  0001 C CNN
-	1    9000 4900
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:C_Small C?
 U 1 1 5BB16517
 P 1350 1550
@@ -603,4 +570,70 @@ Wire Wire Line
 	8450 3450 7850 3450
 Text Label 7900 3450 0    50   ~ 0
 S_PARACAIDAS
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C3B6679
+P 8850 4350
+F 0 "H?" H 8950 4401 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8950 4309 50  0000 L CNN
+F 2 "" H 8850 4350 50  0001 C CNN
+F 3 "~" H 8850 4350 50  0001 C CNN
+	1    8850 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C3B6897
+P 8850 4450
+F 0 "#PWR?" H 8850 4200 50  0001 C CNN
+F 1 "GND" H 8855 4277 50  0000 C CNN
+F 2 "" H 8850 4450 50  0001 C CNN
+F 3 "" H 8850 4450 50  0001 C CNN
+	1    8850 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C3B68F0
+P 8850 4850
+F 0 "H?" H 8950 4901 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8950 4809 50  0000 L CNN
+F 2 "" H 8850 4850 50  0001 C CNN
+F 3 "~" H 8850 4850 50  0001 C CNN
+	1    8850 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C3B68F7
+P 8850 4950
+F 0 "#PWR?" H 8850 4700 50  0001 C CNN
+F 1 "GND" H 8855 4777 50  0000 C CNN
+F 2 "" H 8850 4950 50  0001 C CNN
+F 3 "" H 8850 4950 50  0001 C CNN
+	1    8850 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C3B7311
+P 8850 5350
+F 0 "H?" H 8950 5401 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8950 5309 50  0000 L CNN
+F 2 "" H 8850 5350 50  0001 C CNN
+F 3 "~" H 8850 5350 50  0001 C CNN
+	1    8850 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C3B7318
+P 8850 5450
+F 0 "#PWR?" H 8850 5200 50  0001 C CNN
+F 1 "GND" H 8855 5277 50  0000 C CNN
+F 2 "" H 8850 5450 50  0001 C CNN
+F 3 "" H 8850 5450 50  0001 C CNN
+	1    8850 5450
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

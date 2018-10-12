@@ -2702,4 +2702,70 @@ I_SENSE_BATT
 Connection ~ 15250 9450
 Wire Wire Line
 	15250 9450 15250 9500
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C32A6E4
+P 7550 7250
+F 0 "H?" H 7650 7301 50  0000 L CNN
+F 1 "MountingHole_Pad" H 7650 7209 50  0000 L CNN
+F 2 "" H 7550 7250 50  0001 C CNN
+F 3 "~" H 7550 7250 50  0001 C CNN
+	1    7550 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C32AA74
+P 7550 6750
+F 0 "H?" H 7650 6801 50  0000 L CNN
+F 1 "MountingHole_Pad" H 7650 6709 50  0000 L CNN
+F 2 "" H 7550 6750 50  0001 C CNN
+F 3 "~" H 7550 6750 50  0001 C CNN
+	1    7550 6750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C32AE7C
+P 7550 6850
+F 0 "#PWR?" H 7550 6600 50  0001 C CNN
+F 1 "GND" H 7554 6676 50  0000 C CNN
+F 2 "" H 7550 6850 50  0001 C CNN
+F 3 "" H 7550 6850 50  0001 C CNN
+	1    7550 6850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C32B18F
+P 7550 7350
+F 0 "#PWR?" H 7550 7100 50  0001 C CNN
+F 1 "GND" H 7554 7176 50  0000 C CNN
+F 2 "" H 7550 7350 50  0001 C CNN
+F 3 "" H 7550 7350 50  0001 C CNN
+	1    7550 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C32B252
+P 7550 7750
+F 0 "H?" H 7650 7801 50  0000 L CNN
+F 1 "MountingHole_Pad" H 7650 7709 50  0000 L CNN
+F 2 "" H 7550 7750 50  0001 C CNN
+F 3 "~" H 7550 7750 50  0001 C CNN
+	1    7550 7750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C32B259
+P 7550 7850
+F 0 "#PWR?" H 7550 7600 50  0001 C CNN
+F 1 "GND" H 7554 7676 50  0000 C CNN
+F 2 "" H 7550 7850 50  0001 C CNN
+F 3 "" H 7550 7850 50  0001 C CNN
+	1    7550 7850
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

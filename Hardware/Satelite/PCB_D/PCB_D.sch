@@ -882,4 +882,70 @@ F 4 "SSQ-102-03-T-D" H 6250 3200 50  0001 C CNN "Manufacturer Part Number"
 	1    6250 3200
 	1    0    0    -1  
 $EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C39553A
+P 5750 4750
+F 0 "H?" H 5850 4801 50  0000 L CNN
+F 1 "MountingHole_Pad" H 5850 4709 50  0000 L CNN
+F 2 "" H 5750 4750 50  0001 C CNN
+F 3 "~" H 5750 4750 50  0001 C CNN
+	1    5750 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C395636
+P 5750 4850
+F 0 "#PWR?" H 5750 4600 50  0001 C CNN
+F 1 "GND" H 5754 4676 50  0000 C CNN
+F 2 "" H 5750 4850 50  0001 C CNN
+F 3 "" H 5750 4850 50  0001 C CNN
+	1    5750 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C39569B
+P 5750 5250
+F 0 "H?" H 5850 5301 50  0000 L CNN
+F 1 "MountingHole_Pad" H 5850 5209 50  0000 L CNN
+F 2 "" H 5750 5250 50  0001 C CNN
+F 3 "~" H 5750 5250 50  0001 C CNN
+	1    5750 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C3956A2
+P 5750 5350
+F 0 "#PWR?" H 5750 5100 50  0001 C CNN
+F 1 "GND" H 5754 5176 50  0000 C CNN
+F 2 "" H 5750 5350 50  0001 C CNN
+F 3 "" H 5750 5350 50  0001 C CNN
+	1    5750 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C39971C
+P 5750 5750
+F 0 "H?" H 5850 5801 50  0000 L CNN
+F 1 "MountingHole_Pad" H 5850 5709 50  0000 L CNN
+F 2 "" H 5750 5750 50  0001 C CNN
+F 3 "~" H 5750 5750 50  0001 C CNN
+	1    5750 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C399723
+P 5750 5850
+F 0 "#PWR?" H 5750 5600 50  0001 C CNN
+F 1 "GND" H 5754 5676 50  0000 C CNN
+F 2 "" H 5750 5850 50  0001 C CNN
+F 3 "" H 5750 5850 50  0001 C CNN
+	1    5750 5850
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

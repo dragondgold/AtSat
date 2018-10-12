@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:PCB_B-cache
 EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
@@ -831,4 +832,70 @@ Wire Wire Line
 Connection ~ 10200 4150
 Wire Wire Line
 	10200 4150 10200 3750
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C3A9049
+P 3600 2850
+F 0 "H?" H 3700 2901 50  0000 L CNN
+F 1 "MountingHole_Pad" H 3700 2809 50  0000 L CNN
+F 2 "" H 3600 2850 50  0001 C CNN
+F 3 "~" H 3600 2850 50  0001 C CNN
+	1    3600 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C3A916B
+P 3600 2950
+F 0 "#PWR?" H 3600 2700 50  0001 C CNN
+F 1 "GND" H 3604 2776 50  0000 C CNN
+F 2 "" H 3600 2950 50  0001 C CNN
+F 3 "" H 3600 2950 50  0001 C CNN
+	1    3600 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C3A91AE
+P 3600 3350
+F 0 "H?" H 3700 3401 50  0000 L CNN
+F 1 "MountingHole_Pad" H 3700 3309 50  0000 L CNN
+F 2 "" H 3600 3350 50  0001 C CNN
+F 3 "~" H 3600 3350 50  0001 C CNN
+	1    3600 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C3A91B5
+P 3600 3450
+F 0 "#PWR?" H 3600 3200 50  0001 C CNN
+F 1 "GND" H 3604 3276 50  0000 C CNN
+F 2 "" H 3600 3450 50  0001 C CNN
+F 3 "" H 3600 3450 50  0001 C CNN
+	1    3600 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C3AC283
+P 3600 3850
+F 0 "H?" H 3700 3901 50  0000 L CNN
+F 1 "MountingHole_Pad" H 3700 3809 50  0000 L CNN
+F 2 "" H 3600 3850 50  0001 C CNN
+F 3 "~" H 3600 3850 50  0001 C CNN
+	1    3600 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C3AC28A
+P 3600 3950
+F 0 "#PWR?" H 3600 3700 50  0001 C CNN
+F 1 "GND" H 3604 3776 50  0000 C CNN
+F 2 "" H 3600 3950 50  0001 C CNN
+F 3 "" H 3600 3950 50  0001 C CNN
+	1    3600 3950
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
