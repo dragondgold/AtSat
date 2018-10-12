@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:PCB_A-cache
 EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 6
+Sheet 4 6
 Title ""
 Date ""
 Rev ""
@@ -15,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Text HLabel 5550 4500 3    50   Output ~ 0
-VSENSE
+ISENSE
 Text HLabel 6450 2500 2    50   Output ~ 0
 OUT
 Text HLabel 4700 2500 0    50   Input ~ 0
@@ -29,6 +28,7 @@ AR Path="/5BA1A7F9/5BB84510" Ref="R?"  Part="1"
 AR Path="/5BA1A77A/5BB84510" Ref="R?"  Part="1" 
 AR Path="/5BB84510" Ref="R?"  Part="1" 
 AR Path="/5BB7A164/5BB84510" Ref="R?"  Part="1" 
+AR Path="/5BC24746/5BB84510" Ref="R?"  Part="1" 
 F 0 "R?" V 5650 2500 50  0000 L CNN
 F 1 "51m" V 5450 2500 50  0000 L CNN
 F 2 "" V 5480 2500 50  0001 C CNN
@@ -62,6 +62,7 @@ AR Path="/5BA1A7F9/5BB846FE" Ref="R?"  Part="1"
 AR Path="/5BA1A77A/5BB846FE" Ref="R?"  Part="1" 
 AR Path="/5BB846FE" Ref="R?"  Part="1" 
 AR Path="/5BB7A164/5BB846FE" Ref="R?"  Part="1" 
+AR Path="/5BC24746/5BB846FE" Ref="R?"  Part="1" 
 F 0 "R?" V 5400 2800 50  0000 L CNN
 F 1 "50R" V 5200 2800 50  0000 L CNN
 F 2 "" V 5230 2800 50  0001 C CNN
@@ -79,6 +80,7 @@ AR Path="/5BA1A7F9/5BB847E2" Ref="R?"  Part="1"
 AR Path="/5BA1A77A/5BB847E2" Ref="R?"  Part="1" 
 AR Path="/5BB847E2" Ref="R?"  Part="1" 
 AR Path="/5BB7A164/5BB847E2" Ref="R?"  Part="1" 
+AR Path="/5BC24746/5BB847E2" Ref="R?"  Part="1" 
 F 0 "R?" V 5900 2800 50  0000 L CNN
 F 1 "50R" V 5700 2800 50  0000 L CNN
 F 2 "" V 5730 2800 50  0001 C CNN
@@ -106,6 +108,7 @@ AR Path="/5BA1A7F9/5BB848CB" Ref="C?"  Part="1"
 AR Path="/5BA1A77A/5BB848CB" Ref="C?"  Part="1" 
 AR Path="/5BB848CB" Ref="C?"  Part="1" 
 AR Path="/5BB7A164/5BB848CB" Ref="C?"  Part="1" 
+AR Path="/5BC24746/5BB848CB" Ref="C?"  Part="1" 
 F 0 "C?" H 5700 3100 50  0000 L CNN
 F 1 "1uF" H 5650 3000 50  0000 L CNN
 F 2 "" H 5550 3100 50  0001 C CNN
@@ -168,6 +171,7 @@ AR Path="/5BA1A7F9/5BB84CBB" Ref="C?"  Part="1"
 AR Path="/5BA1A77A/5BB84CBB" Ref="C?"  Part="1" 
 AR Path="/5BB84CBB" Ref="C?"  Part="1" 
 AR Path="/5BB7A164/5BB84CBB" Ref="C?"  Part="1" 
+AR Path="/5BC24746/5BB84CBB" Ref="C?"  Part="1" 
 F 0 "C?" H 5300 4000 50  0000 L CNN
 F 1 "1uF" H 5250 3900 50  0000 L CNN
 F 2 "" H 5150 4000 50  0001 C CNN
@@ -184,6 +188,7 @@ AR Path="/5BA1A7F9/5BB84D2D" Ref="C?"  Part="1"
 AR Path="/5BA1A77A/5BB84D2D" Ref="C?"  Part="1" 
 AR Path="/5BB84D2D" Ref="C?"  Part="1" 
 AR Path="/5BB7A164/5BB84D2D" Ref="C?"  Part="1" 
+AR Path="/5BC24746/5BB84D2D" Ref="C?"  Part="1" 
 F 0 "C?" H 4900 4000 50  0000 L CNN
 F 1 "100n" H 4850 3900 50  0000 L CNN
 F 2 "" H 4750 4000 50  0001 C CNN
