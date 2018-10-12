@@ -2685,8 +2685,6 @@ Text Label 12750 4150 0    50   ~ 0
 EXT_IO5
 Text Label 13750 4150 0    50   ~ 0
 EXT_IO6
-Text Label 13750 4050 0    50   ~ 0
-EXT_IO7
 Text Label 14400 4700 0    50   ~ 0
 EXT_SDO
 Text Label 14400 4800 0    50   ~ 0
