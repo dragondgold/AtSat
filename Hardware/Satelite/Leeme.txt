@@ -1,4 +1,5 @@
-PCB_A -> RF + Conectores servos + Anclaje al satelite + Conexión batería + GPS + Switch y LEDs
+﻿PCB_A -> RF + Conectores servos + Anclaje al satelite + Conexión batería + GPS + Switch y LEDs
 PCB_B -> Reguladores + Protecciones + Gestión Batería
 PCB_C -> Sensores + MCU Supervisor + Conector expansión limitado + micro-usb
 PCB_D -> Arduino + micro-usb + Conector expansion
+PCB_E -> Plaqueta preperforada + Conector expansion
