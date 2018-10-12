@@ -70,6 +70,11 @@ D NE555DG4, Timer, 4.5 To 16V, 8-Pin SOIC-8
 F http://www.ti.com/lit/ds/symlink/ne555.pdf
 $ENDCMP
 #
+$CMP NTB0104BQ,115
+D NXP - NTB0104BQ,115 - TRANSCEIVER, BIDIR TRANSLATOR, DHVQFN14
+F http://www.nxp.com/documents/data_sheet/NTB0104.pdf
+$ENDCMP
+#
 $CMP SSM3J338R,LF
 D MOSFET Small-signal MOSFET Vdss= -12V, ID= -6A
 F http://toshiba.semicon-storage.com/info/docget.jsp?did=30384&prodName=SSM3J338R

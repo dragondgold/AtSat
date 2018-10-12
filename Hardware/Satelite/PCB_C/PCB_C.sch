@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:PCB_C-cache
 EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
@@ -966,9 +967,9 @@ Text Label 3900 2450 0    50   ~ 0
 AD0
 Text Label 3900 2550 0    50   ~ 0
 AD1
-Text Label 5050 2450 0    50   ~ 0
-AD2
 Text Label 5050 2550 0    50   ~ 0
+AD2
+Text Label 5050 2450 0    50   ~ 0
 AD3
 Wire Wire Line
 	4300 1650 3850 1650
@@ -986,19 +987,19 @@ Wire Wire Line
 	5250 1550 4800 1550
 Text Label 3900 1550 0    50   ~ 0
 IO0
-Text Label 5050 1550 0    50   ~ 0
-IO1
 Text Label 3900 1650 0    50   ~ 0
-IO2
+IO1
 Text Label 5050 1650 0    50   ~ 0
+IO2
+Text Label 5050 1550 0    50   ~ 0
 IO3
 Text Label 3900 2000 0    50   ~ 0
 IO4
-Text Label 5050 2000 0    50   ~ 0
-IO5
 Text Label 3900 2100 0    50   ~ 0
-IO6
+IO5
 Text Label 5050 2100 0    50   ~ 0
+IO6
+Text Label 5050 2000 0    50   ~ 0
 IO7
 Wire Wire Line
 	1700 3850 2050 3850
