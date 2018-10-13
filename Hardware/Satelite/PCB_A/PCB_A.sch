@@ -111,7 +111,7 @@ U 1 1 5BA1A8A6
 P 5950 4650
 F 0 "J3" H 6030 4692 50  0000 L CNN
 F 1 "Servo Paracaídas" H 6030 4601 50  0000 L CNN
-F 2 "" H 5950 4650 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5950 4650 50  0001 C CNN
 F 3 "~" H 5950 4650 50  0001 C CNN
 	1    5950 4650
 	0    -1   -1   0   
@@ -122,7 +122,7 @@ U 1 1 5BA1A8E2
 P 4500 4650
 F 0 "J1" H 4580 4692 50  0000 L CNN
 F 1 "Servo Globo" H 4580 4601 50  0000 L CNN
-F 2 "" H 4500 4650 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 4500 4650 50  0001 C CNN
 F 3 "~" H 4500 4650 50  0001 C CNN
 	1    4500 4650
 	0    -1   -1   0   
@@ -191,39 +191,25 @@ Wire Wire Line
 Wire Wire Line
 	7450 2450 7050 2450
 $Comp
-L AXTEC_IC:CONUFL001-SMD U1
-U 1 1 5BA4343B
-P 2500 3200
-F 0 "U1" H 2500 3465 50  0000 C CNN
-F 1 "CONUFL001-SMD" H 2500 3374 50  0000 C CNN
-F 2 "" H 2500 3400 50  0001 C CNN
-F 3 "https://componentsearchengine.com/Datasheets/1/CONUFL001-SMD.pdf" H 2500 3400 50  0001 C CNN
-F 4 "CONUFL001-SMD" H 2600 3450 50  0001 C CNN "Manufacturer Part Number"
-	1    2500 3200
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	1350 3200 2100 3200
-$Comp
 L power:GND #PWR02
 U 1 1 5BA447BF
-P 3000 3450
-F 0 "#PWR02" H 3000 3200 50  0001 C CNN
-F 1 "GND" H 3005 3277 50  0000 C CNN
-F 2 "" H 3000 3450 50  0001 C CNN
-F 3 "" H 3000 3450 50  0001 C CNN
-	1    3000 3450
+P 3200 3450
+F 0 "#PWR02" H 3200 3200 50  0001 C CNN
+F 1 "GND" H 3205 3277 50  0000 C CNN
+F 2 "" H 3200 3450 50  0001 C CNN
+F 3 "" H 3200 3450 50  0001 C CNN
+	1    3200 3450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2900 3200 3000 3200
+	3100 3200 3200 3200
 Wire Wire Line
-	3000 3200 3000 3300
+	3200 3200 3200 3300
 Wire Wire Line
-	2900 3300 3000 3300
-Connection ~ 3000 3300
+	3100 3300 3200 3300
+Connection ~ 3200 3300
 Wire Wire Line
-	3000 3300 3000 3450
+	3200 3300 3200 3450
 $Sheet
 S 800  2600 550  700 
 U 5BA17F9C
@@ -242,8 +228,8 @@ L Connector_Generic:Conn_01x02 J2
 U 1 1 5BAE15D7
 P 2550 1400
 F 0 "J2" H 2629 1392 50  0000 L CNN
-F 1 "Batería LiPo" H 2629 1301 50  0000 L CNN
-F 2 "" H 2550 1400 50  0001 C CNN
+F 1 "Batería LiPo (Soldada)" H 2629 1301 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 2550 1400 50  0001 C CNN
 F 3 "~" H 2550 1400 50  0001 C CNN
 	1    2550 1400
 	1    0    0    -1  
@@ -358,32 +344,6 @@ Text Label 5850 5500 1    50   ~ 0
 S_PARACAIDAS
 Text Label 4400 5500 1    50   ~ 0
 S_GLOBO
-$Comp
-L Device:LED D3
-U 1 1 5BAF29A3
-P 7500 1650
-F 0 "D3" V 7445 1728 50  0000 L CNN
-F 1 "LED" V 7536 1728 50  0000 L CNN
-F 2 "" H 7500 1650 50  0001 C CNN
-F 3 "~" H 7500 1650 50  0001 C CNN
-	1    7500 1650
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5BAF2A92
-P 7500 1250
-AR Path="/5BA17F9C/5BAF2A92" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5BAF2A92" Ref="R?"  Part="1" 
-AR Path="/5BA1A77A/5BAF2A92" Ref="R?"  Part="1" 
-AR Path="/5BAF2A92" Ref="R3"  Part="1" 
-F 0 "R3" V 7600 1250 50  0000 L CNN
-F 1 "1k" V 7400 1250 50  0000 L CNN
-F 2 "" V 7430 1250 50  0001 C CNN
-F 3 "~" H 7500 1250 50  0001 C CNN
-	1    7500 1250
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7500 1500 7500 1400
 $Comp
@@ -411,9 +371,10 @@ L Device:LED D1
 U 1 1 5BAFD8C1
 P 7050 1650
 F 0 "D1" V 6995 1728 50  0000 L CNN
-F 1 "LED" V 7086 1728 50  0000 L CNN
-F 2 "" H 7050 1650 50  0001 C CNN
+F 1 "Rojo" V 7086 1728 50  0000 L CNN
+F 2 "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 7050 1650 50  0001 C CNN
 F 3 "~" H 7050 1650 50  0001 C CNN
+F 4 "150060RS75000" V 7050 1650 50  0001 C CNN "Manufacturer Part Number"
 	1    7050 1650
 	0    -1   -1   0   
 $EndComp
@@ -427,7 +388,7 @@ AR Path="/5BA1A77A/5BAFD8C8" Ref="R?"  Part="1"
 AR Path="/5BAFD8C8" Ref="R1"  Part="1" 
 F 0 "R1" V 7150 1250 50  0000 L CNN
 F 1 "1k" V 6950 1250 50  0000 L CNN
-F 2 "" V 6980 1250 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 6980 1250 50  0001 C CNN
 F 3 "~" H 7050 1250 50  0001 C CNN
 	1    7050 1250
 	1    0    0    -1  
@@ -461,10 +422,13 @@ AR Path="/5BA17F9C/5BB16517" Ref="C?"  Part="1"
 AR Path="/5BA1A7F9/5BB16517" Ref="C?"  Part="1" 
 AR Path="/5BA1A77A/5BB16517" Ref="C?"  Part="1" 
 AR Path="/5BB16517" Ref="C16"  Part="1" 
-F 0 "C16" H 1500 1550 50  0000 L CNN
+F 0 "C16" H 1450 1550 50  0000 L CNN
 F 1 "1uF" H 1450 1450 50  0000 L CNN
-F 2 "" H 1350 1550 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 1350 1550 50  0001 C CNN
 F 3 "~" H 1350 1550 50  0001 C CNN
+F 4 "EMK107B7104KAHT" H 1350 1550 50  0001 C CNN "Manufacturer Part Number"
+F 5 "10V" H 1350 1550 50  0001 C CNN "Voltage"
+F 6 "X7R" H 1350 1550 50  0001 C CNN "Dielectric"
 	1    1350 1550
 	1    0    0    -1  
 $EndComp
@@ -576,7 +540,7 @@ U 1 1 5C3B6679
 P 8850 4350
 F 0 "H?" H 8950 4401 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8950 4309 50  0000 L CNN
-F 2 "" H 8850 4350 50  0001 C CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 8850 4350 50  0001 C CNN
 F 3 "~" H 8850 4350 50  0001 C CNN
 	1    8850 4350
 	1    0    0    -1  
@@ -593,17 +557,6 @@ F 3 "" H 8850 4450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
-U 1 1 5C3B68F0
-P 8850 4850
-F 0 "H?" H 8950 4901 50  0000 L CNN
-F 1 "MountingHole_Pad" H 8950 4809 50  0000 L CNN
-F 2 "" H 8850 4850 50  0001 C CNN
-F 3 "~" H 8850 4850 50  0001 C CNN
-	1    8850 4850
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5C3B68F7
 P 8850 4950
@@ -612,17 +565,6 @@ F 1 "GND" H 8855 4777 50  0000 C CNN
 F 2 "" H 8850 4950 50  0001 C CNN
 F 3 "" H 8850 4950 50  0001 C CNN
 	1    8850 4950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H?
-U 1 1 5C3B7311
-P 8850 5350
-F 0 "H?" H 8950 5401 50  0000 L CNN
-F 1 "MountingHole_Pad" H 8950 5309 50  0000 L CNN
-F 2 "" H 8850 5350 50  0001 C CNN
-F 3 "~" H 8850 5350 50  0001 C CNN
-	1    8850 5350
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -636,4 +578,70 @@ F 3 "" H 8850 5450 50  0001 C CNN
 	1    8850 5450
 	1    0    0    -1  
 $EndComp
+$Comp
+L Device:R R?
+U 1 1 5C01D115
+P 7500 1250
+AR Path="/5BA17F9C/5C01D115" Ref="R?"  Part="1" 
+AR Path="/5BA1A7F9/5C01D115" Ref="R?"  Part="1" 
+AR Path="/5BA1A77A/5C01D115" Ref="R?"  Part="1" 
+AR Path="/5C01D115" Ref="R?"  Part="1" 
+F 0 "R?" V 7600 1250 50  0000 L CNN
+F 1 "1k" V 7400 1250 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7430 1250 50  0001 C CNN
+F 3 "~" H 7500 1250 50  0001 C CNN
+	1    7500 1250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED D?
+U 1 1 5C01D74F
+P 7500 1650
+F 0 "D?" V 7445 1728 50  0000 L CNN
+F 1 "Verde" V 7536 1728 50  0000 L CNN
+F 2 "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 7500 1650 50  0001 C CNN
+F 3 "~" H 7500 1650 50  0001 C CNN
+F 4 "150060RS75000" V 7500 1650 50  0001 C CNN "Manufacturer Part Number"
+	1    7500 1650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C01DD03
+P 8850 4850
+F 0 "H?" H 8950 4901 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8950 4809 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 8850 4850 50  0001 C CNN
+F 3 "~" H 8850 4850 50  0001 C CNN
+	1    8850 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5C01DD41
+P 8850 5350
+F 0 "H?" H 8950 5401 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8950 5309 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 8850 5350 50  0001 C CNN
+F 3 "~" H 8850 5350 50  0001 C CNN
+	1    8850 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L SamacSys_Parts:CONUFL001-SMD J?
+U 1 1 5C01E8D4
+P 2650 3200
+F 0 "J?" H 2675 3466 50  0000 C CNN
+F 1 "CONUFL001-SMD" H 2675 3374 50  0000 C CNN
+F 2 "CONUFL001-SMD" H 2950 3300 50  0001 L CNN
+F 3 "https://componentsearchengine.com/Datasheets/1/CONUFL001-SMD.pdf" H 2950 3200 50  0001 L CNN
+F 4 "RF Connectors / Coaxial Connectors U.FL Straight Surface Mount Jack" H 2950 3100 50  0001 L CNN "Description"
+F 5 "Linx Technologies" H 2950 2900 50  0001 L CNN "Manufacturer_Name"
+F 6 "CONUFL001-SMD" H 2950 2800 50  0001 L CNN "Manufacturer_Part_Number"
+F 7 "CONUFL001-SMD" H 2950 2500 50  0001 L CNN "Arrow Part Number"
+	1    2650 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1350 3200 2250 3200
 $EndSCHEMATC

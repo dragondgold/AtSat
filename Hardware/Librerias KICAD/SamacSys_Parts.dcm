@@ -35,6 +35,11 @@ D Texas Instruments CC1101RGP, RF Transceiver IC Triple Band 1.8  3.6 V 20-Pin Q
 F http://www.ti.com/lit/ds/symlink/cc1101.pdf
 $ENDCMP
 #
+$CMP CONUFL001-SMD
+D RF Connectors / Coaxial Connectors U.FL Straight Surface Mount Jack
+F https://componentsearchengine.com/Datasheets/1/CONUFL001-SMD.pdf
+$ENDCMP
+#
 $CMP CSTNE16M0V530000R0
 D Resonators 16.0000MHz 15pF SMD CHP Resntr
 F https://www.murata.com/en-eu/products/productdata/8801162231838/SPEC-CSTNE16M0V530000R0.pdf?1519875007000
