@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="ConExpansionParte1.svg">
+   sodipodi:docname="ConExpansionIO.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -27,7 +27,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="7.919596"
      inkscape:cx="25.923904"
-     inkscape:cy="6.9993594"
+     inkscape:cy="22.151647"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -147,7 +147,7 @@
            height="3.9285715"
            x="6.3392859"
            y="1099.3054" /></flowRegion><flowPara
-         id="flowPara963"></flowPara></flowRoot>    <rect
+         id="flowPara963" /></flowRoot>    <rect
        style="fill:none;stroke:#000000;stroke-width:0.12424602;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect815-1"
        width="1.8757541"
