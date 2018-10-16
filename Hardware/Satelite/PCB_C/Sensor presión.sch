@@ -65,7 +65,7 @@ F 0 "C?" H 4708 3654 50  0000 R CNN
 F 1 "1uF" H 4708 3745 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 4800 3700 50  0001 C CNN
 F 3 "~" H 4800 3700 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 4800 3700 50  0001 C CNN "Manufacturer Part Number"
+F 4 "LMK107B7105MA-T" H 4800 3700 50  0001 C CNN "Manufacturer Part Number"
 	1    4800 3700
 	-1   0    0    1   
 $EndComp

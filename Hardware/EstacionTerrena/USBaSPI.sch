@@ -22,6 +22,7 @@ F 0 "J2" H 1150 4600 50  0000 C CNN
 F 1 "USB_B_Micro" H 1205 4526 50  0000 C CNN
 F 2 "Connector_USB:USB_Micro-B_Molex-105017-0001" H 1300 4100 50  0001 C CNN
 F 3 "https://www.molex.com/webdocs/datasheets/pdf/en-us/1050170001_IO_CONNECTORS.pdf" H 1300 4100 50  0001 C CNN
+F 4 "105017-0001" H 1150 4150 50  0001 C CNN "Manufacturer Part Number"
 	1    1150 4150
 	1    0    0    -1  
 $EndComp
@@ -655,7 +656,7 @@ F 2 "Capacitor_SMD:C_0603_1608Metric" H 9250 4500 50  0001 C CNN
 F 3 "~" H 9250 4500 50  0001 C CNN
 F 4 "X7R" H 9250 4500 50  0001 C CNN "Dielectric"
 F 5 "10V" H 9250 4500 50  0001 C CNN "Voltage"
-F 6 "EMK107B7104KAHT" H 9250 4500 50  0001 C CNN "Manufacturer Part Number"
+F 6 "LMK107B7105MA-T" H 9250 4500 50  0001 C CNN "Manufacturer Part Number"
 	1    9250 4500
 	1    0    0    -1  
 $EndComp
