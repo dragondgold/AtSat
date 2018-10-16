@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="ConExpansionIO.svg">
+   sodipodi:docname="Con_Expansion_IO.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -165,32 +165,32 @@
          id="tspan839-3"
          x="2.278378"
          y="280.92838"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:2.5;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.07061514;stroke-miterlimit:4;stroke-dasharray:none">IO1</tspan><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:2.5;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.07061514;stroke-miterlimit:4;stroke-dasharray:none">IO0</tspan><tspan
          sodipodi:role="line"
          x="2.278378"
          y="282.59882"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:2.5;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.07061514;stroke-miterlimit:4;stroke-dasharray:none"
-         id="tspan843-8">IO2</tspan><tspan
+         id="tspan843-8">IO1</tspan><tspan
          sodipodi:role="line"
          x="2.278378"
          y="284.26923"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:2.5;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.07061514;stroke-miterlimit:4;stroke-dasharray:none"
-         id="tspan845-6">IO3</tspan><tspan
+         id="tspan845-6">IO2</tspan><tspan
          sodipodi:role="line"
          x="2.278378"
          y="285.93967"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:2.5;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.07061514;stroke-miterlimit:4;stroke-dasharray:none"
-         id="tspan847-4">IO4</tspan><tspan
+         id="tspan847-4">IO3</tspan><tspan
          sodipodi:role="line"
          x="2.278378"
          y="287.61011"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:2.5;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.07061514;stroke-miterlimit:4;stroke-dasharray:none"
-         id="tspan849-8">IO5</tspan><tspan
+         id="tspan849-8">IO4</tspan><tspan
          sodipodi:role="line"
          x="2.278378"
          y="289.28052"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:2.5;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';stroke-width:0.07061514;stroke-miterlimit:4;stroke-dasharray:none"
-         id="tspan851-5">IO6</tspan><tspan
+         id="tspan851-5">IO5</tspan><tspan
          sodipodi:role="line"
          x="2.278378"
          y="290.95096"
