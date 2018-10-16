@@ -277,37 +277,6 @@ X GND 6 -500 -100 200 R 50 50 0 0 W
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts:5-1814832-1
-#
-DEF SamacSys_Parts:5-1814832-1 J 0 30 Y Y 1 F N
-F0 "J" -250 300 50 H V L CNN
-F1 "SamacSys_Parts:5-1814832-1" -250 200 50 H V L CNN
-F2 "5-1814832-1" 400 100 50 H I L CNN
-F3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1814832&DocType=Customer+Drawing&DocLang=English" 400 0 50 H I L CNN
-F4 "SUBMINIATURE COAX" 400 -100 50 H I L CNN "Description"
-F5 "TE Connectivity" 400 -300 50 H I L CNN "Manufacturer_Name"
-F6 "5-1814832-1" 400 -400 50 H I L CNN "Manufacturer Part Number"
-F7 "1355074" 200 -500 50 H I L CNN "RS Part Number"
-F8 "http://uk.rs-online.com/web/p/products/1355074" 400 -600 50 H I L CNN "RS Price/Stock"
-F9 "70084637" 400 -700 50 H I L CNN "Allied_Number"
-F10 "https://www.alliedelec.com/te-connectivity-5-1814832-1/70084637/" 400 -800 50 H I L CNN "Allied Price/Stock"
-F11 "5-1814832-1" 400 -900 50 H I L CNN "Arrow Part Number"
-F12 "https://www.arrow.com/en/products/5-1814832-1/te-connectivity" 400 -1000 50 H I L CNN "Arrow Price/Stock"
-DRAW
-A -2 0 71 1636 0 1 1 10 N -70 20 70 0
-A -1 0 71 0 -1638 1 1 10 N 70 0 -70 -20
-C 0 0 20 1 1 8 N
-P 2 0 1 0 -100 -100 200 -100 N
-P 2 1 1 0 -100 0 -20 0 N
-P 2 1 1 0 0 -100 0 -70 N
-X ~ 1 -200 0 100 R 50 50 1 1 P
-X ~ 2 -100 -200 100 U 50 50 1 1 P
-X ~ 3 0 -200 100 U 50 50 1 1 P
-X ~ 4 100 -200 100 U 50 50 1 1 P
-X ~ 5 200 -200 100 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
 # SamacSys_Parts:CC1101RGP
 #
 DEF SamacSys_Parts:CC1101RGP U 0 30 Y Y 1 F N
@@ -346,6 +315,25 @@ X GDO0_(ATEST) 6 500 -1400 200 U 50 50 0 0 B
 X CSN 7 600 -1400 200 U 50 50 0 0 B
 X XOSC_Q1 8 700 -1400 200 U 50 50 0 0 B
 X AVDD_1 9 800 -1400 200 U 50 50 0 0 B
+ENDDRAW
+ENDDEF
+#
+# SamacSys_Parts:CONUFL001-SMD
+#
+DEF SamacSys_Parts:CONUFL001-SMD J 0 30 Y Y 1 F N
+F0 "J" 300 300 50 H V L CNN
+F1 "SamacSys_Parts:CONUFL001-SMD" 300 200 50 H V L CNN
+F2 "CONUFL001-SMD" 300 100 50 H I L CNN
+F3 "https://componentsearchengine.com/Datasheets/1/CONUFL001-SMD.pdf" 300 0 50 H I L CNN
+F4 "RF Connectors / Coaxial Connectors U.FL Straight Surface Mount Jack" 300 -100 50 H I L CNN "Description"
+F5 "Linx Technologies" 300 -300 50 H I L CNN "Manufacturer_Name"
+F6 "CONUFL001-SMD" 300 -400 50 H I L CNN "Manufacturer_Part_Number"
+F7 "CONUFL001-SMD" 300 -700 50 H I L CNN "Arrow Part Number"
+DRAW
+P 5 1 1 6 -200 100 250 100 250 -200 -200 -200 -200 100 N
+X SIG 1 -400 0 200 R 50 50 0 0 B
+X GND 2 450 -100 200 L 50 50 0 0 W
+X GND 3 450 0 200 L 50 50 0 0 W
 ENDDRAW
 ENDDEF
 #

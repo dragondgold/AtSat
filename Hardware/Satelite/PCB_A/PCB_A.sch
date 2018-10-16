@@ -512,52 +512,14 @@ $EndComp
 $Comp
 L power:GND #PWR06
 U 1 1 5BCC3FF5
-P 2600 4200
-F 0 "#PWR06" H 2600 3950 50  0001 C CNN
-F 1 "GND" H 2605 4027 50  0000 C CNN
-F 2 "" H 2600 4200 50  0001 C CNN
-F 3 "" H 2600 4200 50  0001 C CNN
-	1    2600 4200
+P 3300 4050
+F 0 "#PWR06" H 3300 3800 50  0001 C CNN
+F 1 "GND" H 3305 3877 50  0000 C CNN
+F 2 "" H 3300 4050 50  0001 C CNN
+F 3 "" H 3300 4050 50  0001 C CNN
+	1    3300 4050
 	1    0    0    -1  
 $EndComp
-$Comp
-L SamacSys_Parts:5-1814832-1 J2
-U 1 1 5BCC4004
-P 2600 3900
-F 0 "J2" H 2841 3876 50  0000 L CNN
-F 1 "5-1814832-1" H 2841 3784 50  0000 L CNN
-F 2 "SamacSys_Parts:5-1814832-1" H 3000 4000 50  0001 L CNN
-F 3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1814832&DocType=Customer+Drawing&DocLang=English" H 3000 3900 50  0001 L CNN
-F 4 "SUBMINIATURE COAX" H 3000 3800 50  0001 L CNN "Description"
-F 5 "TE Connectivity" H 3000 3600 50  0001 L CNN "Manufacturer_Name"
-F 6 "5-1814832-1" H 3000 3500 50  0001 L CNN "Manufacturer Part Number"
-F 7 "1355074" H 2800 3400 50  0001 L CNN "RS Part Number"
-F 8 "http://uk.rs-online.com/web/p/products/1355074" H 3000 3300 50  0001 L CNN "RS Price/Stock"
-F 9 "70084637" H 3000 3200 50  0001 L CNN "Allied_Number"
-F 10 "https://www.alliedelec.com/te-connectivity-5-1814832-1/70084637/" H 3000 3100 50  0001 L CNN "Allied Price/Stock"
-F 11 "5-1814832-1" H 3000 3000 50  0001 L CNN "Arrow Part Number"
-F 12 "https://www.arrow.com/en/products/5-1814832-1/te-connectivity" H 3000 2900 50  0001 L CNN "Arrow Price/Stock"
-	1    2600 3900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2500 4100 2500 4150
-Wire Wire Line
-	2500 4150 2600 4150
-Wire Wire Line
-	2800 4150 2800 4100
-Wire Wire Line
-	2700 4100 2700 4150
-Connection ~ 2700 4150
-Wire Wire Line
-	2700 4150 2800 4150
-Wire Wire Line
-	2600 4100 2600 4150
-Connection ~ 2600 4150
-Wire Wire Line
-	2600 4150 2700 4150
-Wire Wire Line
-	2600 4200 2600 4150
 Wire Wire Line
 	2400 3900 1600 3900
 $Comp
@@ -683,4 +645,28 @@ Wire Notes Line
 	3600 6250 700  6250
 Text Notes 750  7250 0    157  ~ 0
 AGUJEROS DE MONTAJE\n\n\n\n
+$Comp
+L SamacSys_Parts:CONUFL001-SMD J2
+U 1 1 5BC6411A
+P 2800 3900
+F 0 "J2" H 2825 4165 50  0000 C CNN
+F 1 "CONUFL001-SMD" H 2825 4074 50  0000 C CNN
+F 2 "SamacSys_Parts:CONUFL001-SMD" H 3100 4000 50  0001 L CNN
+F 3 "https://componentsearchengine.com/Datasheets/1/CONUFL001-SMD.pdf" H 3100 3900 50  0001 L CNN
+F 4 "RF Connectors / Coaxial Connectors U.FL Straight Surface Mount Jack" H 3100 3800 50  0001 L CNN "Description"
+F 5 "Linx Technologies" H 3100 3600 50  0001 L CNN "Manufacturer_Name"
+F 6 "CONUFL001-SMD" H 3100 3500 50  0001 L CNN "Manufacturer_Part_Number"
+F 7 "CONUFL001-SMD" H 3100 3200 50  0001 L CNN "Arrow Part Number"
+	1    2800 3900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3250 3900 3300 3900
+Wire Wire Line
+	3300 3900 3300 4000
+Wire Wire Line
+	3250 4000 3300 4000
+Connection ~ 3300 4000
+Wire Wire Line
+	3300 4000 3300 4050
 $EndSCHEMATC
