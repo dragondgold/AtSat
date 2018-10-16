@@ -153,27 +153,21 @@ GPS_TX
 $Comp
 L power:GND #PWR010
 U 1 1 5BA1B3CD
-P 8100 2800
-F 0 "#PWR010" H 8100 2550 50  0001 C CNN
-F 1 "GND" H 8105 2627 50  0000 C CNN
-F 2 "" H 8100 2800 50  0001 C CNN
-F 3 "" H 8100 2800 50  0001 C CNN
-	1    8100 2800
+P 7850 2850
+F 0 "#PWR010" H 7850 2600 50  0001 C CNN
+F 1 "GND" H 7855 2677 50  0000 C CNN
+F 2 "" H 7850 2850 50  0001 C CNN
+F 3 "" H 7850 2850 50  0001 C CNN
+	1    7850 2850
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8350 2950 8750 2950
-Wire Wire Line
-	8350 3050 8750 3050
-Text Label 8400 2950 0    50   ~ 0
+Text Label 8250 3150 0    50   ~ 0
 SDO
-Text Label 8400 3050 0    50   ~ 0
+Text Label 8250 3250 0    50   ~ 0
 SDI
-Text Label 8400 3250 0    50   ~ 0
+Text Label 8250 3450 0    50   ~ 0
 SCLK
-Wire Wire Line
-	8350 3250 8750 3250
-Text Label 9950 2650 0    50   ~ 0
+Text Label 10250 2650 0    50   ~ 0
 GPS_TX
 $Comp
 L Switch:SW_SPDT SW1
@@ -199,8 +193,6 @@ F4 "SCLK" O R 1600 3650 50
 F5 "ANT" B R 1600 3900 50 
 F6 "CS" I R 1600 3350 50 
 $EndSheet
-Wire Wire Line
-	8350 3150 8750 3150
 $Comp
 L Connector_Generic:Conn_01x02 J1
 U 1 1 5BAE15D7
@@ -345,7 +337,7 @@ Wire Wire Line
 	7350 850  7350 1100
 Text Label 7350 1000 1    50   ~ 0
 P1
-Text Label 9950 2550 0    50   ~ 0
+Text Label 10250 2550 0    50   ~ 0
 P1
 $Comp
 L Device:C_Small C?
@@ -383,16 +375,12 @@ $EndComp
 Wire Wire Line
 	1350 1650 1350 1700
 Connection ~ 1350 1400
-Text Label 8400 3150 0    50   ~ 0
+Text Label 8250 3350 0    50   ~ 0
 CS
 Wire Wire Line
 	1600 3350 2350 3350
 Text Label 2000 3350 0    50   ~ 0
 CS
-Wire Wire Line
-	8100 2750 8100 2800
-Wire Wire Line
-	8100 2750 8700 2750
 $Comp
 L power:+BATT #PWR01
 U 1 1 5BC12477
@@ -430,16 +418,11 @@ Wire Wire Line
 	8750 2850 8700 2850
 Wire Wire Line
 	8700 2850 8700 2750
-Connection ~ 8700 2750
 Wire Wire Line
 	8700 2750 8750 2750
-Text Label 8200 3350 0    50   ~ 0
+Text Label 8250 2950 0    50   ~ 0
 S_GLOBO
-Wire Wire Line
-	8750 3350 8150 3350
-Wire Wire Line
-	8750 3450 8150 3450
-Text Label 8200 3450 0    50   ~ 0
+Text Label 8250 3050 0    50   ~ 0
 S_PARACAIDAS
 $Comp
 L Device:R R?
@@ -522,12 +505,6 @@ F 3 "" H 3300 4050 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2400 3900 1600 3900
-Wire Wire Line
-	9850 3050 10550 3050
-Wire Wire Line
-	9850 2650 10200 2650
-Wire Wire Line
-	9850 2550 10200 2550
 Text Notes 8100 850  0    157  ~ 0
 Conector PCB A-B\n
 Wire Notes Line
@@ -669,4 +646,27 @@ F 3 "" H 9050 3300 50  0001 C CNN
 	1    9300 2850
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	7850 2850 7850 2750
+Wire Wire Line
+	7850 2750 8700 2750
+Connection ~ 8700 2750
+Wire Wire Line
+	8250 2950 8750 2950
+Wire Wire Line
+	8250 3050 8750 3050
+Wire Wire Line
+	8250 3150 8750 3150
+Wire Wire Line
+	8250 3250 8750 3250
+Wire Wire Line
+	8250 3350 8750 3350
+Wire Wire Line
+	8750 3450 8250 3450
+Wire Wire Line
+	10150 2550 10550 2550
+Wire Wire Line
+	10150 2650 10550 2650
+Wire Wire Line
+	10150 3050 10550 3050
 $EndSCHEMATC
