@@ -105,4 +105,10 @@ D Texas Instruments TXB0304RUTR, Logic Level Translator, Voltage Level, 3-State,
 F http://www.ti.com/lit/ds/symlink/txb0304.pdf
 $ENDCMP
 #
+$CMP IS25LP080D-JULE-TR
+D NOR Flash 8Mb QSPI, 8-pin USON 2x3mm, RoHS, T&R
+K
+F https://componentsearchengine.com/Datasheets/1/IS25LP080D-JULE-TR.pdf
+$ENDCMP
+#
 #End Doc Library
