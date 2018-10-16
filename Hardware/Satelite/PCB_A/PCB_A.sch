@@ -173,7 +173,7 @@ Text Label 8400 3250 0    50   ~ 0
 SCLK
 Wire Wire Line
 	8350 3250 8750 3250
-Text Label 9950 2550 0    50   ~ 0
+Text Label 9950 2650 0    50   ~ 0
 GPS_TX
 $Comp
 L Switch:SW_SPDT SW1
@@ -345,7 +345,7 @@ Wire Wire Line
 	7350 850  7350 1100
 Text Label 7350 1000 1    50   ~ 0
 P1
-Text Label 9950 2650 0    50   ~ 0
+Text Label 9950 2550 0    50   ~ 0
 P1
 $Comp
 L Device:C_Small C?
@@ -501,12 +501,12 @@ Wire Wire Line
 $Comp
 L AXTEC_IC:+3V3_Internal #PWR15
 U 1 1 5BCA5312
-P 10550 2750
-F 0 "#PWR15" H 10550 3150 50  0001 C CNN
-F 1 "+3V3_Internal" H 10535 2923 50  0000 C CNN
-F 2 "" H 10550 2750 50  0001 C CNN
-F 3 "" H 10550 2750 50  0001 C CNN
-	1    10550 2750
+P 10550 3050
+F 0 "#PWR15" H 10550 3450 50  0001 C CNN
+F 1 "+3V3_Internal" H 10535 3223 50  0000 C CNN
+F 2 "" H 10550 3050 50  0001 C CNN
+F 3 "" H 10550 3050 50  0001 C CNN
+	1    10550 3050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -522,23 +522,12 @@ F 3 "" H 3300 4050 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2400 3900 1600 3900
-$Comp
-L AXTEC_IC:Conector_PCB_A-B J4
-U 1 1 5BC615BF
-P 9300 2850
-F 0 "J4" H 9300 3415 50  0000 C CNN
-F 1 "Conector_PCB_A-B" H 9300 3324 50  0000 C CNN
-F 2 "AXTEC:Conector_PCB_A-B" H 9050 3300 50  0001 C CNN
-F 3 "" H 9050 3300 50  0001 C CNN
-	1    9300 2850
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	9850 2750 10550 2750
-Wire Wire Line
-	9850 2550 10200 2550
+	9850 3050 10550 3050
 Wire Wire Line
 	9850 2650 10200 2650
+Wire Wire Line
+	9850 2550 10200 2550
 Text Notes 8100 850  0    157  ~ 0
 Conector PCB A-B\n
 Wire Notes Line
@@ -669,4 +658,15 @@ Wire Wire Line
 Connection ~ 3300 4000
 Wire Wire Line
 	3300 4000 3300 4050
+$Comp
+L AXTEC_IC:Conector_PCB_A-B J4
+U 1 1 5BC66E5E
+P 9300 2850
+F 0 "J4" H 9300 3415 50  0000 C CNN
+F 1 "Conector_PCB_A-B" H 9300 3324 50  0000 C CNN
+F 2 "AXTEC:Conector_PCB_A-B" H 9050 3300 50  0001 C CNN
+F 3 "" H 9050 3300 50  0001 C CNN
+	1    9300 2850
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
