@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source C:\Users\LEO\Documents\Repos\CanSat\Hardware\Satelite\PCB_E\PCB_E.sch)
-    (date "10/16/18 18:16:38")
+    (date "10/16/18 18:34:34")
     (tool "Eeschema (5.0.0)")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -155,8 +155,8 @@
         (pin (num 16) (name GND) (type power_in))
         (pin (num 17) (name GND) (type power_in))
         (pin (num 18) (name GND) (type power_in))
-        (pin (num 19) (name MISO) (type output))
-        (pin (num 20) (name MOSI) (type input))
+        (pin (num 19) (name MOSI) (type input))
+        (pin (num 20) (name MISO) (type output))
         (pin (num 21) (name SCK) (type input))
         (pin (num 22) (name SS) (type input))
         (pin (num 23) (name SCL) (type input))
