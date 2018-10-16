@@ -280,22 +280,25 @@ ENDDEF
 # SamacSys_Parts:500SSP1S1M6QEA
 #
 DEF SamacSys_Parts:500SSP1S1M6QEA S 0 30 Y Y 1 F N
-F0 "S" 650 300 50 H V L CNN
-F1 "SamacSys_Parts:500SSP1S1M6QEA" 650 200 50 H V L CNN
-F2 "500SSP1S1M6QEA" 650 100 50 H I L CNN
-F3 "https://www.e-switch.com/system/asset/product_line/data_sheet/115/500.pdf" 650 0 50 H I L CNN
-F4 "Slide Switches SPDT RA SLIDE PC MNT" 650 -100 50 H I L CNN "Description"
-F5 "6" 650 -200 50 H I L CNN "Height"
-F6 "E-Switch" 650 -300 50 H I L CNN "Manufacturer_Name"
-F7 "500SSP1S1M6QEA" 650 -400 50 H I L CNN "Manufacturer_Part_Number"
-F8 "500SSP1S1M6QEA" 650 -700 50 H I L CNN "Arrow Part Number"
+F0 "S" -300 400 50 H V L CNN
+F1 "SamacSys_Parts:500SSP1S1M6QEA" -300 300 50 H V L CNN
+F2 "500SSP1S1M6QEA" 350 100 50 H I L CNN
+F3 "https://www.e-switch.com/system/asset/product_line/data_sheet/115/500.pdf" 350 0 50 H I L CNN
+F4 "Slide Switches SPDT RA SLIDE PC MNT" 350 -100 50 H I L CNN "Description"
+F5 "6" 350 -200 50 H I L CNN "Height"
+F6 "E-Switch" 350 -300 50 H I L CNN "Manufacturer_Name"
+F7 "500SSP1S1M6QEA" 350 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "500SSP1S1M6QEA" 350 -700 50 H I L CNN "Arrow Part Number"
 DRAW
-P 5 0 1 6 200 100 600 100 600 -300 200 -300 200 100 N
-X 1 1 0 0 200 R 50 50 0 0 B
-X 2 2 0 -100 200 R 50 50 0 0 B
-X 3 3 0 -200 200 R 50 50 0 0 B
-X 4 4 800 0 200 L 50 50 0 0 B
-X 5 5 800 -100 200 L 50 50 0 0 B
+C -80 50 20 1 0 0 N
+C 80 -50 20 1 0 0 N
+C 80 150 20 1 1 0 N
+P 2 1 1 0 -60 60 65 140 N
+X ~ 1 200 150 100 L 50 50 1 1 P
+X ~ 2 -200 50 100 R 50 50 1 1 P
+X ~ 3 200 -50 100 L 50 50 1 1 P
+X ~ 4 -50 -250 100 U 50 50 1 1 P
+X ~ 5 50 -250 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #

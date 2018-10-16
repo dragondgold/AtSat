@@ -10,6 +10,11 @@ D SUBMINIATURE COAX
 F http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1814832&DocType=Customer+Drawing&DocLang=English
 $ENDCMP
 #
+$CMP 500SSP1S1M6QEA
+D Slide Switches SPDT RA SLIDE PC MNT
+F https://www.e-switch.com/system/asset/product_line/data_sheet/115/500.pdf
+$ENDCMP
+#
 $CMP BMX055
 D Small versatile 9-axis sensor module
 F http://www.mouser.com/ds/2/621/BST-BMX055-DS000-02-586421.pdf
@@ -98,12 +103,6 @@ $ENDCMP
 $CMP TXB0304RUTR
 D Texas Instruments TXB0304RUTR, Logic Level Translator, Voltage Level, 3-State, 0.9  3.6 V, 12-Pin UQFN
 F http://www.ti.com/lit/ds/symlink/txb0304.pdf
-$ENDCMP
-#
-$CMP 500SSP1S1M6QEA
-D Slide Switches SPDT RA SLIDE PC MNT
-K
-F https://www.e-switch.com/system/asset/product_line/data_sheet/115/500.pdf
 $ENDCMP
 #
 #End Doc Library
