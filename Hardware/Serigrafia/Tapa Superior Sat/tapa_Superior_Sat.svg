@@ -11,7 +11,7 @@
    height="1122.51968504"
    version="1.1"
    id="svg77"
-   sodipodi:docname="tapaSuperiorSat.svg"
+   sodipodi:docname="tapa_Superior_Sat.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <metadata
      id="metadata81">
@@ -37,13 +37,14 @@
      inkscape:window-height="705"
      id="namedview79"
      showgrid="false"
-     inkscape:zoom="2.3786089"
-     inkscape:cx="5.8278745"
-     inkscape:cy="-13.109099"
+     inkscape:zoom="3.363861"
+     inkscape:cx="-2.7553282"
+     inkscape:cy="-7.7733821"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g75" />
+     inkscape:current-layer="g75"
+     showguides="false" />
   <desc
      id="desc2">C:\Users\LEO\Documents\Repos\CanSat\Hardware\Serigrafia\TapaSuperiorSat\tapaSuperiorSat.dxf - scale = 1.000000, origin = (0.000000, 0.000000), method = manual</desc>
   <defs
@@ -125,44 +126,26 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscc" />
     <path
-       d="M -77.869585,1180.056708 77.869585,1180.056708"
-       style="stroke:#000000;stroke-width:0.6;fill:none;stroke-linecap: round"
-       id="path55" />
+       d="M -66.813296,1180.0567 H 67.603332"
+       style="fill:none;stroke:#000000;stroke-width:0.55741525;stroke-linecap:round"
+       id="path55"
+       inkscape:connector-curvature="0" />
     <path
-       d="M 51.767379,1106.987684 86.863956,1106.987684"
-       style="stroke:#000000;stroke-width:0.6;fill:none;stroke-linecap: round"
-       id="path57" />
+       d="M 51.776336,1106.9877 H 87.906034"
+       style="fill:none;stroke:#000000;stroke-width:0.60876691;stroke-linecap:round"
+       id="path57"
+       inkscape:connector-curvature="0" />
     <path
        d="M -86.863956,1106.987684 -51.767379,1106.987684"
        style="stroke:#000000;stroke-width:0.6;fill:none;stroke-linecap: round"
        id="path59" />
     <path
-       d="M -94.797755,1169.558937 A 18.897638,18.897638 -0.000000 0 0 -77.869585,1180.056708"
-       style="stroke:#000000;stroke-width:0.6;fill:none;stroke-linecap: round"
-       id="path61" />
-    <path
-       d="M 77.869585,1180.056708 A 18.897638,18.897638 -0.000000 0 0 94.797755,1169.558937"
-       style="stroke:#000000;stroke-width:0.6;fill:none;stroke-linecap: round"
-       id="path63" />
-    <path
-       d="M 94.797755,1169.558937 A 105.826772,105.826772 -0.000000 0 0 105.747424,1126.616982"
-       style="stroke:#000000;stroke-width:0.6;fill:none;stroke-linecap: round"
-       id="path65" />
-    <path
-       d="M 105.747424,1126.616982 A 18.897638,18.897638 -0.000000 0 0 86.863956,1106.987684"
-       style="stroke:#000000;stroke-width:0.6;fill:none;stroke-linecap: round"
-       id="path67" />
-    <path
        d="M 51.767379,1106.987684 A 54.047244,54.047244 -0.000000 0 0 -51.767379,1106.987684"
        style="stroke:#000000;stroke-width:0.6;fill:none;stroke-linecap: round"
        id="path69" />
     <path
-       d="M -86.863956,1106.987684 A 18.897638,18.897638 -0.000000 0 0 -105.747424,1126.616982"
-       style="stroke:#000000;stroke-width:0.6;fill:none;stroke-linecap: round"
-       id="path71" />
-    <path
-       d="M -105.747424,1126.616982 A 105.826772,105.826772 -0.000000 0 0 -94.797755,1169.558937"
-       style="stroke:#000000;stroke-width:0.6;fill:none;stroke-linecap: round"
-       id="path73" />
+       id="path877"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.95999998;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 0.48046875,1033.2207 A 88.818901,88.818901 0 0 0 -88.339844,1122.0391 88.818901,88.818901 0 0 0 0.48046875,1210.8594 88.818901,88.818901 0 0 0 89.298828,1122.0391 88.818901,88.818901 0 0 0 0.48046875,1033.2207 Z" />
   </g>
 </svg>
