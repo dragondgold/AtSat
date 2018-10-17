@@ -50,6 +50,11 @@ D Resonators 16.0000MHz 15pF SMD CHP Resntr
 F https://www.murata.com/en-eu/products/productdata/8801162231838/SPEC-CSTNE16M0V530000R0.pdf?1519875007000
 $ENDCMP
 #
+$CMP IS25LP080D-JULE-TR
+D NOR Flash 8Mb QSPI, 8-pin USON 2x3mm, RoHS, T&R
+F https://componentsearchengine.com/Datasheets/1/IS25LP080D-JULE-TR.pdf
+$ENDCMP
+#
 $CMP LFXTAL016178
 D IQD FREQUENCY PRODUCTS - LFXTAL016178 - CRYSTAL, 32.768KHZ, 6PF, SMD
 F http://www.iqdfrequencyproducts.com/products/pn/LFXTAL016178Bulk.pdf
@@ -85,6 +90,11 @@ D NXP - NTB0104BQ,115 - TRANSCEIVER, BIDIR TRANSLATOR, DHVQFN14
 F http://www.nxp.com/documents/data_sheet/NTB0104.pdf
 $ENDCMP
 #
+$CMP SN74LVC1G3157DCKR
+D SN74LVC1G3157DCKR, Analogue Switch Single SPDT, 3, 5V, 6-Pin, SC-70
+F http://www.ti.com/lit/ds/symlink/sn74lvc1g3157.pdf
+$ENDCMP
+#
 $CMP SSM3J338R,LF
 D MOSFET Small-signal MOSFET Vdss= -12V, ID= -6A
 F http://toshiba.semicon-storage.com/info/docget.jsp?did=30384&prodName=SSM3J338R
@@ -103,12 +113,6 @@ $ENDCMP
 $CMP TXB0304RUTR
 D Texas Instruments TXB0304RUTR, Logic Level Translator, Voltage Level, 3-State, 0.9  3.6 V, 12-Pin UQFN
 F http://www.ti.com/lit/ds/symlink/txb0304.pdf
-$ENDCMP
-#
-$CMP IS25LP080D-JULE-TR
-D NOR Flash 8Mb QSPI, 8-pin USON 2x3mm, RoHS, T&R
-K
-F https://componentsearchengine.com/Datasheets/1/IS25LP080D-JULE-TR.pdf
 $ENDCMP
 #
 #End Doc Library

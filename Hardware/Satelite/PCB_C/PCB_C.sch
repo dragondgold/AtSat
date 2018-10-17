@@ -1214,73 +1214,16 @@ F 9 "https://www.arrow.com/en/products/ntb0104bq115/nxp-semiconductors" H 11550 
 	1    0    0    -1  
 $EndComp
 $Comp
-L SamacSys_Parts:SSM3J338R,LF Q?
-U 1 1 5C2117E2
-P 13850 7050
-F 0 "Q?" V 14418 7150 50  0000 C CNN
-F 1 "SSM3J338R,LF" V 14326 7150 50  0000 C CNN
-F 2 "SamacSys_Parts:SSM3J332RLFT" H 14300 7000 50  0001 L CNN
-F 3 "http://toshiba.semicon-storage.com/info/docget.jsp?did=30384&prodName=SSM3J338R" H 14300 6900 50  0001 L CNN
-F 4 "MOSFET Small-signal MOSFET Vdss= -12V, ID= -6A" H 14300 6800 50  0001 L CNN "Description"
-F 5 "Toshiba" H 14300 6600 50  0001 L CNN "Manufacturer_Name"
-F 6 "SSM3J338R,LF" H 14300 6500 50  0001 L CNN "Manufacturer Part Number"
-F 7 "SSM3J338R,LF" H 14300 6200 50  0001 L CNN "Arrow Part Number"
-F 8 "https://www.arrow.com/en/products/ssm3j338rlf/toshiba" H 14300 6100 50  0001 L CNN "Arrow Price/Stock"
-	1    13850 7050
-	0    -1   -1   0   
-$EndComp
-$Comp
-L SamacSys_Parts:SSM3J338R,LF Q?
-U 1 1 5C2117EE
-P 13850 7700
-F 0 "Q?" V 14418 7800 50  0000 C CNN
-F 1 "SSM3J338R,LF" V 14326 7800 50  0000 C CNN
-F 2 "SamacSys_Parts:SSM3J332RLFT" H 14300 7650 50  0001 L CNN
-F 3 "http://toshiba.semicon-storage.com/info/docget.jsp?did=30384&prodName=SSM3J338R" H 14300 7550 50  0001 L CNN
-F 4 "MOSFET Small-signal MOSFET Vdss= -12V, ID= -6A" H 14300 7450 50  0001 L CNN "Description"
-F 5 "Toshiba" H 14300 7250 50  0001 L CNN "Manufacturer_Name"
-F 6 "SSM3J338R,LF" H 14300 7150 50  0001 L CNN "Manufacturer Part Number"
-F 7 "SSM3J338R,LF" H 14300 6850 50  0001 L CNN "Arrow Part Number"
-F 8 "https://www.arrow.com/en/products/ssm3j338rlf/toshiba" H 14300 6750 50  0001 L CNN "Arrow Price/Stock"
-	1    13850 7700
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	13850 7700 13850 7750
-Wire Wire Line
-	13850 7750 14050 7750
-Wire Wire Line
-	13850 7050 13850 7100
-Wire Wire Line
-	13850 7100 14050 7100
-$Comp
-L Device:R R?
-U 1 1 5C2117F9
-P 14050 6900
-F 0 "R?" H 14120 6946 50  0000 L CNN
-F 1 "10K" H 14120 6854 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 13980 6900 50  0001 C CNN
-F 3 "~" H 14050 6900 50  0001 C CNN
-	1    14050 6900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	14050 7050 14050 7100
-Connection ~ 14050 7100
-$Comp
 L Device:R R?
 U 1 1 5C211802
-P 14050 7550
-F 0 "R?" H 14120 7596 50  0000 L CNN
-F 1 "10K" H 14120 7504 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 13980 7550 50  0001 C CNN
-F 3 "~" H 14050 7550 50  0001 C CNN
-	1    14050 7550
+P 14500 6750
+F 0 "R?" H 14570 6796 50  0000 L CNN
+F 1 "10k" H 14570 6704 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 14430 6750 50  0001 C CNN
+F 3 "~" H 14500 6750 50  0001 C CNN
+	1    14500 6750
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	14050 7700 14050 7750
-Connection ~ 14050 7750
 Wire Wire Line
 	11000 9650 11000 9700
 Wire Wire Line
@@ -1313,75 +1256,35 @@ F 3 "" H 11000 9650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:VDD #PWR?
-U 1 1 5C294E4A
-P 13300 6600
-F 0 "#PWR?" H 13300 6450 50  0001 C CNN
-F 1 "VDD" H 13317 6775 50  0000 C CNN
-F 2 "" H 13300 6600 50  0001 C CNN
-F 3 "" H 13300 6600 50  0001 C CNN
-	1    13300 6600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	13300 6600 13300 6750
-Wire Wire Line
-	13300 7400 13450 7400
-Wire Wire Line
-	13450 6750 13300 6750
-Connection ~ 13300 6750
-Wire Wire Line
-	13300 6750 13300 7400
-Wire Wire Line
-	14050 7100 14950 7100
-Wire Wire Line
-	14050 7750 15000 7750
-$Comp
 L power:+3V3 #PWR?
 U 1 1 5C2EE791
-P 14400 6700
-F 0 "#PWR?" H 14400 6550 50  0001 C CNN
-F 1 "+3V3" H 14415 6873 50  0000 C CNN
-F 2 "" H 14400 6700 50  0001 C CNN
-F 3 "" H 14400 6700 50  0001 C CNN
-	1    14400 6700
+P 12700 6550
+F 0 "#PWR?" H 12700 6400 50  0001 C CNN
+F 1 "+3V3" H 12715 6723 50  0000 C CNN
+F 2 "" H 12700 6550 50  0001 C CNN
+F 3 "" H 12700 6550 50  0001 C CNN
+	1    12700 6550
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	14400 6700 14400 6750
-Wire Wire Line
-	14400 6750 14050 6750
-Connection ~ 14050 6750
 $Comp
 L power:+5V #PWR?
 U 1 1 5C30537D
-P 14400 7350
-F 0 "#PWR?" H 14400 7200 50  0001 C CNN
-F 1 "+5V" H 14415 7523 50  0000 C CNN
-F 2 "" H 14400 7350 50  0001 C CNN
-F 3 "" H 14400 7350 50  0001 C CNN
-	1    14400 7350
+P 12950 6550
+F 0 "#PWR?" H 12950 6400 50  0001 C CNN
+F 1 "+5V" H 12965 6723 50  0000 C CNN
+F 2 "" H 12950 6550 50  0001 C CNN
+F 3 "" H 12950 6550 50  0001 C CNN
+	1    12950 6550
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	14400 7350 14400 7400
-Wire Wire Line
-	14400 7400 14050 7400
-Connection ~ 14050 7400
-Text Label 14350 7100 0    50   ~ 0
-ENABLE_5V_IO
-Text Label 14350 7750 0    50   ~ 0
-ENABLE_3V3_IO
 Wire Notes Line
 	12500 5800 12500 8050
 Wire Notes Line
 	12500 8050 16000 8050
 Text Notes 13200 6050 0    118  ~ 0
 Selección de tensión IO
-Text Label 8350 3000 0    50   ~ 0
-ENABLE_5V_IO
 Text Label 8350 3900 0    50   ~ 0
-ENABLE_3V3_IO
+SWITCH_IO_V
 Wire Wire Line
 	11000 10900 11000 10800
 Wire Wire Line
@@ -1397,8 +1300,6 @@ Text Label 9150 10800 0    50   ~ 0
 SPI_BUFFER_EN
 Wire Wire Line
 	9800 10800 9150 10800
-Wire Wire Line
-	8250 3000 8900 3000
 Wire Wire Line
 	8250 3900 8900 3900
 Wire Wire Line
@@ -2470,4 +2371,155 @@ Wire Wire Line
 	15000 2300 15850 2300
 Text Label 6300 5400 0    50   ~ 0
 FLASH_CS
+$Comp
+L SamacSys_Parts:SN74LVC1G3157DCKR U?
+U 1 1 5C393362
+P 13600 6850
+F 0 "U?" H 13600 7216 50  0000 C CNN
+F 1 "SN74LVC1G3157DCKR" H 13600 7124 50  0000 C CNN
+F 2 "SOT65P210X110-6N" H 13950 7050 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g3157.pdf" H 13950 6950 50  0001 L CNN
+F 4 "SN74LVC1G3157DCKR, Analogue Switch Single SPDT, 3, 5V, 6-Pin, SC-70" H 13950 6850 50  0001 L CNN "Description"
+F 5 "1.1" H 13950 6750 50  0001 L CNN "Height"
+F 6 "Texas Instruments" H 13950 6650 50  0001 L CNN "Manufacturer_Name"
+F 7 "SN74LVC1G3157DCKR" H 13950 6550 50  0001 L CNN "Manufacturer Part Number"
+F 8 "6282769P" H 13950 6450 50  0001 L CNN "RS Part Number"
+F 9 "http://uk.rs-online.com/web/p/products/6282769P" H 13950 6350 50  0001 L CNN "RS Price/Stock"
+F 10 "SN74LVC1G3157DCKR" H 13950 6250 50  0001 L CNN "Arrow Part Number"
+F 11 "https://www.arrow.com/en/products/sn74lvc1g3157dckr/texas-instruments" H 13950 6150 50  0001 L CNN "Arrow Price/Stock"
+	1    13600 6850
+	1    0    0    -1  
+$EndComp
+Text Label 15300 7350 0    50   ~ 0
+SWITCH_IO_V
+Wire Wire Line
+	12700 6550 12700 6850
+Wire Wire Line
+	12700 6850 13100 6850
+Wire Wire Line
+	12950 6550 12950 6750
+Wire Wire Line
+	12950 6750 13100 6750
+$Comp
+L power:GND #PWR?
+U 1 1 5C435B93
+P 12700 7100
+F 0 "#PWR?" H 12700 6850 50  0001 C CNN
+F 1 "GND" H 12704 6926 50  0000 C CNN
+F 2 "" H 12700 7100 50  0001 C CNN
+F 3 "" H 12700 7100 50  0001 C CNN
+	1    12700 7100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12700 7100 12700 6950
+Wire Wire Line
+	12700 6950 13100 6950
+$Comp
+L Transistor_BJT:BC817 Q?
+U 1 1 5C450AE0
+P 14600 7350
+F 0 "Q?" H 14791 7396 50  0000 L CNN
+F 1 "BC817" H 14791 7304 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 14800 7275 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC817.pdf" H 14600 7350 50  0001 L CNN
+F 4 "BC817-40W,135" H 14600 7350 50  0001 C CNN "Manufacturer Part Number"
+	1    14600 7350
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5C46BB9A
+P 14100 6550
+F 0 "#PWR?" H 14100 6400 50  0001 C CNN
+F 1 "+5V" H 14115 6723 50  0000 C CNN
+F 2 "" H 14100 6550 50  0001 C CNN
+F 3 "" H 14100 6550 50  0001 C CNN
+	1    14100 6550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14100 6550 14100 6750
+$Comp
+L power:VDD #PWR?
+U 1 1 5C487256
+P 14300 6550
+F 0 "#PWR?" H 14300 6400 50  0001 C CNN
+F 1 "VDD" H 14317 6725 50  0000 C CNN
+F 2 "" H 14300 6550 50  0001 C CNN
+F 3 "" H 14300 6550 50  0001 C CNN
+	1    14300 6550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14300 6550 14300 6850
+Wire Wire Line
+	14300 6850 14100 6850
+$Comp
+L power:+5V #PWR?
+U 1 1 5C4F508E
+P 14500 6550
+F 0 "#PWR?" H 14500 6400 50  0001 C CNN
+F 1 "+5V" H 14515 6723 50  0000 C CNN
+F 2 "" H 14500 6550 50  0001 C CNN
+F 3 "" H 14500 6550 50  0001 C CNN
+	1    14500 6550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14500 6550 14500 6600
+Wire Wire Line
+	14500 6900 14500 6950
+$Comp
+L power:GND #PWR?
+U 1 1 5C52C216
+P 14500 7650
+F 0 "#PWR?" H 14500 7400 50  0001 C CNN
+F 1 "GND" H 14504 7476 50  0000 C CNN
+F 2 "" H 14500 7650 50  0001 C CNN
+F 3 "" H 14500 7650 50  0001 C CNN
+	1    14500 7650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14500 7550 14500 7650
+Connection ~ 14500 6950
+Wire Wire Line
+	14500 6950 14500 7150
+$Comp
+L Device:R R?
+U 1 1 5C59B777
+P 14900 6750
+F 0 "R?" H 14970 6796 50  0000 L CNN
+F 1 "100k" H 14970 6704 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 14830 6750 50  0001 C CNN
+F 3 "~" H 14900 6750 50  0001 C CNN
+	1    14900 6750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14900 6600 14500 6600
+Connection ~ 14500 6600
+Wire Wire Line
+	14900 6900 14900 7350
+Wire Wire Line
+	14900 7350 14800 7350
+$Comp
+L Device:R R?
+U 1 1 5C5D409B
+P 15050 7350
+F 0 "R?" H 15120 7396 50  0000 L CNN
+F 1 "1k" H 15120 7304 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 14980 7350 50  0001 C CNN
+F 3 "~" H 15050 7350 50  0001 C CNN
+	1    15050 7350
+	0    1    1    0   
+$EndComp
+Connection ~ 14900 7350
+Wire Wire Line
+	14100 6950 14500 6950
+Wire Wire Line
+	15200 7350 15800 7350
+Text Notes 13200 7250 0    50   ~ 0
+Por defecto en +3V3
 $EndSCHEMATC
