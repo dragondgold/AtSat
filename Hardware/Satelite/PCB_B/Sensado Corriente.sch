@@ -142,17 +142,6 @@ Connection ~ 5800 3100
 Text Notes 6100 3200 0    50   ~ 0
 Frecuencia de corte dada por:\n\n1/(2*pi*2R*C) = 1.6 kHz\n\nEsto da un error de ganancia del 1% y \nfiltra las frecuencias que no son de\ninterés para el ADC.
 $Comp
-L power:+3V3 #PWR?
-U 1 1 5BB84C1E
-P 4750 3700
-F 0 "#PWR?" H 4750 3550 50  0001 C CNN
-F 1 "+3V3" H 4765 3873 50  0000 C CNN
-F 2 "" H 4750 3700 50  0001 C CNN
-F 3 "" H 4750 3700 50  0001 C CNN
-	1    4750 3700
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5BB84C5F
 P 6100 4100
@@ -239,4 +228,15 @@ Wire Wire Line
 	4750 3700 4750 3800
 Text Notes 4500 2250 0    50   ~ 0
 La Rsense fue calculada para una corriente máxima de 1A.\nLa caída de tensión recomendada es de 50 mV a 100 mV.
+$Comp
+L AXTEC_IC:+3V3_Internal #PWR?
+U 1 1 5BD1966D
+P 4750 3700
+F 0 "#PWR?" H 4750 4100 50  0001 C CNN
+F 1 "+3V3_Internal" H 4735 3875 50  0000 C CNN
+F 2 "" H 4750 3700 50  0001 C CNN
+F 3 "" H 4750 3700 50  0001 C CNN
+	1    4750 3700
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

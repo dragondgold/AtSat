@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 6
+Sheet 6 6
 Title ""
 Date ""
 Rev ""
@@ -40,20 +40,6 @@ F 1 "GND" H 5905 4477 50  0000 C CNN
 F 2 "" H 5900 4650 50  0001 C CNN
 F 3 "" H 5900 4650 50  0001 C CNN
 	1    5900 4650
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR?
-U 1 1 5BB29A49
-P 4750 2700
-AR Path="/5BA17F9C/5BB29A49" Ref="#PWR?"  Part="1" 
-AR Path="/5BB1631B/5BB29A49" Ref="#PWR?"  Part="1" 
-AR Path="/5BC28DAC/5BB29A49" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 4750 2550 50  0001 C CNN
-F 1 "+3V3" H 4765 2873 50  0000 C CNN
-F 2 "" H 4750 2700 50  0001 C CNN
-F 3 "" H 4750 2700 50  0001 C CNN
-	1    4750 2700
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -149,100 +135,61 @@ Connection ~ 5050 3600
 Wire Wire Line
 	5050 3600 5300 3600
 $Comp
-L power:+3V3 #PWR?
-U 1 1 5BB59119
-P 5050 2700
-AR Path="/5BA17F9C/5BB59119" Ref="#PWR?"  Part="1" 
-AR Path="/5BB1631B/5BB59119" Ref="#PWR?"  Part="1" 
-AR Path="/5BC28DAC/5BB59119" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 5050 2550 50  0001 C CNN
-F 1 "+3V3" H 5065 2873 50  0000 C CNN
-F 2 "" H 5050 2700 50  0001 C CNN
-F 3 "" H 5050 2700 50  0001 C CNN
-	1    5050 2700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5050 2800 5050 2700
-Wire Wire Line
-	4750 2700 4750 2800
-$Comp
 L Device:R R?
 U 1 1 5BB59286
-P 7150 3000
+P 7300 3450
 AR Path="/5BA17F9C/5BB59286" Ref="R?"  Part="1" 
 AR Path="/5BA1A7F9/5BB59286" Ref="R?"  Part="1" 
 AR Path="/5BA1A77A/5BB59286" Ref="R?"  Part="1" 
 AR Path="/5BB59286" Ref="R?"  Part="1" 
 AR Path="/5BB1631B/5BB59286" Ref="R?"  Part="1" 
 AR Path="/5BC28DAC/5BB59286" Ref="R?"  Part="1" 
-F 0 "R?" V 7250 3000 50  0000 L CNN
-F 1 "10k" V 7050 3000 50  0000 L CNN
-F 2 "" V 7080 3000 50  0001 C CNN
-F 3 "~" H 7150 3000 50  0001 C CNN
-	1    7150 3000
+F 0 "R?" V 7400 3450 50  0000 L CNN
+F 1 "10k" V 7200 3450 50  0000 L CNN
+F 2 "" V 7230 3450 50  0001 C CNN
+F 3 "~" H 7300 3450 50  0001 C CNN
+	1    7300 3450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7150 3150 7150 3700
+	7300 3600 7300 4150
 Wire Wire Line
-	7150 3700 6500 3700
-$Comp
-L power:+3V3 #PWR?
-U 1 1 5BB593CD
-P 7150 2700
-AR Path="/5BA17F9C/5BB593CD" Ref="#PWR?"  Part="1" 
-AR Path="/5BB1631B/5BB593CD" Ref="#PWR?"  Part="1" 
-AR Path="/5BC28DAC/5BB593CD" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 7150 2550 50  0001 C CNN
-F 1 "+3V3" H 7165 2873 50  0000 C CNN
-F 2 "" H 7150 2700 50  0001 C CNN
-F 3 "" H 7150 2700 50  0001 C CNN
-	1    7150 2700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7150 2700 7150 2850
+	7300 3150 7300 3300
 $Comp
 L Device:C_Small C?
 U 1 1 5BB5956D
-P 6650 3950
+P 6800 3550
 AR Path="/5BA17F9C/5BB5956D" Ref="C?"  Part="1" 
 AR Path="/5BA1A7F9/5BB5956D" Ref="C?"  Part="1" 
 AR Path="/5BA1A77A/5BB5956D" Ref="C?"  Part="1" 
 AR Path="/5BB5956D" Ref="C?"  Part="1" 
 AR Path="/5BB1631B/5BB5956D" Ref="C?"  Part="1" 
 AR Path="/5BC28DAC/5BB5956D" Ref="C?"  Part="1" 
-F 0 "C?" H 6800 3950 50  0000 L CNN
-F 1 "0.47uF" H 6750 3850 50  0000 L CNN
-F 2 "" H 6650 3950 50  0001 C CNN
-F 3 "~" H 6650 3950 50  0001 C CNN
-	1    6650 3950
+F 0 "C?" H 6950 3550 50  0000 L CNN
+F 1 "0.47uF" H 6900 3450 50  0000 L CNN
+F 2 "" H 6800 3550 50  0001 C CNN
+F 3 "~" H 6800 3550 50  0001 C CNN
+	1    6800 3550
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	6500 3400 6650 3400
-Wire Wire Line
-	6650 3400 6650 3850
 $Comp
 L power:GND #PWR?
 U 1 1 5BB59DD4
-P 6650 4050
+P 6800 3650
 AR Path="/5BA1A7F9/5BB59DD4" Ref="#PWR?"  Part="1" 
 AR Path="/5BA1A77A/5BB59DD4" Ref="#PWR?"  Part="1" 
 AR Path="/5BB1631B/5BB59DD4" Ref="#PWR?"  Part="1" 
 AR Path="/5BC28DAC/5BB59DD4" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 6650 3800 50  0001 C CNN
-F 1 "GND" H 6655 3877 50  0000 C CNN
-F 2 "" H 6650 4050 50  0001 C CNN
-F 3 "" H 6650 4050 50  0001 C CNN
-	1    6650 4050
+F 0 "#PWR?" H 6800 3400 50  0001 C CNN
+F 1 "GND" H 6805 3477 50  0000 C CNN
+F 2 "" H 6800 3650 50  0001 C CNN
+F 3 "" H 6800 3650 50  0001 C CNN
+	1    6800 3650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7150 3700 7500 3700
-Connection ~ 7150 3700
-Text HLabel 7500 3700 2    50   Output ~ 0
+	7300 4150 7650 4150
+Text HLabel 7650 4150 2    50   Output ~ 0
 GPOUT
 Wire Wire Line
 	5800 4300 5800 4350
@@ -296,4 +243,52 @@ Wire Wire Line
 Connection ~ 3800 5050
 Text HLabel 5350 5050 2    50   BiDi ~ 0
 SYS
+$Comp
+L AXTEC_IC:+3V3_Internal #PWR?
+U 1 1 5BD19F65
+P 7300 3150
+AR Path="/5BD19F65" Ref="#PWR?"  Part="1" 
+AR Path="/5BC28DAC/5BD19F65" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 7300 3550 50  0001 C CNN
+F 1 "+3V3_Internal" H 7285 3325 50  0000 C CNN
+F 2 "" H 7300 3150 50  0001 C CNN
+F 3 "" H 7300 3150 50  0001 C CNN
+	1    7300 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L AXTEC_IC:+3V3_Internal #PWR?
+U 1 1 5BD1A8BA
+P 4900 2600
+AR Path="/5BD1A8BA" Ref="#PWR?"  Part="1" 
+AR Path="/5BC28DAC/5BD1A8BA" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 4900 3000 50  0001 C CNN
+F 1 "+3V3_Internal" H 4885 2775 50  0000 C CNN
+F 2 "" H 4900 2600 50  0001 C CNN
+F 3 "" H 4900 2600 50  0001 C CNN
+	1    4900 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4750 2650 4900 2650
+Wire Wire Line
+	5050 2650 5050 2800
+Wire Wire Line
+	4750 2650 4750 2800
+Wire Wire Line
+	4900 2600 4900 2650
+Connection ~ 4900 2650
+Wire Wire Line
+	4900 2650 5050 2650
+Wire Wire Line
+	6800 3400 6800 3450
+Wire Wire Line
+	6500 3400 6800 3400
+Wire Wire Line
+	7300 4150 6600 4150
+Wire Wire Line
+	6600 4150 6600 3700
+Wire Wire Line
+	6600 3700 6500 3700
+Connection ~ 7300 4150
 $EndSCHEMATC
