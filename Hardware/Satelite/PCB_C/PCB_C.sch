@@ -2468,4 +2468,6 @@ Wire Wire Line
 Connection ~ 15000 2300
 Wire Wire Line
 	15000 2300 15850 2300
+Text Label 6300 5400 0    50   ~ 0
+FLASH_CS
 $EndSCHEMATC
