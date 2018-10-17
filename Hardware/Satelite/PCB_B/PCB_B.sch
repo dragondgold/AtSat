@@ -562,72 +562,6 @@ Wire Notes Line
 Text Notes 8700 2650 0    118  ~ 0
 Conectores a PCB_C
 $Comp
-L Mechanical:MountingHole_Pad H?
-U 1 1 5C3A9049
-P 3600 2850
-F 0 "H?" H 3700 2901 50  0000 L CNN
-F 1 "MountingHole_Pad" H 3700 2809 50  0000 L CNN
-F 2 "" H 3600 2850 50  0001 C CNN
-F 3 "~" H 3600 2850 50  0001 C CNN
-	1    3600 2850
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5C3A916B
-P 3600 2950
-F 0 "#PWR?" H 3600 2700 50  0001 C CNN
-F 1 "GND" H 3604 2776 50  0000 C CNN
-F 2 "" H 3600 2950 50  0001 C CNN
-F 3 "" H 3600 2950 50  0001 C CNN
-	1    3600 2950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H?
-U 1 1 5C3A91AE
-P 3600 3350
-F 0 "H?" H 3700 3401 50  0000 L CNN
-F 1 "MountingHole_Pad" H 3700 3309 50  0000 L CNN
-F 2 "" H 3600 3350 50  0001 C CNN
-F 3 "~" H 3600 3350 50  0001 C CNN
-	1    3600 3350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5C3A91B5
-P 3600 3450
-F 0 "#PWR?" H 3600 3200 50  0001 C CNN
-F 1 "GND" H 3604 3276 50  0000 C CNN
-F 2 "" H 3600 3450 50  0001 C CNN
-F 3 "" H 3600 3450 50  0001 C CNN
-	1    3600 3450
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H?
-U 1 1 5C3AC283
-P 3600 3850
-F 0 "H?" H 3700 3901 50  0000 L CNN
-F 1 "MountingHole_Pad" H 3700 3809 50  0000 L CNN
-F 2 "" H 3600 3850 50  0001 C CNN
-F 3 "~" H 3600 3850 50  0001 C CNN
-	1    3600 3850
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5C3AC28A
-P 3600 3950
-F 0 "#PWR?" H 3600 3700 50  0001 C CNN
-F 1 "GND" H 3604 3776 50  0000 C CNN
-F 2 "" H 3600 3950 50  0001 C CNN
-F 3 "" H 3600 3950 50  0001 C CNN
-	1    3600 3950
-	1    0    0    -1  
-$EndComp
-$Comp
 L AXTEC_IC:Conector_PCB_A-B J?
 U 1 1 5BCEA02C
 P 9500 1500
@@ -1082,4 +1016,53 @@ Text Label 8400 1500 0    50   ~ 0
 SERVOS_5V
 Wire Wire Line
 	8400 1500 8950 1500
+$Comp
+L AXTEC_IC:MH_CanSat MH?
+U 1 1 5BC80D4F
+P 1550 1450
+F 0 "MH?" H 1828 1565 50  0000 L CNN
+F 1 "MH_CanSat" H 1828 1474 50  0000 L CNN
+F 2 "" H 1550 1450 50  0001 C CNN
+F 3 "" H 1550 1450 50  0001 C CNN
+	1    1550 1450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BC80DF0
+P 1550 1650
+AR Path="/5BB6C3A1/5BC80DF0" Ref="#PWR?"  Part="1" 
+AR Path="/5BB6C83B/5BC80DF0" Ref="#PWR?"  Part="1" 
+AR Path="/5BC14C3C/5BC80DF0" Ref="#PWR?"  Part="1" 
+AR Path="/5BC80DF0" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 1550 1400 50  0001 C CNN
+F 1 "GND" H 1555 1477 50  0000 C CNN
+F 2 "" H 1550 1650 50  0001 C CNN
+F 3 "" H 1550 1650 50  0001 C CNN
+	1    1550 1650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1400 1550 1400 1600
+Wire Wire Line
+	1400 1600 1550 1600
+Wire Wire Line
+	1700 1600 1700 1550
+Wire Wire Line
+	1550 1550 1550 1600
+Connection ~ 1550 1600
+Wire Wire Line
+	1550 1600 1700 1600
+Wire Wire Line
+	1550 1650 1550 1600
+Text Notes 700  800  0    118  ~ 0
+Agujeros de montaje\n
+Wire Notes Line
+	550  550  2700 550 
+Wire Notes Line
+	2700 550  2700 2400
+Wire Notes Line
+	2700 2400 550  2400
+Wire Notes Line
+	550  2400 550  550 
 $EndSCHEMATC
