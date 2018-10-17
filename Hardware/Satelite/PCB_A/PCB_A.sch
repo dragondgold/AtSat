@@ -153,12 +153,12 @@ GPS_TX
 $Comp
 L power:GND #PWR08
 U 1 1 5BA1B3CD
-P 7350 3150
-F 0 "#PWR08" H 7350 2900 50  0001 C CNN
-F 1 "GND" H 7355 2977 50  0000 C CNN
-F 2 "" H 7350 3150 50  0001 C CNN
-F 3 "" H 7350 3150 50  0001 C CNN
-	1    7350 3150
+P 7600 2250
+F 0 "#PWR08" H 7600 2000 50  0001 C CNN
+F 1 "GND" H 7605 2077 50  0000 C CNN
+F 2 "" H 7600 2250 50  0001 C CNN
+F 3 "" H 7600 2250 50  0001 C CNN
+	1    7600 2250
 	1    0    0    -1  
 $EndComp
 Text Label 8250 3150 0    50   ~ 0
@@ -649,29 +649,22 @@ Wire Wire Line
 $Comp
 L SamacSys_Parts:500SSP1S1M6QEA S1
 U 1 1 5BC7E376
-P 7350 2850
-F 0 "S1" H 7300 3350 50  0000 L CNN
-F 1 "500SSP1S1M6QEA" H 7300 3250 50  0000 L CNN
-F 2 "SamacSys_Parts:500SSP1S1M6QEA" H 8000 2950 50  0001 L CNN
-F 3 "https://www.e-switch.com/system/asset/product_line/data_sheet/115/500.pdf" H 8000 2850 50  0001 L CNN
-F 4 "Slide Switches SPDT RA SLIDE PC MNT" H 8000 2750 50  0001 L CNN "Description"
-F 5 "6" H 8000 2650 50  0001 L CNN "Height"
-F 6 "E-Switch" H 8000 2550 50  0001 L CNN "Manufacturer_Name"
-F 7 "500SSP1S1M6QEA" H 8000 2450 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "" H 8000 2350 50  0001 L CNN "RS Part Number"
-F 9 "" H 8000 2250 50  0001 L CNN "RS Price/Stock"
-F 10 "500SSP1S1M6QEA" H 8000 2150 50  0001 L CNN "Arrow Part Number"
-F 11 "" H 8000 2050 50  0001 L CNN "Arrow Price/Stock"
-	1    7350 2850
-	1    0    0    -1  
+P 7350 2750
+F 0 "S1" H 7000 2750 50  0000 L CNN
+F 1 "500SSP1S1M6QEA" H 7000 3000 50  0000 L CNN
+F 2 "SamacSys_Parts:500SSP1S1M6QEA" H 8000 2850 50  0001 L CNN
+F 3 "https://www.e-switch.com/system/asset/product_line/data_sheet/115/500.pdf" H 8000 2750 50  0001 L CNN
+F 4 "Slide Switches SPDT RA SLIDE PC MNT" H 8000 2650 50  0001 L CNN "Description"
+F 5 "6" H 8000 2550 50  0001 L CNN "Height"
+F 6 "E-Switch" H 8000 2450 50  0001 L CNN "Manufacturer_Name"
+F 7 "500SSP1S1M6QEA" H 8000 2350 50  0001 L CNN "Manufacturer_Part_Number"
+F 8 "" H 8000 2250 50  0001 L CNN "RS Part Number"
+F 9 "" H 8000 2150 50  0001 L CNN "RS Price/Stock"
+F 10 "500SSP1S1M6QEA" H 8000 2050 50  0001 L CNN "Arrow Part Number"
+F 11 "" H 8000 1950 50  0001 L CNN "Arrow Price/Stock"
+	1    7350 2750
+	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	7300 3100 7350 3100
-Wire Wire Line
-	7350 3150 7350 3100
-Connection ~ 7350 3100
-Wire Wire Line
-	7350 3100 7400 3100
 $Comp
 L power:GND #PWR011
 U 1 1 5BC844C6
@@ -687,14 +680,21 @@ Wire Wire Line
 	8100 2750 8700 2750
 Connection ~ 8700 2750
 Wire Wire Line
-	7150 2350 7150 2800
-Wire Wire Line
 	8350 1000 8350 2550
-Wire Wire Line
-	8350 2550 7650 2550
-Wire Wire Line
-	7650 2550 7650 2700
 Connection ~ 8350 2550
 Wire Wire Line
-	7650 2700 7550 2700
+	7150 2350 7150 2700
+Wire Wire Line
+	7550 2800 7550 2550
+Wire Wire Line
+	7550 2550 8350 2550
+Wire Wire Line
+	7300 2500 7350 2500
+Wire Wire Line
+	7350 2500 7350 2250
+Wire Wire Line
+	7350 2250 7600 2250
+Connection ~ 7350 2500
+Wire Wire Line
+	7350 2500 7400 2500
 $EndSCHEMATC
