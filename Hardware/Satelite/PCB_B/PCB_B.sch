@@ -227,9 +227,10 @@ AR Path="/5BC14C3C/5BC1C6A8" Ref="C?"  Part="1"
 AR Path="/5BC1C6A8" Ref="C?"  Part="1" 
 F 0 "C?" H 8258 5954 50  0000 R CNN
 F 1 "2.2uF" H 8258 6045 50  0000 R CNN
-F 2 "" H 8350 6000 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8350 6000 50  0001 C CNN
 F 3 "~" H 8350 6000 50  0001 C CNN
 F 4 "10V" H 8350 6000 50  0001 C CNN "Voltage"
+F 5 "LMK212B7225KG-T" H 8350 6000 50  0001 C CNN "Manufacturer Part Number"
 	1    8350 6000
 	-1   0    0    1   
 $EndComp
@@ -284,25 +285,6 @@ F 3 "" H 9350 6200 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9350 6000 9350 6200
-$Comp
-L Device:C_Small C?
-U 1 1 5BC1EB06
-P 10300 6050
-AR Path="/5BB122CA/5BC1EB06" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BC1EB06" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BC1EB06" Ref="C?"  Part="1" 
-AR Path="/5BB6C3A1/5BC1EB06" Ref="C?"  Part="1" 
-AR Path="/5BB6C83B/5BC1EB06" Ref="C?"  Part="1" 
-AR Path="/5BC14C3C/5BC1EB06" Ref="C?"  Part="1" 
-AR Path="/5BC1EB06" Ref="C?"  Part="1" 
-F 0 "C?" H 10208 6004 50  0000 R CNN
-F 1 "2.2uF" H 10208 6095 50  0000 R CNN
-F 2 "" H 10300 6050 50  0001 C CNN
-F 3 "~" H 10300 6050 50  0001 C CNN
-F 4 "10V" H 10300 6050 50  0001 C CNN "Voltage"
-	1    10300 6050
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	10300 5600 10300 5700
 Wire Wire Line
@@ -336,9 +318,10 @@ AR Path="/5BC14C3C/5BC2066B" Ref="C?"  Part="1"
 AR Path="/5BC2066B" Ref="C?"  Part="1" 
 F 0 "C?" H 9758 6004 50  0000 R CNN
 F 1 "100nF" H 9758 6095 50  0000 R CNN
-F 2 "" H 9850 6050 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 9850 6050 50  0001 C CNN
 F 3 "~" H 9850 6050 50  0001 C CNN
 F 4 "10V" H 9850 6050 50  0001 C CNN "Voltage"
+F 5 "EMK107B7104KAHT" H 9850 6050 50  0001 C CNN "Manufacturer Part Number"
 	1    9850 6050
 	-1   0    0    1   
 $EndComp
@@ -567,7 +550,7 @@ U 1 1 5BCEA02C
 P 9500 1500
 F 0 "J?" H 9650 2067 50  0000 C CNN
 F 1 "Conector_PCB_A-B" H 9650 1975 50  0000 C CNN
-F 2 "" H 9250 1950 50  0001 C CNN
+F 2 "AXTEC:Conector_PCB_A-B" H 9250 1950 50  0001 C CNN
 F 3 "" H 9250 1950 50  0001 C CNN
 	1    9500 1500
 	1    0    0    -1  
@@ -839,9 +822,10 @@ AR Path="/5BC14C3C/5C2C895A" Ref="C?"  Part="1"
 AR Path="/5C2C895A" Ref="C?"  Part="1" 
 F 0 "C?" H 6808 6054 50  0000 R CNN
 F 1 "10uF" H 6808 6145 50  0000 R CNN
-F 2 "" H 6900 6100 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6900 6100 50  0001 C CNN
 F 3 "~" H 6900 6100 50  0001 C CNN
 F 4 "10V" H 6900 6100 50  0001 C CNN "Voltage"
+F 5 "C2012X7R1A106M125AC" H 6900 6100 50  0001 C CNN "Manufacturer Part Number"
 	1    6900 6100
 	-1   0    0    1   
 $EndComp
@@ -855,7 +839,7 @@ AR Path="/5BC14C3C/5C2C8962" Ref="L?"  Part="1"
 AR Path="/5C2C8962" Ref="L?"  Part="1" 
 F 0 "L?" H 5109 5704 50  0000 R CNN
 F 1 "4.7uH" H 5109 5795 50  0000 R CNN
-F 2 "~" H 5150 5750 50  0001 C CNN
+F 2 "AXTEC:SRN3010TA-4R7M" H 5150 5750 50  0001 C CNN
 F 3 "~" H 5150 5750 50  0001 C CNN
 F 4 "SRN3010TA-4R7M" V 5150 5750 50  0001 C CNN "Manufacturer Part Number"
 	1    5150 5750
@@ -966,25 +950,6 @@ F 3 "" H 4750 5350 50  0001 C CNN
 	1    4750 5350
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5C2EB009
-P 4750 5850
-AR Path="/5BB122CA/5C2EB009" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5C2EB009" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5C2EB009" Ref="C?"  Part="1" 
-AR Path="/5BB6C3A1/5C2EB009" Ref="C?"  Part="1" 
-AR Path="/5BB6C83B/5C2EB009" Ref="C?"  Part="1" 
-AR Path="/5BC14C3C/5C2EB009" Ref="C?"  Part="1" 
-AR Path="/5C2EB009" Ref="C?"  Part="1" 
-F 0 "C?" H 4658 5804 50  0000 R CNN
-F 1 "10uF" H 4658 5895 50  0000 R CNN
-F 2 "" H 4750 5850 50  0001 C CNN
-F 3 "~" H 4750 5850 50  0001 C CNN
-F 4 "10V" H 4750 5850 50  0001 C CNN "Voltage"
-	1    4750 5850
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	4750 5600 4750 5750
 Wire Wire Line
@@ -1065,4 +1030,44 @@ Wire Notes Line
 	2700 2400 550  2400
 Wire Notes Line
 	550  2400 550  550 
+$Comp
+L Device:C_Small C?
+U 1 1 5C68C1F1
+P 10300 6050
+AR Path="/5BB122CA/5C68C1F1" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5C68C1F1" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5C68C1F1" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5C68C1F1" Ref="C?"  Part="1" 
+AR Path="/5BB6C83B/5C68C1F1" Ref="C?"  Part="1" 
+AR Path="/5BC14C3C/5C68C1F1" Ref="C?"  Part="1" 
+AR Path="/5C68C1F1" Ref="C?"  Part="1" 
+F 0 "C?" H 10208 6004 50  0000 R CNN
+F 1 "2.2uF" H 10208 6095 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10300 6050 50  0001 C CNN
+F 3 "~" H 10300 6050 50  0001 C CNN
+F 4 "10V" H 10300 6050 50  0001 C CNN "Voltage"
+F 5 "LMK212B7225KG-T" H 10300 6050 50  0001 C CNN "Manufacturer Part Number"
+	1    10300 6050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5C68C592
+P 4750 5850
+AR Path="/5BB122CA/5C68C592" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5C68C592" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5C68C592" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5C68C592" Ref="C?"  Part="1" 
+AR Path="/5BB6C83B/5C68C592" Ref="C?"  Part="1" 
+AR Path="/5BC14C3C/5C68C592" Ref="C?"  Part="1" 
+AR Path="/5C68C592" Ref="C?"  Part="1" 
+F 0 "C?" H 4658 5804 50  0000 R CNN
+F 1 "10uF" H 4658 5895 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4750 5850 50  0001 C CNN
+F 3 "~" H 4750 5850 50  0001 C CNN
+F 4 "10V" H 4750 5850 50  0001 C CNN "Voltage"
+F 5 "C2012X7R1A106M125AC" H 4750 5850 50  0001 C CNN "Manufacturer Part Number"
+	1    4750 5850
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC

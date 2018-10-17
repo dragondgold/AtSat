@@ -39,21 +39,6 @@ ISET
 Text HLabel 7250 3650 2    50   BiDi ~ 0
 VBAT
 $Comp
-L Device:C_Small C?
-U 1 1 5BAD793D
-P 3900 4050
-AR Path="/5BA17F9C/5BAD793D" Ref="C?"  Part="1" 
-AR Path="/5BA1A7F9/5BAD793D" Ref="C?"  Part="1" 
-AR Path="/5BA1A77A/5BAD793D" Ref="C?"  Part="1" 
-AR Path="/5BC300BF/5BAD793D" Ref="C?"  Part="1" 
-F 0 "C?" H 4050 4050 50  0000 L CNN
-F 1 "1uF" H 4000 3950 50  0000 L CNN
-F 2 "" H 3900 4050 50  0001 C CNN
-F 3 "~" H 3900 4050 50  0001 C CNN
-	1    3900 4050
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5BAD7944
 P 3900 4300
@@ -76,21 +61,6 @@ Wire Wire Line
 Connection ~ 3900 3550
 Wire Wire Line
 	7250 3950 6550 3950
-$Comp
-L Device:R R?
-U 1 1 5BAD7C51
-P 4350 4100
-AR Path="/5BA17F9C/5BAD7C51" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5BAD7C51" Ref="R?"  Part="1" 
-AR Path="/5BA1A77A/5BAD7C51" Ref="R?"  Part="1" 
-AR Path="/5BC300BF/5BAD7C51" Ref="R?"  Part="1" 
-F 0 "R?" V 4450 4100 50  0000 L CNN
-F 1 "1k8" V 4250 4100 50  0000 L CNN
-F 2 "" V 4280 4100 50  0001 C CNN
-F 3 "~" H 4350 4100 50  0001 C CNN
-	1    4350 4100
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	3900 3550 5250 3550
 Wire Wire Line
@@ -133,21 +103,6 @@ F 3 "" H 4600 4300 50  0001 C CNN
 $EndComp
 Text Notes 5350 4300 0    50   ~ 0
 Corriente de carga a 300mA
-$Comp
-L Device:R R?
-U 1 1 5BAD7FE1
-P 4800 4100
-AR Path="/5BA17F9C/5BAD7FE1" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5BAD7FE1" Ref="R?"  Part="1" 
-AR Path="/5BA1A77A/5BAD7FE1" Ref="R?"  Part="1" 
-AR Path="/5BC300BF/5BAD7FE1" Ref="R?"  Part="1" 
-F 0 "R?" V 4900 4100 50  0000 L CNN
-F 1 "2k" V 4700 4100 50  0000 L CNN
-F 2 "" V 4730 4100 50  0001 C CNN
-F 3 "~" H 4800 4100 50  0001 C CNN
-	1    4800 4100
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	4800 4300 4800 4250
 Wire Wire Line
@@ -186,7 +141,7 @@ AR Path="/5BA1A77A/5BAD840C" Ref="R?"  Part="1"
 AR Path="/5BC300BF/5BAD840C" Ref="R?"  Part="1" 
 F 0 "R?" V 7900 4100 50  0000 L CNN
 F 1 "100k" V 7700 4100 50  0000 L CNN
-F 2 "" V 7730 4100 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7730 4100 50  0001 C CNN
 F 3 "~" H 7800 4100 50  0001 C CNN
 	1    7800 4100
 	-1   0    0    1   
@@ -236,21 +191,6 @@ Wire Wire Line
 	6800 3550 6550 3550
 Wire Wire Line
 	6800 3550 6800 4300
-$Comp
-L Device:C_Small C?
-U 1 1 5BAF1DFA
-P 7000 4150
-AR Path="/5BA17F9C/5BAF1DFA" Ref="C?"  Part="1" 
-AR Path="/5BA1A7F9/5BAF1DFA" Ref="C?"  Part="1" 
-AR Path="/5BA1A77A/5BAF1DFA" Ref="C?"  Part="1" 
-AR Path="/5BC300BF/5BAF1DFA" Ref="C?"  Part="1" 
-F 0 "C?" H 7150 4150 50  0000 L CNN
-F 1 "1uF" H 7100 4050 50  0000 L CNN
-F 2 "" H 7000 4150 50  0001 C CNN
-F 3 "~" H 7000 4150 50  0001 C CNN
-	1    7000 4150
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7000 3650 7000 4050
 Connection ~ 7000 3650
@@ -272,4 +212,76 @@ F 3 "" H 7000 4300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7000 4250 7000 4300
+$Comp
+L Device:C_Small C?
+U 1 1 5C6A0401
+P 3900 4050
+AR Path="/5BB122CA/5C6A0401" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5C6A0401" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5C6A0401" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5C6A0401" Ref="C?"  Part="1" 
+AR Path="/5BC13C37/5C6A0401" Ref="C?"  Part="1" 
+AR Path="/5BC14C3C/5C6A0401" Ref="C?"  Part="1" 
+AR Path="/5BC300BF/5C6A0401" Ref="C?"  Part="1" 
+F 0 "C?" H 3808 4004 50  0000 R CNN
+F 1 "1uF" H 3808 4095 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3900 4050 50  0001 C CNN
+F 3 "~" H 3900 4050 50  0001 C CNN
+F 4 "10V" H 3900 4050 50  0001 C CNN "Voltage"
+F 5 "LMK107B7105MA-T" H 3900 4050 50  0001 C CNN "Manufacturer Part Number"
+	1    3900 4050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5C6A063E
+P 7000 4150
+AR Path="/5BB122CA/5C6A063E" Ref="C?"  Part="1" 
+AR Path="/5BB12371/5C6A063E" Ref="C?"  Part="1" 
+AR Path="/5BB123AC/5C6A063E" Ref="C?"  Part="1" 
+AR Path="/5BB6C3A1/5C6A063E" Ref="C?"  Part="1" 
+AR Path="/5BC13C37/5C6A063E" Ref="C?"  Part="1" 
+AR Path="/5BC14C3C/5C6A063E" Ref="C?"  Part="1" 
+AR Path="/5BC300BF/5C6A063E" Ref="C?"  Part="1" 
+F 0 "C?" H 6908 4104 50  0000 R CNN
+F 1 "1uF" H 6908 4195 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 7000 4150 50  0001 C CNN
+F 3 "~" H 7000 4150 50  0001 C CNN
+F 4 "10V" H 7000 4150 50  0001 C CNN "Voltage"
+F 5 "LMK107B7105MA-T" H 7000 4150 50  0001 C CNN "Manufacturer Part Number"
+	1    7000 4150
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5C6A0A52
+P 4800 4100
+AR Path="/5BC13C37/5C6A0A52" Ref="R?"  Part="1" 
+AR Path="/5BC14C3C/5C6A0A52" Ref="R?"  Part="1" 
+AR Path="/5BC300BF/5C6A0A52" Ref="R?"  Part="1" 
+F 0 "R?" H 4730 4008 50  0000 R CNN
+F 1 "2k" H 4730 4100 50  0000 R CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4730 4100 50  0001 C CNN
+F 3 "~" H 4800 4100 50  0001 C CNN
+F 4 "1%" H 4730 4192 50  0000 R CNN "Tolerance"
+F 5 "RC0603FR-102KL" V 4800 4100 50  0001 C CNN "Manufacturer Part Number"
+	1    4800 4100
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5C6A0C34
+P 4350 4100
+AR Path="/5BC13C37/5C6A0C34" Ref="R?"  Part="1" 
+AR Path="/5BC14C3C/5C6A0C34" Ref="R?"  Part="1" 
+AR Path="/5BC300BF/5C6A0C34" Ref="R?"  Part="1" 
+F 0 "R?" H 4280 4008 50  0000 R CNN
+F 1 "1k8" H 4280 4100 50  0000 R CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4280 4100 50  0001 C CNN
+F 3 "~" H 4350 4100 50  0001 C CNN
+F 4 "1%" H 4280 4192 50  0000 R CNN "Tolerance"
+F 5 "RC0603FR-071K8L" V 4350 4100 50  0001 C CNN "Manufacturer Part Number"
+	1    4350 4100
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
