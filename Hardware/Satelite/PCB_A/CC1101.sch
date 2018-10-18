@@ -534,7 +534,7 @@ F 2 "Capacitor_SMD:C_0402_1005Metric" H 3300 2000 50  0001 C CNN
 F 3 "~" H 3300 2000 50  0001 C CNN
 F 4 "X7R" H 3300 2000 50  0001 C CNN "Dielectric"
 F 5 "16V" H 3300 2000 50  0001 C CNN "Voltage"
-F 6 "EMK107B7104KAHT" H 3300 2000 50  0001 C CNN "Manufacturer Part Number"
+F 6 "GCM155R71C104KA55D" H 3300 2000 50  0001 C CNN "Manufacturer Part Number"
 	1    3300 2000
 	-1   0    0    -1  
 $EndComp
@@ -551,7 +551,7 @@ F 2 "Capacitor_SMD:C_0402_1005Metric" H 2150 3650 50  0001 C CNN
 F 3 "~" H 2150 3650 50  0001 C CNN
 F 4 "X7R" H 2150 3650 50  0001 C CNN "Dielectric"
 F 5 "16V" H 2150 3650 50  0001 C CNN "Voltage"
-F 6 "EMK107B7104KAHT" H 2150 3650 50  0001 C CNN "Manufacturer Part Number"
+F 6 "GCM155R71C104KA55D" H 2150 3650 50  0001 C CNN "Manufacturer Part Number"
 	1    2150 3650
 	1    0    0    -1  
 $EndComp
@@ -568,7 +568,7 @@ F 2 "Capacitor_SMD:C_0402_1005Metric" H 2550 3650 50  0001 C CNN
 F 3 "~" H 2550 3650 50  0001 C CNN
 F 4 "X7R" H 2550 3650 50  0001 C CNN "Dielectric"
 F 5 "16V" H 2550 3650 50  0001 C CNN "Voltage"
-F 6 "EMK107B7104KAHT" H 2550 3650 50  0001 C CNN "Manufacturer Part Number"
+F 6 "GCM155R71C104KA55D" H 2550 3650 50  0001 C CNN "Manufacturer Part Number"
 	1    2550 3650
 	1    0    0    -1  
 $EndComp
@@ -585,7 +585,7 @@ F 2 "Capacitor_SMD:C_0402_1005Metric" H 4600 4800 50  0001 C CNN
 F 3 "~" H 4600 4800 50  0001 C CNN
 F 4 "X7R" H 4600 4800 50  0001 C CNN "Dielectric"
 F 5 "16V" H 4600 4800 50  0001 C CNN "Voltage"
-F 6 "EMK107B7104KAHT" H 4600 4800 50  0001 C CNN "Manufacturer Part Number"
+F 6 "GCM155R71C104KA55D" H 4600 4800 50  0001 C CNN "Manufacturer Part Number"
 	1    4600 4800
 	1    0    0    -1  
 $EndComp
@@ -602,7 +602,7 @@ F 2 "Capacitor_SMD:C_0402_1005Metric" H 4400 3650 50  0001 C CNN
 F 3 "~" H 4400 3650 50  0001 C CNN
 F 4 "X7R" H 4400 3650 50  0001 C CNN "Dielectric"
 F 5 "16V" H 4400 3650 50  0001 C CNN "Voltage"
-F 6 "EMK107B7104KAHT" H 4400 3650 50  0001 C CNN "Manufacturer Part Number"
+F 6 "GCM155R71C104KA55D" H 4400 3650 50  0001 C CNN "Manufacturer Part Number"
 	1    4400 3650
 	1    0    0    -1  
 $EndComp
@@ -619,7 +619,7 @@ F 2 "Capacitor_SMD:C_0402_1005Metric" H 4800 3250 50  0001 C CNN
 F 3 "~" H 4800 3250 50  0001 C CNN
 F 4 "X7R" H 4800 3250 50  0001 C CNN "Dielectric"
 F 5 "16V" H 4800 3250 50  0001 C CNN "Voltage"
-F 6 "EMK107B7104KAHT" H 4800 3250 50  0001 C CNN "Manufacturer Part Number"
+F 6 "GCM155R71C104KA55D" H 4800 3250 50  0001 C CNN "Manufacturer Part Number"
 	1    4800 3250
 	1    0    0    -1  
 $EndComp
@@ -636,7 +636,7 @@ F 2 "Capacitor_SMD:C_0402_1005Metric" H 5200 3250 50  0001 C CNN
 F 3 "~" H 5200 3250 50  0001 C CNN
 F 4 "X7R" H 5200 3250 50  0001 C CNN "Dielectric"
 F 5 "16V" H 5200 3250 50  0001 C CNN "Voltage"
-F 6 "EMK107B7104KAHT" H 5200 3250 50  0001 C CNN "Manufacturer Part Number"
+F 6 "GCM155R71C104KA55D" H 5200 3250 50  0001 C CNN "Manufacturer Part Number"
 	1    5200 3250
 	1    0    0    -1  
 $EndComp
@@ -684,7 +684,7 @@ F 2 "Capacitor_SMD:C_0402_1005Metric" H 3500 5250 50  0001 C CNN
 F 3 "~" H 3500 5250 50  0001 C CNN
 F 4 "NP0" H 3500 5250 50  0001 C CNN "Dielectric"
 F 5 "10V" H 3500 5250 50  0001 C CNN "Voltage"
-F 6 "VJ0603A180KXQPW1BC" H 3500 5250 50  0001 C CNN "Manufacturer Part Number"
+F 6 "C0402C180J5GACTU" H 3500 5250 50  0001 C CNN "Manufacturer Part Number"
 	1    3500 5250
 	-1   0    0    -1  
 $EndComp
@@ -701,7 +701,7 @@ F 2 "Capacitor_SMD:C_0402_1005Metric" H 3900 5250 50  0001 C CNN
 F 3 "~" H 3900 5250 50  0001 C CNN
 F 4 "NP0" H 3900 5250 50  0001 C CNN "Dielectric"
 F 5 "10V" H 3900 5250 50  0001 C CNN "Voltage"
-F 6 "VJ0603A180KXQPW1BC" H 3900 5250 50  0001 C CNN "Manufacturer Part Number"
+F 6 "C0402C180J5GACTU" H 3900 5250 50  0001 C CNN "Manufacturer Part Number"
 	1    3900 5250
 	1    0    0    -1  
 $EndComp
@@ -768,8 +768,8 @@ U 1 1 5BCB632A
 P 2800 3050
 AR Path="/5B9A8077/5BCB632A" Ref="U?"  Part="1" 
 AR Path="/5BA17F9C/5BCB632A" Ref="U2"  Part="1" 
-F 0 "U2" H 4341 2746 50  0000 L CNN
-F 1 "CC1101RGP" H 4341 2654 50  0000 L CNN
+F 0 "U2" H 4050 3750 50  0000 L CNN
+F 1 "CC1101RGP" H 4050 3650 50  0000 L CNN
 F 2 "SamacSys_Parts:QFN50P400X400X100-21N-D" H 4150 3550 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/cc1101.pdf" H 4150 3450 50  0001 L CNN
 F 4 "Texas Instruments CC1101RGP, RF Transceiver IC Triple Band 1.8  3.6 V 20-Pin QFN" H 4150 3350 50  0001 L CNN "Description"

@@ -479,9 +479,9 @@ AR Path="/5BB123AC/5BC94AEA" Ref="C?"  Part="1"
 AR Path="/5BC94AEA" Ref="C3"  Part="1" 
 F 0 "C3" H 5108 5304 50  0000 R CNN
 F 1 "4.3pF" H 5108 5395 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 5200 5350 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 5200 5350 50  0001 C CNN
 F 3 "~" H 5200 5350 50  0001 C CNN
-F 4 "885012006001" H 5200 5350 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GRM1555C1H4R3WA01D" H 5200 5350 50  0001 C CNN "Manufacturer Part Number"
 	1    5200 5350
 	0    1    1    0   
 $EndComp
@@ -523,7 +523,7 @@ U 1 1 5BCC99A8
 P 6150 3650
 F 0 "Y2" V 6058 3781 50  0000 L CNN
 F 1 "Crystal" V 6150 3781 50  0000 L CNN
-F 2 "Crystal:Crystal_SMD_0603-2Pin_6.0x3.5mm_HandSoldering" H 6150 3650 50  0001 C CNN
+F 2 "Crystal:Crystal_HC49-4H_Vertical" H 6150 3650 50  0001 C CNN
 F 3 "~" H 6150 3650 50  0001 C CNN
 F 4 "8 MHz" V 6242 3781 50  0000 L CNN "Frequency"
 F 5 "LFXTAL029665" V 6150 3650 50  0001 C CNN "Manufacturer Part Number"
@@ -552,9 +552,9 @@ AR Path="/5BB123AC/5BCD5103" Ref="C?"  Part="1"
 AR Path="/5BCD5103" Ref="C7"  Part="1" 
 F 0 "C7" H 5708 3404 50  0000 R CNN
 F 1 "20pF" H 5708 3495 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 5800 3450 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 5800 3450 50  0001 C CNN
 F 3 "~" H 5800 3450 50  0001 C CNN
-F 4 "GCM1885C2A200JA16D" H 5800 3450 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM1555C1H200JA16D" H 5800 3450 50  0001 C CNN "Manufacturer Part Number"
 	1    5800 3450
 	0    1    1    0   
 $EndComp
@@ -1924,9 +1924,9 @@ AR Path="/5BB12371/5BCA2C7F" Ref="C?"  Part="1"
 AR Path="/5BCA2C7F" Ref="C1"  Part="1" 
 F 0 "C1" H 1058 5954 50  0000 R CNN
 F 1 "1uF" H 1058 6045 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 1150 6000 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 1150 6000 50  0001 C CNN
 F 3 "~" H 1150 6000 50  0001 C CNN
-F 4 "LMK107B7105MA-T" H 1150 6000 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GRM155R61E105KA12D" H 1150 6000 50  0001 C CNN "Manufacturer Part Number"
 	1    1150 6000
 	-1   0    0    1   
 $EndComp
@@ -1939,9 +1939,9 @@ AR Path="/5BB123AC/5BCC13FC" Ref="C?"  Part="1"
 AR Path="/5BCC13FC" Ref="C6"  Part="1" 
 F 0 "C6" H 5842 2596 50  0000 L CNN
 F 1 "100nF" H 5842 2505 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 5750 2550 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 5750 2550 50  0001 C CNN
 F 3 "~" H 5750 2550 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 5750 2550 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 5750 2550 50  0001 C CNN "Manufacturer Part Number"
 	1    5750 2550
 	-1   0    0    -1  
 $EndComp
@@ -1954,9 +1954,9 @@ AR Path="/5BB123AC/5BCDF88D" Ref="C?"  Part="1"
 AR Path="/5BCDF88D" Ref="C17"  Part="1" 
 F 0 "C17" H 9192 5396 50  0000 L CNN
 F 1 "100nF" H 9192 5305 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 9100 5350 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 9100 5350 50  0001 C CNN
 F 3 "~" H 9100 5350 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 9100 5350 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 9100 5350 50  0001 C CNN "Manufacturer Part Number"
 	1    9100 5350
 	1    0    0    -1  
 $EndComp
@@ -1969,9 +1969,9 @@ AR Path="/5BB123AC/5BCFE120" Ref="C?"  Part="1"
 AR Path="/5BCFE120" Ref="C16"  Part="1" 
 F 0 "C16" H 9192 4296 50  0000 L CNN
 F 1 "100nF" H 9192 4205 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 9100 4250 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 9100 4250 50  0001 C CNN
 F 3 "~" H 9100 4250 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 9100 4250 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 9100 4250 50  0001 C CNN "Manufacturer Part Number"
 	1    9100 4250
 	1    0    0    -1  
 $EndComp
@@ -1984,9 +1984,9 @@ AR Path="/5BB123AC/5BCFE3B0" Ref="C?"  Part="1"
 AR Path="/5BCFE3B0" Ref="C15"  Part="1" 
 F 0 "C15" H 9192 2696 50  0000 L CNN
 F 1 "100nF" H 9192 2605 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 9100 2650 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 9100 2650 50  0001 C CNN
 F 3 "~" H 9100 2650 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 9100 2650 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 9100 2650 50  0001 C CNN "Manufacturer Part Number"
 	1    9100 2650
 	1    0    0    -1  
 $EndComp
@@ -1999,9 +1999,9 @@ AR Path="/5BB123AC/5BCFE6B4" Ref="C?"  Part="1"
 AR Path="/5BCFE6B4" Ref="C10"  Part="1" 
 F 0 "C10" H 8192 1596 50  0000 L CNN
 F 1 "100nF" H 8192 1505 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 8100 1550 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 8100 1550 50  0001 C CNN
 F 3 "~" H 8100 1550 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 8100 1550 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 8100 1550 50  0001 C CNN "Manufacturer Part Number"
 	1    8100 1550
 	-1   0    0    -1  
 $EndComp
@@ -2014,9 +2014,9 @@ AR Path="/5BB123AC/5BCFE768" Ref="C?"  Part="1"
 AR Path="/5BCFE768" Ref="C12"  Part="1" 
 F 0 "C12" H 8592 1596 50  0000 L CNN
 F 1 "100nF" H 8592 1505 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 8500 1550 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 8500 1550 50  0001 C CNN
 F 3 "~" H 8500 1550 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 8500 1550 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 8500 1550 50  0001 C CNN "Manufacturer Part Number"
 	1    8500 1550
 	-1   0    0    -1  
 $EndComp
@@ -2029,9 +2029,9 @@ AR Path="/5BB123AC/5BCFE7DA" Ref="C?"  Part="1"
 AR Path="/5BCFE7DA" Ref="C14"  Part="1" 
 F 0 "C14" H 8992 1596 50  0000 L CNN
 F 1 "100nF" H 8992 1505 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 8900 1550 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 8900 1550 50  0001 C CNN
 F 3 "~" H 8900 1550 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 8900 1550 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 8900 1550 50  0001 C CNN "Manufacturer Part Number"
 	1    8900 1550
 	-1   0    0    -1  
 $EndComp
@@ -2044,9 +2044,9 @@ AR Path="/5BB123AC/5BCFE84E" Ref="C?"  Part="1"
 AR Path="/5BCFE84E" Ref="C18"  Part="1" 
 F 0 "C18" H 9392 1596 50  0000 L CNN
 F 1 "100nF" H 9392 1505 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 9300 1550 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 9300 1550 50  0001 C CNN
 F 3 "~" H 9300 1550 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 9300 1550 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 9300 1550 50  0001 C CNN "Manufacturer Part Number"
 	1    9300 1550
 	-1   0    0    -1  
 $EndComp
@@ -2059,9 +2059,9 @@ AR Path="/5BB123AC/5BCFF353" Ref="C?"  Part="1"
 AR Path="/5BCFF353" Ref="C21"  Part="1" 
 F 0 "C21" H 11242 9846 50  0000 L CNN
 F 1 "100nF" H 11242 9755 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 11150 9800 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 11150 9800 50  0001 C CNN
 F 3 "~" H 11150 9800 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 11150 9800 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 11150 9800 50  0001 C CNN "Manufacturer Part Number"
 	1    11150 9800
 	1    0    0    -1  
 $EndComp
@@ -2074,9 +2074,9 @@ AR Path="/5BB123AC/5BCFF59F" Ref="C?"  Part="1"
 AR Path="/5BCFF59F" Ref="C19"  Part="1" 
 F 0 "C19" H 9592 9846 50  0000 L CNN
 F 1 "100nF" H 9592 9755 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 9500 9800 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 9500 9800 50  0001 C CNN
 F 3 "~" H 9500 9800 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 9500 9800 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 9500 9800 50  0001 C CNN "Manufacturer Part Number"
 	1    9500 9800
 	-1   0    0    -1  
 $EndComp
@@ -2089,9 +2089,9 @@ AR Path="/5BB123AC/5BCFF656" Ref="C?"  Part="1"
 AR Path="/5BCFF656" Ref="C9"  Part="1" 
 F 0 "C9" H 6692 10046 50  0000 L CNN
 F 1 "100nF" H 6692 9955 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 6600 10000 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 6600 10000 50  0001 C CNN
 F 3 "~" H 6600 10000 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 6600 10000 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 6600 10000 50  0001 C CNN "Manufacturer Part Number"
 	1    6600 10000
 	-1   0    0    -1  
 $EndComp
@@ -2104,9 +2104,9 @@ AR Path="/5BB123AC/5BCFF8DB" Ref="C?"  Part="1"
 AR Path="/5BCFF8DB" Ref="C11"  Part="1" 
 F 0 "C11" H 8442 10046 50  0000 L CNN
 F 1 "100nF" H 8442 9955 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 8350 10000 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 8350 10000 50  0001 C CNN
 F 3 "~" H 8350 10000 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 8350 10000 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 8350 10000 50  0001 C CNN "Manufacturer Part Number"
 	1    8350 10000
 	1    0    0    -1  
 $EndComp
@@ -2119,9 +2119,9 @@ AR Path="/5BB123AC/5BCFFAC8" Ref="C?"  Part="1"
 AR Path="/5BCFFAC8" Ref="C5"  Part="1" 
 F 0 "C5" H 5692 9846 50  0000 L CNN
 F 1 "100nF" H 5692 9755 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 5600 9800 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 5600 9800 50  0001 C CNN
 F 3 "~" H 5600 9800 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 5600 9800 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 5600 9800 50  0001 C CNN "Manufacturer Part Number"
 	1    5600 9800
 	1    0    0    -1  
 $EndComp
@@ -2134,9 +2134,9 @@ AR Path="/5BB123AC/5BCFFB7C" Ref="C?"  Part="1"
 AR Path="/5BCFFB7C" Ref="C2"  Part="1" 
 F 0 "C2" H 4042 9846 50  0000 L CNN
 F 1 "100nF" H 4042 9755 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3950 9800 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 3950 9800 50  0001 C CNN
 F 3 "~" H 3950 9800 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 3950 9800 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM155R71C104KA55D" H 3950 9800 50  0001 C CNN "Manufacturer Part Number"
 	1    3950 9800
 	-1   0    0    -1  
 $EndComp
@@ -2165,9 +2165,9 @@ AR Path="/5BB123AC/5BD0294E" Ref="C?"  Part="1"
 AR Path="/5BD0294E" Ref="C8"  Part="1" 
 F 0 "C8" H 5708 3804 50  0000 R CNN
 F 1 "20pF" H 5708 3895 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 5800 3850 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 5800 3850 50  0001 C CNN
 F 3 "~" H 5800 3850 50  0001 C CNN
-F 4 "GCM1885C2A200JA16D" H 5800 3850 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GCM1555C1H200JA16D" H 5800 3850 50  0001 C CNN "Manufacturer Part Number"
 	1    5800 3850
 	0    1    -1   0   
 $EndComp
@@ -2181,9 +2181,9 @@ AR Path="/5BB123AC/5BD02F04" Ref="C?"  Part="1"
 AR Path="/5BD02F04" Ref="C4"  Part="1" 
 F 0 "C4" H 5108 5704 50  0000 R CNN
 F 1 "4.3pF" H 5108 5795 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 5200 5750 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 5200 5750 50  0001 C CNN
 F 3 "~" H 5200 5750 50  0001 C CNN
-F 4 "885012006001" H 5200 5750 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GRM1555C1H4R3WA01D" H 5200 5750 50  0001 C CNN "Manufacturer Part Number"
 	1    5200 5750
 	0    1    -1   0   
 $EndComp

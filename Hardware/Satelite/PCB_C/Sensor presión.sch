@@ -63,9 +63,9 @@ AR Path="/5BB122CA/5BB71D0F" Ref="C?"  Part="1"
 AR Path="/5BB12371/5BB71D0F" Ref="C23"  Part="1" 
 F 0 "C23" H 4708 3654 50  0000 R CNN
 F 1 "1uF" H 4708 3745 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 4800 3700 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 4800 3700 50  0001 C CNN
 F 3 "~" H 4800 3700 50  0001 C CNN
-F 4 "LMK107B7105MA-T" H 4800 3700 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GRM155R61E105KA12D" H 4800 3700 50  0001 C CNN "Manufacturer Part Number"
 	1    4800 3700
 	-1   0    0    1   
 $EndComp
