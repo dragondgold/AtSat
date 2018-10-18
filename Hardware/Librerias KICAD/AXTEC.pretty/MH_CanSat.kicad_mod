@@ -1,4 +1,4 @@
-(module MH_CanSat (layer F.Cu) (tedit 5BC5EE06)
+(module MH_CanSat (layer F.Cu) (tedit 5BC8DBDA)
   (fp_text reference REF** (at 0.17 -7.12) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )

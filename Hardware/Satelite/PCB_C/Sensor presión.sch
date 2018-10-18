@@ -15,12 +15,12 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L SamacSys_Parts:MS563702BA03-50 IC?
+L SamacSys_Parts:MS563702BA03-50 IC4
 U 1 1 5BB71B9C
 P 5250 3350
-F 0 "IC?" H 5750 3615 50  0000 C CNN
+F 0 "IC4" H 5750 3615 50  0000 C CNN
 F 1 "MS563702BA03-50" H 5750 3524 50  0000 C CNN
-F 2 "MS5637_1" H 6100 3450 50  0001 L CNN
+F 2 "SamacSys_Parts:MS5637_1" H 6100 3450 50  0001 L CNN
 F 3 "http://docs-europe.electrocomponents.com/webdocs/142c/0900766b8142cddb.pdf" H 6100 3350 50  0001 L CNN
 F 4 "Sensor Pressure 2bar Barometric SMD MS563702BA03-50, Barometric Pressure Sensor, 1200mbar 0 ??? 3.6 V Output, 4-Pin QFN" H 6100 3250 50  0001 L CNN "Description"
 F 5 "" H 6100 3150 50  0001 L CNN "Height"
@@ -34,10 +34,10 @@ F 11 "https://www.arrow.com/en/products/ms563702ba03-50/te-connectivity" H 6100 
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3V3 #PWR?
+L power:+3V3 #PWR069
 U 1 1 5BB71C29
 P 4800 3250
-F 0 "#PWR?" H 4800 3100 50  0001 C CNN
+F 0 "#PWR069" H 4800 3100 50  0001 C CNN
 F 1 "+3V3" H 4815 3423 50  0000 C CNN
 F 2 "" H 4800 3250 50  0001 C CNN
 F 3 "" H 4800 3250 50  0001 C CNN
@@ -45,10 +45,10 @@ F 3 "" H 4800 3250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR070
 U 1 1 5BB71C54
 P 4800 3800
-F 0 "#PWR?" H 4800 3550 50  0001 C CNN
+F 0 "#PWR070" H 4800 3550 50  0001 C CNN
 F 1 "GND" H 4805 3627 50  0000 C CNN
 F 2 "" H 4800 3800 50  0001 C CNN
 F 3 "" H 4800 3800 50  0001 C CNN
@@ -60,8 +60,8 @@ L Device:C_Small C?
 U 1 1 5BB71D0F
 P 4800 3700
 AR Path="/5BB122CA/5BB71D0F" Ref="C?"  Part="1" 
-AR Path="/5BB12371/5BB71D0F" Ref="C?"  Part="1" 
-F 0 "C?" H 4708 3654 50  0000 R CNN
+AR Path="/5BB12371/5BB71D0F" Ref="C23"  Part="1" 
+F 0 "C23" H 4708 3654 50  0000 R CNN
 F 1 "1uF" H 4708 3745 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 4800 3700 50  0001 C CNN
 F 3 "~" H 4800 3700 50  0001 C CNN
@@ -77,10 +77,10 @@ Wire Wire Line
 	4800 3250 4800 3350
 Connection ~ 4800 3350
 $Comp
-L power:GND #PWR?
+L power:GND #PWR071
 U 1 1 5BB71DBB
 P 6350 3800
-F 0 "#PWR?" H 6350 3550 50  0001 C CNN
+F 0 "#PWR071" H 6350 3550 50  0001 C CNN
 F 1 "GND" H 6355 3627 50  0000 C CNN
 F 2 "" H 6350 3800 50  0001 C CNN
 F 3 "" H 6350 3800 50  0001 C CNN
