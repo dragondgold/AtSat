@@ -19,31 +19,26 @@ S 1250 1200 500  200
 U 5BB122CA
 F0 "Sensor temperatura y humedad" 50
 F1 "Sensor temperatura y humedad.sch" 50
+F2 "SCL" I R 1750 1350 50 
+F3 "SDA" B R 1750 1250 50 
 $EndSheet
-Text HLabel 1750 1350 0    50   Input ~ 0
-SCL
-Text HLabel 1750 1250 0    50   BiDi ~ 0
-SDA
 $Sheet
 S 1250 1750 500  200 
 U 5BB12371
 F0 "Sensor presión" 50
 F1 "Sensor presión.sch" 50
+F2 "SCL" I R 1750 1900 50 
 $EndSheet
 Text HLabel 1750 1800 0    50   BiDi ~ 0
 SDA
-Text HLabel 1750 1900 0    50   Input ~ 0
-SCL
 $Sheet
 S 1250 2300 500  550 
 U 5BB123AC
 F0 "IMU" 50
 F1 "IMU.sch" 50
+F2 "SDA" B R 1750 2350 50 
+F3 "SCL" I R 1750 2450 50 
 $EndSheet
-Text HLabel 1750 2350 0    50   BiDi ~ 0
-SDA
-Text HLabel 1750 2450 0    50   Input ~ 0
-SCL
 Text HLabel 1750 2600 0    50   Output ~ 0
 ACC_INT
 Text HLabel 1750 2700 0    50   Output ~ 0
@@ -1070,13 +1065,13 @@ Wire Wire Line
 	8250 4200 8900 4200
 Wire Wire Line
 	8250 4300 8900 4300
-Text Label 8350 4800 0    50   ~ 0
+Text Label 8350 4700 0    50   ~ 0
 GPOUT
 Text Label 8350 5000 0    50   ~ 0
 CHG
-Text Label 8350 4900 0    50   ~ 0
+Text Label 8350 4800 0    50   ~ 0
 CHG_DISABLE
-Text Label 8350 4700 0    50   ~ 0
+Text Label 8350 4900 0    50   ~ 0
 ISET
 Text Label 8350 5100 0    50   ~ 0
 P1
@@ -1102,23 +1097,17 @@ Wire Wire Line
 	8250 4800 8700 4800
 Wire Wire Line
 	8250 5100 8700 5100
-Text Label 8350 4500 0    50   ~ 0
-5V_ENABLE
 Text Label 8350 4600 0    50   ~ 0
+5V_ENABLE
+Text Label 8350 4500 0    50   ~ 0
 3V_ENABLE
 Wire Wire Line
 	8250 4500 8900 4500
 Wire Wire Line
 	8250 4600 8900 4600
-Wire Wire Line
-	8250 2700 8900 2700
 Text Label 8350 2400 0    50   ~ 0
-I_SENSE_3V3
-Text Label 8350 2800 0    50   ~ 0
-V_SENSE_3V3
-Text Label 8350 2900 0    50   ~ 0
 I_SENSE_5V
-Text Label 8350 2700 0    50   ~ 0
+Text Label 8350 2900 0    50   ~ 0
 V_SENSE_5V
 Wire Wire Line
 	6850 4500 6100 4500
@@ -1283,7 +1272,7 @@ Wire Notes Line
 	12500 8050 16000 8050
 Text Notes 13200 6350 0    118  ~ 0
 Selección de tensión IO
-Text Label 8350 3900 0    50   ~ 0
+Text Label 8350 3000 0    50   ~ 0
 SWITCH_IO_V
 Wire Wire Line
 	11000 10900 11000 10800
@@ -1300,8 +1289,6 @@ Text Label 9150 10800 0    50   ~ 0
 SPI_BUFFER_EN
 Wire Wire Line
 	9800 10800 9150 10800
-Wire Wire Line
-	8250 3900 8900 3900
 Wire Wire Line
 	6850 5300 6250 5300
 $Comp
@@ -1531,8 +1518,8 @@ EXT_IO2
 Text Label 5350 10550 0    50   ~ 0
 EXT_IO3
 Text Label 6300 4900 0    50   ~ 0
-IO_A_EN
-Text Label 8350 4100 0    50   ~ 0
+IO_EN
+Text Label 8350 2700 0    50   ~ 0
 I_SENSE_BATT
 Wire Wire Line
 	8250 3200 9850 3200
@@ -1540,10 +1527,8 @@ Wire Wire Line
 	8250 3300 10150 3300
 Wire Wire Line
 	8250 3400 10500 3400
-Text Label 8350 2500 0    50   ~ 0
+Text Label 8350 2800 0    50   ~ 0
 V_SENSE_3V3
-Text Label 8350 3100 0    50   ~ 0
-I_SENSE_5V
 Wire Wire Line
 	6250 4900 6850 4900
 Wire Wire Line
@@ -1598,48 +1583,7 @@ Wire Wire Line
 Wire Wire Line
 	6400 3100 6400 3150
 Wire Wire Line
-	9100 5200 9100 5250
-Wire Wire Line
-	8250 5200 9100 5200
-$Comp
-L power:GND #PWR036
-U 1 1 5E629CB7
-P 9100 5450
-F 0 "#PWR036" H 9100 5200 50  0001 C CNN
-F 1 "GND" H 9104 5276 50  0000 C CNN
-F 2 "" H 9100 5450 50  0001 C CNN
-F 3 "" H 9100 5450 50  0001 C CNN
-	1    9100 5450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8250 4100 8900 4100
-$Comp
-L power:GND #PWR035
-U 1 1 5E677B4C
-P 9100 3700
-F 0 "#PWR035" H 9100 3450 50  0001 C CNN
-F 1 "GND" H 9104 3526 50  0000 C CNN
-F 2 "" H 9100 3700 50  0001 C CNN
-F 3 "" H 9100 3700 50  0001 C CNN
-	1    9100 3700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9100 2500 9100 2550
-Wire Wire Line
-	8250 2500 9100 2500
-$Comp
-L power:GND #PWR034
-U 1 1 5E6ECD86
-P 9100 2750
-F 0 "#PWR034" H 9100 2500 50  0001 C CNN
-F 1 "GND" H 9104 2576 50  0000 C CNN
-F 2 "" H 9100 2750 50  0001 C CNN
-F 3 "" H 9100 2750 50  0001 C CNN
-	1    9100 2750
-	1    0    0    -1  
-$EndComp
+	8250 2500 8900 2500
 Wire Wire Line
 	13550 1350 13150 1350
 Wire Wire Line
@@ -1706,8 +1650,6 @@ Wire Notes Line
 	16000 6150 12500 6150
 Wire Notes Line
 	16000 8050 16000 6150
-Text Label 8350 5200 0    50   ~ 0
-I_SENSE_BATT
 Connection ~ 15250 9450
 Wire Wire Line
 	15250 9450 15250 9500
@@ -1754,22 +1696,6 @@ Wire Notes Line
 	12500 6100 16000 6100
 Wire Notes Line
 	16000 3850 16000 6100
-Text Label 15150 4450 0    50   ~ 0
-EXT_IO0
-Text Label 15150 4550 0    50   ~ 0
-EXT_IO1
-Text Label 15150 4650 0    50   ~ 0
-EXT_IO2
-Text Label 15150 4750 0    50   ~ 0
-EXT_IO3
-Wire Wire Line
-	15100 4450 15550 4450
-Wire Wire Line
-	15100 4550 15550 4550
-Wire Wire Line
-	15100 4650 15550 4650
-Wire Wire Line
-	15100 4750 15550 4750
 $Comp
 L AXTEC_IC:Conector_Expansion_CanSat J4
 U 1 1 5BCB9E14
@@ -1940,51 +1866,6 @@ F 3 "~" H 5750 2550 50  0001 C CNN
 F 4 "GCM155R71C104KA55D" H 5750 2550 50  0001 C CNN "Manufacturer Part Number"
 	1    5750 2550
 	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5BCDF88D
-P 9100 5350
-AR Path="/5BB122CA/5BCDF88D" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BCDF88D" Ref="C?"  Part="1" 
-AR Path="/5BCDF88D" Ref="C17"  Part="1" 
-F 0 "C17" H 9192 5396 50  0000 L CNN
-F 1 "100nF" H 9192 5305 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 9100 5350 50  0001 C CNN
-F 3 "~" H 9100 5350 50  0001 C CNN
-F 4 "GCM155R71C104KA55D" H 9100 5350 50  0001 C CNN "Manufacturer Part Number"
-	1    9100 5350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5BCFE120
-P 9100 3600
-AR Path="/5BB122CA/5BCFE120" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BCFE120" Ref="C?"  Part="1" 
-AR Path="/5BCFE120" Ref="C16"  Part="1" 
-F 0 "C16" H 9192 3646 50  0000 L CNN
-F 1 "100nF" H 9192 3555 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 9100 3600 50  0001 C CNN
-F 3 "~" H 9100 3600 50  0001 C CNN
-F 4 "GCM155R71C104KA55D" H 9100 3600 50  0001 C CNN "Manufacturer Part Number"
-	1    9100 3600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5BCFE3B0
-P 9100 2650
-AR Path="/5BB122CA/5BCFE3B0" Ref="C?"  Part="1" 
-AR Path="/5BB123AC/5BCFE3B0" Ref="C?"  Part="1" 
-AR Path="/5BCFE3B0" Ref="C15"  Part="1" 
-F 0 "C15" H 9192 2696 50  0000 L CNN
-F 1 "100nF" H 9192 2605 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 9100 2650 50  0001 C CNN
-F 3 "~" H 9100 2650 50  0001 C CNN
-F 4 "GCM155R71C104KA55D" H 9100 2650 50  0001 C CNN "Manufacturer Part Number"
-	1    9100 2650
-	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
@@ -2257,12 +2138,8 @@ Text Label 15050 1150 0    50   ~ 0
 GPOUT
 Wire Wire Line
 	15350 1250 14950 1250
-Text Label 15050 1250 0    50   ~ 0
-SDA
 Wire Wire Line
 	15350 1350 14950 1350
-Text Label 15050 1350 0    50   ~ 0
-SCL
 Wire Wire Line
 	15600 1450 14950 1450
 Text Label 15050 1450 0    50   ~ 0
@@ -2536,31 +2413,21 @@ AGUJEROS DE MONTAJE
 $Comp
 L power:GND #PWR0101
 U 1 1 5BF7325F
-P 13200 2900
-F 0 "#PWR0101" H 13200 2650 50  0001 C CNN
-F 1 "GND" H 13204 2726 50  0000 C CNN
-F 2 "" H 13200 2900 50  0001 C CNN
-F 3 "" H 13200 2900 50  0001 C CNN
-	1    13200 2900
+P 13200 3100
+F 0 "#PWR0101" H 13200 2850 50  0001 C CNN
+F 1 "GND" H 13204 2926 50  0000 C CNN
+F 2 "" H 13200 3100 50  0001 C CNN
+F 3 "" H 13200 3100 50  0001 C CNN
+	1    13200 3100
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	13550 3100 13550 3000
-Connection ~ 13550 2800
-Wire Wire Line
-	13550 2800 13550 2700
-Connection ~ 13550 2900
-Wire Wire Line
-	13550 2900 13550 2800
 Connection ~ 13550 3000
 Wire Wire Line
 	13550 3000 13550 2900
 Wire Wire Line
-	13550 2800 13200 2800
-Wire Wire Line
-	13200 2800 13200 2900
-Wire Wire Line
-	14950 3450 14950 3350
+	13200 3000 13200 3100
 Connection ~ 14950 2850
 Connection ~ 14950 2950
 Wire Wire Line
@@ -2574,7 +2441,6 @@ Wire Wire Line
 Connection ~ 14950 3250
 Wire Wire Line
 	14950 3250 14950 3150
-Connection ~ 14950 3350
 Wire Wire Line
 	14950 3350 14950 3250
 $Comp
@@ -2613,8 +2479,40 @@ Wire Wire Line
 	15600 2000 15600 1900
 Wire Wire Line
 	15000 2000 15600 2000
+Text Label 8350 2500 0    50   ~ 0
+I_SENSE_3V3
 Wire Wire Line
-	9100 3100 9100 3500
+	8250 2700 8900 2700
+Text Label 15050 1350 0    50   ~ 0
+SCL_CHG
+Text Label 15050 1250 0    50   ~ 0
+SDA_CHG
 Wire Wire Line
-	8250 3100 9100 3100
+	13550 3000 13200 3000
+Wire Wire Line
+	12950 2700 13550 2700
+Wire Wire Line
+	13550 2800 12950 2800
+Text Label 13000 2800 0    50   ~ 0
+5V_ENABLE
+Text Label 13000 2700 0    50   ~ 0
+3V_ENABLE
+Wire Wire Line
+	8250 3000 8900 3000
+Wire Wire Line
+	15100 4950 15550 4950
+Text Label 15150 4950 0    50   ~ 0
+EXT_IO3
+Wire Wire Line
+	15100 4850 15550 4850
+Wire Wire Line
+	15100 4650 15550 4650
+Wire Wire Line
+	15100 4750 15550 4750
+Text Label 15150 4850 0    50   ~ 0
+EXT_IO2
+Text Label 15150 4750 0    50   ~ 0
+EXT_IO1
+Text Label 15150 4650 0    50   ~ 0
+EXT_IO0
 $EndSCHEMATC
