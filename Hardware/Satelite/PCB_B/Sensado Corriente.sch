@@ -17,7 +17,7 @@ $EndDescr
 Text HLabel 5550 4500 3    50   Output ~ 0
 ISENSE
 Text HLabel 6450 2500 2    50   Output ~ 0
-OUT
+VOUT
 Text HLabel 4700 2500 0    50   Input ~ 0
 VIN
 $Comp
