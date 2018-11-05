@@ -1065,21 +1065,21 @@ Wire Wire Line
 	8250 4200 8900 4200
 Wire Wire Line
 	8250 4300 8900 4300
-Text Label 8350 4700 0    50   ~ 0
-GPOUT
-Text Label 8350 5000 0    50   ~ 0
-CHG
-Text Label 8350 4800 0    50   ~ 0
-CHG_DISABLE
-Text Label 8350 4900 0    50   ~ 0
-ISET
 Text Label 8350 5100 0    50   ~ 0
+GPOUT
+Text Label 8350 4900 0    50   ~ 0
+CHG
+Text Label 6200 4000 0    50   ~ 0
+CHG_DISABLE
+Text Label 8350 5000 0    50   ~ 0
+ISET
+Text Label 8350 4800 0    50   ~ 0
 P1
 Text Label 6200 4100 0    50   ~ 0
 S_GLOBO
 Text Label 6200 4200 0    50   ~ 0
 S_PARACAIDAS
-Text Label 6200 4000 0    50   ~ 0
+Text Label 8350 4500 0    50   ~ 0
 GPS_TX
 Wire Wire Line
 	6250 5200 6850 5200
@@ -1088,7 +1088,7 @@ Wire Wire Line
 Wire Wire Line
 	8250 2900 8900 2900
 Wire Wire Line
-	8250 4900 8900 4900
+	8250 4900 8700 4900
 Wire Wire Line
 	8250 5000 8700 5000
 Wire Wire Line
@@ -1097,14 +1097,12 @@ Wire Wire Line
 	8250 4800 8700 4800
 Wire Wire Line
 	8250 5100 8700 5100
-Text Label 8350 4600 0    50   ~ 0
+Text Label 8350 3100 0    50   ~ 0
 5V_ENABLE
-Text Label 8350 4500 0    50   ~ 0
+Text Label 8350 4100 0    50   ~ 0
 3V_ENABLE
 Wire Wire Line
 	8250 4500 8900 4500
-Wire Wire Line
-	8250 4600 8900 4600
 Text Label 8350 2400 0    50   ~ 0
 I_SENSE_5V
 Text Label 8350 2900 0    50   ~ 0
@@ -2523,4 +2521,8 @@ Wire Wire Line
 Connection ~ 13500 3050
 Wire Wire Line
 	13500 3050 13500 2950
+Wire Wire Line
+	8250 3100 8900 3100
+Wire Wire Line
+	8250 4100 8900 4100
 $EndSCHEMATC
