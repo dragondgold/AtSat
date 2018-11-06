@@ -23,13 +23,12 @@ F 1 "MS563702BA03-50" H 5750 3524 50  0000 C CNN
 F 2 "SamacSys_Parts:MS5637_1" H 6100 3450 50  0001 L CNN
 F 3 "http://docs-europe.electrocomponents.com/webdocs/142c/0900766b8142cddb.pdf" H 6100 3350 50  0001 L CNN
 F 4 "Sensor Pressure 2bar Barometric SMD MS563702BA03-50, Barometric Pressure Sensor, 1200mbar 0 ??? 3.6 V Output, 4-Pin QFN" H 6100 3250 50  0001 L CNN "Description"
-F 5 "" H 6100 3150 50  0001 L CNN "Height"
-F 6 "TE Connectivity" H 6100 3050 50  0001 L CNN "Manufacturer_Name"
-F 7 "MS563702BA03-50" H 6100 2950 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "1704370" H 6100 2850 50  0001 L CNN "RS Part Number"
-F 9 "http://uk.rs-online.com/web/p/products/1704370" H 6100 2750 50  0001 L CNN "RS Price/Stock"
-F 10 "MS563702BA03-50" H 6100 2650 50  0001 L CNN "Arrow Part Number"
-F 11 "https://www.arrow.com/en/products/ms563702ba03-50/te-connectivity" H 6100 2550 50  0001 L CNN "Arrow Price/Stock"
+F 5 "TE Connectivity" H 6100 3050 50  0001 L CNN "Manufacturer_Name"
+F 6 "MS563702BA03-50" H 6100 2950 50  0001 L CNN "Manufacturer Part Number"
+F 7 "1704370" H 6100 2850 50  0001 L CNN "RS Part Number"
+F 8 "http://uk.rs-online.com/web/p/products/1704370" H 6100 2750 50  0001 L CNN "RS Price/Stock"
+F 9 "MS563702BA03-50" H 6100 2650 50  0001 L CNN "Arrow Part Number"
+F 10 "https://www.arrow.com/en/products/ms563702ba03-50/te-connectivity" H 6100 2550 50  0001 L CNN "Arrow Price/Stock"
 	1    5250 3350
 	1    0    0    -1  
 $EndComp

@@ -290,13 +290,13 @@ Wire Wire Line
 Text Label 12300 9300 0    50   ~ 0
 SW_OPEN
 Wire Notes Line
-	11900 8100 16000 8100
+	11800 8100 16000 8100
 Wire Notes Line
 	16000 8100 16000 9800
 Wire Notes Line
-	16000 9800 11900 9800
+	16000 9800 11800 9800
 Wire Notes Line
-	11900 9800 11900 8100
+	11800 9800 11800 8100
 Text Notes 12550 8350 0    118  ~ 0
 USB y detección de cargador
 Wire Notes Line
@@ -320,7 +320,7 @@ F 3 "https://componentsearchengine.com/Datasheets/1/MCP1501T-33E_CHY.pdf" H 3750
 F 4 "Voltage References Precision Buffered Voltage Reference" H 3750 5750 50  0001 L CNN "Description"
 F 5 "1.45" H 3750 5650 50  0001 L CNN "Height"
 F 6 "Microchip" H 3750 5550 50  0001 L CNN "Manufacturer_Name"
-F 7 "MCP1501T-33E/CHY" H 3750 5450 50  0001 L CNN "Manufacturer_Part_Number"
+F 7 "MCP1501T-33E/CHY" H 3750 5450 50  0001 L CNN "Manufacturer Part Number"
 F 8 "MCP1501T-33E/CHY" H 3750 5150 50  0001 L CNN "Arrow Part Number"
 F 9 "https://www.arrow.com/en/products/mcp1501t-33echy/microchip-technology" H 3750 5050 50  0001 L CNN "Arrow Price/Stock"
 	1    2700 5850
@@ -716,21 +716,19 @@ F 3 "" H 9700 1650 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	6850 2400 5750 2400
-Wire Wire Line
-	5750 2450 5750 2400
+	6150 2450 6150 2400
 $Comp
 L power:GND #PWR016
 U 1 1 5BD9730B
-P 5750 2650
-F 0 "#PWR016" H 5750 2400 50  0001 C CNN
-F 1 "GND" H 5755 2477 50  0000 C CNN
-F 2 "" H 5750 2650 50  0001 C CNN
-F 3 "" H 5750 2650 50  0001 C CNN
-	1    5750 2650
+P 6150 2650
+F 0 "#PWR016" H 6150 2400 50  0001 C CNN
+F 1 "GND" H 6155 2477 50  0000 C CNN
+F 2 "" H 6150 2650 50  0001 C CNN
+F 3 "" H 6150 2650 50  0001 C CNN
+	1    6150 2650
 	-1   0    0    -1  
 $EndComp
-Text Label 5800 2400 0    50   ~ 0
+Text Label 6200 2400 0    50   ~ 0
 NRST
 Wire Wire Line
 	8250 4400 8650 4400
@@ -751,7 +749,8 @@ P 2050 3900
 F 0 "J1" V 2250 3850 50  0000 L CNN
 F 1 "Conn_01x06" V 2150 3650 50  0000 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 2050 3900 50  0001 C CNN
-F 3 "~" H 2050 3900 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/18/68000-1266375.pdf" H 2050 3900 50  0001 C CNN
+F 4 "68000-406HLF" V 2050 3900 50  0001 C CNN "Manufacturer Part Number"
 	1    2050 3900
 	0    -1   -1   0   
 $EndComp
@@ -918,11 +917,8 @@ F 3 "http://www.ti.com/lit/gpn/tca9802" H 7900 10350 50  0001 L CNN
 F 4 "Level-Translating I2C Bus Buffer/Repeater" H 7900 10250 50  0001 L CNN "Description"
 F 5 "1.1" H 7900 10150 50  0001 L CNN "Height"
 F 6 "Texas Instruments" H 7900 10050 50  0001 L CNN "Manufacturer_Name"
-F 7 "TCA9802DGKR" H 7900 9950 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "" H 7900 9850 50  0001 L CNN "RS Part Number"
-F 9 "" H 7900 9750 50  0001 L CNN "RS Price/Stock"
-F 10 "TCA9802DGKR" H 7900 9650 50  0001 L CNN "Arrow Part Number"
-F 11 "" H 7900 9550 50  0001 L CNN "Arrow Price/Stock"
+F 7 "TCA9802DGKR" H 7900 9950 50  0001 L CNN "Manufacturer Part Number"
+F 8 "TCA9802DGKR" H 7900 9650 50  0001 L CNN "Arrow Part Number"
 	1    6950 10350
 	1    0    0    -1  
 $EndComp
@@ -1113,17 +1109,6 @@ Wire Wire Line
 	6850 4100 6100 4100
 Wire Wire Line
 	6850 4200 6100 4200
-$Comp
-L Device:R R3
-U 1 1 5BC0B03C
-P 10150 2900
-F 0 "R3" H 10220 2946 50  0000 L CNN
-F 1 "10K" H 10220 2854 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 10080 2900 50  0001 C CNN
-F 3 "~" H 10150 2900 50  0001 C CNN
-	1    10150 2900
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	10150 3300 10150 3050
 $Comp
@@ -1135,17 +1120,6 @@ F 1 "+3V3_Internal" H 10135 2673 50  0000 C CNN
 F 2 "" H 10150 2500 50  0001 C CNN
 F 3 "" H 10150 2500 50  0001 C CNN
 	1    10150 2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R1
-U 1 1 5BC1DEA5
-P 5750 4700
-F 0 "R1" H 5820 4746 50  0000 L CNN
-F 1 "10K" H 5820 4654 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 5680 4700 50  0001 C CNN
-F 3 "~" H 5750 4700 50  0001 C CNN
-	1    5750 4700
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1188,7 +1162,7 @@ F 3 "http://www.nxp.com/documents/data_sheet/NTB0104.pdf" H 11550 10100 50  0001
 F 4 "NXP - NTB0104BQ,115 - TRANSCEIVER, BIDIR TRANSLATOR, DHVQFN14" H 11550 10000 50  0001 L CNN "Description"
 F 5 "1" H 11550 9900 50  0001 L CNN "Height"
 F 6 "Nexperia" H 11550 9800 50  0001 L CNN "Manufacturer_Name"
-F 7 "NTB0104BQ,115" H 11550 9700 50  0001 L CNN "Manufacturer_Part_Number"
+F 7 "NTB0104BQ,115" H 11550 9700 50  0001 L CNN "Manufacturer Part Number"
 F 8 "NTB0104BQ,115" H 11550 9400 50  0001 L CNN "Arrow Part Number"
 F 9 "https://www.arrow.com/en/products/ntb0104bq115/nxp-semiconductors" H 11550 9300 50  0001 L CNN "Arrow Price/Stock"
 	1    9800 10150
@@ -1202,6 +1176,7 @@ F 0 "R5" H 14570 6946 50  0000 L CNN
 F 1 "10k" H 14570 6854 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 14430 6900 50  0001 C CNN
 F 3 "~" H 14500 6900 50  0001 C CNN
+F 4 "RC0603JR-0710KL" H 14500 6900 50  0001 C CNN "Manufacturer Part Number"
 	1    14500 6900
 	1    0    0    -1  
 $EndComp
@@ -1313,17 +1288,6 @@ Wire Wire Line
 	7450 1400 7450 2200
 Wire Wire Line
 	7350 1400 7350 2200
-$Comp
-L Device:R R4
-U 1 1 5D561E82
-P 10500 2900
-F 0 "R4" H 10570 2946 50  0000 L CNN
-F 1 "10K" H 10570 2854 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 10430 2900 50  0001 C CNN
-F 3 "~" H 10500 2900 50  0001 C CNN
-	1    10500 2900
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	10150 2600 10500 2600
 Wire Wire Line
@@ -1341,17 +1305,6 @@ Wire Wire Line
 	8250 5600 8650 5600
 Text Label 8350 3200 0    50   ~ 0
 SCL_CHG
-$Comp
-L Device:R R2
-U 1 1 5D82EEAE
-P 9850 2900
-F 0 "R2" H 9920 2946 50  0000 L CNN
-F 1 "10K" H 9920 2854 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 9780 2900 50  0001 C CNN
-F 3 "~" H 9850 2900 50  0001 C CNN
-	1    9850 2900
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	9850 3050 9850 3200
 Wire Wire Line
@@ -1441,7 +1394,7 @@ F 3 "http://www.nxp.com/documents/data_sheet/NTB0104.pdf" H 6000 10100 50  0001 
 F 4 "NXP - NTB0104BQ,115 - TRANSCEIVER, BIDIR TRANSLATOR, DHVQFN14" H 6000 10000 50  0001 L CNN "Description"
 F 5 "1" H 6000 9900 50  0001 L CNN "Height"
 F 6 "Nexperia" H 6000 9800 50  0001 L CNN "Manufacturer_Name"
-F 7 "NTB0104BQ,115" H 6000 9700 50  0001 L CNN "Manufacturer_Part_Number"
+F 7 "NTB0104BQ,115" H 6000 9700 50  0001 L CNN "Manufacturer Part Number"
 F 8 "NTB0104BQ,115" H 6000 9400 50  0001 L CNN "Arrow Part Number"
 F 9 "https://www.arrow.com/en/products/ntb0104bq115/nxp-semiconductors" H 6000 9300 50  0001 L CNN "Arrow Price/Stock"
 	1    4250 10150
@@ -1527,19 +1480,6 @@ Wire Wire Line
 	6850 4000 6850 3900
 Wire Wire Line
 	6100 4000 6850 4000
-$Comp
-L Connector_Generic:Conn_01x03 J2
-U 1 1 5E51E963
-P 6150 3000
-F 0 "J2" V 6350 3000 50  0000 C CNN
-F 1 "JUMPER" V 6250 3000 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 6150 3000 50  0001 C CNN
-F 3 "~" H 6150 3000 50  0001 C CNN
-	1    6150 3000
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	6350 3000 6700 3000
 Wire Wire Line
 	6700 3000 6700 2600
 Wire Wire Line
@@ -1547,33 +1487,27 @@ Wire Wire Line
 $Comp
 L AXTEC_IC:+3V3_Internal #PWR19
 U 1 1 5E58E4CE
-P 6400 2800
-F 0 "#PWR19" H 6400 3200 50  0001 C CNN
-F 1 "+3V3_Internal" H 6385 2973 50  0000 C CNN
-F 2 "" H 6400 2800 50  0001 C CNN
-F 3 "" H 6400 2800 50  0001 C CNN
-	1    6400 2800
+P 5150 2650
+F 0 "#PWR19" H 5150 3050 50  0001 C CNN
+F 1 "+3V3_Internal" H 5135 2823 50  0000 C CNN
+F 2 "" H 5150 2650 50  0001 C CNN
+F 3 "" H 5150 2650 50  0001 C CNN
+	1    5150 2650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6400 2800 6400 2900
-Wire Wire Line
-	6400 2900 6350 2900
+	5150 2650 5150 2750
 $Comp
 L power:GND #PWR020
 U 1 1 5E5B466E
-P 6400 3150
-F 0 "#PWR020" H 6400 2900 50  0001 C CNN
-F 1 "GND" H 6405 2977 50  0000 C CNN
-F 2 "" H 6400 3150 50  0001 C CNN
-F 3 "" H 6400 3150 50  0001 C CNN
-	1    6400 3150
+P 5150 3350
+F 0 "#PWR020" H 5150 3100 50  0001 C CNN
+F 1 "GND" H 5155 3177 50  0000 C CNN
+F 2 "" H 5150 3350 50  0001 C CNN
+F 3 "" H 5150 3350 50  0001 C CNN
+	1    5150 3350
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	6350 3100 6400 3100
-Wire Wire Line
-	6400 3100 6400 3150
 Wire Wire Line
 	8250 2500 8900 2500
 Wire Wire Line
@@ -1734,11 +1668,8 @@ F 3 "https://componentsearchengine.com/Datasheets/1/IS25LP080D-JULE-TR.pdf" H 80
 F 4 "NOR Flash 8Mb QSPI, 8-pin USON 2x3mm, RoHS, T&R" H 8000 7150 50  0001 L CNN "Description"
 F 5 "0.6" H 8000 7050 50  0001 L CNN "Height"
 F 6 "Integrated Silicon Solution Inc." H 8000 6950 50  0001 L CNN "Manufacturer_Name"
-F 7 "IS25LP080D-JULE-TR" H 8000 6850 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "" H 8000 6750 50  0001 L CNN "RS Part Number"
-F 9 "" H 8000 6650 50  0001 L CNN "RS Price/Stock"
-F 10 "IS25LP080D-JULE-TR" H 8000 6550 50  0001 L CNN "Arrow Part Number"
-F 11 "" H 8000 6450 50  0001 L CNN "Arrow Price/Stock"
+F 7 "IS25LP080D-JULE-TR" H 8000 6850 50  0001 L CNN "Manufacturer Part Number"
+F 8 "IS25LP080D-JULE-TR" H 8000 6550 50  0001 L CNN "Arrow Part Number"
 	1    6950 7250
 	1    0    0    -1  
 $EndComp
@@ -1847,16 +1778,16 @@ $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5BCC13FC
-P 5750 2550
+P 6150 2550
 AR Path="/5BB122CA/5BCC13FC" Ref="C?"  Part="1" 
 AR Path="/5BB123AC/5BCC13FC" Ref="C?"  Part="1" 
 AR Path="/5BCC13FC" Ref="C6"  Part="1" 
-F 0 "C6" H 5842 2596 50  0000 L CNN
-F 1 "100nF" H 5842 2505 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 5750 2550 50  0001 C CNN
-F 3 "~" H 5750 2550 50  0001 C CNN
-F 4 "GCM155R71C104KA55D" H 5750 2550 50  0001 C CNN "Manufacturer Part Number"
-	1    5750 2550
+F 0 "C6" H 6242 2596 50  0000 L CNN
+F 1 "100nF" H 6242 2505 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 6150 2550 50  0001 C CNN
+F 3 "~" H 6150 2550 50  0001 C CNN
+F 4 "GCM155R71C104KA55D" H 6150 2550 50  0001 C CNN "Manufacturer Part Number"
+	1    6150 2550
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -2104,6 +2035,8 @@ F 1 "Conector_PCB_B-C" H 15600 2150 50  0000 C CNN
 F 2 "AXTEC:Conector_PCB_B-C_Lado_C" H 14150 2200 50  0001 C CNN
 F 3 "" H 14150 2200 50  0001 C CNN
 F 4 "Hecho con dos 10132797-025100LF y sus dos opuestos 10132798-022100LF" H 0   -150 50  0001 C CNN "Notes"
+F 5 "10132797-025100LF" H 14250 1450 50  0001 C CNN "Manufacturer Part Number"
+F 6 "2" H 14250 1450 50  0001 C CNN "Quantity"
 	1    14250 1450
 	1    0    0    -1  
 $EndComp
@@ -2299,6 +2232,7 @@ F 0 "R6" H 14970 6946 50  0000 L CNN
 F 1 "100k" H 14970 6854 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 14830 6900 50  0001 C CNN
 F 3 "~" H 14900 6900 50  0001 C CNN
+F 4 "RC0603JR-07100KL" H 14900 6900 50  0001 C CNN "Manufacturer Part Number"
 	1    14900 6900
 	1    0    0    -1  
 $EndComp
@@ -2317,6 +2251,7 @@ F 0 "R7" H 15120 7546 50  0000 L CNN
 F 1 "1k" H 15120 7454 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 14980 7500 50  0001 C CNN
 F 3 "~" H 15050 7500 50  0001 C CNN
+F 4 "RC0603JR-071KL" H 15050 7500 50  0001 C CNN "Manufacturer Part Number"
 	1    15050 7500
 	0    1    1    0   
 $EndComp
@@ -2525,4 +2460,128 @@ Wire Wire Line
 	8250 5100 8650 5100
 Wire Wire Line
 	8250 5200 8650 5200
+$Comp
+L Device:R R1
+U 1 1 5BFDEAF6
+P 5750 4700
+F 0 "R1" H 5820 4746 50  0000 L CNN
+F 1 "10k" H 5820 4654 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 5680 4700 50  0001 C CNN
+F 3 "~" H 5750 4700 50  0001 C CNN
+F 4 "RC0603JR-0710KL" H 5750 4700 50  0001 C CNN "Manufacturer Part Number"
+	1    5750 4700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 3250 5150 3350
+Wire Wire Line
+	5300 3000 6700 3000
+$Comp
+L Jumper:Jumper_3_Bridged12 J2
+U 1 1 5C085120
+P 5150 3000
+F 0 "J2" V 5196 3068 50  0000 L CNN
+F 1 "BOOT" V 5104 3068 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5150 3000 50  0001 C CNN
+F 3 "~" H 5150 3000 50  0001 C CNN
+F 4 "61300311121" V 5150 3000 50  0001 C CNN "Manufacturer Part Number"
+	1    5150 3000
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	6850 2400 6150 2400
+$Comp
+L Device:R R2
+U 1 1 5C129DDE
+P 9850 2900
+F 0 "R2" H 9920 2946 50  0000 L CNN
+F 1 "10k" H 9920 2854 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 9780 2900 50  0001 C CNN
+F 3 "~" H 9850 2900 50  0001 C CNN
+F 4 "RC0603JR-0710KL" H 9850 2900 50  0001 C CNN "Manufacturer Part Number"
+	1    9850 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 5C12A173
+P 10150 2900
+F 0 "R3" H 10220 2946 50  0000 L CNN
+F 1 "10k" H 10220 2854 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 10080 2900 50  0001 C CNN
+F 3 "~" H 10150 2900 50  0001 C CNN
+F 4 "RC0603JR-0710KL" H 10150 2900 50  0001 C CNN "Manufacturer Part Number"
+	1    10150 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 5C12A276
+P 10500 2900
+F 0 "R4" H 10570 2946 50  0000 L CNN
+F 1 "10k" H 10570 2854 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 10430 2900 50  0001 C CNN
+F 3 "~" H 10500 2900 50  0001 C CNN
+F 4 "RC0603JR-0710KL" H 10500 2900 50  0001 C CNN "Manufacturer Part Number"
+	1    10500 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L AXTEC_IC:BOM_Jumper JP1
+U 1 1 5C19CAEB
+P 11550 6850
+F 0 "JP1" H 11714 6924 50  0000 L CNN
+F 1 "BOM_Jumper" H 11714 6832 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 11550 6950 50  0001 C CNN
+F 3 "" H 11550 6950 50  0001 C CNN
+F 4 "M7581-05" H 11714 6740 50  0000 L CNN "Manufacturer Part Number"
+	1    11550 6850
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	12450 6150 12450 8050
+Wire Notes Line
+	12450 8050 10700 8050
+Wire Notes Line
+	10700 8050 10700 6150
+Wire Notes Line
+	10700 6150 12450 6150
+Text Notes 11150 6350 0    118  ~ 0
+Mecánica
+$Comp
+L AXTEC_IC:Spacer M1
+U 1 1 5C220780
+P 10850 7350
+F 0 "M1" H 10771 7343 50  0000 R CNN
+F 1 "Spacer" H 10771 7251 50  0000 R CNN
+F 2 "AXTEC:Empty_Footprint" H 10750 7500 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 10850 7600 50  0001 C CNN
+F 4 "R30-3010502" H 10771 7205 50  0001 R CNN "Manufacturer Part Number"
+	1    10850 7350
+	-1   0    0    -1  
+$EndComp
+$Comp
+L AXTEC_IC:Spacer M2
+U 1 1 5C220935
+P 11450 7350
+F 0 "M2" H 11371 7343 50  0000 R CNN
+F 1 "Spacer" H 11371 7251 50  0000 R CNN
+F 2 "AXTEC:Empty_Footprint" H 11350 7500 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 11450 7600 50  0001 C CNN
+F 4 "R30-3010502" H 11371 7205 50  0001 R CNN "Manufacturer Part Number"
+	1    11450 7350
+	-1   0    0    -1  
+$EndComp
+$Comp
+L AXTEC_IC:Spacer M3
+U 1 1 5C2209AF
+P 12050 7350
+F 0 "M3" H 11971 7343 50  0000 R CNN
+F 1 "Spacer" H 11971 7251 50  0000 R CNN
+F 2 "AXTEC:Empty_Footprint" H 11950 7500 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 12050 7600 50  0001 C CNN
+F 4 "R30-3010502" H 11971 7205 50  0001 R CNN "Manufacturer Part Number"
+	1    12050 7350
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC

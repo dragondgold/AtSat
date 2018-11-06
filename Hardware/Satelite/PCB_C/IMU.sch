@@ -23,13 +23,9 @@ F 1 "BMX055" H 5850 3224 50  0000 C CNN
 F 2 "SamacSys_Parts:LGA_PACKAGE_20_PINS" H 6300 3150 50  0001 L CNN
 F 3 "http://www.mouser.com/ds/2/621/BST-BMX055-DS000-02-586421.pdf" H 6300 3050 50  0001 L CNN
 F 4 "Small versatile 9-axis sensor module" H 6300 2950 50  0001 L CNN "Description"
-F 5 "" H 6300 2850 50  0001 L CNN "Height"
-F 6 "Bosch Sensortec" H 6300 2750 50  0001 L CNN "Manufacturer_Name"
-F 7 "BMX055" H 6300 2650 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "" H 6300 2550 50  0001 L CNN "RS Part Number"
-F 9 "" H 6300 2450 50  0001 L CNN "RS Price/Stock"
-F 10 "BMX055" H 6300 2350 50  0001 L CNN "Arrow Part Number"
-F 11 "" H 6300 2250 50  0001 L CNN "Arrow Price/Stock"
+F 5 "Bosch Sensortec" H 6300 2750 50  0001 L CNN "Manufacturer_Name"
+F 6 "BMX055" H 6300 2650 50  0001 L CNN "Manufacturer Part Number"
+F 7 "BMX055" H 6300 2350 50  0001 L CNN "Arrow Part Number"
 	1    5250 3050
 	1    0    0    -1  
 $EndComp
