@@ -887,8 +887,6 @@ Wire Notes Line
 Wire Notes Line
 	10900 800  10900 4350
 Wire Wire Line
-	7050 1500 8850 1500
-Wire Wire Line
 	7050 1500 7050 2600
 Connection ~ 8850 1500
 $Comp
@@ -1019,4 +1017,33 @@ Wire Wire Line
 	1700 1400 1700 1450
 Wire Wire Line
 	1700 1450 1800 1450
+$Comp
+L power:+5V #PWR021
+U 1 1 5BE24D5E
+P 7500 1250
+F 0 "#PWR021" H 7500 1100 50  0001 C CNN
+F 1 "+5V" H 7514 1425 50  0000 C CNN
+F 2 "" H 7500 1250 50  0001 C CNN
+F 3 "" H 7500 1250 50  0001 C CNN
+	1    7500 1250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7050 1500 8850 1500
+Wire Wire Line
+	7350 1250 7500 1250
+Wire Wire Line
+	7050 1250 7050 1500
+Connection ~ 7050 1500
+$Comp
+L Diode:LL4148 D4
+U 1 1 5BE5040B
+P 7200 1250
+F 0 "D4" H 7200 1034 50  0000 C CNN
+F 1 "LL4148" H 7200 1125 50  0000 C CNN
+F 2 "Diode_SMD:D_MiniMELF" H 7200 1075 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85557/ll4148.pdf" H 7200 1250 50  0001 C CNN
+	1    7200 1250
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
