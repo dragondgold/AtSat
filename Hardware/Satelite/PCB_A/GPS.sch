@@ -27,28 +27,15 @@ F 4 "A2235-H" H 5050 3950 50  0001 C CNN "Manufacturer Part Number"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4700 3100 4550 3100
+	4700 3100 4600 3100
 Wire Wire Line
-	4550 3100 4550 2250
+	4600 3100 4600 2250
 Wire Wire Line
-	4550 2250 6900 2250
+	4600 2250 6900 2250
 Wire Wire Line
 	6900 2250 6900 3100
 Wire Wire Line
 	6900 3100 6700 3100
-$Comp
-L Device:R R?
-U 1 1 5BAD7E11
-P 4100 3400
-AR Path="/5BA17F9C/5BAD7E11" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5BAD7E11" Ref="R4"  Part="1" 
-F 0 "R4" V 4200 3400 50  0000 L CNN
-F 1 "10k" V 4000 3400 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4030 3400 50  0001 C CNN
-F 3 "~" H 4100 3400 50  0001 C CNN
-	1    4100 3400
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	4700 3200 4100 3200
 Wire Wire Line
@@ -102,6 +89,7 @@ F 0 "R3" V 4200 2650 50  0000 L CNN
 F 1 "10k" V 4000 2650 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4030 2650 50  0001 C CNN
 F 3 "~" H 4100 2650 50  0001 C CNN
+F 4 "RC0603JR-0710KL" V 4100 2650 50  0001 C CNN "Manufacturer Part Number"
 	1    4100 2650
 	1    0    0    -1  
 $EndComp
@@ -119,32 +107,6 @@ Wire Wire Line
 Connection ~ 4600 3600
 Wire Wire Line
 	4600 3600 4600 4350
-$Comp
-L Device:R R?
-U 1 1 5BADA56C
-P 7250 3500
-AR Path="/5BA17F9C/5BADA56C" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5BADA56C" Ref="R5"  Part="1" 
-F 0 "R5" V 7350 3500 50  0000 L CNN
-F 1 "10k" V 7150 3500 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7180 3500 50  0001 C CNN
-F 3 "~" H 7250 3500 50  0001 C CNN
-	1    7250 3500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5BADA5CC
-P 7550 3500
-AR Path="/5BA17F9C/5BADA5CC" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5BADA5CC" Ref="R6"  Part="1" 
-F 0 "R6" V 7650 3500 50  0000 L CNN
-F 1 "10k" V 7450 3500 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7480 3500 50  0001 C CNN
-F 3 "~" H 7550 3500 50  0001 C CNN
-	1    7550 3500
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6700 3300 7250 3300
 Wire Wire Line
@@ -186,6 +148,7 @@ F 0 "C3" H 3650 3200 50  0000 L CNN
 F 1 "1uF" H 3600 3100 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3500 3200 50  0001 C CNN
 F 3 "~" H 3500 3200 50  0001 C CNN
+F 4 "GRM155R61E105KA12D" H 3500 3200 50  0001 C CNN "Manufacturer Part Number"
 	1    3500 3200
 	1    0    0    -1  
 $EndComp
@@ -214,6 +177,7 @@ F 0 "C2" H 3250 3200 50  0000 L CNN
 F 1 "100nF" H 3200 3100 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3100 3200 50  0001 C CNN
 F 3 "~" H 3100 3200 50  0001 C CNN
+F 4 "GCM155R71C104KA55D" H 3100 3200 50  0001 C CNN "Manufacturer Part Number"
 	1    3100 3200
 	1    0    0    -1  
 $EndComp
@@ -238,19 +202,6 @@ Wire Wire Line
 	3500 3000 4700 3000
 Connection ~ 3500 3000
 Connection ~ 3100 3000
-$Comp
-L Device:R R?
-U 1 1 5BAE0532
-P 8200 3500
-AR Path="/5BA17F9C/5BAE0532" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5BAE0532" Ref="R7"  Part="1" 
-F 0 "R7" V 8300 3500 50  0000 L CNN
-F 1 "10k" V 8100 3500 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 8130 3500 50  0001 C CNN
-F 3 "~" H 8200 3500 50  0001 C CNN
-	1    8200 3500
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	8200 3000 6700 3000
 Wire Wire Line
@@ -296,4 +247,60 @@ Wire Wire Line
 	4100 2450 4100 2500
 Wire Wire Line
 	3100 2450 3100 3000
+$Comp
+L Device:R R?
+U 1 1 5C2659D3
+P 4100 3400
+AR Path="/5BA17F9C/5C2659D3" Ref="R?"  Part="1" 
+AR Path="/5BA1A7F9/5C2659D3" Ref="R4"  Part="1" 
+F 0 "R4" V 4200 3400 50  0000 L CNN
+F 1 "10k" V 4000 3400 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4030 3400 50  0001 C CNN
+F 3 "~" H 4100 3400 50  0001 C CNN
+F 4 "RC0603JR-0710KL" V 4100 3400 50  0001 C CNN "Manufacturer Part Number"
+	1    4100 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5C265A87
+P 7250 3500
+AR Path="/5BA17F9C/5C265A87" Ref="R?"  Part="1" 
+AR Path="/5BA1A7F9/5C265A87" Ref="R5"  Part="1" 
+F 0 "R5" V 7350 3500 50  0000 L CNN
+F 1 "10k" V 7150 3500 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7180 3500 50  0001 C CNN
+F 3 "~" H 7250 3500 50  0001 C CNN
+F 4 "RC0603JR-0710KL" V 7250 3500 50  0001 C CNN "Manufacturer Part Number"
+	1    7250 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5C265B51
+P 7550 3500
+AR Path="/5BA17F9C/5C265B51" Ref="R?"  Part="1" 
+AR Path="/5BA1A7F9/5C265B51" Ref="R6"  Part="1" 
+F 0 "R6" V 7650 3500 50  0000 L CNN
+F 1 "10k" V 7450 3500 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7480 3500 50  0001 C CNN
+F 3 "~" H 7550 3500 50  0001 C CNN
+F 4 "RC0603JR-0710KL" V 7550 3500 50  0001 C CNN "Manufacturer Part Number"
+	1    7550 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5C265C3F
+P 8200 3500
+AR Path="/5BA17F9C/5C265C3F" Ref="R?"  Part="1" 
+AR Path="/5BA1A7F9/5C265C3F" Ref="R7"  Part="1" 
+F 0 "R7" V 8300 3500 50  0000 L CNN
+F 1 "10k" V 8100 3500 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 8130 3500 50  0001 C CNN
+F 3 "~" H 8200 3500 50  0001 C CNN
+F 4 "RC0603JR-0710KL" V 8200 3500 50  0001 C CNN "Manufacturer Part Number"
+	1    8200 3500
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

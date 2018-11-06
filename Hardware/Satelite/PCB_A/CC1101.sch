@@ -219,6 +219,7 @@ F 0 "R8" H 3770 2096 50  0000 L CNN
 F 1 "56k" H 3770 2005 50  0000 L CNN
 F 2 "Resistor_SMD:R_0402_1005Metric" V 3630 2050 50  0001 C CNN
 F 3 "~" H 3700 2050 50  0001 C CNN
+F 4 "RC0402FR-0756KL" H 3700 2050 50  0001 C CNN "Manufacturer Part Number"
 	1    3700 2050
 	1    0    0    -1  
 $EndComp
@@ -732,7 +733,7 @@ F 3 "http://www.mouser.com/datasheet/2/611/0915BM15A0001-242333.pdf" H 7400 3400
 F 4 "Signal Conditioning 915MHz BALUN/FILTER" H 7400 3300 50  0001 L CNN "Description"
 F 5 "0.8" H 7400 3200 50  0001 L CNN "Height"
 F 6 "JOHANSON TECHNOLOGY" H 7400 3100 50  0001 L CNN "Manufacturer_Name"
-F 7 "0915BM15A0001E" H 7400 3000 50  0001 L CNN "Manufacturer_Part_Number"
+F 7 "0915BM15A0001E" H 7400 3000 50  0001 L CNN "Manufacturer Part Number"
 F 8 "0915BM15A0001E" H 7400 2900 50  0001 L CNN "Arrow Part Number"
 	1    7050 3300
 	1    0    0    -1  
@@ -775,7 +776,7 @@ F 3 "http://www.ti.com/lit/ds/symlink/cc1101.pdf" H 4150 3450 50  0001 L CNN
 F 4 "Texas Instruments CC1101RGP, RF Transceiver IC Triple Band 1.8  3.6 V 20-Pin QFN" H 4150 3350 50  0001 L CNN "Description"
 F 5 "1" H 4150 3250 50  0001 L CNN "Height"
 F 6 "Texas Instruments" H 4150 3150 50  0001 L CNN "Manufacturer_Name"
-F 7 "CC1101RGP" H 4150 3050 50  0001 L CNN "Manufacturer_Part_Number"
+F 7 "CC1101RGP" H 4150 3050 50  0001 L CNN "Manufacturer Part Number"
 F 8 "8203068P" H 4150 2950 50  0001 L CNN "RS Part Number"
 F 9 "http://uk.rs-online.com/web/p/products/8203068P" H 4150 2850 50  0001 L CNN "RS Price/Stock"
 F 10 "CC1101RGP" H 4150 2750 50  0001 L CNN "Arrow Part Number"

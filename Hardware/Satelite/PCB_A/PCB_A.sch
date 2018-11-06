@@ -113,6 +113,7 @@ F 0 "J5" H 9680 5092 50  0000 L CNN
 F 1 "Servo Paracaídas" H 9680 5001 50  0000 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 9600 5050 50  0001 C CNN
 F 3 "~" H 9600 5050 50  0001 C CNN
+F 4 "61300311121" H 9600 5050 50  0001 C CNN "Manufacturer Part Number"
 	1    9600 5050
 	0    -1   -1   0   
 $EndComp
@@ -124,6 +125,7 @@ F 0 "J3" H 8230 5092 50  0000 L CNN
 F 1 "Servo Globo" H 8230 5001 50  0000 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 8150 5050 50  0001 C CNN
 F 3 "~" H 8150 5050 50  0001 C CNN
+F 4 "61300311121" H 8150 5050 50  0001 C CNN "Manufacturer Part Number"
 	1    8150 5050
 	0    -1   -1   0   
 $EndComp
@@ -304,6 +306,7 @@ F 0 "R1" V 7450 1250 50  0000 L CNN
 F 1 "1k" V 7250 1250 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7280 1250 50  0001 C CNN
 F 3 "~" H 7350 1250 50  0001 C CNN
+F 4 "RC0603JR-071KL" V 7350 1250 50  0001 C CNN "Manufacturer Part Number"
 	1    7350 1250
 	1    0    0    -1  
 $EndComp
@@ -338,7 +341,7 @@ F 0 "C1" H 1450 1550 50  0000 L CNN
 F 1 "1uF" H 1450 1450 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 1350 1550 50  0001 C CNN
 F 3 "~" H 1350 1550 50  0001 C CNN
-F 4 "EMK107B7104KAHT" H 1350 1550 50  0001 C CNN "Manufacturer Part Number"
+F 4 "GRM155R61E105KA12D" H 1350 1550 50  0001 C CNN "Manufacturer Part Number"
 F 5 "10V" H 1350 1550 50  0001 C CNN "Voltage"
 F 6 "X7R" H 1350 1550 50  0001 C CNN "Dielectric"
 	1    1350 1550
@@ -417,6 +420,7 @@ F 0 "R2" V 7900 1250 50  0000 L CNN
 F 1 "1k" V 7700 1250 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7730 1250 50  0001 C CNN
 F 3 "~" H 7800 1250 50  0001 C CNN
+F 4 "RC0603JR-071KL" V 7800 1250 50  0001 C CNN "Manufacturer Part Number"
 	1    7800 1250
 	1    0    0    -1  
 $EndComp
@@ -571,7 +575,7 @@ F 2 "SamacSys_Parts:CONUFL001-SMD" H 3100 4000 50  0001 L CNN
 F 3 "https://componentsearchengine.com/Datasheets/1/CONUFL001-SMD.pdf" H 3100 3900 50  0001 L CNN
 F 4 "RF Connectors / Coaxial Connectors U.FL Straight Surface Mount Jack" H 3100 3800 50  0001 L CNN "Description"
 F 5 "Linx Technologies" H 3100 3600 50  0001 L CNN "Manufacturer_Name"
-F 6 "CONUFL001-SMD" H 3100 3500 50  0001 L CNN "Manufacturer_Part_Number"
+F 6 "CONUFL001-SMD" H 3100 3500 50  0001 L CNN "Manufacturer Part Number"
 F 7 "CONUFL001-SMD" H 3100 3200 50  0001 L CNN "Arrow Part Number"
 	1    2800 3900
 	1    0    0    -1  
@@ -612,11 +616,8 @@ F 3 "https://www.e-switch.com/system/asset/product_line/data_sheet/115/500.pdf" 
 F 4 "Slide Switches SPDT RA SLIDE PC MNT" H 8000 2650 50  0001 L CNN "Description"
 F 5 "6" H 8000 2550 50  0001 L CNN "Height"
 F 6 "E-Switch" H 8000 2450 50  0001 L CNN "Manufacturer_Name"
-F 7 "500SSP1S1M6QEA" H 8000 2350 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "" H 8000 2250 50  0001 L CNN "RS Part Number"
-F 9 "" H 8000 2150 50  0001 L CNN "RS Price/Stock"
-F 10 "500SSP1S1M6QEA" H 8000 2050 50  0001 L CNN "Arrow Part Number"
-F 11 "" H 8000 1950 50  0001 L CNN "Arrow Price/Stock"
+F 7 "500SSP1S1M6QEA" H 8000 2350 50  0001 L CNN "Manufacturer Part Number"
+F 8 "500SSP1S1M6QEA" H 8000 2050 50  0001 L CNN "Arrow Part Number"
 	1    7350 2750
 	-1   0    0    1   
 $EndComp
@@ -684,6 +685,10 @@ F 0 "J4" H 9450 3415 50  0000 C CNN
 F 1 "Conector_PCB_A-B" H 9450 3324 50  0000 C CNN
 F 2 "AXTEC:Conector_PCB_A-B" H 9200 3300 50  0001 C CNN
 F 3 "" H 9200 3300 50  0001 C CNN
+F 4 "61300311121" H 9300 2850 50  0001 C CNN "Manufacturer Part Number 1"
+F 5 "4" H 9300 2850 50  0001 C CNN "Quantity 1"
+F 6 "61300411121" H 9300 2850 50  0001 C CNN "Manufacturer Part Number 2"
+F 7 "2" H 9300 2850 50  0001 C CNN "Quantity 2"
 	1    9300 2850
 	1    0    0    -1  
 $EndComp
