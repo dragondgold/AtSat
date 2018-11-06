@@ -1065,7 +1065,7 @@ Wire Wire Line
 	8250 4200 8900 4200
 Wire Wire Line
 	8250 4300 8900 4300
-Text Label 8350 5100 0    50   ~ 0
+Text Label 8350 4600 0    50   ~ 0
 GPOUT
 Text Label 8350 4900 0    50   ~ 0
 CHG
@@ -1088,21 +1088,19 @@ Wire Wire Line
 Wire Wire Line
 	8250 2900 8900 2900
 Wire Wire Line
-	8250 4900 8700 4900
+	8250 4900 8650 4900
 Wire Wire Line
-	8250 5000 8700 5000
+	8250 5000 8650 5000
 Wire Wire Line
-	8250 4700 8700 4700
+	8250 4700 8650 4700
 Wire Wire Line
-	8250 4800 8700 4800
-Wire Wire Line
-	8250 5100 8700 5100
+	8250 4800 8650 4800
 Text Label 8350 3100 0    50   ~ 0
 5V_ENABLE
 Text Label 8350 4100 0    50   ~ 0
 3V_ENABLE
 Wire Wire Line
-	8250 4500 8900 4500
+	8250 4500 8650 4500
 Text Label 8350 2400 0    50   ~ 0
 I_SENSE_5V
 Text Label 8350 2900 0    50   ~ 0
@@ -1167,22 +1165,18 @@ F 3 "" H 5750 4550 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6250 5100 6850 5100
-Wire Wire Line
-	6850 4800 6550 4800
 Text Label 6600 4300 0    50   ~ 0
 IO0
 Text Label 6600 4400 0    50   ~ 0
 IO1
-Text Label 6600 4700 0    50   ~ 0
+Text Label 8350 5100 0    50   ~ 0
 IO2
 Wire Wire Line
 	6850 4300 6550 4300
 Wire Wire Line
 	6550 4400 6850 4400
-Text Label 6600 4800 0    50   ~ 0
+Text Label 8350 5200 0    50   ~ 0
 IO3
-Wire Wire Line
-	6850 4700 6550 4700
 $Comp
 L SamacSys_Parts:NTB0104BQ,115 U4
 U 1 1 5BF92185
@@ -2525,4 +2519,10 @@ Wire Wire Line
 	8250 3100 8900 3100
 Wire Wire Line
 	8250 4100 8900 4100
+Wire Wire Line
+	8250 4600 8650 4600
+Wire Wire Line
+	8250 5100 8650 5100
+Wire Wire Line
+	8250 5200 8650 5200
 $EndSCHEMATC
