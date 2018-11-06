@@ -120,6 +120,21 @@ X MH3 3 150 -100 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
+# AXTEC_IC:Spacer
+#
+DEF AXTEC_IC:Spacer M 0 40 Y Y 1 F N
+F0 "M" 0 250 50 H V C CNN
+F1 "AXTEC_IC:Spacer" 0 200 50 H V C CNN
+F2 "AXTEC:Empty_Footprint" -100 150 50 H I C CNN
+F3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" 0 250 50 H I C CNN
+F4 "R30-3010502" 100 350 50 H V C CNN "Manufacturer Part Number"
+DRAW
+S -50 100 50 -150 0 1 0 N
+P 2 0 1 0 -50 50 50 50 N
+P 2 0 1 20 0 -150 0 -200 N
+ENDDRAW
+ENDDEF
+#
 # Amplifier_Current:INA194
 #
 DEF Amplifier_Current:INA194 U 0 5 Y Y 1 F N

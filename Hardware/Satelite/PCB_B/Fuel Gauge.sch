@@ -22,6 +22,7 @@ F 0 "U9" H 5900 4367 50  0000 C CNN
 F 1 "BQ27441DRZR-G1A" H 5900 4276 50  0000 C CNN
 F 2 "Package_SON:Texas_S-PDSO-N12" H 6150 3150 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/bq27441-g1.pdf" H 6100 3900 50  0001 C CNN
+F 4 "BQ27441DRZR-G1A" H 5900 3700 50  0001 C CNN "Manufacturer Part Number"
 	1    5900 3700
 	1    0    0    -1  
 $EndComp
@@ -87,6 +88,7 @@ F 0 "R18" V 4850 2950 50  0000 L CNN
 F 1 "10k" V 4650 2950 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4680 2950 50  0001 C CNN
 F 3 "~" H 4750 2950 50  0001 C CNN
+F 4 "RC0603JR-0710KL" V 4750 2950 50  0001 C CNN "Manufacturer Part Number"
 	1    4750 2950
 	1    0    0    -1  
 $EndComp
@@ -244,53 +246,56 @@ Wire Wire Line
 Connection ~ 7300 4150
 $Comp
 L Device:R R?
-U 1 1 5C69F6F3
+U 1 1 5C28A0C8
 P 5050 2950
-AR Path="/5BA17F9C/5C69F6F3" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5C69F6F3" Ref="R?"  Part="1" 
-AR Path="/5BA1A77A/5C69F6F3" Ref="R?"  Part="1" 
-AR Path="/5C69F6F3" Ref="R?"  Part="1" 
-AR Path="/5BB1631B/5C69F6F3" Ref="R?"  Part="1" 
-AR Path="/5BC28DAC/5C69F6F3" Ref="R19"  Part="1" 
+AR Path="/5BA17F9C/5C28A0C8" Ref="R?"  Part="1" 
+AR Path="/5BA1A7F9/5C28A0C8" Ref="R?"  Part="1" 
+AR Path="/5BA1A77A/5C28A0C8" Ref="R?"  Part="1" 
+AR Path="/5C28A0C8" Ref="R?"  Part="1" 
+AR Path="/5BB1631B/5C28A0C8" Ref="R?"  Part="1" 
+AR Path="/5BC28DAC/5C28A0C8" Ref="R19"  Part="1" 
 F 0 "R19" V 5150 2950 50  0000 L CNN
 F 1 "10k" V 4950 2950 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4980 2950 50  0001 C CNN
 F 3 "~" H 5050 2950 50  0001 C CNN
+F 4 "RC0603JR-0710KL" V 5050 2950 50  0001 C CNN "Manufacturer Part Number"
 	1    5050 2950
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R?
-U 1 1 5C69F715
-P 5050 4350
-AR Path="/5BA17F9C/5C69F715" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5C69F715" Ref="R?"  Part="1" 
-AR Path="/5BA1A77A/5C69F715" Ref="R?"  Part="1" 
-AR Path="/5C69F715" Ref="R?"  Part="1" 
-AR Path="/5BB1631B/5C69F715" Ref="R?"  Part="1" 
-AR Path="/5BC28DAC/5C69F715" Ref="R20"  Part="1" 
-F 0 "R20" V 5150 4350 50  0000 L CNN
-F 1 "10k" V 4950 4350 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4980 4350 50  0001 C CNN
-F 3 "~" H 5050 4350 50  0001 C CNN
-	1    5050 4350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5C69F74F
+U 1 1 5C28A173
 P 7300 3450
-AR Path="/5BA17F9C/5C69F74F" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5C69F74F" Ref="R?"  Part="1" 
-AR Path="/5BA1A77A/5C69F74F" Ref="R?"  Part="1" 
-AR Path="/5C69F74F" Ref="R?"  Part="1" 
-AR Path="/5BB1631B/5C69F74F" Ref="R?"  Part="1" 
-AR Path="/5BC28DAC/5C69F74F" Ref="R21"  Part="1" 
+AR Path="/5BA17F9C/5C28A173" Ref="R?"  Part="1" 
+AR Path="/5BA1A7F9/5C28A173" Ref="R?"  Part="1" 
+AR Path="/5BA1A77A/5C28A173" Ref="R?"  Part="1" 
+AR Path="/5C28A173" Ref="R?"  Part="1" 
+AR Path="/5BB1631B/5C28A173" Ref="R?"  Part="1" 
+AR Path="/5BC28DAC/5C28A173" Ref="R21"  Part="1" 
 F 0 "R21" V 7400 3450 50  0000 L CNN
 F 1 "10k" V 7200 3450 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7230 3450 50  0001 C CNN
 F 3 "~" H 7300 3450 50  0001 C CNN
+F 4 "RC0603JR-0710KL" V 7300 3450 50  0001 C CNN "Manufacturer Part Number"
 	1    7300 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5C28A274
+P 5050 4350
+AR Path="/5BA17F9C/5C28A274" Ref="R?"  Part="1" 
+AR Path="/5BA1A7F9/5C28A274" Ref="R?"  Part="1" 
+AR Path="/5BA1A77A/5C28A274" Ref="R?"  Part="1" 
+AR Path="/5C28A274" Ref="R?"  Part="1" 
+AR Path="/5BB1631B/5C28A274" Ref="R?"  Part="1" 
+AR Path="/5BC28DAC/5C28A274" Ref="R20"  Part="1" 
+F 0 "R20" V 5150 4350 50  0000 L CNN
+F 1 "10k" V 4950 4350 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4980 4350 50  0001 C CNN
+F 3 "~" H 5050 4350 50  0001 C CNN
+F 4 "RC0603JR-0710KL" V 5050 4350 50  0001 C CNN "Manufacturer Part Number"
+	1    5050 4350
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

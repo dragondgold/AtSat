@@ -47,6 +47,7 @@ F 0 "U7" V 5650 3750 50  0000 R CNN
 F 1 "INA194" V 5750 3750 50  0000 R CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 5550 3900 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/ina193.pdf" H 5550 3900 50  0001 C CNN
+F 4 "INA194AIDBVR" V 5550 3900 50  0001 C CNN "Manufacturer Part Number"
 	1    5550 3900
 	0    -1   1    0   
 $EndComp

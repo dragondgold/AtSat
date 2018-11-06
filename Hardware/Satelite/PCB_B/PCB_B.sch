@@ -52,25 +52,25 @@ Wire Wire Line
 	10450 3450 10050 3450
 Wire Wire Line
 	10450 3350 10050 3350
-Text Label 10100 3650 0    50   ~ 0
+Text Label 10150 3650 0    50   ~ 0
 SDO
-Text Label 10100 3350 0    50   ~ 0
+Text Label 10150 3350 0    50   ~ 0
 SDI
-Text Label 10100 3450 0    50   ~ 0
+Text Label 10150 3450 0    50   ~ 0
 CS
-Text Label 10100 3550 0    50   ~ 0
+Text Label 10150 3550 0    50   ~ 0
 SCLK
-Text Label 10100 3850 0    50   ~ 0
+Text Label 10150 3850 0    50   ~ 0
 S_GLOBO
-Text Label 10050 3750 0    50   ~ 0
+Text Label 10150 3750 0    50   ~ 0
 S_PARACAIDAS
 Wire Wire Line
 	10450 4950 10050 4950
 Wire Wire Line
 	10450 4850 10050 4850
-Text Label 10100 4850 0    50   ~ 0
+Text Label 10150 4850 0    50   ~ 0
 GPS_TX
-Text Label 10100 4950 0    50   ~ 0
+Text Label 10150 4950 0    50   ~ 0
 P1
 Wire Notes Line
 	8100 550  11150 550 
@@ -546,6 +546,10 @@ F 0 "J2" H 9650 2067 50  0000 C CNN
 F 1 "Conector_PCB_A-B" H 9650 1975 50  0000 C CNN
 F 2 "AXTEC:Conector_PCB_A-B" H 9250 1950 50  0001 C CNN
 F 3 "" H 9250 1950 50  0001 C CNN
+F 4 "CES-103-01-T-S" H 9500 1500 50  0001 C CNN "Manufacturer Part Number 1"
+F 5 "4" H 9500 1500 50  0001 C CNN "Quantity 1"
+F 6 "CES-104-01-T-S" H 9500 1500 50  0001 C CNN "Manufacturer Part Number 2"
+F 7 "2" H 9500 1500 50  0001 C CNN "Quantity 2"
 	1    9500 1500
 	1    0    0    -1  
 $EndComp
@@ -581,21 +585,21 @@ Wire Wire Line
 	10050 5450 10600 5450
 Wire Wire Line
 	10050 5550 10600 5550
-Text Label 10050 5450 0    50   ~ 0
+Text Label 10150 5450 0    50   ~ 0
 I_SENSE_5V
-Text Label 10050 5550 0    50   ~ 0
+Text Label 10150 5550 0    50   ~ 0
 V_SENSE_5V
 Wire Wire Line
 	10050 5150 10600 5150
 Wire Wire Line
 	10050 5250 10600 5250
-Text Label 10050 5150 0    50   ~ 0
+Text Label 10150 5150 0    50   ~ 0
 I_SENSE_3V3
-Text Label 10050 5250 0    50   ~ 0
+Text Label 10150 5250 0    50   ~ 0
 V_SENSE_3V3
 Wire Wire Line
 	10050 3950 10600 3950
-Text Label 10050 3950 0    50   ~ 0
+Text Label 10150 3950 0    50   ~ 0
 I_SENSE_BATT
 Text Label 10150 4650 0    50   ~ 0
 GPOUT
@@ -797,13 +801,11 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20005253A.pdf" H 7750 5600 
 F 4 "Switching Voltage Regulators Step-up DC/DC Reg 1 MHz, 1.6A, 5Vout" H 7750 5500 50  0001 L CNN "Description"
 F 5 "1.1" H 7750 5400 50  0001 L CNN "Height"
 F 6 "Microchip" H 7750 5300 50  0001 L CNN "Manufacturer_Name"
-F 7 "MCP1642B-50I/MS" H 7750 5200 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "" H 7750 5100 50  0001 L CNN "RS Part Number"
-F 9 "" H 7750 5000 50  0001 L CNN "RS Price/Stock"
-F 10 "70567327" H 7750 4900 50  0001 L CNN "Allied_Number"
-F 11 "https://www.alliedelec.com/microchip-technology-inc-mcp1642b-50i-ms/70567327/" H 7750 4800 50  0001 L CNN "Allied Price/Stock"
-F 12 "MCP1642B-50I/MS" H 7750 4700 50  0001 L CNN "Arrow Part Number"
-F 13 "https://www.arrow.com/en/products/mcp1642b-50ims/microchip-technology" H 7750 4600 50  0001 L CNN "Arrow Price/Stock"
+F 7 "MCP1642B-50I/MS" H 7750 5200 50  0001 L CNN "Manufacturer Part Number"
+F 8 "70567327" H 7750 4900 50  0001 L CNN "Allied_Number"
+F 9 "https://www.alliedelec.com/microchip-technology-inc-mcp1642b-50i-ms/70567327/" H 7750 4800 50  0001 L CNN "Allied Price/Stock"
+F 10 "MCP1642B-50I/MS" H 7750 4700 50  0001 L CNN "Arrow Part Number"
+F 11 "https://www.arrow.com/en/products/mcp1642b-50ims/microchip-technology" H 7750 4600 50  0001 L CNN "Arrow Price/Stock"
 	1    6800 5600
 	-1   0    0    -1  
 $EndComp
@@ -1013,10 +1015,12 @@ $Comp
 L AXTEC_IC:Conector_PCB_B-C J1
 U 1 1 5BD2AA01
 P 9300 3900
-F 0 "J1" H 9300 4617 50  0000 C CNN
-F 1 "Conector_PCB_B-C" H 9300 4525 50  0000 C CNN
+F 0 "J1" H 9300 4800 50  0000 C CNN
+F 1 "Conector_PCB_B-C" H 9300 4700 50  0000 C CNN
 F 2 "AXTEC:Conector_PCB_B-C_Lado_B" H 9200 4650 50  0001 C CNN
 F 3 "" H 9200 4650 50  0001 C CNN
+F 4 "10132798-022100LF" H 9300 3900 50  0001 C CNN "Manufacturer Part Number"
+F 5 "2" H 9300 3900 50  0001 C CNN "Quantity"
 	1    9300 3900
 	1    0    0    -1  
 $EndComp
@@ -1032,9 +1036,9 @@ Wire Wire Line
 	10600 5050 10050 5050
 Wire Wire Line
 	10600 5350 10050 5350
-Text Label 10050 5050 0    50   ~ 0
+Text Label 10150 5050 0    50   ~ 0
 ENABLE_3V3
-Text Label 10050 5350 0    50   ~ 0
+Text Label 10150 5350 0    50   ~ 0
 ENABLE_5V
 Wire Wire Line
 	10050 4650 10650 4650
@@ -1103,4 +1107,40 @@ Wire Wire Line
 	8600 3350 8500 3350
 Wire Wire Line
 	8500 3350 8500 3200
+$Comp
+L AXTEC_IC:Spacer M1
+U 1 1 5C28AC86
+P 2600 3550
+F 0 "M1" H 2679 3543 50  0000 L CNN
+F 1 "Spacer" H 2679 3451 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 2500 3700 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 2600 3800 50  0001 C CNN
+F 4 "R30-3011002" H 2679 3405 50  0001 L CNN "Manufacturer Part Number"
+	1    2600 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L AXTEC_IC:Spacer M2
+U 1 1 5C28AE04
+P 3100 3550
+F 0 "M2" H 3179 3543 50  0000 L CNN
+F 1 "Spacer" H 3179 3451 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 3000 3700 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 3100 3800 50  0001 C CNN
+F 4 "R30-3011002" H 3179 3405 50  0001 L CNN "Manufacturer Part Number"
+	1    3100 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L AXTEC_IC:Spacer M3
+U 1 1 5C28AE40
+P 3600 3550
+F 0 "M3" H 3679 3543 50  0000 L CNN
+F 1 "Spacer" H 3679 3451 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 3500 3700 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 3600 3800 50  0001 C CNN
+F 4 "R30-3011002" H 3679 3405 50  0001 L CNN "Manufacturer Part Number"
+	1    3600 3550
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

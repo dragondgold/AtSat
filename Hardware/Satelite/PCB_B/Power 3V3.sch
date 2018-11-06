@@ -24,6 +24,7 @@ F 0 "U2" H 4650 4725 50  0000 C CNN
 F 1 "ADP2108AUJ-3.3" H 4650 4634 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:TSOT-23-5" H 4700 4150 50  0001 L CNN
 F 3 "http://www.analog.com/media/en/technical-documentation/data-sheets/ADP2108.pdf" H 4400 4050 50  0001 C CNN
+F 4 "ADP2108AUJZ-3.3-R7" H 4650 4400 50  0001 C CNN "Manufacturer Part Number"
 	1    4650 4400
 	1    0    0    -1  
 $EndComp
@@ -125,6 +126,7 @@ F 0 "U3" V 5646 2159 50  0000 R CNN
 F 1 "INA194" V 5555 2159 50  0000 R CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 5600 2500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/ina193.pdf" H 5600 2500 50  0001 C CNN
+F 4 "INA194AIDBVR" V 5600 2500 50  0001 C CNN "Manufacturer Part Number"
 	1    5600 2500
 	0    -1   -1   0   
 $EndComp
@@ -309,7 +311,7 @@ P 6700 5000
 AR Path="/5BC13C37/5C2719F0" Ref="R5"  Part="1" 
 AR Path="/5BC14C3C/5C2719F0" Ref="R?"  Part="1" 
 F 0 "R5" H 6630 4908 50  0000 R CNN
-F 1 "130k" H 6630 5000 50  0000 R CNN
+F 1 "150k" H 6630 5000 50  0000 R CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 6630 5000 50  0001 C CNN
 F 3 "~" H 6700 5000 50  0001 C CNN
 F 4 "1%" H 6630 5092 50  0000 R CNN "Tolerance"
@@ -344,6 +346,7 @@ F 0 "U4" H 8050 4650 50  0000 L CNN
 F 1 "MCP6001-OT" H 8050 4550 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 7900 4650 50  0001 L CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" H 8000 5050 50  0001 C CNN
+F 4 "MCP6001T-I/OT" H 8000 4850 50  0001 C CNN "Manufacturer Part Number"
 	1    8000 4850
 	1    0    0    -1  
 $EndComp

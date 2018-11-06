@@ -87,6 +87,7 @@ F 0 "U5" V 6296 2259 50  0000 R CNN
 F 1 "INA194" V 6205 2259 50  0000 R CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 6250 2600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/ina193.pdf" H 6250 2600 50  0001 C CNN
+F 4 "INA194AIDBVR" V 6250 2600 50  0001 C CNN "Manufacturer Part Number"
 	1    6250 2600
 	0    -1   -1   0   
 $EndComp
@@ -228,13 +229,11 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20005253A.pdf" H 6100 4100 
 F 4 "Switching Voltage Regulators Step-up DC/DC Reg 1 MHz, 1.6A, 5Vout" H 6100 4000 50  0001 L CNN "Description"
 F 5 "1.1" H 6100 3900 50  0001 L CNN "Height"
 F 6 "Microchip" H 6100 3800 50  0001 L CNN "Manufacturer_Name"
-F 7 "MCP1642B-50I/MS" H 6100 3700 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "" H 6100 3600 50  0001 L CNN "RS Part Number"
-F 9 "" H 6100 3500 50  0001 L CNN "RS Price/Stock"
-F 10 "70567327" H 6100 3400 50  0001 L CNN "Allied_Number"
-F 11 "https://www.alliedelec.com/microchip-technology-inc-mcp1642b-50i-ms/70567327/" H 6100 3300 50  0001 L CNN "Allied Price/Stock"
-F 12 "MCP1642B-50I/MS" H 6100 3200 50  0001 L CNN "Arrow Part Number"
-F 13 "https://www.arrow.com/en/products/mcp1642b-50ims/microchip-technology" H 6100 3100 50  0001 L CNN "Arrow Price/Stock"
+F 7 "MCP1642B-50I/MS" H 6100 3700 50  0001 L CNN "Manufacturer Part Number"
+F 8 "70567327" H 6100 3400 50  0001 L CNN "Allied_Number"
+F 9 "https://www.alliedelec.com/microchip-technology-inc-mcp1642b-50i-ms/70567327/" H 6100 3300 50  0001 L CNN "Allied Price/Stock"
+F 10 "MCP1642B-50I/MS" H 6100 3200 50  0001 L CNN "Arrow Part Number"
+F 11 "https://www.arrow.com/en/products/mcp1642b-50ims/microchip-technology" H 6100 3100 50  0001 L CNN "Arrow Price/Stock"
 	1    5150 4100
 	-1   0    0    -1  
 $EndComp
@@ -331,6 +330,7 @@ F 0 "U6" H 8550 4750 50  0000 L CNN
 F 1 "MCP6001-OT" H 8550 4650 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 8400 4750 50  0001 L CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" H 8500 5150 50  0001 C CNN
+F 4 "MCP6001T-I/OT" H 8500 4950 50  0001 C CNN "Manufacturer Part Number"
 	1    8500 4950
 	1    0    0    -1  
 $EndComp

@@ -143,6 +143,7 @@ F 0 "R16" V 7900 4100 50  0000 L CNN
 F 1 "100k" V 7700 4100 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7730 4100 50  0001 C CNN
 F 3 "~" H 7800 4100 50  0001 C CNN
+F 4 "RC0603JR-07100KL" V 7800 4100 50  0001 C CNN "Manufacturer Part Number"
 	1    7800 4100
 	-1   0    0    1   
 $EndComp
