@@ -1109,4 +1109,35 @@ F 4 "M7581-05" H 5464 2990 50  0000 L CNN "Manufacturer Part Number"
 	1    5300 3100
 	1    0    0    -1  
 $EndComp
+$Comp
+L Switch:SW_Push SW1
+U 1 1 5BE70135
+P 4650 4500
+F 0 "SW1" H 4650 4787 50  0000 C CNN
+F 1 "Reset Switch" H 4650 4695 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 4650 4700 50  0001 C CNN
+F 3 "" H 4650 4700 50  0001 C CNN
+F 4 "FSM18JH" H 4650 4500 50  0001 C CNN "Manufacturer Part Number"
+	1    4650 4500
+	1    0    0    -1  
+$EndComp
+Text Label 4200 4500 0    50   ~ 0
+RST
+Wire Wire Line
+	4450 4500 4200 4500
+$Comp
+L power:GND #PWR?
+U 1 1 5BE769FE
+P 5050 4600
+F 0 "#PWR?" H 5050 4350 50  0001 C CNN
+F 1 "GND" H 5054 4426 50  0000 C CNN
+F 2 "" H 5050 4600 50  0001 C CNN
+F 3 "" H 5050 4600 50  0001 C CNN
+	1    5050 4600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 4500 5050 4500
+Wire Wire Line
+	5050 4500 5050 4600
 $EndSCHEMATC
