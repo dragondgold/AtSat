@@ -1095,62 +1095,18 @@ F 4 "RC0603JR-13220RL" H 4900 6500 50  0001 C CNN "Manufacturer Part Number"
 	1    4900 6500
 	1    0    0    -1  
 $EndComp
-$Comp
-L AXTEC_IC:Spacer M1
-U 1 1 5C302141
-P 9300 5900
-F 0 "M1" H 9379 5893 50  0000 L CNN
-F 1 "Spacer" H 9379 5801 50  0000 L CNN
-F 2 "AXTEC:Empty_Footprint" H 9200 6050 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 9300 6150 50  0001 C CNN
-F 4 "R30-3011002" H 9379 5755 50  0001 L CNN "Manufacturer Part Number"
-	1    9300 5900
-	1    0    0    -1  
-$EndComp
-$Comp
-L AXTEC_IC:Spacer M2
-U 1 1 5C3025E5
-P 9850 5900
-F 0 "M2" H 9929 5893 50  0000 L CNN
-F 1 "Spacer" H 9929 5801 50  0000 L CNN
-F 2 "AXTEC:Empty_Footprint" H 9750 6050 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 9850 6150 50  0001 C CNN
-F 4 "R30-3011002" H 9929 5755 50  0001 L CNN "Manufacturer Part Number"
-	1    9850 5900
-	1    0    0    -1  
-$EndComp
-$Comp
-L AXTEC_IC:Spacer M3
-U 1 1 5C30263D
-P 10400 5900
-F 0 "M3" H 10479 5893 50  0000 L CNN
-F 1 "Spacer" H 10479 5801 50  0000 L CNN
-F 2 "AXTEC:Empty_Footprint" H 10300 6050 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 10400 6150 50  0001 C CNN
-F 4 "R30-3011002" H 10479 5755 50  0001 L CNN "Manufacturer Part Number"
-	1    10400 5900
-	1    0    0    -1  
-$EndComp
-Wire Notes Line
-	10900 4400 10900 6500
 Wire Notes Line
 	10900 6500 8950 6500
-Wire Notes Line
-	8950 6500 8950 4400
-Wire Notes Line
-	8950 4400 10900 4400
-Text Notes 9550 4650 0    118  ~ 0
-Mecánica
 $Comp
 L AXTEC_IC:BOM_Jumper JP1
 U 1 1 5C31B4FD
-P 9900 5150
-F 0 "JP1" H 10064 5224 50  0000 L CNN
-F 1 "BOM_Jumper" H 10064 5132 50  0000 L CNN
-F 2 "AXTEC:Empty_Footprint" H 9900 5250 50  0001 C CNN
-F 3 "" H 9900 5250 50  0001 C CNN
-F 4 "M7581-05" H 10064 5040 50  0000 L CNN "Manufacturer Part Number"
-	1    9900 5150
+P 5300 3100
+F 0 "JP1" H 5464 3174 50  0000 L CNN
+F 1 "BOM_Jumper" H 5464 3082 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 5300 3200 50  0001 C CNN
+F 3 "" H 5300 3200 50  0001 C CNN
+F 4 "M7581-05" H 5464 2990 50  0000 L CNN "Manufacturer Part Number"
+	1    5300 3100
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

@@ -191,7 +191,7 @@ Text Label 9650 4000 0    50   ~ 0
 IO4
 Text Label 9650 4100 0    50   ~ 0
 IO5
-Text Label 9450 1950 0    50   ~ 0
+Text Label 9450 2150 0    50   ~ 0
 IO6
 Wire Wire Line
 	10050 4800 9600 4800
@@ -201,7 +201,7 @@ Wire Wire Line
 	9600 5000 10050 5000
 Wire Wire Line
 	9600 5100 10050 5100
-Text Label 9450 2050 0    50   ~ 0
+Text Label 9450 2250 0    50   ~ 0
 IO7
 Text Label 9650 4800 0    50   ~ 0
 AD0
@@ -608,80 +608,80 @@ D2 F7 FD DA 6B 00 00 60 22 3B 71 00 00 09 09 71 00 00 09 09 71 00 00 09 09 71 00
 09 71 00 00 09 FD 17 3C 6D 9D 90 5F F2 D3 C3 00 00 00 00 49 45 4E 44 AE 42 60 82 
 EndData
 $EndBitmap
-Text Label 9450 1350 0    50   ~ 0
-IO0
-Text Label 9450 1450 0    50   ~ 0
-IO1
 Text Label 9450 1550 0    50   ~ 0
-IO2
+IO0
 Text Label 9450 1650 0    50   ~ 0
-IO3
+IO1
 Text Label 9450 1750 0    50   ~ 0
-IO4
+IO2
 Text Label 9450 1850 0    50   ~ 0
+IO3
+Text Label 9450 1950 0    50   ~ 0
+IO4
+Text Label 9450 2050 0    50   ~ 0
 IO5
-Text Label 9450 2400 0    50   ~ 0
-AD0
-Text Label 9450 2500 0    50   ~ 0
-AD1
 Text Label 9450 2600 0    50   ~ 0
-AD2
+AD0
 Text Label 9450 2700 0    50   ~ 0
+AD1
+Text Label 9450 2800 0    50   ~ 0
+AD2
+Text Label 9450 2900 0    50   ~ 0
 AD3
-Text Label 7850 2250 0    50   ~ 0
-MOSI
-Text Label 7850 2350 0    50   ~ 0
-MISO
 Text Label 7850 2450 0    50   ~ 0
-SCK
+MOSI
 Text Label 7850 2550 0    50   ~ 0
-SS
+MISO
 Text Label 7850 2650 0    50   ~ 0
-SCL
+SCK
 Text Label 7850 2750 0    50   ~ 0
+SS
+Text Label 7850 2850 0    50   ~ 0
+SCL
+Text Label 7850 2950 0    50   ~ 0
 SDA
 $Comp
 L power:+BATT #PWR011
 U 1 1 5BC88F35
-P 8000 1400
-F 0 "#PWR011" H 8000 1250 50  0001 C CNN
-F 1 "+BATT" H 8014 1575 50  0000 C CNN
-F 2 "" H 8000 1400 50  0001 C CNN
-F 3 "" H 8000 1400 50  0001 C CNN
-	1    8000 1400
+P 8000 1600
+F 0 "#PWR011" H 8000 1450 50  0001 C CNN
+F 1 "+BATT" H 8014 1775 50  0000 C CNN
+F 2 "" H 8000 1600 50  0001 C CNN
+F 3 "" H 8000 1600 50  0001 C CNN
+	1    8000 1600
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+3V3 #PWR010
 U 1 1 5BC88F45
-P 7750 1400
-F 0 "#PWR010" H 7750 1250 50  0001 C CNN
-F 1 "+3V3" H 7764 1575 50  0000 C CNN
-F 2 "" H 7750 1400 50  0001 C CNN
-F 3 "" H 7750 1400 50  0001 C CNN
-	1    7750 1400
+P 7750 1600
+F 0 "#PWR010" H 7750 1450 50  0001 C CNN
+F 1 "+3V3" H 7764 1775 50  0000 C CNN
+F 2 "" H 7750 1600 50  0001 C CNN
+F 3 "" H 7750 1600 50  0001 C CNN
+	1    7750 1600
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR08
 U 1 1 5BC88F4D
-P 7500 1400
-F 0 "#PWR08" H 7500 1250 50  0001 C CNN
-F 1 "+5V" H 7514 1575 50  0000 C CNN
-F 2 "" H 7500 1400 50  0001 C CNN
-F 3 "" H 7500 1400 50  0001 C CNN
-	1    7500 1400
+P 7500 1600
+F 0 "#PWR08" H 7500 1450 50  0001 C CNN
+F 1 "+5V" H 7514 1775 50  0000 C CNN
+F 2 "" H 7500 1600 50  0001 C CNN
+F 3 "" H 7500 1600 50  0001 C CNN
+	1    7500 1600
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR09
 U 1 1 5BC88F55
-P 7650 2050
-F 0 "#PWR09" H 7650 1800 50  0001 C CNN
-F 1 "GND" H 7654 1876 50  0000 C CNN
-F 2 "" H 7650 2050 50  0001 C CNN
-F 3 "" H 7650 2050 50  0001 C CNN
-	1    7650 2050
+P 7650 2250
+F 0 "#PWR09" H 7650 2000 50  0001 C CNN
+F 1 "GND" H 7654 2076 50  0000 C CNN
+F 2 "" H 7650 2250 50  0001 C CNN
+F 3 "" H 7650 2250 50  0001 C CNN
+	1    7650 2250
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -696,13 +696,9 @@ F 3 "" H 5250 4850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7750 1500 7750 1400
+	7750 1700 7750 1600
 Wire Wire Line
-	7500 1600 7500 1400
-Wire Wire Line
-	9400 1350 9600 1350
-Wire Wire Line
-	9400 1450 9600 1450
+	7500 1800 7500 1600
 Wire Wire Line
 	9400 1550 9600 1550
 Wire Wire Line
@@ -716,13 +712,17 @@ Wire Wire Line
 Wire Wire Line
 	9400 2050 9600 2050
 Wire Wire Line
-	9400 2400 9600 2400
+	9400 2150 9600 2150
 Wire Wire Line
-	9400 2500 9600 2500
+	9400 2250 9600 2250
 Wire Wire Line
 	9400 2600 9600 2600
 Wire Wire Line
 	9400 2700 9600 2700
+Wire Wire Line
+	9400 2800 9600 2800
+Wire Wire Line
+	9400 2900 9600 2900
 Text Notes 7750 950  0    118  ~ 0
 Conector de expansión\n
 Wire Notes Line
@@ -766,11 +766,11 @@ Wire Wire Line
 Wire Wire Line
 	5250 4850 5250 4800
 Wire Notes Line
-	4150 3900 4150 5200
+	4150 3900 4150 5900
 Wire Notes Line
-	4150 5200 6450 5200
+	4150 5900 6450 5900
 Wire Notes Line
-	6450 5200 6450 3900
+	6450 5900 6450 3900
 Wire Notes Line
 	6450 3900 4150 3900
 Text Notes 4450 4150 0    118  ~ 0
@@ -778,14 +778,20 @@ Agujeros de montaje
 $Comp
 L AXTEC_IC:Conector_Expansion_CanSat J12
 U 1 1 5BC6ED70
-P 8750 1900
-F 0 "J12" H 9143 2765 50  0000 C CNN
-F 1 "Conector_Expansion_CanSat" H 9143 2674 50  0000 C CNN
-F 2 "AXTEC:Conector_Expansion_CanSat" H 8750 2400 50  0001 C CNN
-F 3 "" H 8750 2400 50  0001 C CNN
-	1    8750 1900
+P 8750 2100
+F 0 "J12" H 8300 3000 50  0000 C CNN
+F 1 "Conector_Expansion_CanSat" H 8750 2900 50  0000 C CNN
+F 2 "AXTEC:Conector_Expansion_CanSat" H 8750 2600 50  0001 C CNN
+F 3 "" H 8750 2600 50  0001 C CNN
+F 4 "SSQ-106-03-T-S" H 8750 2100 50  0001 C CNN "Manufacturer Part Number"
+F 5 "4" H 8750 2100 50  0001 C CNN "Quantity"
+	1    8750 2100
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	8100 2950 7850 2950
+Wire Wire Line
+	8100 2850 7850 2850
 Wire Wire Line
 	8100 2750 7850 2750
 Wire Wire Line
@@ -793,29 +799,61 @@ Wire Wire Line
 Wire Wire Line
 	8100 2550 7850 2550
 Wire Wire Line
-	8100 2450 7850 2450
+	7850 2450 8100 2450
 Wire Wire Line
-	8100 2350 7850 2350
+	8100 1600 8000 1600
 Wire Wire Line
-	7850 2250 8100 2250
+	8100 1700 7750 1700
 Wire Wire Line
-	8100 1400 8000 1400
+	8100 1800 7500 1800
 Wire Wire Line
-	8100 1500 7750 1500
+	7650 2250 8050 2250
 Wire Wire Line
-	8100 1600 7500 1600
+	8100 2050 8050 2050
 Wire Wire Line
-	7650 2050 8050 2050
+	8050 2050 8050 2150
+Connection ~ 8050 2250
 Wire Wire Line
-	8100 1850 8050 1850
+	8050 2250 8100 2250
 Wire Wire Line
-	8050 1850 8050 1950
-Connection ~ 8050 2050
+	8100 2150 8050 2150
+Connection ~ 8050 2150
 Wire Wire Line
-	8050 2050 8100 2050
-Wire Wire Line
-	8100 1950 8050 1950
-Connection ~ 8050 1950
-Wire Wire Line
-	8050 1950 8050 2050
+	8050 2150 8050 2250
+$Comp
+L AXTEC_IC:Spacer M1
+U 1 1 5C332544
+P 4400 5450
+F 0 "M1" H 4479 5443 50  0000 L CNN
+F 1 "Spacer" H 4479 5351 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 4300 5600 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 4400 5700 50  0001 C CNN
+F 4 "R30-3011002" H 4479 5305 50  0001 L CNN "Manufacturer Part Number"
+	1    4400 5450
+	1    0    0    -1  
+$EndComp
+$Comp
+L AXTEC_IC:Spacer M2
+U 1 1 5C332635
+P 5250 5450
+F 0 "M2" H 5329 5443 50  0000 L CNN
+F 1 "Spacer" H 5329 5351 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 5150 5600 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 5250 5700 50  0001 C CNN
+F 4 "R30-3011002" H 5329 5305 50  0001 L CNN "Manufacturer Part Number"
+	1    5250 5450
+	1    0    0    -1  
+$EndComp
+$Comp
+L AXTEC_IC:Spacer M3
+U 1 1 5C332687
+P 6000 5450
+F 0 "M3" H 6079 5443 50  0000 L CNN
+F 1 "Spacer" H 6079 5351 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 5900 5600 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 6000 5700 50  0001 C CNN
+F 4 "R30-3011002" H 6079 5305 50  0001 L CNN "Manufacturer Part Number"
+	1    6000 5450
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
