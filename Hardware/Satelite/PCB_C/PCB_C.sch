@@ -1629,7 +1629,9 @@ P 14450 5000
 F 0 "J4" H 14500 5850 50  0000 C CNN
 F 1 "Conector_Expansion_CanSat" H 14450 5750 50  0000 C CNN
 F 2 "AXTEC:Conector_Expansion_CanSat" H 14450 5500 50  0001 C CNN
-F 3 "" H 14450 5500 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/527/ssq_th-1370157.pdf" H 14450 5500 50  0001 C CNN
+F 4 "SSQ-106-03-T-S" H 14450 5000 50  0001 C CNN "Manufacturer Part Number"
+F 5 "4" H 14450 5000 50  0001 C CNN "Quantity"
 	1    14450 5000
 	1    0    0    -1  
 $EndComp
