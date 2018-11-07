@@ -472,6 +472,7 @@ F 0 "R1" H 3820 5346 50  0000 L CNN
 F 1 "220" H 3820 5255 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3680 5300 50  0001 C CNN
 F 3 "~" H 3750 5300 50  0001 C CNN
+F 4 "RC0603FR-07220RL" H 3750 5300 50  0001 C CNN "Manufacturer Part Number"
 	1    3750 5300
 	1    0    0    -1  
 $EndComp
@@ -578,6 +579,7 @@ F 0 "R2" H 4320 5346 50  0000 L CNN
 F 1 "220" H 4320 5255 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4180 5300 50  0001 C CNN
 F 3 "~" H 4250 5300 50  0001 C CNN
+F 4 "RC0603FR-07220RL" H 4250 5300 50  0001 C CNN "Manufacturer Part Number"
 	1    4250 5300
 	1    0    0    -1  
 $EndComp
@@ -629,6 +631,7 @@ F 0 "R3" H 7420 3896 50  0000 L CNN
 F 1 "10k" H 7420 3805 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7280 3850 50  0001 C CNN
 F 3 "~" H 7350 3850 50  0001 C CNN
+F 4 "RC0603JR-0710KL" H 7350 3850 50  0001 C CNN "Manufacturer Part Number"
 	1    7350 3850
 	1    0    0    -1  
 $EndComp
