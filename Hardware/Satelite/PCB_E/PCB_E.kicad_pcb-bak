@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 28419)
+    (drawings 28420)
     (tracks 105)
     (zones 0)
     (modules 16)
@@ -996,6 +996,7 @@
       (net 24 /AD3))
   )
 
+  (gr_circle (center 0 0) (end 23.5 0) (layer Edge.Cuts) (width 0.15))
   (gr_line (start 13.705184 17.380445) (end 13.7031 17.377962) (layer B.SilkS) (width 0.1))
   (gr_line (start 13.707343 17.382882) (end 13.705184 17.380445) (layer B.SilkS) (width 0.1))
   (gr_line (start 13.771766 17.419834) (end 13.768436 17.419048) (layer B.SilkS) (width 0.1))
