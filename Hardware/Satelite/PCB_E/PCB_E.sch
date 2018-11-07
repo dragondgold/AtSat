@@ -172,10 +172,6 @@ Wire Wire Line
 Wire Wire Line
 	10050 3700 9600 3700
 Wire Wire Line
-	9600 4000 10050 4000
-Wire Wire Line
-	10050 4100 9600 4100
-Wire Wire Line
 	9600 3800 10050 3800
 Wire Wire Line
 	10050 3900 9600 3900
@@ -187,10 +183,6 @@ Text Label 9650 3800 0    50   ~ 0
 IO2
 Text Label 9650 3900 0    50   ~ 0
 IO3
-Text Label 9650 4000 0    50   ~ 0
-IO4
-Text Label 9650 4100 0    50   ~ 0
-IO5
 Text Label 9450 2150 0    50   ~ 0
 IO6
 Wire Wire Line
@@ -248,18 +240,6 @@ F 4 "SSW-106-03-T-S" H 10250 5750 50  0001 C CNN "Manufacturer Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x06 J13
-U 1 1 5BCE857F
-P 10250 3800
-F 0 "J13" H 9850 3400 50  0000 L CNN
-F 1 "Conn_01x06" H 9850 3300 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 10250 3800 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/527/ssw_sm-1370305.pdf" H 10250 3800 50  0001 C CNN
-F 4 "SSW-106-03-T-S" H 10250 3800 50  0001 C CNN "Manufacturer Part Number"
-	1    10250 3800
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector_Generic:Conn_01x06 J14
 U 1 1 5BCE85D3
 P 10250 4800
@@ -271,222 +251,6 @@ F 4 "SSW-106-03-T-S" H 10250 4800 50  0001 C CNN "Manufacturer Part Number"
 	1    10250 4800
 	1    0    0    -1  
 $EndComp
-$Comp
-L Connector_Generic:Conn_02x04_Odd_Even J4
-U 1 1 5BCEAA33
-P 4800 1450
-F 0 "J4" H 4850 1767 50  0000 C CNN
-F 1 "Conn_02x04_Odd_Even" H 4850 1676 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 4800 1450 50  0001 C CNN
-F 3 "~" H 4800 1450 50  0001 C CNN
-	1    4800 1450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4600 1350 4600 1450
-Connection ~ 4600 1450
-Wire Wire Line
-	4600 1450 4600 1550
-Connection ~ 4600 1550
-Wire Wire Line
-	4600 1550 4600 1650
-Wire Wire Line
-	5100 1350 5100 1450
-Connection ~ 5100 1450
-Wire Wire Line
-	5100 1450 5100 1550
-Connection ~ 5100 1550
-Wire Wire Line
-	5100 1550 5100 1650
-$Comp
-L Connector_Generic:Conn_02x04_Odd_Even J8
-U 1 1 5BCEED62
-P 5600 1450
-F 0 "J8" H 5650 1767 50  0000 C CNN
-F 1 "Conn_02x04_Odd_Even" H 5650 1676 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 5600 1450 50  0001 C CNN
-F 3 "~" H 5600 1450 50  0001 C CNN
-	1    5600 1450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5400 1350 5400 1450
-Connection ~ 5400 1450
-Wire Wire Line
-	5400 1450 5400 1550
-Connection ~ 5400 1550
-Wire Wire Line
-	5400 1550 5400 1650
-Wire Wire Line
-	5900 1350 5900 1450
-Connection ~ 5900 1450
-Wire Wire Line
-	5900 1450 5900 1550
-Connection ~ 5900 1550
-Wire Wire Line
-	5900 1550 5900 1650
-$Comp
-L Connector_Generic:Conn_02x04_Odd_Even J5
-U 1 1 5BCF37F5
-P 4800 2050
-F 0 "J5" H 4850 2367 50  0000 C CNN
-F 1 "Conn_02x04_Odd_Even" H 4850 2276 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 4800 2050 50  0001 C CNN
-F 3 "~" H 4800 2050 50  0001 C CNN
-	1    4800 2050
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4600 1950 4600 2050
-Connection ~ 4600 2050
-Wire Wire Line
-	4600 2050 4600 2150
-Connection ~ 4600 2150
-Wire Wire Line
-	4600 2150 4600 2250
-Wire Wire Line
-	5100 1950 5100 2050
-Connection ~ 5100 2050
-Wire Wire Line
-	5100 2050 5100 2150
-Connection ~ 5100 2150
-Wire Wire Line
-	5100 2150 5100 2250
-$Comp
-L Connector_Generic:Conn_02x04_Odd_Even J9
-U 1 1 5BCF3806
-P 5600 2050
-F 0 "J9" H 5650 2367 50  0000 C CNN
-F 1 "Conn_02x04_Odd_Even" H 5650 2276 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 5600 2050 50  0001 C CNN
-F 3 "~" H 5600 2050 50  0001 C CNN
-	1    5600 2050
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5400 1950 5400 2050
-Connection ~ 5400 2050
-Wire Wire Line
-	5400 2050 5400 2150
-Connection ~ 5400 2150
-Wire Wire Line
-	5400 2150 5400 2250
-Wire Wire Line
-	5900 1950 5900 2050
-Connection ~ 5900 2050
-Wire Wire Line
-	5900 2050 5900 2150
-Connection ~ 5900 2150
-Wire Wire Line
-	5900 2150 5900 2250
-$Comp
-L Connector_Generic:Conn_02x04_Odd_Even J6
-U 1 1 5BCF648A
-P 4800 2600
-F 0 "J6" H 4850 2917 50  0000 C CNN
-F 1 "Conn_02x04_Odd_Even" H 4850 2826 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 4800 2600 50  0001 C CNN
-F 3 "~" H 4800 2600 50  0001 C CNN
-	1    4800 2600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4600 2500 4600 2600
-Connection ~ 4600 2600
-Wire Wire Line
-	4600 2600 4600 2700
-Connection ~ 4600 2700
-Wire Wire Line
-	4600 2700 4600 2800
-Wire Wire Line
-	5100 2500 5100 2600
-Connection ~ 5100 2600
-Wire Wire Line
-	5100 2600 5100 2700
-Connection ~ 5100 2700
-Wire Wire Line
-	5100 2700 5100 2800
-$Comp
-L Connector_Generic:Conn_02x04_Odd_Even J10
-U 1 1 5BCF649B
-P 5600 2600
-F 0 "J10" H 5650 2917 50  0000 C CNN
-F 1 "Conn_02x04_Odd_Even" H 5650 2826 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 5600 2600 50  0001 C CNN
-F 3 "~" H 5600 2600 50  0001 C CNN
-	1    5600 2600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5400 2500 5400 2600
-Connection ~ 5400 2600
-Wire Wire Line
-	5400 2600 5400 2700
-Connection ~ 5400 2700
-Wire Wire Line
-	5400 2700 5400 2800
-Wire Wire Line
-	5900 2500 5900 2600
-Connection ~ 5900 2600
-Wire Wire Line
-	5900 2600 5900 2700
-Connection ~ 5900 2700
-Wire Wire Line
-	5900 2700 5900 2800
-$Comp
-L Connector_Generic:Conn_02x04_Odd_Even J7
-U 1 1 5BCF64AC
-P 4800 3200
-F 0 "J7" H 4850 3517 50  0000 C CNN
-F 1 "Conn_02x04_Odd_Even" H 4850 3426 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 4800 3200 50  0001 C CNN
-F 3 "~" H 4800 3200 50  0001 C CNN
-	1    4800 3200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4600 3100 4600 3200
-Connection ~ 4600 3200
-Wire Wire Line
-	4600 3200 4600 3300
-Connection ~ 4600 3300
-Wire Wire Line
-	4600 3300 4600 3400
-Wire Wire Line
-	5100 3100 5100 3200
-Connection ~ 5100 3200
-Wire Wire Line
-	5100 3200 5100 3300
-Connection ~ 5100 3300
-Wire Wire Line
-	5100 3300 5100 3400
-$Comp
-L Connector_Generic:Conn_02x04_Odd_Even J11
-U 1 1 5BCF64BD
-P 5600 3200
-F 0 "J11" H 5650 3517 50  0000 C CNN
-F 1 "Conn_02x04_Odd_Even" H 5650 3426 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 5600 3200 50  0001 C CNN
-F 3 "~" H 5600 3200 50  0001 C CNN
-	1    5600 3200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5400 3100 5400 3200
-Connection ~ 5400 3200
-Wire Wire Line
-	5400 3200 5400 3300
-Connection ~ 5400 3300
-Wire Wire Line
-	5400 3300 5400 3400
-Wire Wire Line
-	5900 3100 5900 3200
-Connection ~ 5900 3200
-Wire Wire Line
-	5900 3200 5900 3300
-Connection ~ 5900 3300
-Wire Wire Line
-	5900 3300 5900 3400
 Wire Notes Line
 	4150 750  4150 3750
 Wire Notes Line
@@ -854,6 +618,61 @@ F 2 "AXTEC:Empty_Footprint" H 5900 5600 50  0001 C CNN
 F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 6000 5700 50  0001 C CNN
 F 4 "R30-3011002" H 6079 5305 50  0001 L CNN "Manufacturer Part Number"
 	1    6000 5450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x10_Odd_Even J4
+U 1 1 5BE39733
+P 4700 1750
+F 0 "J4" H 4750 2367 50  0000 C CNN
+F 1 "Conn_02x10_Odd_Even" H 4750 2276 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x10_P2.54mm_Vertical" H 4700 1750 50  0001 C CNN
+F 3 "~" H 4700 1750 50  0001 C CNN
+	1    4700 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x10_Odd_Even J6
+U 1 1 5BE39783
+P 5750 1750
+F 0 "J6" H 5800 2367 50  0000 C CNN
+F 1 "Conn_02x10_Odd_Even" H 5800 2276 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x10_P2.54mm_Vertical" H 5750 1750 50  0001 C CNN
+F 3 "~" H 5750 1750 50  0001 C CNN
+	1    5750 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x10_Odd_Even J5
+U 1 1 5BE39848
+P 4700 3050
+F 0 "J5" H 4750 3667 50  0000 C CNN
+F 1 "Conn_02x10_Odd_Even" H 4750 3576 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x10_P2.54mm_Vertical" H 4700 3050 50  0001 C CNN
+F 3 "~" H 4700 3050 50  0001 C CNN
+	1    4700 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x10_Odd_Even J7
+U 1 1 5BE3984F
+P 5750 3050
+F 0 "J7" H 5800 3667 50  0000 C CNN
+F 1 "Conn_02x10_Odd_Even" H 5800 3576 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x10_P2.54mm_Vertical" H 5750 3050 50  0001 C CNN
+F 3 "~" H 5750 3050 50  0001 C CNN
+	1    5750 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x04 J8
+U 1 1 5BE3BD5B
+P 10250 3700
+F 0 "J8" H 10050 3350 50  0000 L CNN
+F 1 "Conn_01x04" H 9850 3250 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 10250 3700 50  0001 C CNN
+F 3 "~" H 10250 3700 50  0001 C CNN
+	1    10250 3700
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
