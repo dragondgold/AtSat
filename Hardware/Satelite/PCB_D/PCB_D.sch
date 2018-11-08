@@ -1140,4 +1140,40 @@ Wire Wire Line
 	4850 4500 5050 4500
 Wire Wire Line
 	5050 4500 5050 4600
+$Comp
+L Power_Protection:TPD2E2U06 U4
+U 1 1 5BE4E800
+P 10150 3750
+F 0 "U4" H 10400 3850 50  0000 L CNN
+F 1 "TPD2E2U06" H 10400 3750 50  0000 L CNN
+F 2 "SamacSys_Parts:SOT95P280X100-5N" H 9350 3500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tpd2e2u06.pdf" H 9950 3950 50  0001 C CNN
+	1    10150 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR022
+U 1 1 5BE4E903
+P 10150 4100
+F 0 "#PWR022" H 10150 3850 50  0001 C CNN
+F 1 "GND" H 10154 3926 50  0000 C CNN
+F 2 "" H 10150 4100 50  0001 C CNN
+F 3 "" H 10150 4100 50  0001 C CNN
+	1    10150 4100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10150 4100 10150 4050
+Text Label 9650 2700 0    50   ~ 0
+D+
+Text Label 9650 2800 0    50   ~ 0
+D-
+Wire Wire Line
+	9850 3650 9700 3650
+Wire Wire Line
+	9850 3850 9700 3850
+Text Label 9700 3850 0    50   ~ 0
+D+
+Text Label 9700 3650 0    50   ~ 0
+D-
 $EndSCHEMATC
