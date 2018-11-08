@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 2)
+    (drawings 4)
     (tracks 346)
     (zones 0)
     (modules 44)
@@ -39,7 +39,7 @@
     (zone_clearance 0.25)
     (zone_45_only no)
     (trace_min 0.2)
-    (segment_width 0.2)
+    (segment_width 0.3)
     (edge_width 0.15)
     (via_size 0.8)
     (via_drill 0.3)
@@ -2948,6 +2948,8 @@
       (net 7 /S_GLOBO))
   )
 
+  (gr_circle (center 19.7866 -3.3782) (end 19.9366 -3.3782) (layer F.SilkS) (width 0.3) (tstamp 5BE439B1))
+  (gr_circle (center 22.3012 -1.905) (end 22.4512 -1.905) (layer F.SilkS) (width 0.3) (tstamp 5BE439B1))
   (gr_text PARAC (at 18.161 2.6924 270) (layer F.SilkS) (tstamp 5BE428A9)
     (effects (font (size 1.5 1.5) (thickness 0.3)))
   )

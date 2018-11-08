@@ -547,7 +547,7 @@ F 1 "Conector_PCB_A-B" H 9650 1975 50  0000 C CNN
 F 2 "AXTEC:Conector_PCB_A-B" H 9250 1950 50  0001 C CNN
 F 3 "" H 9250 1950 50  0001 C CNN
 F 4 "CES-103-01-T-S" H 9500 1500 50  0001 C CNN "Manufacturer Part Number 1"
-F 5 "4" H 9500 1500 50  0001 C CNN "Quantity 1"
+F 5 "3" H 9500 1500 50  0001 C CNN "Quantity 1"
 F 6 "CES-104-01-T-S" H 9500 1500 50  0001 C CNN "Manufacturer Part Number 2"
 F 7 "2" H 9500 1500 50  0001 C CNN "Quantity 2"
 	1    9500 1500
