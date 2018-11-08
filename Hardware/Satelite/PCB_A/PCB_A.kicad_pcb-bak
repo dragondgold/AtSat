@@ -2,10 +2,10 @@
 
   (general
     (thickness 1.6)
-    (drawings 0)
+    (drawings 2)
     (tracks 346)
     (zones 0)
-    (modules 41)
+    (modules 44)
     (nets 53)
   )
 
@@ -231,7 +231,40 @@
     (add_net /CC1101/RF_P)
   )
 
-  (module AXTEC:PCB_mayor_diametro (layer F.Cu) (tedit 5BE20105) (tstamp 5BC9CCFB)
+  (module AXTEC:Empty_Footprint (layer F.Cu) (tedit 5BE1E6D3) (tstamp 5BF22265)
+    (at -21.9148 -23.9816)
+    (path /5C2736D4)
+    (fp_text reference M2 (at 0 0.5) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value Spacer (at 0 -0.5) (layer F.Fab) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+  )
+
+  (module AXTEC:Empty_Footprint (layer F.Cu) (tedit 5BE1E6D3) (tstamp 5BF22261)
+    (at -22.4148 -23.9816)
+    (path /5C2735B7)
+    (fp_text reference M1 (at 0 0.5) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value Spacer (at 0 -0.5) (layer F.Fab) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+  )
+
+  (module AXTEC:Empty_Footprint (layer F.Cu) (tedit 5BE1E6D3) (tstamp 5BF2225D)
+    (at -22.9148 -23.9816)
+    (path /5C273720)
+    (fp_text reference M3 (at 0 0.5) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value Spacer (at 0 -0.5) (layer F.Fab) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+  )
+
+  (module AXTEC:PCB_mayor_diametro locked (layer F.Cu) (tedit 5BE20105) (tstamp 5BC9CCFB)
     (at 0 0)
     (fp_text reference REF** (at 0.2 -16.9) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
@@ -1927,7 +1960,7 @@
     (at -4 13.65)
     (descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
     (tags "resistor handsolder")
-    (path /5BA1A7F9/5BAD7E11)
+    (path /5BA1A7F9/5C2659D3)
     (attr smd)
     (fp_text reference R4 (at 0.88 1.43) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -1963,7 +1996,7 @@
     (at -7.5 -7.1 90)
     (descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
     (tags "resistor handsolder")
-    (path /5BA1A7F9/5BADA56C)
+    (path /5BA1A7F9/5C265A87)
     (attr smd)
     (fp_text reference R5 (at 2.5 0 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -1999,7 +2032,7 @@
     (at -9.3 -7.1 90)
     (descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
     (tags "resistor handsolder")
-    (path /5BA1A7F9/5BADA5CC)
+    (path /5BA1A7F9/5C265B51)
     (attr smd)
     (fp_text reference R6 (at 2.5 0 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -2035,7 +2068,7 @@
     (at -11.2 -7.1 90)
     (descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
     (tags "resistor handsolder")
-    (path /5BA1A7F9/5BAE0532)
+    (path /5BA1A7F9/5C265C3F)
     (attr smd)
     (fp_text reference R7 (at 2.5 0 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -2913,6 +2946,13 @@
       (net 18 /SDI))
     (pad 5 thru_hole oval (at 24.8 -1.27 180) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 7 /S_GLOBO))
+  )
+
+  (gr_text PARAC (at 18.161 2.6924 270) (layer F.SilkS) (tstamp 5BE428A9)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
+  (gr_text GLOBO (at 15.2908 -5.3086) (layer F.SilkS)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
   )
 
   (via (at 11.1 4.09) (size 0.8) (drill 0.3) (layers F.Cu B.Cu) (net 1))
