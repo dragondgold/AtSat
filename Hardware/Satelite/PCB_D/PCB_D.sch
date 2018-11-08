@@ -1176,4 +1176,37 @@ Text Label 9700 3850 0    50   ~ 0
 D+
 Text Label 9700 3650 0    50   ~ 0
 D-
+$Comp
+L Connector_Generic:Conn_01x03 J5
+U 1 1 5BE50609
+P 850 5500
+F 0 "J5" H 770 5175 50  0000 C CNN
+F 1 "Conn_01x03" H 770 5266 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 850 5500 50  0001 C CNN
+F 3 "~" H 850 5500 50  0001 C CNN
+F 4 "61300311121" H 850 5500 50  0001 C CNN "Manufacturer Part Number"
+	1    850  5500
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0102
+U 1 1 5BE5760B
+P 1150 5600
+F 0 "#PWR0102" H 1150 5350 50  0001 C CNN
+F 1 "GND" H 1155 5427 50  0000 C CNN
+F 2 "" H 1150 5600 50  0001 C CNN
+F 3 "" H 1150 5600 50  0001 C CNN
+	1    1150 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1050 5600 1150 5600
+Wire Wire Line
+	1050 5500 1200 5500
+Wire Wire Line
+	1050 5400 1200 5400
+Text Label 1100 5400 0    50   ~ 0
+IO0
+Text Label 1100 5500 0    50   ~ 0
+IO1
 $EndSCHEMATC
