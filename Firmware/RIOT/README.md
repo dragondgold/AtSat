@@ -1,3 +1,20 @@
+
+       _____                    _____           _   
+      / ____|                  / ____|         | |  
+     | |        __ _   _ __   | (___     __ _  | |_ 
+     | |       / _` | | '_ \   \___ \   / _` | | __|
+     | |____  | (_| | | | | |  ____) | | (_| | | |_ 
+      \_____|  \__,_| |_| |_| |_____/   \__,_|  \__|
+                                                    
+                                                                                                                               
+## CanSat Firmware
+
+Esta carpeta contiene todo el firmware del microcontrolador supervisor del CanSat. Se hace uso del RTOS RIOT para el desarrollo del mismo por lo que todas las carpetas excepto "cansat" pertencen al RTOS. Dentro de la carpeta "cansat" se encuentra el firmware desarrollado.
+
+Para referencia y a modo informativo debajo se encuentra el README de RIOT OS.
+
+---
+
 [![Nightly CI status master][master-ci-badge]][master-ci-link]
 [![IRC][irc-badge]][irc-link]
 
@@ -36,7 +53,7 @@ devices that are typically found in the Internet of Things (IoT):
 RIOT is based on the following design principles: energy-efficiency, real-time
 capabilities, small memory footprint, modularity, and uniform API access,
 independent of the underlying hardware (this API offers partial POSIX
-compliance).
+compliance)
 
 RIOT is developed by an international open source community which is
 independent of specific vendors (e.g. similarly to the Linux community).
