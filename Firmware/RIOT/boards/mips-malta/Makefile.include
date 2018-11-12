@@ -1,0 +1,6 @@
+export CPU = mips32r2_generic
+#export USE_HARD_FLOAT = 1
+export USE_DSP = 1
+export USE_UHI_SYSCALLS = 1
+
+HEXFILE = $(BINFILE)

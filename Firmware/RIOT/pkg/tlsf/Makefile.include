@@ -1,0 +1,6 @@
+INCLUDES += -I$(PKGDIRBASE)/tlsf
+
+ifneq (,$(filter tlsf-malloc,$(USEMODULE)))
+  INCLUDES += -I$(RIOTPKG)/tlsf/contrib/include
+  DIRS += $(RIOTPKG)/tlsf/contrib
+endif

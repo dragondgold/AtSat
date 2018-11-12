@@ -1,0 +1,14 @@
+INCLUDES += -I$(PKGDIRBASE)
+INCLUDES += -I$(RIOTPKG)/fatfs/fatfs_diskio/mtd/include
+DIRS += $(PKGDIRBASE)/fatfs
+
+DIRS += $(RIOTBASE)/pkg/fatfs/fatfs_diskio/mtd
+
+
+ifneq (,$(filter fatfs_vfs,$(USEMODULE)))
+  DIRS += $(RIOTBASE)/pkg/fatfs/fatfs_vfs
+endif
+
+ifeq ($(shell uname -s),Darwin)
+  CFLAGS += -Wno-empty-body
+endif

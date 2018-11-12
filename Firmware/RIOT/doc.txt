@@ -1,0 +1,33 @@
+/**
+ * @defgroup utils Utilities
+ * @brief Utilities and helper functionality
+ *
+ *        Additional scripts and configuration options to ease RIOT
+ *        development.
+ * @{
+ */
+
+/**
+ * @def DEVELHELP
+ * @brief   This global macro activates functionality to help developers.
+ *
+ *          Additional code parts such as (extensive) debug output and sanity
+ *          checks using assertions. To activate it set environment variable
+ *          `DEVELHELP=1`, or disable explicitly with `DEVELHELP=0`.
+ */
+#if DOXYGEN
+#   define DEVELHELP
+#endif
+
+/**
+ * @def TEST_SUITES
+ * @brief   This global macro activates functionality that is needed for
+ *          automated testing but not needed otherwise.
+ */
+#if DOXYGEN
+#   define TEST_SUITES
+#endif
+
+/**
+ * @}
+ */

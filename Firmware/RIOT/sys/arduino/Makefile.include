@@ -1,0 +1,9 @@
+# compile together the Arduino sketches of the application
+SKETCHES = $(wildcard $(APPDIR)/*.sketch)
+SRCDIR = $(RIOTBASE)/sys/arduino
+
+# run the Arduino pre-build script
+$(shell $(RIOTTOOLS)/arduino/pre_build.sh $(SRCDIR) $(APPDIR) $(SKETCHES))
+
+# include the Arduino headers
+INCLUDES += -I$(RIOTBASE)/sys/arduino/include
