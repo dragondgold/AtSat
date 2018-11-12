@@ -15,10 +15,10 @@ doc/doxygen/*.tmp
 .*.swp
 cachegrind.out*
 # Eclipse workspace files
-.project
-.cproject
-.settings
-.idea
+#.project
+#.cproject
+#.settings
+#.idea
 # KDevelop4 project files
 .kdev4
 *.kdev4
@@ -56,3 +56,4 @@ Makefile.local
 
 # scan-build artifacts
 scan-build/
+/Debug/
