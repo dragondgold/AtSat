@@ -1,0 +1,10 @@
+ifneq (,$(filter tinydtls,$(USEPKG)))
+  USEMODULE += tinydtls
+endif
+
+ifneq (,$(filter tinydtls,$(USEMODULE)))
+  USEMODULE += memarray
+  USEMODULE += hashes
+  USEMODULE += tinydtls_aes
+  USEMODULE += tinydtls_ecc
+endif

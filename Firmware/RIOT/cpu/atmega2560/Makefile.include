@@ -1,0 +1,8 @@
+# tell the build system that the CPU depends on the atmega common files
+USEMODULE += atmega_common
+
+RAM_LEN = 8K
+ROM_LEN = 256K
+
+# CPU depends on the atmega common module, so include it
+include $(RIOTCPU)/atmega_common/Makefile.include

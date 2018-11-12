@@ -1,0 +1,5 @@
+# define the cpu used by SODAQ Autonomo board
+export CPU = samd21
+export CPU_MODEL = samd21j18a
+
+include $(RIOTMAKE)/boards/sam0.inc.mk
