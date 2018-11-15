@@ -2,7 +2,6 @@
 
 #include "thread.h"
 #include "msg.h"
-#include "config/cansat.h"
 
 void *second_thread(void *arg)
 {
@@ -25,8 +24,6 @@ char second_thread_stack[THREAD_STACKSIZE_MAIN];
 
 int main(void)
 {
-	cansat_init();
-
     printf("Starting IPC Ping-pong example...\n");
     printf("1st thread started, pid: %" PRIkernel_pid "\n", thread_getpid());
 

@@ -16,8 +16,9 @@ void cansat_init(void)
 	// THIS DOES NOT CONFIGURE THE USB CLOCK.
 	// See: https://riot-os.org/api/group__cpu__stm32__common.html
 	stmclk_init_sysclk();
+	MX_ADC1_Init();
+	MX_ADC2_Init();
 
-	/*
 	RCC_OscInitTypeDef RCC_OscInitStruct;
 	RCC_ClkInitTypeDef RCC_ClkInitStruct;
 	RCC_PeriphCLKInitTypeDef PeriphClkInit;
@@ -77,5 +78,5 @@ void cansat_init(void)
 	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
 	// SysTick_IRQn interrupt configuration
-	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);*/
+	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
