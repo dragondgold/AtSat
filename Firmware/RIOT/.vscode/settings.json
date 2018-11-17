@@ -26,7 +26,5 @@
         "periph_cpu.h": "c",
         "periph_conf.h": "c",
         "uart.h": "c"
-    },
-    "editor.formatOnSave": true,
-    "editor.formatOnType": true
+    }
 }

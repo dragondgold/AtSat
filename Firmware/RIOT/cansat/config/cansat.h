@@ -88,7 +88,6 @@
 #define IO_ENABLE_MODE GPIO_OUT
 
 // UART
-#define CONSOLE_UART 0
 #define GPS_UART 2
 #define COMMAND_UART 3
 

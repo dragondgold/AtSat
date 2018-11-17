@@ -78,7 +78,6 @@ void cansat_init(void)
 	MX_ADC2_Init();
 
 	// Init UART
-	uart_init(CONSOLE_UART, 115200, NULL, NULL);
 	uart_init(GPS_UART, 9600, gps_uart_rx_interrupt, NULL);
 	uart_init(COMMAND_UART, 115200, command_uart_rx_interrupt, NULL);
 }
