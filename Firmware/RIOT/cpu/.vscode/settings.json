@@ -1,0 +1,23 @@
+{
+    "riot.build_dir": "cansat",
+    "riot.board": "nucleo-f303re",
+    "riot.compiler": "arm-none-eabi-gcc",
+    "files.watcherExclude": {
+        ".github/**": true,
+        "**/bin/**": true,
+        "/boards/**": true,
+        "/core/**": true,
+        "/cpu/**": true,
+        "/dist/**": true,
+        "/doc/**": true,
+        "/drivers/**": true,
+        "/examples/**": true,
+        "/makefiles/**": true,
+        "/pkg/**": true,
+        "/sys/**": true,
+        "/tests/**": true
+    },
+    "files.associations": {
+        "stmclk.h": "c"
+    }
+}

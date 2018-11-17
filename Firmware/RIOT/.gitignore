@@ -15,17 +15,17 @@ doc/doxygen/*.tmp
 .*.swp
 cachegrind.out*
 # Eclipse workspace files
-#.project
-#.cproject
-#.settings
-#.idea
+.project
+.cproject
+.settings
+.idea
 # KDevelop4 project files
 .kdev4
 *.kdev4
 # Codelite (among others) project files
 *.project
 # Visual Studio Code user settings
-.vscode/
+#.vscode/
 # ctags index files
 tags
 # GDB initialization scripts

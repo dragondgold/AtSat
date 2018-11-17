@@ -1,0 +1,92 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build: cansat",
+            "type": "shell",
+            "command": "make ${config:riot.quiet} BOARD=${config:riot.board}",
+            "options": {
+                "cwd": "${config:riot.build_dir}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "absolute"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "flash: cansat",
+            "type": "shell",
+            "command": "make",
+            "options": {
+                "cwd": "${config:riot.build_dir}"
+            },
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "args": [
+                "${config:riot.quiet}",
+                "BOARD=${config:riot.board}",
+                "flash"
+            ],
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "absolute"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "clean: cansat",
+            "type": "shell",
+            "command": "make",
+            "options": {
+                "cwd": "${config:riot.build_dir}"
+            },
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "args": [
+                "${config:riot.quiet}",
+                "BOARD=${config:riot.board}",
+                "clean"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
