@@ -9,6 +9,7 @@
 #include "stm32f3xx_hal.h"
 #include "adc.h"
 #include "stmclk.h"
+#include "auxiliary_psu_manager/auxiliary_psu_manager.h"
 #include "periph/gpio.h"
 #include "periph/uart.h"
 #include "periph/i2c.h"
@@ -73,9 +74,8 @@ void cansat_init(void)
 	// Configure GPIO pins
 	init_gpio();
 
-	// Init ADC1 and ADC2
-	MX_ADC1_Init();
-	MX_ADC2_Init();
+	// Init managers
+	auxiliary_psu_manager_init();
 
 	// Init UART
 	uart_init(GPS_UART, 9600, gps_uart_rx_interrupt, NULL);

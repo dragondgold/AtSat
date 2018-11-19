@@ -16,7 +16,8 @@
                 "echo": true,
                 "reveal": "always",
                 "focus": false,
-                "panel": "shared"
+                "panel": "shared",
+                "clear": true
             },
             "problemMatcher": {
                 "owner": "cpp",
@@ -45,7 +46,8 @@
                 "echo": true,
                 "reveal": "always",
                 "focus": false,
-                "panel": "shared"
+                "panel": "shared",
+                "clear": true
             },
             "args": [
                 "${config:riot.quiet}",
@@ -79,7 +81,8 @@
                 "echo": true,
                 "reveal": "always",
                 "focus": false,
-                "panel": "shared"
+                "panel": "shared",
+                "clear": true
             },
             "args": [
                 "${config:riot.quiet}",

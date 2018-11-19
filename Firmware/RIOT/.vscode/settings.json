@@ -25,6 +25,9 @@
         "gpio.h": "c",
         "periph_cpu.h": "c",
         "periph_conf.h": "c",
-        "uart.h": "c"
+        "uart.h": "c",
+        "auxiliar_psu_manager.h": "c",
+        "stm32f3xx_hal.h": "c",
+        "auxiliary_psu_manager.h": "c"
     }
 }
