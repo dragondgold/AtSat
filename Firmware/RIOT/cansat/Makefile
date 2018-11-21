@@ -7,13 +7,15 @@ BOARD ?= cansat
 # This has to be the absolute path to the RIOT base directory:
 RIOTBASE ?= $(CURDIR)/..
 
+# Modules
+USEMODULE += xtimer
+FEATURES_REQUIRED += periph_timer
+
 # Directory includes
-INCLUDES += -I$(CURDIR)/stm32cube/Inc -I$(CURDIR)/stm32cube/Drivers/STM32F3xx_HAL_Driver/Inc -I$(CURDIR)/stm32cube/Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I$(CURDIR)/stm32cube/Drivers/CMSIS/Device/ST/STM32F3xx/Include -I$(CURDIR)/stm32cube/Drivers/CMSIS/Include
-INCLUDES += -I$(CURDIR)/stm32cube/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I$(CURDIR)/stm32cube/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
 INCLUDES += -I$(CURDIR)
 
-DIRS += config
-USEMODULE += config
+DIRS += config auxiliary_psu_manager drivers
+USEMODULE += config auxiliary_psu_manager drivers
 
 # Comment this out to disable code in RIOT that does safety checking
 # which is not needed in a production environment but helps in the

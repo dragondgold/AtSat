@@ -87,6 +87,27 @@
 #define IO_ENABLE_PIN 8
 #define IO_ENABLE_MODE GPIO_OUT
 
+// Analog Inputs
+#define I_SENSE_5V_PORT PORT_A
+#define I_SENSE_5V_PIN 0
+#define I_SENSE_5V_CHANNEL 1
+
+#define I_SENSE_3V3_PORT PORT_A
+#define I_SENSE_3V3_PIN 1
+#define I_SENSE_3V3_CHANNEL 2
+
+#define V_SENSE_5V_PORT PORT_A
+#define V_SENSE_5V_PIN 5
+#define V_SENSE_5V_CHANNEL 2
+
+#define V_SENSE_3V3_PORT PORT_A
+#define V_SENSE_3V3_PIN 4
+#define V_SENSE_3V3_CHANNEL 1
+
+#define I_SENSE_BATT_PORT PORT_A
+#define I_SENSE_BATT_PIN 3
+#define I_SENSE_BATT_CHANNEL 4
+
 // UART
 #define GPS_UART 2
 #define COMMAND_UART 3

@@ -44,6 +44,15 @@ enum {
     PORT_H = 7,             /**< port H */
 };
 
+/**
+ * @brief   ADC channel configuration data
+ */
+typedef struct {
+    gpio_t pin;             /**< pin connected to the channel */
+    uint8_t dev;            /**< ADCx - 1 device used for the channel */
+    uint8_t chan;           /**< CPU ADC channel connected to the pin */
+} adc_conf_t;
+
 #ifdef __cplusplus
 }
 #endif

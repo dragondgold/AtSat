@@ -6,8 +6,6 @@
  */
 #include <stdint.h>
 #include "cansat.h"
-#include "stm32f3xx_hal.h"
-#include "adc.h"
 #include "stmclk.h"
 #include "auxiliary_psu_manager/auxiliary_psu_manager.h"
 #include "periph/gpio.h"

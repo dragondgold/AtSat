@@ -28,6 +28,12 @@
         "uart.h": "c",
         "auxiliar_psu_manager.h": "c",
         "stm32f3xx_hal.h": "c",
-        "auxiliary_psu_manager.h": "c"
+        "auxiliary_psu_manager.h": "c",
+        "adc.h": "c",
+        "stdbool.h": "c",
+        "cpu_conf_stm32_common.h": "c",
+        "cpu.h": "c",
+        "limits.h": "c",
+        "mutex.h": "c"
     }
 }
