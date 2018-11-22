@@ -7,6 +7,7 @@
 #include "mutex.h"
 #include "xtimer.h"
 #include "periph_conf.h"
+#include "drivers/adc.h"
 
 static mutex_t lock;
 static bool is_psu_on = false;
@@ -22,9 +23,6 @@ static void auxiliary_psu_manager_adc_init(void) {
     gpio_init_analog(GPIO_PIN(V_SENSE_3V3_PORT, V_SENSE_3V3_PIN));
     gpio_init_analog(GPIO_PIN(I_SENSE_BATT_PORT, I_SENSE_BATT_PIN));
 
-    adc_init(1);
-
-/*
     // ADC1 setup
 	adc_power_off(ADC1);
     adc_enable_regulator(ADC1);
@@ -32,7 +30,7 @@ static void auxiliary_psu_manager_adc_init(void) {
 	adc_set_single_conversion_mode(ADC1);
 	adc_disable_external_trigger_regular(ADC1);
 	adc_set_right_aligned(ADC1);
-    adc_set_resolution(ADC1, ADC_CFGR1_RES_12_BIT);
+    adc_set_resolution(ADC1, ADC_RES_12BIT);
 
     // ADC2 setup
 	adc_power_off(ADC2);
@@ -41,7 +39,7 @@ static void auxiliary_psu_manager_adc_init(void) {
 	adc_set_single_conversion_mode(ADC2);
 	adc_disable_external_trigger_regular(ADC2);
 	adc_set_right_aligned(ADC2);
-    adc_set_resolution(ADC2, ADC_CFGR1_RES_12_BIT);*/
+    adc_set_resolution(ADC2, ADC_RES_12BIT);
 
     /**
      * MCP6001 are used to buffer the voltage readings to the ADC inputs. The shortcircuit
@@ -58,15 +56,14 @@ static void auxiliary_psu_manager_adc_init(void) {
      * With a 36 MHz clock on the ADC module, the period is ~28 ns, so even a single cycle is
      *  enough as sample time. 21 ns is the minimun sample time allowed by the ADC.
      */
-    /*
     adc_set_sample_time_on_all_channels(ADC1, ADC_SMPR_SMP_2DOT5CYC);   // 64 ns
-    
+    adc_set_sample_time_on_all_channels(ADC2, ADC_SMPR_SMP_2DOT5CYC);   // 64 ns
 
 	// Set all the channels that will be converted on each trigger
 	uint8_t channel_array_adc1[] = { I_SENSE_5V_CHANNEL, I_SENSE_3V3_PIN, I_SENSE_BATT_CHANNEL };
     uint8_t channel_array_adc2[] = { V_SENSE_5V_CHANNEL, V_SENSE_3V3_CHANNEL };
-	adc_set_regular_sequence(ADC1, 1, channel_array);
-    adc_set_regular_sequence(ADC1, 1, channel_array);
+	adc_set_regular_sequence(ADC1, 1, channel_array_adc1);
+    adc_set_regular_sequence(ADC1, 1, channel_array_adc2);
 
 	// Regulator startup time (10 us worst case scenario)
     xtimer_usleep(10);
@@ -78,7 +75,7 @@ static void auxiliary_psu_manager_adc_init(void) {
     adc_enable_eoc_interrupt(ADC1);
     
     // Wait at least 1 us for ADC stabilization
-    xtimer_usleep(5);*/
+    xtimer_usleep(5);
 }
 
 void auxiliary_psu_manager_init(void) 

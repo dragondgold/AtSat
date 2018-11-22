@@ -247,22 +247,6 @@ static const i2c_conf_t i2c_config[] = {
 #define I2C_NUMOF           (sizeof(i2c_config) / sizeof(i2c_config[0]))
 /** @} */
 
-/**
- * @name   ADC configuration
- * @{
- */
-#define ADC_DEVS           (4U)
-#define ADC_NUMOF          (5U)
-// PIN, ADC NUMBER, ADC CHANNEL
-#define ADC_CONFIG {                \
-    { GPIO_PIN(PORT_A, 0), 0, 0 },  \
-    { GPIO_PIN(PORT_A, 1), 0, 1 },  \
-    { GPIO_PIN(PORT_A, 4), 0, 4 },  \
-    { GPIO_PIN(PORT_B, 0), 0, 8 },  \
-    { GPIO_PIN(PORT_C, 1), 0, 11 }, \
-}
-/** @} */
-
 #ifdef __cplusplus
 }
 #endif
