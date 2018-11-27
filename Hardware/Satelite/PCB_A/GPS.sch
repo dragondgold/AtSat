@@ -148,7 +148,7 @@ F 0 "C3" H 3650 3200 50  0000 L CNN
 F 1 "1uF" H 3600 3100 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3500 3200 50  0001 C CNN
 F 3 "~" H 3500 3200 50  0001 C CNN
-F 4 "GRM155R61E105KA12D" H 3500 3200 50  0001 C CNN "Manufacturer Part Number"
+F 4 "LMK107B7105MA-T" H 3500 3200 50  0001 C CNN "Manufacturer Part Number"
 	1    3500 3200
 	1    0    0    -1  
 $EndComp
