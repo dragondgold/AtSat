@@ -235,7 +235,6 @@ F 0 "J15" H 9850 5350 50  0000 L CNN
 F 1 "Conn_01x06" H 9850 5250 50  0000 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 10250 5750 50  0001 C CNN
 F 3 "https://www.mouser.com/datasheet/2/527/ssw_sm-1370305.pdf" H 10250 5750 50  0001 C CNN
-F 4 "SSW-106-03-T-S" H 10250 5750 50  0001 C CNN "Manufacturer Part Number"
 	1    10250 5750
 	1    0    0    -1  
 $EndComp
@@ -247,7 +246,6 @@ F 0 "J14" H 9850 4400 50  0000 L CNN
 F 1 "Conn_01x06" H 9850 4300 50  0000 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 10250 4800 50  0001 C CNN
 F 3 "https://www.mouser.com/datasheet/2/527/ssw_sm-1370305.pdf" H 10250 4800 50  0001 C CNN
-F 4 "SSW-106-03-T-S" H 10250 4800 50  0001 C CNN "Manufacturer Part Number"
 	1    10250 4800
 	1    0    0    -1  
 $EndComp
