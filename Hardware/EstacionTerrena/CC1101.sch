@@ -20,19 +20,6 @@ Text HLabel 2700 3250 0    50   Output ~ 0
 SO
 Text HLabel 2900 2300 0    50   Input ~ 0
 SI
-$Comp
-L power:GND #PWR026
-U 1 1 5B9A819D
-P 3500 4700
-F 0 "#PWR026" H 3500 4450 50  0001 C CNN
-F 1 "GND" H 3505 4527 50  0000 C CNN
-F 2 "" H 3500 4700 50  0001 C CNN
-F 3 "" H 3500 4700 50  0001 C CNN
-	1    3500 4700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3500 4700 3500 4550
 Text HLabel 9400 3500 2    50   BiDi ~ 0
 ANT
 $Bitmap
@@ -733,7 +720,7 @@ U 1 1 5BF115E1
 P 7150 3400
 F 0 "U5" H 7150 3766 50  0000 C CNN
 F 1 "0915BM15A0001E" H 7150 3674 50  0000 C CNN
-F 2 "0915BM15A0001E" H 7500 3600 50  0001 L CNN
+F 2 "SamacSys_Parts:0915BM15A0001E" H 7500 3600 50  0001 L CNN
 F 3 "http://www.mouser.com/datasheet/2/611/0915BM15A0001-242333.pdf" H 7500 3500 50  0001 L CNN
 F 4 "Signal Conditioning 915MHz BALUN/FILTER" H 7500 3400 50  0001 L CNN "Description"
 F 5 "0.8" H 7500 3300 50  0001 L CNN "Height"
@@ -772,7 +759,7 @@ U 1 1 5BBFFFB0
 P 2900 3150
 F 0 "U4" H 4200 3800 50  0000 L CNN
 F 1 "CC1101RGP" H 4200 3700 50  0000 L CNN
-F 2 "QFN50P400X400X100-21N-D" H 4250 3650 50  0001 L CNN
+F 2 "SamacSys_Parts:QFN50P400X400X100-21N-D" H 4250 3650 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/cc1101.pdf" H 4250 3550 50  0001 L CNN
 F 4 "Texas Instruments CC1101RGP, RF Transceiver IC Triple Band 1.8  3.6 V 20-Pin QFN" H 4250 3450 50  0001 L CNN "Description"
 F 5 "1" H 4250 3350 50  0001 L CNN "Height"
@@ -785,4 +772,10 @@ F 11 "https://www.arrow.com/en/products/cc1101rgp/texas-instruments" H 4250 2750
 	1    2900 3150
 	1    0    0    -1  
 $EndComp
+Text HLabel 3150 4700 0    50   Input ~ 0
+CS
+Wire Wire Line
+	3150 4700 3500 4700
+Wire Wire Line
+	3500 4700 3500 4550
 $EndSCHEMATC
