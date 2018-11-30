@@ -288,6 +288,7 @@ F 0 "J3" V 5773 5080 50  0000 L CNN
 F 1 "Conn_01x03" V 5864 5080 50  0000 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Horizontal" H 5900 4900 50  0001 C CNN
 F 3 "~" H 5900 4900 50  0001 C CNN
+F 4 "61300311121" V 5900 4900 50  0001 C CNN "Manufacturer Part Number"
 	1    5900 4900
 	0    1    1    0   
 $EndComp
