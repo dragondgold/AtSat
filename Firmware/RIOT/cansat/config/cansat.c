@@ -8,16 +8,10 @@
 #include "cansat.h"
 #include "stmclk.h"
 #include "auxiliary_psu_manager/auxiliary_psu_manager.h"
+#include "gps_manager/gps_manager.h"
 #include "periph/gpio.h"
 #include "periph/uart.h"
 #include "periph/i2c.h"
-
-// GPS UART driver callback
-static void gps_uart_rx_interrupt(void *arg, uint8_t data)
-{
-	(void)arg;
-	(void)data;
-}
 
 // Command UART driver callback
 static void command_uart_rx_interrupt(void *arg, uint8_t data)
@@ -27,8 +21,7 @@ static void command_uart_rx_interrupt(void *arg, uint8_t data)
 }
 
 /**
- * This function initializes all the GPIO. Peripheral specific pins are initialized on the respective
- *  peripheral function
+ * This function initializes all the GPIO. Peripheral specific pins are not initialized here.
  */
 static void init_gpio(void)
 {
@@ -74,8 +67,8 @@ void cansat_init(void)
 
 	// Init managers
 	auxiliary_psu_manager_init();
+	gps_manager_init();
 
 	// Init UART
-	uart_init(GPS_UART, 9600, gps_uart_rx_interrupt, NULL);
 	uart_init(COMMAND_UART, 115200, command_uart_rx_interrupt, NULL);
 }

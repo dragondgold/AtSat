@@ -26,21 +26,6 @@
  * @{
  */
 #define ADC_DEVS           (4U)
-#define ADC_NUMOF          (5U)
-// PIN, ADC DEVICE, ADC CHANNEL
-#define ADC_CONFIG {                \
-    { GPIO_PIN(PORT_A, 0), 0, 0 },  \
-    { GPIO_PIN(PORT_A, 1), 0, 1 },  \
-    { GPIO_PIN(PORT_A, 4), 0, 4 },  \
-    { GPIO_PIN(PORT_B, 0), 0, 8 },  \
-    { GPIO_PIN(PORT_C, 1), 0, 11 }, \
-}
-/** @} */
-
-/**
- * @brief   Load the ADC configuration
- */
-static const adc_conf_t adc_config[] = ADC_CONFIG;
 
 /**
  * @brief   Allocate locks for all three available ADC devices
@@ -57,21 +42,6 @@ static mutex_t locks[] = {
 #endif
     MUTEX_INIT
 };
-
-static inline ADC_TypeDef *dev(adc_t line)
-{
-    return (ADC_TypeDef *)(ADC1_BASE + (adc_config[line].dev << 8));
-}
-
-static inline void prep(adc_t line)
-{
-    mutex_lock(&locks[adc_config[line].dev]);
-}
-
-static inline void done(adc_t line)
-{
-    mutex_unlock(&locks[adc_config[line].dev]);
-}
 
 void adc_acquire(ADC_TypeDef* adc) {
     if(adc == ADC1) mutex_lock(&locks[0]);
@@ -632,6 +602,7 @@ void adc_disable_external_trigger_regular(ADC_TypeDef* adc)
  */
 int adc_init(adc_t line)
 {
+	(void)line;
     return -1;
 }
 
@@ -640,5 +611,7 @@ int adc_init(adc_t line)
  */
 int adc_sample(adc_t line, adc_res_t res)
 {
+	(void)line;
+	(void)res;
     return 0;
 }

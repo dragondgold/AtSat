@@ -14,8 +14,11 @@ FEATURES_REQUIRED += periph_timer
 # Directory includes
 INCLUDES += -I$(CURDIR)
 
-DIRS += config auxiliary_psu_manager drivers
-USEMODULE += config auxiliary_psu_manager drivers
+DIRS += config auxiliary_psu_manager drivers gps_manager
+USEMODULE += config auxiliary_psu_manager drivers gps_manager
+
+# Packages
+USEPKG += minmea
 
 # Comment this out to disable code in RIOT that does safety checking
 # which is not needed in a production environment but helps in the
