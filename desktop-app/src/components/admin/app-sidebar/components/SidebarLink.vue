@@ -3,7 +3,7 @@
     <router-link
       class="sidebar-link__router-link"
       :to="to"
-      :target="target">
+      :target="target"> 
       <slot name="title"></slot>
     </router-link>
   </li>
@@ -15,7 +15,7 @@ export default {
   props: {
     to: {
       type: Object,
-      required: true
+      required: false
     },
     target: {
       type: String,

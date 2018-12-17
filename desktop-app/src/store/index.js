@@ -10,7 +10,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   strict: true, // process.env.NODE_ENV !== 'production',
-  getters,
+  getters ,
   modules: {
     app
   },

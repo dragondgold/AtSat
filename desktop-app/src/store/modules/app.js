@@ -1,6 +1,6 @@
 const state = {
   sidebar: {
-    opened: true,
+    opened: false,
     withoutAnimation: false
   },
   config: {
@@ -21,7 +21,47 @@ const state = {
       lighterGray: '#ddd'
     }
   },
-  isLoading: true
+  isLoading: true,
+  axtec: {
+    project:{
+      path:'',
+      cansat:[{
+        id: '',
+        name:'',
+        status:'',
+        protocol: '',
+        sensors: [{
+          type: '',
+          status:'',
+          samplingTime: '',
+          samples: [{
+            value: '',
+            timespan:''
+          }],
+          threshold: ''
+        }],
+        actuators: [{
+          type:'',
+          status: ''
+        }],
+        protections: {
+          powerSupply: [{
+            voltage: '',
+            current: '',
+            status: '',
+            maxCurrent: '',
+          }]
+        }
+      }],
+      groundStation: {
+        id: '',
+        status: '' 
+      }
+    },
+    data:{
+
+    }
+  }
 }
 
 const mutations = {
@@ -31,16 +71,22 @@ const mutations = {
   'TOGGLE_WITHOUT_ANIMATION' (state, value) {
     state.sidebar.withoutAnimation = value
   },
+  axtecPath(state, path){
+    state.axtec.project.path = path
+  }
 }
 
 const actions = {
   isToggleWithoutAnimation ({ commit }, value) {
     commit('TOGGLE_WITHOUT_ANIMATION', value)
+  },
+  axtecPath( { commit }, value){
+    commit(axtecPath,value)
   }
 }
 
 export default {
   state,
   mutations,
-  actions,
+  actions
 }

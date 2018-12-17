@@ -1,4 +1,19 @@
 {
+  "cansat":{
+    "project":{
+      "new":{
+        "wizard":{
+          "tittle": "Asistente de proyecto",
+          "stepOne":{
+            "name": "Seleccione un nombre para su nuevo proyecto",
+            "invalidName": "Nombre invalido",
+            "location": "Seleccione donde desea guardar el proyecto",
+            "invalidLocation": "Directorio invalido"
+          }
+        }
+      }  
+    }
+  },
   "auth": {
     "agree": "Acepto",
     "alreadyJoined": "Ya tienes una cuenta?",
@@ -121,10 +136,10 @@
       "confirmSelection": "Confirmar selección",
       "name": "Nombre",
       "rich": "Asistente Rico",
-      "simple": "Asistente Simple",
-      "stepOne": "Step 1. Nombre",
-      "stepTwo": "Step 2. País",
-      "stepThree": "Step 3. Confirmar",
+      "simple": "Asistente de proyecto",
+      "stepOne": "1. Nombre",
+      "stepTwo": "2. Ubicación",
+      "stepThree": "3. Confirmar",
       "verticalRich": "Asistente Rico Vertical",
       "verticalSimple": "Asistente Simple Vertical"
     }
@@ -147,6 +162,8 @@
     "spanish": "Spanish"
   },
   "menu": {
+    "about": "Acerca",
+    "aboutDocs": "Documentación",
     "home": "Home",
     "project":"Proyecto",
     "projectNew": "Nuevo",
@@ -156,10 +173,11 @@
     "mission": "Mision",
     "missionNew": "Nueva",
     "missionOpen": "Importar",
-    "missionConfig": "Configuraciones",
-    "missionExportData": "Exportar datos",
     "sat": "Cansat", 
-    "satConfig": "Configurationes",
+    "satEnlace": "Enlace",
+    "satFuses": "Protecciones",
+    "satTest": "Pruebas de integridad",
+    "satSensores": "Sensores",
     "auth": "Autenticación",
     "buttons": "Botones",
     "charts": "Gráficos",

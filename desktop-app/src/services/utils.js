@@ -1,3 +1,8 @@
+const log = require('electron-log')
+const fs = require('fs')
+const mkdirp = require('mkdirp')
+const getDirName = require('path').dirname
+
 export default {
   hex2rgb (hex, opacity) {
     hex = (hex + '').trim()
@@ -28,5 +33,38 @@ export default {
     rgb.css += (opacity ? ',' + opacity : '') + ')'
 
     return rgb
+  },
+  createFile(path, contents){
+    mkdirp(getDirName(path), (err) => {
+      if (err){
+        alert("An error ocurred creating the folder "+ err.message)
+      }else{
+        fs.writeFile(path, contents, (err) => {
+          if(err){
+            log.error('An error ocurred creating the file ' + path + ' error: ' +  err.message);
+            alert("An error ocurred creating the file "+ err.message)
+          }else{
+            log.info('The file ' + path + 'has been succesfully saved');
+            alert("The file has been succesfully saved")
+          }  
+        }) 
+      }
+    })
+  },
+  loadFile(path){
+    if (fs.existsSync(path)) {
+      fs.readFile(path,'utf8', function read(err, data) {
+        if (err) {
+          log.error('An error ocurred reading the file ' + path + ' error: ' +  err.message);
+          alert("An error ocurred reading the file "+ err.message)
+          return ''
+        }else{
+          console.log(data)
+          return data
+        }
+      }) 
+    }else{
+      return '' // File doesn't exist
+    }
   }
 }

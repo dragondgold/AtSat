@@ -2,38 +2,54 @@
   <div class="form-wizard-page">
     <div class="row">
       <div class="col-md-12">
-        <vuestic-widget class="no-h-padding"
-                        :headerText="$t('forms.wizard.simple')">
+                <vuestic-widget class="no-h-padding"
+                        :headerText="$t('cansat.project.new.wizard.tittle')">
           <vuestic-wizard
-            :steps="hsSteps">
-            <div slot="page1" class="form-wizard-tab-content">
-              <div class="form-wizard-tab-content-text">
-                <p>Zebras communicate with facial expressions and sounds. They
-                  make loud braying or barking sounds and
-                  soft snorting sounds. The position of their ears, how wide
-                  open their eyes are, and whether they show
-                  their teeth all send a signal. For example, ears flat back
-                  means trouble, or "you better follow orders!"</p>
-              </div>
+            :steps="vsSteps">
+                        <div slot="page1" class="form-wizard-tab-content">
               <div class="form-group with-icon-right"
-                   :class="{'has-error': errors.has('hsName'), 'valid': isFormFieldValid('hsName')}">
+                   :class="{'has-error': !isFormPathValid(vsName), 'valid': isFormPathValid(vsName)}">
                 <div class="input-group">
                   <input
-                    name="hsName"
+                    name="vsName"
                     data-vv-as="Name"
-                    v-model="hsName"
+                    v-model="vsName"
                     v-validate="'required'"
                     required title=""/>
                   <i
                     class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>
                   <i class="fa fa-check valid-icon icon-right input-icon"></i>
-                  <label class="control-label">{{'forms.wizard.name' |
-                    translate}}</label><i class="bar"></i>
-                  <small v-show="errors.has('hsName')" class="help text-danger">
-                    {{ errors.first('hsName') }}
+                  <label class="control-label">
+                    {{$t('cansat.project.new.wizard.stepOne.name')}}
+                  </label>
+                  <i class="bar"></i>
+                  <small v-show="!isFormPathValid(vsName)" class="help text-danger">
+                    {{$t('cansat.project.new.wizard.stepOne.invalidName')}}
                   </small>
                 </div>
               </div>
+              <div class="form-group form-group-w-btn" :class="{'has-error': !isFormPathValid(vsLocation), 'valid': isFormPathValid(vsLocation)}">
+                <div class="input-group">
+                  <input id="input-w-btn-round" required  v-validate="'required'" data-vv-as="Location" name="vsLocation" v-model="vsLocation"/>
+                  <label class="control-label" for="input-w-btn-round">
+                    {{$t('cansat.project.new.wizard.stepOne.location')}}
+                  </label>
+                  <i class="bar"></i>
+                  <small v-show="!isFormPathValid(vsLocation)" class="help text-danger">
+                    {{$t('cansat.project.new.wizard.stepOne.invalidLocation')}}
+                  </small>
+                </div>
+                <div
+                  class="btn btn-primary btn-with-icon btn-micro rounded-icon" @click.prevent="searchFolder()">
+                  <div class="btn-with-icon-content">
+                    <i class="ion-md-folder-open ion"></i>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-wizard-tab-content-text" v-show="isFormPathValid(vsName)">
+                <p>{{getPath()}}</p>
+              </div>        
             </div>
             <div slot="page2" class="form-wizard-tab-content">
               <div class="form-wizard-tab-content-text">
@@ -79,354 +95,35 @@
         </vuestic-widget>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <vuestic-widget class="no-h-padding"
-                        :headerText="$t('forms.wizard.rich')">
-          <vuestic-wizard
-            :steps="hrSteps"
-            wizard-type="rich">
-            <div slot="page1" class="form-wizard-tab-content">
-              <div class="form-wizard-tab-content-text">
-                <p>Zebras communicate with facial expressions and sounds. They
-                  make loud braying or barking sounds and
-                  soft snorting sounds. The position of their ears, how wide
-                  open their eyes are, and whether they show
-                  their teeth all send a signal. For example, ears flat back
-                  means trouble, or "you better follow orders!"</p>
-              </div>
-              <div class="form-group with-icon-right"
-                   :class="{'has-error': errors.has('hrName'), 'valid': isFormFieldValid('hrName')}">
-                <div class="input-group">
-                  <input
-                    name="hrName"
-                    data-vv-as="Name"
-                    v-model="hrName"
-                    v-validate="'required'"
-                    required title=""/>
-                  <i
-                    class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>
-                  <i class="fa fa-check valid-icon icon-right input-icon"></i>
-                  <label class="control-label">{{'forms.wizard.name' |
-                    translate}}</label><i class="bar"></i>
-                  <small v-show="errors.has('hrName')" class="help text-danger">
-                    {{ errors.first('hrName') }}
-                  </small>
-                </div>
-              </div>
-            </div>
-            <div slot="page2" class="form-wizard-tab-content">
-              <div class="form-wizard-tab-content-text">
-                <p>Zebras communicate with facial expressions and sounds. They
-                  make loud braying or barking sounds and
-                  soft snorting sounds. The position of their ears, how wide
-                  open their eyes are, and whether they show
-                  their teeth all send a signal. For example, ears flat back
-                  means trouble, or "you better follow orders!"</p>
-              </div>
-              <vuestic-simple-select
-                label="Select country"
-                v-model="hrCountry"
-                name="country"
-                :required="true"
-                ref="hrCountrySelect"
-                v-bind:options="countriesList">
-              </vuestic-simple-select>
-            </div>
-            <div slot="page3" class="form-wizard-tab-content">
-              <h4>{{'forms.wizard.confirmSelection' | translate}}</h4>
-              <p>
-                Zebras communicate with facial expressions and sounds. They make
-                loud braying or barking sounds and
-                soft snorting sounds. The position of their ears, how wide open
-                their eyes are, and whether they show
-                their teeth all send a signal. For example, ears flat back means
-                trouble, or "you better follow orders!"
-              </p>
-            </div>
-            <div slot="wizardCompleted" class="form-wizard-tab-content">
-              <h4>{{'forms.wizard.completed' | translate}}</h4>
-              <p>
-                Zebras communicate with facial expressions and sounds. They make
-                loud braying or barking sounds and
-                soft snorting sounds. The position of their ears, how wide open
-                their eyes are, and whether they show
-                their teeth all send a signal. For example, ears flat back means
-                trouble, or "you better follow orders!"
-              </p>
-            </div>
-          </vuestic-wizard>
-        </vuestic-widget>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <vuestic-widget :headerText="$t('forms.wizard.verticalRich')">
-          <vuestic-wizard
-            :steps="vrSteps"
-            wizard-layout="vertical"
-            wizard-type="rich">
-            <div slot="page1" class="form-wizard-tab-content">
-              <div class="form-wizard-tab-content-text">
-                <p>Zebras communicate with facial expressions and sounds. They
-                  make loud braying or barking sounds and
-                  soft snorting sounds. The position of their ears, how wide
-                  open their eyes are, and whether they show
-                  their teeth all send a signal. For example, ears flat back
-                  means trouble, or "you better follow orders!"</p>
-              </div>
-              <div class="form-group with-icon-right"
-                   :class="{'has-error': errors.has('vrName'), 'valid': isFormFieldValid('vrName')}">
-                <div class="input-group">
-                  <input
-                    name="vrName"
-                    data-vv-as="Name"
-                    v-model="vrName"
-                    v-validate="'required'"
-                    required title=""/>
-                  <i
-                    class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>
-                  <i class="fa fa-check valid-icon icon-right input-icon"></i>
-                  <label class="control-label">{{'forms.wizard.name' |
-                    translate}}</label><i class="bar"></i>
-                  <small v-show="errors.has('vrName')" class="help text-danger">
-                    {{ errors.first('vrName') }}
-                  </small>
-                </div>
-              </div>
-            </div>
-            <div slot="page2" class="form-wizard-tab-content">
-              <div class="form-wizard-tab-content-text">
-                <p>Zebras communicate with facial expressions and sounds. They
-                  make loud braying or barking sounds and
-                  soft snorting sounds. The position of their ears, how wide
-                  open their eyes are, and whether they show
-                  their teeth all send a signal. For example, ears flat back
-                  means trouble, or "you better follow orders!"</p>
-              </div>
-              <vuestic-simple-select
-                label="Select country"
-                v-model="vrCountry"
-                name="country"
-                :required="true"
-                ref="vrCountrySelect"
-                v-bind:options="countriesList">
-              </vuestic-simple-select>
-            </div>
-            <div slot="page3" class="form-wizard-tab-content">
-              <h4>{{'forms.wizard.confirmSelection' | translate}}</h4>
-              <p>
-                Zebras communicate with facial expressions and sounds. They make
-                loud braying or barking sounds and
-                soft snorting sounds. The position of their ears, how wide open
-                their eyes are, and whether they show
-                their teeth all send a signal. For example, ears flat back means
-                trouble, or "you better follow orders!"
-              </p>
-            </div>
-            <div slot="wizardCompleted" class="form-wizard-tab-content">
-              <h4>{{'forms.wizard.completed' | translate}}</h4>
-              <p>
-                Zebras communicate with facial expressions and sounds. They make
-                loud braying or barking sounds and
-                soft snorting sounds. The position of their ears, how wide open
-                their eyes are, and whether they show
-                their teeth all send a signal. For example, ears flat back means
-                trouble, or "you better follow orders!"
-              </p>
-            </div>
-          </vuestic-wizard>
-        </vuestic-widget>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <vuestic-widget class="simple-vertical-wizard-widget"
-                        :headerText="$t('forms.wizard.verticalSimple')">
-          <vuestic-wizard
-            :steps="vsSteps"
-            wizard-layout="vertical"
-            wizard-type="simple">
-            <div slot="page1" class="form-wizard-tab-content">
-              <div class="form-wizard-tab-content-text">
-                <p>Zebras communicate with facial expressions and sounds. They
-                  make loud braying or barking sounds and
-                  soft snorting sounds. The position of their ears, how wide
-                  open their eyes are, and whether they show
-                  their teeth all send a signal. For example, ears flat back
-                  means trouble, or "you better follow orders!"</p>
-              </div>
-              <div class="form-group with-icon-right"
-                   :class="{'has-error': errors.has('vsName'), 'valid': isFormFieldValid('vsName')}">
-                <div class="input-group">
-                  <input
-                    name="vsName"
-                    data-vv-as="Name"
-                    v-model="vsName"
-                    v-validate="'required'"
-                    required title=""/>
-                  <i
-                    class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>
-                  <i class="fa fa-check valid-icon icon-right input-icon"></i>
-                  <label class="control-label">{{'forms.wizard.name' |
-                    translate}}</label><i class="bar"></i>
-                  <small v-show="errors.has('vsName')" class="help text-danger">
-                    {{ errors.first('vsName') }}
-                  </small>
-                </div>
-              </div>
-            </div>
-            <div slot="page2" class="form-wizard-tab-content">
-              <div class="form-wizard-tab-content-text">
-                <p>Zebras communicate with facial expressions and sounds. They
-                  make loud braying or barking sounds and
-                  soft snorting sounds. The position of their ears, how wide
-                  open their eyes are, and whether they show
-                  their teeth all send a signal. For example, ears flat back
-                  means trouble, or "you better follow orders!"</p>
-              </div>
-              <vuestic-simple-select
-                label="Select country"
-                v-model="vsCountry"
-                name="country"
-                :required="true"
-                ref="vsCountrySelect"
-                v-bind:options="countriesList">
-              </vuestic-simple-select>
-            </div>
-            <div slot="page3" class="form-wizard-tab-content">
-              <h4>{{'forms.wizard.confirmSelection' | translate}}</h4>
-              <div class="form-wizard-tab-content-text">
-                <p>Zebras communicate with facial expressions and sounds. They
-                  make loud braying or barking sounds and
-                  soft snorting sounds. The position of their ears, how wide
-                  open their eyes are, and whether they show
-                  their teeth all send a signal. For example, ears flat back
-                  means trouble, or "you better follow orders!"</p>
-              </div>
-            </div>
-            <div slot="wizardCompleted" class="form-wizard-tab-content">
-              <h4>{{'forms.wizard.completed' | translate}}</h4>
-              <div class="form-wizard-tab-content-text">
-                <p>Zebras communicate with facial expressions and sounds. They
-                  make loud braying or barking sounds and
-                  soft snorting sounds. The position of their ears, how wide
-                  open their eyes are, and whether they show
-                  their teeth all send a signal. For example, ears flat back
-                  means trouble, or "you better follow orders!"</p>
-              </div>
-            </div>
-          </vuestic-wizard>
-        </vuestic-widget>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import CountriesList from 'data/CountriesList'
+import utils from 'services/utils'
+import store from '../../../store'
+import { mapGetters } from 'vuex';
+
+const {dialog} = require('electron').remote
+const storage = require('electron-json-storage')
+const {app} = require('electron')
+const isValidPath = require('is-valid-path')
+const log = require('electron-log')
+const homedir = require('os').homedir();
 
 export default {
   name: 'form-wizard',
-
   computed: {
-    hsSteps () {
-      return [
-        {
-          label: this.$t('forms.wizard.stepOne'),
-          slot: 'page1',
-          onNext: () => {
-            this.validateFormField('hsName')
-          },
-          isValid: () => {
-            return this.isFormFieldValid('hsName')
-          },
-        },
-        {
-          label: this.$t('forms.wizard.stepTwo'),
-          slot: 'page2',
-          onNext: () => {
-            this.$refs.hsCountrySelect.validate()
-          },
-          isValid: () => {
-            return this.$refs.hsCountrySelect.isValid()
-          },
-        },
-        {
-          label: this.$t('forms.wizard.stepThree'),
-          slot: 'page3',
-        },
-      ]
-    },
-    hrSteps () {
-      return [
-        {
-          label: this.$t('forms.wizard.stepOne'),
-          slot: 'page1',
-          onNext: () => {
-            this.validateFormField('hrName')
-          },
-          isValid: () => {
-            return this.isFormFieldValid('hrName')
-          },
-        },
-        {
-          label: this.$t('forms.wizard.stepTwo'),
-          slot: 'page2',
-          onNext: () => {
-            this.$refs.hrCountrySelect.validate()
-          },
-          isValid: () => {
-            return this.$refs.hrCountrySelect.isValid()
-          },
-        },
-        {
-          label: this.$t('forms.wizard.stepThree'),
-          slot: 'page3',
-        },
-      ]
-    },
-    vrSteps () {
-      return [
-        {
-          label: this.$t('forms.wizard.stepOne'),
-          slot: 'page1',
-          onNext: () => {
-            this.validateFormField('vrName')
-          },
-          isValid: () => {
-            return this.isFormFieldValid('vrName')
-          },
-        },
-        {
-          label: this.$t('forms.wizard.stepTwo'),
-          slot: 'page2',
-          onNext: () => {
-            this.$refs.vrCountrySelect.validate()
-          },
-          isValid: () => {
-            return this.$refs.vrCountrySelect.isValid()
-          },
-        },
-        {
-          label: this.$t('forms.wizard.stepThree'),
-          slot: 'page3',
-        },
-      ]
-    },
     vsSteps () {
       return [
         {
           label: this.$t('forms.wizard.stepOne'),
           slot: 'page1',
           onNext: () => {
-            this.validateFormField('vsName')
+            
           },
           isValid: () => {
-            return this.isFormFieldValid('vsName')
+            return this.isFormPathValid(this.getPath())
           },
         },
         {
@@ -455,15 +152,44 @@ export default {
       vrName: '',
       vrCountry: '',
       vsName: '',
+      vsLocation: homedir,
       vsCountry: '',
       email: '',
       countriesList: CountriesList,
-      chosenCountry: '',
+      chosenCountry: ''
     }
   },
   methods: {
+    getPath(){
+      //store.commit('axtecPath',homedir)
+      //console.log(this.$store.getters.axtec.project.path)
+      if(this.$data.vsLocation == '' || this.$data.vsName == ''){
+        return ''
+      }
+      return this.$data.vsLocation + '\\'+  this.$data.vsName + '\\'+  this.$data.vsName + '.cansat_pro'
+    },
+    searchFolder(){
+
+      let files = dialog.showOpenDialog({
+        properties: ['openDirectory']
+      })
+      if(files[0] != null){
+
+        this.$data.vsLocation = files[0]
+        store.commit('axtecPath',this.getPath())
+        console.log(this.$store.getters.axtec.project)
+        let json = JSON.stringify(this.$store.getters.axtec.project)
+        utils.createFile(this.getPath(),json)
+      }else{
+        this.$data.vsLocation = ''
+      }
+    },
+    isFormPathValid(field){
+      return isValidPath(field) && field != ''
+    },
     isFormFieldValid (field) {
       let isValid = false
+      
       if (this.formFields[field]) {
         isValid = this.formFields[field].validated && this.formFields[field].valid
       }
@@ -472,7 +198,7 @@ export default {
     validateFormField (fieldName) {
       this.$validator.validate(fieldName, this[fieldName])
     },
-  },
+  }
 }
 </script>
 

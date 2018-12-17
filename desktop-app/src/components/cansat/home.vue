@@ -23,7 +23,7 @@
           </template>
           {{ $t('cards.actionOpenProjectSub') }}
           <p class="pt-3 mb-0">
-            <button class="btn btn-success btn-micro float-right" @click="goToOpenProject()">
+            <button class="btn btn-success btn-micro float-right" @click="openProject()">
               {{ $t('cards.go') }}
               <span class="glyphicon glyphicon-arrow-right"></span>
             </button>
@@ -51,6 +51,9 @@
 
 <script>
 import VuesticCard from '../../vuestic-theme/vuestic-components/vuestic-card/VuesticCard'
+import utils from 'services/utils'
+
+const {dialog} = require('electron').remote
 
 export default {
   name: 'cards',
@@ -71,9 +74,23 @@ export default {
     goToNewProject() {
       this.$router.push({name:'newProject'})
     },
-    goToOpenProject() {
-      this.$router.push({name:'openProject'})
+    openProject() {
+      let path =
+      dialog.showOpenDialog({ 
+          properties: [ 
+              'openFile'
+          ],        
+          filters: [
+            {name: 'Custom File Type', extensions: ['cansat_pro']},
+          ]
+
+      })
+      if(path[0]){
+        utils.loadFile(path[0])
+      }
+      
     },
+  
     goToOpenMission() {
       this.$router.push({name:'openProject'})
     }

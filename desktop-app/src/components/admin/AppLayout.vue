@@ -6,7 +6,7 @@
       <vuestic-pre-loader v-show="isLoading" class="pre-loader"></vuestic-pre-loader>
       <router-view></router-view>
     </main>
-    <span slot="footer">©2018. Made by&nbsp;<a href="https://axtec.com.ar/" target="_blank" style="font-family:Inversionz; font-size: 2em">axtec </a></span>
+    <span slot="footer">©2018. Made by&nbsp;<a href @click.prevent="openExternalLink" style="font-family:Inversionz; font-size: 2em;" class="link">axtec </a></span>
   </vuestic-layout>
 </template>
 
@@ -37,6 +37,9 @@ export default {
   methods: {
     toggleSidebar (opened) {
       this.opened = opened
+    },
+    openExternalLink(){
+      require("electron").shell.openExternal('https://axtec.com.ar/');
     }
   },
   computed: {

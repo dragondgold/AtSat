@@ -20,8 +20,12 @@ Vue.use(YmapPlugin)
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 
 router.beforeEach((to, from, next) => {
-  store.commit('setLoading', true)
-  next()
+  if(to.name != 'not-found-simple'){
+    store.commit('setLoading', true)
+    next()
+  }else{
+    console.log("ook")
+  }
 })
 
 router.afterEach((to, from) => {
