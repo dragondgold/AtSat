@@ -432,7 +432,7 @@ F 0 "D2" V 7745 1728 50  0000 L CNN
 F 1 "Verde" V 7836 1728 50  0000 L CNN
 F 2 "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 7800 1650 50  0001 C CNN
 F 3 "~" H 7800 1650 50  0001 C CNN
-F 4 "150060RS75000" V 7800 1650 50  0001 C CNN "Manufacturer Part Number"
+F 4 "150060VS75000" V 7800 1650 50  0001 C CNN "Manufacturer Part Number"
 	1    7800 1650
 	0    -1   -1   0   
 $EndComp
@@ -685,9 +685,9 @@ F 0 "J4" H 9450 3415 50  0000 C CNN
 F 1 "Conector_PCB_A-B" H 9450 3324 50  0000 C CNN
 F 2 "AXTEC:Conector_PCB_A-B" H 9200 3300 50  0001 C CNN
 F 3 "" H 9200 3300 50  0001 C CNN
-F 4 "61300311121" H 9300 2850 50  0001 C CNN "Manufacturer Part Number 1"
-F 5 "3" H 9300 2850 50  0001 C CNN "Quantity 1"
-F 6 "61300411121" H 9300 2850 50  0001 C CNN "Manufacturer Part Number 2"
+F 4 "22-28-5034" H 9300 2850 50  0001 C CNN "Manufacturer Part Number"
+F 5 "3" H 9300 2850 50  0001 C CNN "Quantity"
+F 6 "22-28-4041" H 9300 2850 50  0001 C CNN "Manufacturer Part Number 2"
 F 7 "2" H 9300 2850 50  0001 C CNN "Quantity 2"
 	1    9300 2850
 	1    0    0    -1  

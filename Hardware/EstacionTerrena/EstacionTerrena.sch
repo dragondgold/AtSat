@@ -22,6 +22,7 @@ F1 "USBaSPI.sch" 50
 F2 "MOSI" O R 5650 4050 50 
 F3 "SCK" O R 5650 3950 50 
 F4 "MISO" I R 5650 4150 50 
+F5 "CS" O R 5650 4250 50 
 $EndSheet
 $Sheet
 S 6100 3600 600  850 
@@ -32,6 +33,7 @@ F2 "SCLK" I L 6100 3950 50
 F3 "SO" O L 6100 4150 50 
 F4 "SI" I L 6100 4050 50 
 F5 "ANT" B R 6700 4050 50 
+F6 "CS" I L 6100 4250 50 
 $EndSheet
 Wire Wire Line
 	5650 3950 6100 3950
@@ -147,7 +149,7 @@ U 1 1 5BEE5678
 P 7250 4050
 F 0 "J1" H 7491 4026 50  0000 L CNN
 F 1 "5-1814832-1" H 7491 3934 50  0000 L CNN
-F 2 "5-1814832-1" H 7650 4150 50  0001 L CNN
+F 2 "SamacSys_Parts:5-1814832-1" H 7650 4150 50  0001 L CNN
 F 3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1814832&DocType=Customer+Drawing&DocLang=English" H 7650 4050 50  0001 L CNN
 F 4 "SUBMINIATURE COAX" H 7650 3950 50  0001 L CNN "Description"
 F 5 "TE Connectivity" H 7650 3750 50  0001 L CNN "Manufacturer_Name"
@@ -268,14 +270,63 @@ F 3 "" H 8500 4950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Graphic:Logo_Open_Hardware_Large #LOGO?
+L Graphic:Logo_Open_Hardware_Large #LOGO1
 U 1 1 5BBFDFCD
 P 1050 7300
-F 0 "#LOGO?" H 1050 7800 50  0001 C CNN
+F 0 "#LOGO1" H 1050 7800 50  0001 C CNN
 F 1 "Logo_Open_Hardware_Large" H 1050 6900 50  0001 C CNN
 F 2 "Symbol:OSHW-Logo2_9.8x8mm_SilkScreen" H 1050 7300 50  0001 C CNN
 F 3 "~" H 1050 7300 50  0001 C CNN
 	1    1050 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x03 J3
+U 1 1 5C00A33C
+P 5900 4900
+F 0 "J3" V 5773 5080 50  0000 L CNN
+F 1 "Conn_01x03" V 5864 5080 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Horizontal" H 5900 4900 50  0001 C CNN
+F 3 "~" H 5900 4900 50  0001 C CNN
+F 4 "61300311121" V 5900 4900 50  0001 C CNN "Manufacturer Part Number"
+	1    5900 4900
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5650 4250 5800 4250
+Wire Wire Line
+	5800 4250 5800 4700
+Wire Wire Line
+	6100 4250 5900 4250
+Wire Wire Line
+	5900 4250 5900 4700
+$Comp
+L power:GND #PWR026
+U 1 1 5C00A55B
+P 6650 4800
+F 0 "#PWR026" H 6650 4550 50  0001 C CNN
+F 1 "GND" H 6655 4627 50  0000 C CNN
+F 2 "" H 6650 4800 50  0001 C CNN
+F 3 "" H 6650 4800 50  0001 C CNN
+	1    6650 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6000 4700 6000 4600
+Wire Wire Line
+	6000 4600 6650 4600
+Wire Wire Line
+	6650 4600 6650 4800
+$Comp
+L AXTEC_IC:BOM_Jumper JP1
+U 1 1 5C00354F
+P 5950 5200
+F 0 "JP1" H 6113 5273 50  0000 L CNN
+F 1 "BOM_Jumper" H 6113 5182 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 5950 5300 50  0001 C CNN
+F 3 "" H 5950 5300 50  0001 C CNN
+F 4 "M7581-05" H 6113 5091 50  0000 L CNN "Manufacturer Part Number"
+	1    5950 5200
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

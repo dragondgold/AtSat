@@ -534,11 +534,9 @@ Wire Wire Line
 Wire Wire Line
 	4250 5000 4250 5150
 Text Label 4250 5000 0    50   ~ 0
-GP0
-Text Label 7550 4450 0    50   ~ 0
-GP0
-Wire Wire Line
-	7850 4450 7550 4450
+GP1
+Text Label 7650 4550 0    50   ~ 0
+GP1
 Wire Wire Line
 	4150 4050 4050 4050
 Wire Wire Line
@@ -558,7 +556,7 @@ U 1 1 5BEF597E
 P 4550 4000
 F 0 "U2" H 4550 4317 50  0000 C CNN
 F 1 "MIC5323-3.3YD5_TR" H 4550 4225 50  0000 C CNN
-F 2 "SOT95P280X100-5N" H 5500 4100 50  0001 L CNN
+F 2 "SamacSys_Parts:SOT95P280X100-5N" H 5500 4100 50  0001 L CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf" H 5500 4000 50  0001 L CNN
 F 4 "Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23" H 5500 3900 50  0001 L CNN "Description"
 F 5 "1" H 5500 3800 50  0001 L CNN "Height"
@@ -667,4 +665,10 @@ Text Label 3000 4250 0    50   ~ 0
 D-
 Wire Wire Line
 	2900 4250 3000 4250
+Text HLabel 7650 4450 0    50   Output ~ 0
+CS
+Wire Wire Line
+	7850 4550 7650 4550
+Wire Wire Line
+	7650 4450 7850 4450
 $EndSCHEMATC
