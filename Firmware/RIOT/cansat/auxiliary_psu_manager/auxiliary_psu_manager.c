@@ -12,6 +12,11 @@
 static mutex_t lock;
 static bool is_psu_on = false;
 
+void __attribute__((interrupt("IRQ"))) ADC1_2_IRQHandler(void)
+{
+    
+}
+
 static void auxiliary_psu_manager_adc_init(void) {
     // Enable ADC12 clock
     periph_clk_en(AHB, RCC_AHBENR_ADC12EN);
@@ -22,6 +27,9 @@ static void auxiliary_psu_manager_adc_init(void) {
     gpio_init_analog(GPIO_PIN(I_SENSE_3V3_PORT, I_SENSE_3V3_PIN));
     gpio_init_analog(GPIO_PIN(V_SENSE_3V3_PORT, V_SENSE_3V3_PIN));
     gpio_init_analog(GPIO_PIN(I_SENSE_BATT_PORT, I_SENSE_BATT_PIN));
+
+    adc_acquire(ADC1);
+    adc_acquire(ADC2);
 
     // ADC1 setup
 	adc_power_off(ADC1);
@@ -70,23 +78,35 @@ static void auxiliary_psu_manager_adc_init(void) {
 
     // Calibrate the ADC
     adc_calibrate(ADC1);
+    adc_calibrate(ADC2);
+
+    adc_enable_eoc_interrupt(ADC1);
+    adc_enable_eoc_interrupt(ADC2);
 
     adc_power_on(ADC1);
-    adc_enable_eoc_interrupt(ADC1);
+    adc_power_on(ADC2);
     
     // Wait at least 1 us for ADC stabilization
     xtimer_usleep(5);
 }
 
+/**
+ * @brief This initializes the manager that controls the auxiliary 3.3V and 5V
+ *  power supplies.
+ * 
+ * @pre The GPIO pins to enable/dsiable the auxiliary power supplies must be already
+ *  initialized
+ */
 void auxiliary_psu_manager_init(void) 
 {
     mutex_init(&lock);
 
-    // Init ADC1 and ADC2
-    auxiliary_psu_manager_adc_init();
-
+    // Turn off the auxiliary supply
     is_psu_on = false;
     auxiliary_psu_manager_turn_off();
+
+    // Init ADC1 and ADC2
+    auxiliary_psu_manager_adc_init();
 }
 
 void auxiliary_psu_manager_turn_on(void) 

@@ -34,6 +34,8 @@
         "cpu_conf_stm32_common.h": "c",
         "cpu.h": "c",
         "limits.h": "c",
-        "mutex.h": "c"
+        "mutex.h": "c",
+        "rtc.h": "c",
+        "vectors_cortexm.h": "c"
     }
 }

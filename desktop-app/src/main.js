@@ -1,17 +1,42 @@
-import Vue from 'vue'
-import './plugins/vuetify'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+// Polyfills
+// import 'es6-promise/auto'
+// import 'babel-polyfill'
 
-Vue.config.productionTip = false
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import Vue from 'vue'
+import VeeValidate from 'vee-validate'
+import App from './App'
+import store from './store'
+import router from './router'
+import VuesticPlugin from '@/vuestic-theme/vuestic-plugin'
+import './i18n'
+import YmapPlugin from 'vue-yandex-maps'
+
+Vue.use(VuesticPlugin)
+Vue.use(YmapPlugin)
+
+// NOTE: workaround for VeeValidate + vuetable-2
+Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
+
+router.beforeEach((to, from, next) => {
+  if(to.name != 'not-found-simple'){
+    store.commit('setLoading', true)
+    next()
+  }else{
+    console.log("ook")
+  }
+})
+
+router.afterEach((to, from) => {
+  store.commit('setLoading', false)
+})
+
+/* eslint-disable no-new */
 
 new Vue({
+  el: '#app',
   router,
   store,
-  render: h => h(App),
-  mounted() {
-    // Prevent blank screen in Electron builds
-    this.$router.push('/')
-  }
-}).$mount('#app')
+  render: h => h(App)
+})
