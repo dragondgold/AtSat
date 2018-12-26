@@ -102,6 +102,7 @@
 import CountriesList from 'data/CountriesList'
 import utils from 'services/utils'
 import store from '../../../store'
+import mcp2210 from 'services/mcp2210'
 import { mapGetters } from 'vuex';
 
 const {dialog} = require('electron').remote
@@ -109,7 +110,7 @@ const storage = require('electron-json-storage')
 const {app} = require('electron')
 const isValidPath = require('is-valid-path')
 const log = require('electron-log')
-const homedir = require('os').homedir();
+const homedir = require('os').homedir()
 
 export default {
   name: 'form-wizard',
@@ -163,6 +164,10 @@ export default {
     getPath(){
       //store.commit('axtecPath',homedir)
       //console.log(this.$store.getters.axtec.project.path)
+
+      console.log(mcp2210.getLastError())
+      console.log(mcp2210.getConnectedDevCount())
+
       if(this.$data.vsLocation == '' || this.$data.vsName == ''){
         return ''
       }
