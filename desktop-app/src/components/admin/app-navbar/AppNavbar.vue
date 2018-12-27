@@ -8,6 +8,7 @@
       {{$t('navbar.messageUs')}}&nbsp;<a href="mailto:desarrollos@axtec.com.ar">desarrollos@axtec.com.ar</a>
     </span>
 
+    <modalNotification/>
     <notification-dropdown class="col nav-item"/>
     <language-dropdown class="col nav-item"/>
   </vuestic-navbar>
@@ -23,6 +24,7 @@ import LanguageDropdown from './components/dropdowns/LanguageDropdown'
 import ProfileDropdown from './components/dropdowns/ProfileDropdown'
 import NotificationDropdown from './components/dropdowns/NotificationDropdown'
 import MessageDropdown from './components/dropdowns/MessageDropdown'
+import modalNotification from '../../cansat/notifications/notifications'
 
 export default {
   name: 'app-navbar',
@@ -34,7 +36,8 @@ export default {
     MessageDropdown,
     NotificationDropdown,
     LanguageDropdown,
-    ProfileDropdown
+    ProfileDropdown,
+    modalNotification
   },
   props: {
     isOpen: {
@@ -51,6 +54,6 @@ export default {
         this.$emit('toggle-menu', opened)
       },
     },
-  },
+  }
 }
 </script>

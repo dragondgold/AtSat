@@ -23,6 +23,13 @@ const state = {
   },
   isLoading: true,
   axtec: {
+    consoleDebug: true,
+    notificationsModal: [
+        
+    ],
+    notificationsToast: [
+        
+    ],
     project:{
       path:'',
       cansat:[{
@@ -73,6 +80,22 @@ const mutations = {
   },
   axtecPath(state, path){
     state.axtec.project.path = path
+  },
+  pushNotificationModal(state,data){
+    state.axtec.notificationsModal.push({
+      'title': data.title, 
+      'content': data.content,
+      'ok': data.okCallback,
+      'cancel': data.cancelCallback,
+      'okText': data.okText,
+      'cancelText': data.cancelText
+    })
+  },
+  pushNotificationToast(state,data){
+    state.axtec.notificationsToast.push({
+      'text': data.text, 
+      'icon': data.icon,
+    })
   }
 }
 
@@ -82,6 +105,12 @@ const actions = {
   },
   axtecPath( { commit }, value){
     commit(axtecPath,value)
+  },
+  pushNotificationModal( { commit }, data){
+    commit(pushNotificationModal,data)
+  },
+  pushNotificationToast( { commit }, data){
+    commit(pushNotificationToast,data)
   }
 }
 

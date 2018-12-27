@@ -60,14 +60,7 @@
                   their teeth all send a signal. For example, ears flat back
                   means trouble, or "you better follow orders!"</p>
               </div>
-              <vuestic-simple-select
-                label="Select country"
-                v-model="hsCountry"
-                name="country"
-                :required="true"
-                ref="hsCountrySelect"
-                v-bind:options="countriesList">
-              </vuestic-simple-select>
+
             </div>
             <div slot="page3" class="form-wizard-tab-content">
               <h4>{{'forms.wizard.confirmSelection' | translate}}</h4>
@@ -101,7 +94,6 @@
 <script>
 import CountriesList from 'data/CountriesList'
 import utils from 'services/utils'
-import store from '../../../store'
 import mcp2210 from 'services/mcp2210'
 import { mapGetters } from 'vuex';
 
@@ -118,27 +110,35 @@ export default {
     vsSteps () {
       return [
         {
-          label: this.$t('forms.wizard.stepOne'),
+          label: this.$t('cansat.project.new.wizard.stepOne.label'),
           slot: 'page1',
           onNext: () => {
             
           },
           isValid: () => {
-            return this.isFormPathValid(this.getPath())
+            let valid = this.isFormPathValid(this.getPath())
+            if(valid){
+              this.$store.commit('axtecPath',this.getPath())
+              this.$store.commit('pushNotificationToast',{ 
+                'text': 'Creando nuevo proyecto', 
+                'icon': 'fa-commenting'          
+              })
+            }
+            return valid
           },
         },
         {
-          label: this.$t('forms.wizard.stepTwo'),
+          label: this.$t('cansat.project.new.wizard.stepTwo.label'),
           slot: 'page2',
           onNext: () => {
-            this.$refs.vsCountrySelect.validate()
+            
           },
           isValid: () => {
-            return this.$refs.vsCountrySelect.isValid()
+            return true
           },
         },
         {
-          label: this.$t('forms.wizard.stepThree'),
+          label: this.$t('cansat.project.new.wizard.stepThree.label'),
           slot: 'page3',
         },
       ]
@@ -146,63 +146,33 @@ export default {
   },
   data () {
     return {
-      hsName: '',
-      hsCountry: '',
-      hrName: '',
-      hrCountry: '',
-      vrName: '',
-      vrCountry: '',
       vsName: '',
       vsLocation: homedir,
-      vsCountry: '',
-      email: '',
-      countriesList: CountriesList,
-      chosenCountry: ''
     }
   },
   methods: {
     getPath(){
-      //store.commit('axtecPath',homedir)
-      //console.log(this.$store.getters.axtec.project.path)
-
-      console.log(mcp2210.getLastError())
-      console.log(mcp2210.getConnectedDevCount())
-
       if(this.$data.vsLocation == '' || this.$data.vsName == ''){
         return ''
       }
       return this.$data.vsLocation + '\\'+  this.$data.vsName + '\\'+  this.$data.vsName + '.cansat_pro'
     },
     searchFolder(){
-
       let files = dialog.showOpenDialog({
         properties: ['openDirectory']
       })
       if(files[0] != null){
 
         this.$data.vsLocation = files[0]
-        store.commit('axtecPath',this.getPath())
-        console.log(this.$store.getters.axtec.project)
-        let json = JSON.stringify(this.$store.getters.axtec.project)
-        utils.createFile(this.getPath(),json)
+        //let json = JSON.stringify(this.$store.getters.axtec.project)
+        //utils.createFile(this.getPath(),json)
       }else{
         this.$data.vsLocation = ''
       }
     },
     isFormPathValid(field){
       return isValidPath(field) && field != ''
-    },
-    isFormFieldValid (field) {
-      let isValid = false
-      
-      if (this.formFields[field]) {
-        isValid = this.formFields[field].validated && this.formFields[field].valid
-      }
-      return isValid
-    },
-    validateFormField (fieldName) {
-      this.$validator.validate(fieldName, this[fieldName])
-    },
+    }
   }
 }
 </script>

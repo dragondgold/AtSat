@@ -20,11 +20,11 @@ Vue.use(YmapPlugin)
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 
 router.beforeEach((to, from, next) => {
-  if(to.name != 'not-found-simple'){
+  if(to.name != 'not-found-simple'){ // Avoiding router
     store.commit('setLoading', true)
     next()
   }else{
-    console.log("ook")
+
   }
 })
 

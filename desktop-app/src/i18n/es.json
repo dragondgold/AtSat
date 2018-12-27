@@ -5,10 +5,17 @@
         "wizard":{
           "tittle": "Asistente de proyecto",
           "stepOne":{
+            "label": "Nombre",
             "name": "Seleccione un nombre para su nuevo proyecto",
             "invalidName": "Nombre invalido",
             "location": "Seleccione donde desea guardar el proyecto",
             "invalidLocation": "Directorio invalido"
+          },
+          "stepTwo":{
+            "label": "Estación terrena"
+          },
+          "stepThree":{
+            "label": "CanSat"
           }
         }
       }  

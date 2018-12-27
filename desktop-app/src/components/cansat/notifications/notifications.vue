@@ -1,0 +1,107 @@
+<template>
+    <div class="row">
+        <modal v-bind:large="true" v-bind:force="true" ref="modal" :cancelText="cancelText" :okText="okText" @ok="ok()" @cancel="cancel()">
+            <div slot="title">{{ title }}</div>
+            <div>
+            {{ content }}
+            </div>
+        </modal>
+    </div>
+</template>
+
+<script>
+import Modal from '../../../vuestic-theme/vuestic-components/vuestic-modal/VuesticModal'
+import store from '../../../store'
+import utils from '../../../services/utils'
+
+export default {
+    name: 'notification-modal',
+    data () {
+        return {
+            title: '',
+            content: '',
+            okText: 'Ok',
+            cancelText: 'Cancel',
+            indexModal: 0,
+            indexToast: 0,
+            isToastContentPresent: true,
+            toastText: 'This toast is awesome!',
+            toastDuration: 2500,
+            toastIcon: 'fa-rocket',
+            toastPosition: 'bottom-right',
+            isToastFullWidth: false
+        }
+    },
+    components: {
+        Modal
+    },
+    methods: {
+        showModal () {
+            this.$refs.modal.open() // $refs property name same as in ref="modal"
+        },
+        ok(){
+            if(this.$store.getters.axtec.notificationsModal[this.indexModal].ok !== undefined){
+                this.$store.getters.axtec.notificationsModal[this.indexModal].ok()
+            }
+            
+        },
+        cancel(){
+            if(this.$store.getters.axtec.notificationsModal[this.indexModal].cancel !== undefined){
+                this.$store.getters.axtec.notificationsModal[this.indexModal].cancel()
+            }
+        },
+        launchToast () {
+            this.showToast(this.toastText, {
+                icon: this.toastIcon,
+                position: this.toastPosition,
+                duration: this.toastDuration,
+                fullWidth: this.isToastFullWidth 
+            })
+        }
+    },  
+    computed: {
+        newNotificationModal () {
+            return store.getters.axtec.notificationsModal
+        },
+        newNotificationToast () {
+            return store.getters.axtec.notificationsToast
+        }
+    },
+    watch: {
+        newNotificationModal (newCount) {
+            let lengthM = this.$store.getters.axtec.notificationsModal.length
+            if(lengthM > 0){
+                this.indexModal = length-1
+                this.title =  this.$store.getters.axtec.notificationsModal[this.indexModal].title
+                this.content = this.$store.getters.axtec.notificationsModal[this.indexModal].content
+                this.okText = this.$store.getters.axtec.notificationsModal[this.indexModal].okText
+                this.cancelText = this.$store.getters.axtec.notificationsModal[this.indexModal].cancelText
+                this.showModal()
+                utils.log('Showing modal', this.$store.getters.axtec.notificationsModal[this.indexModal]) 
+            }
+        },
+        newNotificationToast (newCount) {
+            let lengthT = this.$store.getters.axtec.notificationsToast.length
+            if(lengthT > 0){
+                this.indexToast = length-1
+                this.toastText =  this.$store.getters.axtec.notificationsToast[this.indexToast].text
+                this.toastIcon = this.$store.getters.axtec.notificationsToast[this.indexToast].icon
+                this.launchToast()
+                utils.log('Showing toast', this.$store.getters.axtec.notificationsToast[this.indexToast]) 
+            }
+        }
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+  .toasted-container.sample-toasted-container {
+    position: static;
+    transform: translateX(0);
+
+    .toasted {
+      position: static;
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -5,7 +5,7 @@
         :to="{ name: 'home' }">
         <span slot="title">
           <span
-            class="sidebar-menu-item-icon vuestic-icon vuestic-icon-dashboard"></span>
+            class="sidebar-menu-item-icon fa fa-home"></span>
           <span>{{ $t('menu.home') }}</span>
         </span>
       </sidebar-link>
@@ -21,7 +21,7 @@
             <span>{{ $t('menu.projectNew') }}</span>
           </span>
         </sidebar-link>
-        <sidebar-link :to="{ name: 'not-found-simple'}" :event="''" @click.native.prevent="openProject()" >
+        <sidebar-link :to="{ name: 'not-found-simple'}" :event="''" @click.native.prevent="openExistingProject()" >
           <span slot="title"> 
             <span>{{ $t('menu.projectOpen') }}</span>
           </span>
@@ -42,7 +42,7 @@
       <sidebar-link-group>
         <span slot="title">
           <span
-            class="sidebar-menu-item-icon vuestic-icon vuestic-icon-maps"></span>
+            class="sidebar-menu-item-icon fa-rocket fa"></span>
           <span>{{ $t('menu.sat') }}</span>
         </span>
         <sidebar-link
@@ -73,7 +73,7 @@
       <sidebar-link-group>
         <span slot="title">
           <span
-            class="sidebar-menu-item-icon vuestic-icon vuestic-icon-statistics"></span>
+            class="sidebar-menu-item-icon fa fa-line-chart"></span>
           <span>{{ $t('menu.mission') }}</span>
         </span>
         <sidebar-link
@@ -94,33 +94,17 @@
 </template>
 
 <script>
-
 import VuesticSidebar
   from '../../../vuestic-theme/vuestic-components/vuestic-sidebar/VuesticSidebar'
 import SidebarLink from './components/SidebarLink'
 import SidebarLinkGroup from './components/SidebarLinkGroup'
-import utils from 'services/utils'
-
-const {dialog} = require('electron').remote
+import projectManager from 'services/projectManager'
 
 export default {
   name: 'app-sidebar',
   methods:{
-    openProject() {
-      let path =
-      dialog.showOpenDialog({ 
-        properties: [ 
-            'openFile'
-        ],        
-        filters: [
-          {name: 'Custom File Type', extensions: ['cansat_pro']},
-        ]
-
-      })
-      if(path != null){
-        utils.loadFile(path[0])
-      }
-      
+    openExistingProject(){
+      projectManager.openProject()
     }
   },
   components: {
@@ -135,5 +119,4 @@ export default {
     }
   }
 }
-
 </script>

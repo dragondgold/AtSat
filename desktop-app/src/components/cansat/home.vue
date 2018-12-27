@@ -3,7 +3,7 @@
     <div class="col-md-12 col-sm-12">
       <div class="cards-container" >
 
-        <vuestic-card stripe="info" image="../../assets/images/cansat.png"> 
+        <vuestic-card stripe="info"> 
           <template slot="title" >
             {{ $t('cards.actionCreateProjectTitle') }}
           </template>
@@ -17,7 +17,7 @@
 
         </vuestic-card>
 
-        <vuestic-card stripe="success" :to="{ name: 'openProject' }">
+        <vuestic-card stripe="success">
           <template slot="title">
             {{ $t('cards.actionOpenProjectTitle') }}
           </template>
@@ -31,7 +31,7 @@
 
         </vuestic-card>
 
-        <vuestic-card stripe="warning" :to="{ name: 'openMission' }">
+        <vuestic-card stripe="warning">
           <template slot="title">
             {{ $t('cards.actionOpenMissionTitle') }}
           </template>
@@ -50,17 +50,19 @@
 </template>
 
 <script>
+const path = require('path')
+const {dialog} = require('electron').remote
+
 import VuesticCard from '../../vuestic-theme/vuestic-components/vuestic-card/VuesticCard'
 import utils from 'services/utils'
-
-const {dialog} = require('electron').remote
 
 export default {
   name: 'cards',
   components: { VuesticCard },
   data () {
     return {
-        isShown: false
+        isShown: false,
+        newProImg: path.resolve('./src/assets/images/cansat.png')
     }
   },
   methods: {

@@ -1,0 +1,5 @@
+appId: axtec.cansat
+productName: CanSat
+win:
+  extraResources: "./build/MCP2210/mcp2210_dll_um_x64.dll"
+ 
