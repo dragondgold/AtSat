@@ -127,4 +127,10 @@ K
 F https://cdn.amphenol-icc.com/media/wysiwyg/files/documentation/datasheet/boardwiretoboard/bwb_bergstak_05mm_mezzanine.pdf
 $ENDCMP
 #
+$CMP ESP32-WROOM-32D
+D WiFi Modules (802.11) SMD Module, ESP32-D0WD, 32Mbits SPI flash, UART mode, PCB antenna
+K
+F https://www.mouser.com/datasheet/2/891/esp32-wroom-32d_esp32-wroom-32u_datasheet_en-1365844.pdf
+$ENDCMP
+#
 #End Doc Library
