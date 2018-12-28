@@ -106,7 +106,7 @@ D2 F7 FD DA 6B 00 00 60 22 3B 71 00 00 09 09 71 00 00 09 09 71 00 00 09 09 71 00
 EndData
 $EndBitmap
 $Comp
-L Interface_USB:FT231XS U3
+L PCB_D-rescue:FT231XS-Interface_USB U3
 U 1 1 5BBD709B
 P 8750 3000
 F 0 "U3" H 9250 3900 50  0000 C CNN
@@ -547,21 +547,19 @@ Connection ~ 2500 3900
 Wire Wire Line
 	2500 3900 2900 3900
 Connection ~ 2150 3900
-Text Label 3150 2000 0    50   ~ 0
+Text Label 4900 6300 0    50   ~ 0
 IO6
 Text Label 3150 2100 0    50   ~ 0
 IO7
-Text Label 3150 1400 0    50   ~ 0
-IO0
-Text Label 3150 1500 0    50   ~ 0
-IO1
 Text Label 3150 1600 0    50   ~ 0
-IO2
+IO1
 Text Label 3150 1700 0    50   ~ 0
-IO3
+IO2
 Text Label 3150 1800 0    50   ~ 0
-IO4
+IO3
 Text Label 3150 1900 0    50   ~ 0
+IO4
+Text Label 3150 2000 0    50   ~ 0
 IO5
 Text Label 3150 2450 0    50   ~ 0
 AD0
@@ -674,8 +672,6 @@ F 3 "" H 5300 2600 50  0001 C CNN
 	1    5300 2600
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3100 1400 3300 1400
 Wire Wire Line
 	3100 1500 3300 1500
 Wire Wire Line
@@ -906,8 +902,6 @@ F 3 "" H 4900 7100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4900 7100 4900 7000
-Text Label 4900 6300 0    50   ~ 0
-SCK
 $Comp
 L Connector_Generic:Conn_01x03 J1
 U 1 1 5BC51AA7
@@ -991,36 +985,8 @@ Wire Wire Line
 	1700 1400 1700 1450
 Wire Wire Line
 	1700 1450 1800 1450
-$Comp
-L power:+5V #PWR021
-U 1 1 5BE24D5E
-P 7500 1250
-F 0 "#PWR021" H 7500 1100 50  0001 C CNN
-F 1 "+5V" H 7514 1425 50  0000 C CNN
-F 2 "" H 7500 1250 50  0001 C CNN
-F 3 "" H 7500 1250 50  0001 C CNN
-	1    7500 1250
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7050 1500 8850 1500
-Wire Wire Line
-	7350 1250 7500 1250
-Wire Wire Line
-	7050 1250 7050 1500
-Connection ~ 7050 1500
-$Comp
-L Diode:LL4148 D4
-U 1 1 5BE5040B
-P 7200 1250
-F 0 "D4" H 7200 1034 50  0000 C CNN
-F 1 "LL4148" H 7200 1125 50  0000 C CNN
-F 2 "Diode_SMD:D_MiniMELF" H 7200 1075 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/85557/ll4148.pdf" H 7200 1250 50  0001 C CNN
-F 4 "LL4148-GS08" H 7200 1250 50  0001 C CNN "Manufacturer Part Number"
-	1    7200 1250
-	-1   0    0    1   
-$EndComp
 $Comp
 L AXTEC_IC:Spacer M1
 U 1 1 5C2DF64C
@@ -1210,4 +1176,44 @@ Text Label 1100 5400 0    50   ~ 0
 IO0
 Text Label 1100 5500 0    50   ~ 0
 IO1
+$Comp
+L power:VBUS #PWR0103
+U 1 1 5C267EA8
+P 7050 1100
+F 0 "#PWR0103" H 7050 950 50  0001 C CNN
+F 1 "VBUS" H 7064 1275 50  0000 C CNN
+F 2 "" H 7050 1100 50  0001 C CNN
+F 3 "" H 7050 1100 50  0001 C CNN
+	1    7050 1100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7050 1400 7050 1500
+Connection ~ 7050 1500
+$Comp
+L power:VBUS #PWR0104
+U 1 1 5C275E4D
+P 3450 1400
+F 0 "#PWR0104" H 3450 1250 50  0001 C CNN
+F 1 "VBUS" H 3464 1575 50  0000 C CNN
+F 2 "" H 3450 1400 50  0001 C CNN
+F 3 "" H 3450 1400 50  0001 C CNN
+	1    3450 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 1400 3450 1400
+Text Label 3150 1500 0    50   ~ 0
+IO0
+$Comp
+L Diode:1N4007 D4
+U 1 1 5C28CCE7
+P 7050 1250
+F 0 "D4" V 7004 1329 50  0000 L CNN
+F 1 "1N4007" V 7096 1329 50  0000 L CNN
+F 2 "Diode_SMD:D_SMA" H 7050 1075 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 7050 1250 50  0001 C CNN
+	1    7050 1250
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
