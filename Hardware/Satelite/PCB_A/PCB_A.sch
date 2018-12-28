@@ -804,6 +804,7 @@ F 0 "F1" V 2423 1400 50  0000 C CNN
 F 1 "Polyfuse" V 2515 1400 50  0000 C CNN
 F 2 "Fuse:Fuse_1812_4532Metric_Pad1.30x3.40mm_HandSolder" H 2700 1200 50  0001 L CNN
 F 3 "~" H 2650 1400 50  0001 C CNN
+F 4 "0ZCG0150FF2C" V 2650 1400 50  0001 C CNN "Manufacturer Part Number"
 	1    2650 1400
 	0    1    1    0   
 $EndComp
