@@ -191,10 +191,6 @@ F 3 "" H 14600 8750 50  0001 C CNN
 	1    14600 8750
 	1    0    0    -1  
 $EndComp
-Text Label 12550 8900 0    50   ~ 0
-D+
-Text Label 12550 8800 0    50   ~ 0
-D-
 $Comp
 L power:GND #PWR061
 U 1 1 5BBC2A6C
@@ -258,10 +254,6 @@ Wire Wire Line
 	14350 9300 14500 9300
 Wire Wire Line
 	14500 9300 14500 9500
-Wire Wire Line
-	12850 8800 12500 8800
-Wire Wire Line
-	12500 8900 12850 8900
 Wire Wire Line
 	12850 9000 12250 9000
 Text Label 12300 9000 0    50   ~ 0
@@ -1255,13 +1247,9 @@ Wire Wire Line
 	15000 2600 15600 2600
 Wire Wire Line
 	15600 2900 15000 2900
-Wire Wire Line
-	15100 4650 15550 4650
-Wire Wire Line
-	15100 4750 15550 4750
-Text Label 15150 4750 0    50   ~ 0
+Text Label 15550 4650 2    50   ~ 0
 EXT_IO1
-Text Label 15150 4650 0    50   ~ 0
+Text Label 15550 4550 2    50   ~ 0
 EXT_IO0
 Wire Wire Line
 	15000 2200 15400 2200
@@ -1597,9 +1585,9 @@ Wire Wire Line
 	7250 3450 7900 3450
 Wire Wire Line
 	7900 3350 7250 3350
-Text Label 7900 2750 2    50   ~ 0
-TX_ARDUINO
 Text Label 7900 2650 2    50   ~ 0
+TX_ARDUINO
+Text Label 7900 2750 2    50   ~ 0
 RX_ARDUINO
 $Comp
 L Device:C_Small C?
@@ -1649,23 +1637,10 @@ Text Label 7650 5100 0    50   ~ 0
 +VREF
 Wire Wire Line
 	8400 5100 7650 5100
-Text Label 3800 10250 0    50   ~ 0
-TX_ARDUINO
 Text Label 3800 10350 0    50   ~ 0
+TX_ARDUINO
+Text Label 3800 10250 0    50   ~ 0
 RX_ARDUINO
-$Comp
-L AXTEC_IC:Conector_Expansion_CanSat J4
-U 1 1 5BCB9E14
-P 14450 5000
-F 0 "J4" H 14500 5850 50  0000 C CNN
-F 1 "Conector_Expansion_CanSat" H 14450 5750 50  0000 C CNN
-F 2 "AXTEC:Conector_Expansion_CanSat" H 14450 5500 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/527/ssq_th-1370157.pdf" H 14450 5500 50  0001 C CNN
-F 4 "SSQ-106-03-T-S" H 14450 5000 50  0001 C CNN "Manufacturer Part Number"
-F 5 "4" H 14450 5000 50  0001 C CNN "Quantity"
-	1    14450 5000
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	9450 2200 9300 2200
 Wire Wire Line
@@ -2071,4 +2046,34 @@ Wire Wire Line
 	8150 7250 7750 7250
 Wire Wire Line
 	7750 7250 7750 7100
+$Comp
+L AXTEC_IC:Conector_Expansion_CanSat J4
+U 1 1 5E0F05D9
+P 14450 5000
+F 0 "J4" H 14450 5850 50  0000 C CNN
+F 1 "Conector_Expansion_CanSat" H 14450 5750 50  0000 C CNN
+F 2 "" H 14450 5500 50  0001 C CNN
+F 3 "" H 14450 5500 50  0001 C CNN
+	1    14450 5000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VBUS #PWR0102
+U 1 1 5E1099F8
+P 15350 4350
+F 0 "#PWR0102" H 15350 4200 50  0001 C CNN
+F 1 "VBUS" H 15365 4523 50  0000 C CNN
+F 2 "" H 15350 4350 50  0001 C CNN
+F 3 "" H 15350 4350 50  0001 C CNN
+	1    15350 4350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	15100 4450 15350 4450
+Wire Wire Line
+	15350 4450 15350 4350
+Wire Wire Line
+	15100 4550 15550 4550
+Wire Wire Line
+	15100 4650 15550 4650
 $EndSCHEMATC
