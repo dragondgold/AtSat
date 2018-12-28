@@ -607,8 +607,6 @@ Text Label 10150 4450 0    50   ~ 0
 SDA
 Text Label 10150 4550 0    50   ~ 0
 SCL
-Text Label 10150 4350 0    50   ~ 0
-CHG_DISABLE
 Text Label 10150 4150 0    50   ~ 0
 ISET
 Text Label 10150 4250 0    50   ~ 0
@@ -1047,8 +1045,6 @@ Wire Wire Line
 Wire Wire Line
 	10050 4550 10650 4550
 Wire Wire Line
-	10050 4350 10650 4350
-Wire Wire Line
 	10050 4150 10650 4150
 Wire Wire Line
 	8600 5600 8600 5500
@@ -1143,4 +1139,8 @@ F 4 "R30-3011202" H 3679 3405 50  0001 L CNN "Manufacturer Part Number"
 	1    3600 3550
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	10050 4350 10650 4350
+Text Label 10150 4350 0    50   ~ 0
+CHG_DISABLE
 $EndSCHEMATC

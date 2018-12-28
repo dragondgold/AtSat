@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# AXTEC_IC_+3V3_Internal
+# AXTEC_IC:+3V3_Internal
 #
-DEF AXTEC_IC_+3V3_Internal #PWR 0 40 Y Y 1 F N
+DEF AXTEC_IC:+3V3_Internal #PWR 0 40 Y Y 1 F N
 F0 "#PWR" 0 400 50 H I C CNN
-F1 "AXTEC_IC_+3V3_Internal" 0 300 50 H V C CNN
+F1 "AXTEC_IC:+3V3_Internal" 0 300 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -16,11 +16,11 @@ X +3V3_Internal 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_Conector_PCB_A-B
+# AXTEC_IC:Conector_PCB_A-B
 #
-DEF AXTEC_IC_Conector_PCB_A-B J 0 40 Y Y 1 F N
+DEF AXTEC_IC:Conector_PCB_A-B J 0 40 Y Y 1 F N
 F0 "J" 150 550 50 H V C CNN
-F1 "AXTEC_IC_Conector_PCB_A-B" 150 450 50 H V C CNN
+F1 "AXTEC_IC:Conector_PCB_A-B" 150 450 50 H V C CNN
 F2 "" -100 450 50 H I C CNN
 F3 "" -100 450 50 H I C CNN
 DRAW
@@ -45,11 +45,11 @@ X CS 9 -550 -500 100 R 50 50 1 1 O
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_Conector_PCB_B-C
+# AXTEC_IC:Conector_PCB_B-C
 #
-DEF AXTEC_IC_Conector_PCB_B-C J 0 40 Y Y 1 F N
+DEF AXTEC_IC:Conector_PCB_B-C J 0 40 Y Y 1 F N
 F0 "J" 0 850 50 H V C CNN
-F1 "AXTEC_IC_Conector_PCB_B-C" 0 750 50 H V C CNN
+F1 "AXTEC_IC:Conector_PCB_B-C" 0 750 50 H V C CNN
 F2 "AXTEC:Conector_PCB_B-C_Lado_B" 0 1100 50 H I C CNN
 F3 "" -100 750 50 H I C CNN
 F4 "Hecho con dos 10132797-025100LF y sus dos opuestos 10132798-022100LF" 0 1200 50 H V C CNN "Notes"
@@ -102,11 +102,11 @@ X +BATT 9 -700 -400 100 R 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_MH_CanSat
+# AXTEC_IC:MH_CanSat
 #
-DEF AXTEC_IC_MH_CanSat MH 0 40 Y Y 1 F N
+DEF AXTEC_IC:MH_CanSat MH 0 40 Y Y 1 F N
 F0 "MH" 0 400 50 H V C CNN
-F1 "AXTEC_IC_MH_CanSat" 0 300 50 H V C CNN
+F1 "AXTEC_IC:MH_CanSat" 0 300 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -117,11 +117,11 @@ X MH3 3 150 -100 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_Spacer
+# AXTEC_IC:Spacer
 #
-DEF AXTEC_IC_Spacer M 0 40 Y Y 1 F N
+DEF AXTEC_IC:Spacer M 0 40 Y Y 1 F N
 F0 "M" 0 250 50 H V C CNN
-F1 "AXTEC_IC_Spacer" 0 200 50 H V C CNN
+F1 "AXTEC_IC:Spacer" 0 200 50 H V C CNN
 F2 "AXTEC:Empty_Footprint" -100 150 50 H I C CNN
 F3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" 0 250 50 H I C CNN
 F4 "R30-3010502" 100 350 50 H V C CNN "Manufacturer Part Number"
@@ -132,11 +132,11 @@ P 2 0 1 20 0 -150 0 -200 N
 ENDDRAW
 ENDDEF
 #
-# Amplifier_Current_INA194
+# Amplifier_Current:INA194
 #
-DEF Amplifier_Current_INA194 U 0 5 Y Y 1 F N
+DEF Amplifier_Current:INA194 U 0 5 Y Y 1 F N
 F0 "U" 150 150 50 H V C CNN
-F1 "Amplifier_Current_INA194" 150 -150 50 H V C CNN
+F1 "Amplifier_Current:INA194" 150 -150 50 H V C CNN
 F2 "Package_TO_SOT_SMD:SOT-23-5" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 ALIAS INA194 INA195
@@ -153,11 +153,11 @@ X V+ 5 -100 300 150 D 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# Amplifier_Operational_MCP6001-OT
+# Amplifier_Operational:MCP6001-OT
 #
-DEF Amplifier_Operational_MCP6001-OT U 0 5 Y Y 1 F N
+DEF Amplifier_Operational:MCP6001-OT U 0 5 Y Y 1 F N
 F0 "U" -50 250 50 H V L CNN
-F1 "Amplifier_Operational_MCP6001-OT" -50 150 50 H V L CNN
+F1 "Amplifier_Operational:MCP6001-OT" -50 150 50 H V L CNN
 F2 "Package_TO_SOT_SMD:SOT-23-5" -100 -200 50 H I L CNN
 F3 "" 0 200 50 H I C CNN
 ALIAS MCP6561-OT MCP6001-OT MCP601-xOT OPA333xxDBV OPA340NA OPA376xxDBV TS881xLx TSV911xxLx OPA330xxDBV OPA356xxDBV
@@ -174,11 +174,11 @@ X - 4 -300 -100 100 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# Battery_Management_BQ27441DRZR-G1A
+# Battery_Management:BQ27441DRZR-G1A
 #
-DEF Battery_Management_BQ27441DRZR-G1A U 0 40 Y Y 1 F N
+DEF Battery_Management:BQ27441DRZR-G1A U 0 40 Y Y 1 F N
 F0 "U" -200 625 50 H V R CNN
-F1 "Battery_Management_BQ27441DRZR-G1A" -200 550 50 H V R CNN
+F1 "Battery_Management:BQ27441DRZR-G1A" -200 550 50 H V R CNN
 F2 "Package_SON:Texas_S-PDSO-N12" 250 -550 50 H I L CNN
 F3 "" 200 200 50 H I C CNN
 ALIAS BQ27441DRZR-G1A BQ27441DRZT-G1A BQ27441DRZR-G1B BQ27441DRZT-G1B
@@ -203,11 +203,11 @@ X NC 9 400 -200 100 L 50 50 1 1 N N
 ENDDRAW
 ENDDEF
 #
-# Device_C_Small
+# Device:C_Small
 #
-DEF Device_C_Small C 0 10 N N 1 F N
+DEF Device:C_Small C 0 10 N N 1 F N
 F0 "C" 10 70 50 H V L CNN
-F1 "Device_C_Small" 10 -80 50 H V L CNN
+F1 "Device:C_Small" 10 -80 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -221,11 +221,11 @@ X ~ 2 0 -100 80 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_L_Core_Iron
+# Device:L_Core_Iron
 #
-DEF Device_L_Core_Iron L 0 40 N N 1 F N
+DEF Device:L_Core_Iron L 0 40 N N 1 F N
 F0 "L" -50 0 50 V V C CNN
-F1 "Device_L_Core_Iron" 110 0 50 V V C CNN
+F1 "Device:L_Core_Iron" 110 0 50 V V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -246,11 +246,11 @@ X 2 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_R
+# Device:R
 #
-DEF Device_R R 0 0 N Y 1 F N
+DEF Device:R R 0 0 N Y 1 F N
 F0 "R" 80 0 50 V V C CNN
-F1 "Device_R" 0 0 50 V V C CNN
+F1 "Device:R" 0 0 50 V V C CNN
 F2 "" -70 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -263,11 +263,11 @@ X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Regulator_Switching_ADP2108AUJ-3.3
+# Regulator_Switching:ADP2108AUJ-3.3
 #
-DEF Regulator_Switching_ADP2108AUJ-3.3 U 0 20 Y Y 1 F N
+DEF Regulator_Switching:ADP2108AUJ-3.3 U 0 20 Y Y 1 F N
 F0 "U" -200 200 50 H V L CNN
-F1 "Regulator_Switching_ADP2108AUJ-3.3" 0 200 50 H V L CNN
+F1 "Regulator_Switching:ADP2108AUJ-3.3" 0 200 50 H V L CNN
 F2 "Package_TO_SOT_SMD:TSOT-23-5" 50 -250 50 H I L CNN
 F3 "" -250 -350 50 H I C CNN
 ALIAS ADP2108AUJ-1.1 ADP2108AUJ-1.2 ADP2108AUJ-1.3 ADP2108AUJ-1.5 ADP2108AUJ-1.8 ADP2108AUJ-1.82 ADP2108AUJ-2.3 ADP2108AUJ-2.5 ADP2108AUJ-3.0 ADP2108AUJ-3.3 LM3670MF
@@ -284,11 +284,11 @@ X SW 5 300 100 100 L 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_BQ24091DGQT
+# SamacSys_Parts:BQ24091DGQT
 #
-DEF SamacSys_Parts_BQ24091DGQT U 0 30 Y Y 1 F N
+DEF SamacSys_Parts:BQ24091DGQT U 0 30 Y Y 1 F N
 F0 "U" 1150 300 50 H V L CNN
-F1 "SamacSys_Parts_BQ24091DGQT" 1150 200 50 H V L CNN
+F1 "SamacSys_Parts:BQ24091DGQT" 1150 200 50 H V L CNN
 F2 "SamacSys_Parts:SOP50P490X110-11N" 1150 100 50 H I L CNN
 F3 "http://www.ti.com/lit/gpn/bq24091" 1150 0 50 H I L CNN
 F4 "Texas Instruments BQ24091DGQT, Battery Charge Controller, 1000mA, 10-Pin MSOP" 1150 -100 50 H I L CNN "Description"
@@ -314,11 +314,11 @@ X TS 9 1300 -200 200 L 50 50 0 0 I
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_MCP1642B-50I_MS
+# SamacSys_Parts:MCP1642B-50I_MS
 #
-DEF SamacSys_Parts_MCP1642B-50I_MS IC 0 30 Y Y 1 F N
+DEF SamacSys_Parts:MCP1642B-50I_MS IC 0 30 Y Y 1 F N
 F0 "IC" 950 300 50 H V L CNN
-F1 "SamacSys_Parts_MCP1642B-50I_MS" 950 200 50 H V L CNN
+F1 "SamacSys_Parts:MCP1642B-50I_MS" 950 200 50 H V L CNN
 F2 "SOP65P490X110-8N" 950 100 50 H I L CNN
 F3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20005253A.pdf" 950 0 50 H I L CNN
 F4 "Switching Voltage Regulators Step-up DC/DC Reg 1 MHz, 1.6A, 5Vout" 950 -100 50 H I L CNN "Description"
@@ -342,11 +342,11 @@ X VIN 8 1100 0 200 L 50 50 0 0 B
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_MIC5323-3.3YD5_TR
+# SamacSys_Parts:MIC5323-3.3YD5_TR
 #
-DEF SamacSys_Parts_MIC5323-3.3YD5_TR U 0 30 Y Y 1 F N
+DEF SamacSys_Parts:MIC5323-3.3YD5_TR U 0 30 Y Y 1 F N
 F0 "U" -300 300 50 H V L CNN
-F1 "SamacSys_Parts_MIC5323-3.3YD5_TR" -300 200 50 H V L CNN
+F1 "SamacSys_Parts:MIC5323-3.3YD5_TR" -300 200 50 H V L CNN
 F2 "SOT95P280X100-5N" 950 100 50 H I L CNN
 F3 "http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf" 950 0 50 H I L CNN
 F4 "Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23" 950 -100 50 H I L CNN "Description"
@@ -367,11 +367,11 @@ X VOUT 5 400 50 100 L 50 50 1 1 w
 ENDDRAW
 ENDDEF
 #
-# power_+3V3
+# power:+3V3
 #
-DEF power_+3V3 #PWR 0 0 Y Y 1 F P
+DEF power:+3V3 #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+3V3" 0 140 50 H V C CNN
+F1 "power:+3V3" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 ALIAS +3.3V
@@ -383,11 +383,11 @@ X +3V3 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_+5V
+# power:+5V
 #
-DEF power_+5V #PWR 0 0 Y Y 1 F P
+DEF power:+5V #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+5V" 0 140 50 H V C CNN
+F1 "power:+5V" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -398,11 +398,11 @@ X +5V 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_+BATT
+# power:+BATT
 #
-DEF power_+BATT #PWR 0 0 Y Y 1 F P
+DEF power:+BATT #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+BATT" 0 140 50 H V C CNN
+F1 "power:+BATT" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -413,11 +413,11 @@ X +BATT 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_GND
+# power:GND
 #
-DEF power_GND #PWR 0 0 Y Y 1 F P
+DEF power:GND #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GND" 0 -150 50 H V C CNN
+F1 "power:GND" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -426,11 +426,11 @@ X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_VBUS
+# power:VBUS
 #
-DEF power_VBUS #PWR 0 0 Y Y 1 F P
+DEF power:VBUS #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_VBUS" 0 150 50 H V C CNN
+F1 "power:VBUS" 0 150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
