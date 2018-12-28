@@ -106,7 +106,7 @@ D2 F7 FD DA 6B 00 00 60 22 3B 71 00 00 09 09 71 00 00 09 09 71 00 00 09 09 71 00
 EndData
 $EndBitmap
 $Comp
-L PCB_D-rescue:FT231XS-Interface_USB U3
+L PCB_D-rescue:FT231XS-Interface_USB-PCB_D-rescue U3
 U 1 1 5BBD709B
 P 8750 3000
 F 0 "U3" H 9250 3900 50  0000 C CNN
@@ -267,7 +267,7 @@ DTR
 Text Notes 8800 1000 0    118  ~ 0
 Conexión USB Arduino
 Text Label 2900 6500 0    50   ~ 0
-IO1
+D1
 $Comp
 L Device:R R3
 U 1 1 5BC06911
@@ -281,7 +281,7 @@ F 4 "RC0603JR-071KL" V 3750 6400 50  0001 C CNN "Manufacturer Part Number"
 	0    1    1    0   
 $EndComp
 Text Label 2900 6400 0    50   ~ 0
-IO0
+D0
 Wire Wire Line
 	2750 6400 3600 6400
 Text Label 4200 6400 0    50   ~ 0
@@ -291,7 +291,7 @@ Wire Wire Line
 Wire Wire Line
 	2750 6600 3100 6600
 Text Label 2900 6600 0    50   ~ 0
-IO2
+D2
 $Comp
 L Device:R R2
 U 1 1 5BC0F5F6
@@ -399,23 +399,23 @@ Wire Wire Line
 Wire Wire Line
 	2750 6700 3100 6700
 Text Label 2900 6700 0    50   ~ 0
-IO3
+D3
 Text Label 2900 6800 0    50   ~ 0
-IO4
+D4
 Wire Wire Line
 	2750 6800 3100 6800
 Wire Wire Line
 	2750 6900 3100 6900
 Text Label 2900 6900 0    50   ~ 0
-IO5
+D5
 Text Label 2900 7000 0    50   ~ 0
-IO6
+D6
 Wire Wire Line
 	2750 7000 3100 7000
 Wire Wire Line
 	2750 7100 3100 7100
 Text Label 2900 7100 0    50   ~ 0
-IO7
+D7
 Wire Wire Line
 	2750 5600 3100 5600
 Wire Wire Line
@@ -429,13 +429,13 @@ Wire Wire Line
 Wire Wire Line
 	2750 6100 3250 6100
 Text Label 2900 5600 0    50   ~ 0
-AD0
+A0
 Text Label 2900 5700 0    50   ~ 0
-AD1
+A1
 Text Label 2900 5800 0    50   ~ 0
-AD2
+A2
 Text Label 2900 5900 0    50   ~ 0
-AD3
+A3
 Text Label 2900 6000 0    50   ~ 0
 SDA
 Text Label 2900 6100 0    50   ~ 0
@@ -453,9 +453,9 @@ Wire Wire Line
 Wire Wire Line
 	2750 5200 3300 5200
 Text Label 2900 4700 0    50   ~ 0
-IO8
+D8
 Text Label 2900 4800 0    50   ~ 0
-IO9
+D9
 Text Label 2900 4900 0    50   ~ 0
 SS
 Text Label 2900 5000 0    50   ~ 0
@@ -548,27 +548,25 @@ Wire Wire Line
 	2500 3900 2900 3900
 Connection ~ 2150 3900
 Text Label 4900 6300 0    50   ~ 0
-IO6
-Text Label 3150 2100 0    50   ~ 0
-IO7
+D7
 Text Label 3150 1600 0    50   ~ 0
-IO1
+D1
 Text Label 3150 1700 0    50   ~ 0
-IO2
+D2
 Text Label 3150 1800 0    50   ~ 0
-IO3
+D3
 Text Label 3150 1900 0    50   ~ 0
-IO4
+D4
 Text Label 3150 2000 0    50   ~ 0
-IO5
+D5
 Text Label 3150 2450 0    50   ~ 0
-AD0
+A0
 Text Label 3150 2550 0    50   ~ 0
-AD1
+A1
 Text Label 3150 2650 0    50   ~ 0
-AD2
+A2
 Text Label 3150 2750 0    50   ~ 0
-AD3
+A3
 $Comp
 L AXTEC_IC:Conector_Expansion_CanSat J2
 U 1 1 5BC634C9
@@ -1173,9 +1171,9 @@ Wire Wire Line
 Wire Wire Line
 	1050 5400 1200 5400
 Text Label 1100 5400 0    50   ~ 0
-IO0
+D0
 Text Label 1100 5500 0    50   ~ 0
-IO1
+D1
 $Comp
 L power:VBUS #PWR0103
 U 1 1 5C267EA8
@@ -1204,7 +1202,7 @@ $EndComp
 Wire Wire Line
 	3100 1400 3450 1400
 Text Label 3150 1500 0    50   ~ 0
-IO0
+D0
 $Comp
 L Diode:1N4007 D4
 U 1 1 5C28CCE7
@@ -1216,4 +1214,6 @@ F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 7050 1250 50  0001 C CNN
 	1    7050 1250
 	0    1    1    0   
 $EndComp
+Text Label 3150 2100 0    50   ~ 0
+D6
 $EndSCHEMATC
