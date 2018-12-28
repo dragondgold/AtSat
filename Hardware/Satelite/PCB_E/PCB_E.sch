@@ -183,7 +183,7 @@ Text Label 9650 3800 0    50   ~ 0
 IO2
 Text Label 9650 3900 0    50   ~ 0
 IO3
-Text Label 9450 2150 0    50   ~ 0
+Text Label 9450 2250 0    50   ~ 0
 IO6
 Wire Wire Line
 	10050 4800 9600 4800
@@ -193,8 +193,8 @@ Wire Wire Line
 	9600 5000 10050 5000
 Wire Wire Line
 	9600 5100 10050 5100
-Text Label 9450 2250 0    50   ~ 0
-IO7
+Text Label 9450 1550 0    50   ~ 0
+Vbus
 Text Label 9650 4800 0    50   ~ 0
 AD0
 Text Label 9650 4900 0    50   ~ 0
@@ -370,17 +370,17 @@ D2 F7 FD DA 6B 00 00 60 22 3B 71 00 00 09 09 71 00 00 09 09 71 00 00 09 09 71 00
 09 71 00 00 09 FD 17 3C 6D 9D 90 5F F2 D3 C3 00 00 00 00 49 45 4E 44 AE 42 60 82 
 EndData
 $EndBitmap
-Text Label 9450 1550 0    50   ~ 0
-IO0
 Text Label 9450 1650 0    50   ~ 0
-IO1
+IO0
 Text Label 9450 1750 0    50   ~ 0
-IO2
+IO1
 Text Label 9450 1850 0    50   ~ 0
-IO3
+IO2
 Text Label 9450 1950 0    50   ~ 0
-IO4
+IO3
 Text Label 9450 2050 0    50   ~ 0
+IO4
+Text Label 9450 2150 0    50   ~ 0
 IO5
 Text Label 9450 2600 0    50   ~ 0
 AD0
@@ -499,10 +499,8 @@ Wire Wire Line
 	9600 4600 10050 4600
 Wire Wire Line
 	10050 4700 9600 4700
-Text Label 9650 4600 0    50   ~ 0
-IO6
 Text Label 9650 4700 0    50   ~ 0
-IO7
+IO6
 $Comp
 L AXTEC_IC:MH_CanSat MH1
 U 1 1 5BC69FBC
@@ -537,19 +535,6 @@ Wire Notes Line
 	6450 3900 4150 3900
 Text Notes 4450 4150 0    118  ~ 0
 Agujeros de montaje
-$Comp
-L AXTEC_IC:Conector_Expansion_CanSat J12
-U 1 1 5BC6ED70
-P 8750 2100
-F 0 "J12" H 8300 3000 50  0000 C CNN
-F 1 "Conector_Expansion_CanSat" H 8750 2900 50  0000 C CNN
-F 2 "AXTEC:Conector_Expansion_CanSat" H 8750 2600 50  0001 C CNN
-F 3 "" H 8750 2600 50  0001 C CNN
-F 4 "SSQ-106-03-T-S" H 8750 2100 50  0001 C CNN "Manufacturer Part Number"
-F 5 "4" H 8750 2100 50  0001 C CNN "Quantity"
-	1    8750 2100
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	8100 2950 7850 2950
 Wire Wire Line
@@ -673,4 +658,17 @@ F 3 "~" H 10250 3700 50  0001 C CNN
 	1    10250 3700
 	1    0    0    -1  
 $EndComp
+$Comp
+L AXTEC_IC:Conector_Expansion_CanSat J12
+U 1 1 5C26BB39
+P 8750 2100
+F 0 "J12" H 9143 2965 50  0000 C CNN
+F 1 "Conector_Expansion_CanSat" H 9143 2874 50  0000 C CNN
+F 2 "AXTEC:Conector_Expansion_CanSat" H 8750 2600 50  0001 C CNN
+F 3 "" H 8750 2600 50  0001 C CNN
+	1    8750 2100
+	1    0    0    -1  
+$EndComp
+Text Label 9650 4600 0    50   ~ 0
+Vbus
 $EndSCHEMATC
