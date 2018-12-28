@@ -185,27 +185,27 @@ $EndSheet
 $Comp
 L Connector_Generic:Conn_01x02 J1
 U 1 1 5BAE15D7
-P 2550 1400
-F 0 "J1" H 2629 1392 50  0000 L CNN
-F 1 "Batería LiPo (Soldada)" H 2629 1301 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 2550 1400 50  0001 C CNN
-F 3 "~" H 2550 1400 50  0001 C CNN
-	1    2550 1400
+P 3100 1400
+F 0 "J1" H 3050 1500 50  0000 L CNN
+F 1 "Batería LiPo (Soldada)" H 2650 1150 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3100 1400 50  0001 C CNN
+F 3 "~" H 3100 1400 50  0001 C CNN
+	1    3100 1400
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR05
 U 1 1 5BAE1DFC
-P 2350 1700
-F 0 "#PWR05" H 2350 1450 50  0001 C CNN
-F 1 "GND" H 2355 1527 50  0000 C CNN
-F 2 "" H 2350 1700 50  0001 C CNN
-F 3 "" H 2350 1700 50  0001 C CNN
-	1    2350 1700
+P 2600 1700
+F 0 "#PWR05" H 2600 1450 50  0001 C CNN
+F 1 "GND" H 2605 1527 50  0000 C CNN
+F 2 "" H 2600 1700 50  0001 C CNN
+F 3 "" H 2600 1700 50  0001 C CNN
+	1    2600 1700
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2350 1500 2350 1700
+	2600 1500 2600 1700
 $Comp
 L SamacSys_Parts:SSM3J338R,LF Q1
 U 1 1 5BAE3EF9
@@ -222,8 +222,6 @@ F 8 "https://www.arrow.com/en/products/ssm3j338rlf/toshiba" H 2200 750 50  0001 
 	1    1750 1700
 	0    1    -1   0   
 $EndComp
-Wire Wire Line
-	2150 1400 2350 1400
 $Comp
 L power:GND #PWR03
 U 1 1 5BAE63D7
@@ -798,4 +796,22 @@ F 4 "RC0603JR-071KL" V 10100 1250 50  0001 C CNN "Manufacturer Part Number"
 	1    10100 1250
 	-1   0    0    1   
 $EndComp
+$Comp
+L Device:Polyfuse F1
+U 1 1 5C662BCD
+P 2650 1400
+F 0 "F1" V 2423 1400 50  0000 C CNN
+F 1 "Polyfuse" V 2515 1400 50  0000 C CNN
+F 2 "Fuse:Fuse_1812_4532Metric_Pad1.30x3.40mm_HandSolder" H 2700 1200 50  0001 L CNN
+F 3 "~" H 2650 1400 50  0001 C CNN
+F 4 "0ZCG0150FF2C" V 2650 1400 50  0001 C CNN "Manufacturer Part Number"
+	1    2650 1400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2150 1400 2500 1400
+Wire Wire Line
+	2800 1400 2900 1400
+Wire Wire Line
+	2600 1500 2900 1500
 $EndSCHEMATC
