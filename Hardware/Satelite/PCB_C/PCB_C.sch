@@ -1505,11 +1505,11 @@ Text Label 5250 5800 0    50   ~ 0
 I_SENSE_BATT
 Text Label 5400 1850 0    50   ~ 0
 CHG_DETECT
-Text Label 7900 3850 2    50   ~ 0
-AUX_ENABLE
-Text Label 7900 3350 2    50   ~ 0
-GPS_TX
 Text Label 7900 2050 2    50   ~ 0
+AUX_ENABLE
+Text Label 7900 3950 2    50   ~ 0
+GPS_TX
+Text Label 7900 3850 2    50   ~ 0
 GPOUT
 Text Label 7900 1850 2    50   ~ 0
 P1
@@ -1529,7 +1529,7 @@ Text Label 7900 3450 2    50   ~ 0
 S_GLOBO
 Text Label 8100 1400 2    50   ~ 0
 S_PARACAIDAS
-Text Label 7900 3950 2    50   ~ 0
+Text Label 7900 3350 2    50   ~ 0
 I2C_EN
 Text Label 7900 3150 2    50   ~ 0
 SCL
@@ -1765,9 +1765,9 @@ F 3 "" H 2550 4450 50  0001 C CNN
 $EndComp
 Text Label 7750 7350 0    50   ~ 0
 MCLR
-Text Label 9250 7450 2    50   ~ 0
-ICSPCLK
 Text Label 9250 7250 2    50   ~ 0
+ICSPCLK
+Text Label 9250 7450 2    50   ~ 0
 ICSDAT
 $Comp
 L power:GND #PWR057
@@ -1904,9 +1904,9 @@ Wire Wire Line
 	5900 5700 5250 5700
 Wire Wire Line
 	5900 5600 5250 5600
-Text Label 5250 5700 0    50   ~ 0
-ICSDAT
 Text Label 5250 5600 0    50   ~ 0
+ICSDAT
+Text Label 5250 5700 0    50   ~ 0
 ICSPCLK
 Text Notes 1600 5300 0    118  ~ 0
 +VREF ADC
