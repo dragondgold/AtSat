@@ -33,17 +33,6 @@ F 10 "https://www.arrow.com/en/products/ms563702ba03-50/te-connectivity" H 6100 
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3V3 #PWR069
-U 1 1 5BB71C29
-P 4800 3250
-F 0 "#PWR069" H 4800 3100 50  0001 C CNN
-F 1 "+3V3" H 4815 3423 50  0000 C CNN
-F 2 "" H 4800 3250 50  0001 C CNN
-F 3 "" H 4800 3250 50  0001 C CNN
-	1    4800 3250
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR070
 U 1 1 5BB71C54
 P 4800 3800
@@ -98,4 +87,17 @@ Text HLabel 5050 3450 0    50   BiDi ~ 0
 SDA
 Wire Wire Line
 	5050 3450 5250 3450
+$Comp
+L AXTEC_IC:+3V3_Internal #PWR?
+U 1 1 5C5DEA8F
+P 4800 3250
+AR Path="/5C5DEA8F" Ref="#PWR?"  Part="1" 
+AR Path="/5BB12371/5C5DEA8F" Ref="#PWR19"  Part="1" 
+F 0 "#PWR19" H 4800 3650 50  0001 C CNN
+F 1 "+3V3_Internal" H 4785 3423 50  0000 C CNN
+F 2 "" H 4800 3250 50  0001 C CNN
+F 3 "" H 4800 3250 50  0001 C CNN
+	1    4800 3250
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
