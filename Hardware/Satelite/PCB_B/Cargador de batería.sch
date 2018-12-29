@@ -130,7 +130,7 @@ Corriente de pre-carga 20% de carga
 Text HLabel 7250 3850 2    50   Output ~ 0
 CHG
 Wire Wire Line
-	6550 3850 7250 3850
+	6550 3850 7150 3850
 $Comp
 L Device:R R?
 U 1 1 5BAD840C
@@ -284,5 +284,42 @@ F 4 "1%" H 4280 4192 50  0000 R CNN "Tolerance"
 F 5 "RC0603FR-071K8L" V 4350 4100 50  0001 C CNN "Manufacturer Part Number"
 	1    4350 4100
 	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5C2818A5
+P 7150 3350
+AR Path="/5BA17F9C/5C2818A5" Ref="R?"  Part="1" 
+AR Path="/5BA1A7F9/5C2818A5" Ref="R?"  Part="1" 
+AR Path="/5BA1A77A/5C2818A5" Ref="R?"  Part="1" 
+AR Path="/5BC300BF/5C2818A5" Ref="R22"  Part="1" 
+F 0 "R22" V 7250 3350 50  0000 L CNN
+F 1 "100k" V 7050 3350 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7080 3350 50  0001 C CNN
+F 3 "~" H 7150 3350 50  0001 C CNN
+F 4 "RC0603JR-07100KL" V 7150 3350 50  0001 C CNN "Manufacturer Part Number"
+	1    7150 3350
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7150 3500 7150 3850
+Connection ~ 7150 3850
+Wire Wire Line
+	7150 3850 7250 3850
+$Comp
+L AXTEC_IC:+3V3_Internal #PWR?
+U 1 1 5C286F2A
+P 7150 3200
+AR Path="/5BB6C3A1/5C286F2A" Ref="#PWR?"  Part="1" 
+AR Path="/5BB6C83B/5C286F2A" Ref="#PWR?"  Part="1" 
+AR Path="/5BC14C3C/5C286F2A" Ref="#PWR?"  Part="1" 
+AR Path="/5C286F2A" Ref="#PWR?"  Part="1" 
+AR Path="/5BC300BF/5C286F2A" Ref="#PWR11"  Part="1" 
+F 0 "#PWR11" H 7150 3600 50  0001 C CNN
+F 1 "+3V3_Internal" H 7135 3373 50  0000 C CNN
+F 2 "" H 7150 3200 50  0001 C CNN
+F 3 "" H 7150 3200 50  0001 C CNN
+	1    7150 3200
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
