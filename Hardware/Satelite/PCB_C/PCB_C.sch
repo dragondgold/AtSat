@@ -473,9 +473,9 @@ Wire Wire Line
 Wire Wire Line
 	11250 10550 10800 10550
 Text Label 10850 10250 0    50   ~ 0
-EXT_SDO
+EXT_MISO
 Text Label 10850 10350 0    50   ~ 0
-EXT_SDI
+EXT_MOSI
 Text Label 10850 10450 0    50   ~ 0
 EXT_SCLK
 Text Label 10850 10550 0    50   ~ 0
@@ -933,9 +933,9 @@ Wire Wire Line
 Wire Wire Line
 	13350 5850 13800 5850
 Text Label 13400 5350 0    50   ~ 0
-EXT_SDO
+EXT_MOSI
 Text Label 13400 5450 0    50   ~ 0
-EXT_SDI
+EXT_MISO
 Text Label 13400 5550 0    50   ~ 0
 EXT_SCLK
 Text Label 13400 5650 0    50   ~ 0
