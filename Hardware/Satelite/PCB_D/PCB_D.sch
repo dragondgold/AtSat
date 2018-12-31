@@ -106,7 +106,7 @@ D2 F7 FD DA 6B 00 00 60 22 3B 71 00 00 09 09 71 00 00 09 09 71 00 00 09 09 71 00
 EndData
 $EndBitmap
 $Comp
-L PCB_D-rescue:FT231XS-Interface_USB-PCB_D-rescue U3
+L PCB_D-rescue:FT231XS-Interface_USB-PCB_D-rescue-PCB_D-rescue U3
 U 1 1 5BBD709B
 P 8750 3000
 F 0 "U3" H 9250 3900 50  0000 C CNN
@@ -261,33 +261,11 @@ RX_LED
 Text Label 7700 2500 0    50   ~ 0
 TXD
 Text Label 7700 2400 0    50   ~ 0
-RXD
+TX_USB
 Text Label 7700 2800 0    50   ~ 0
 DTR
 Text Notes 8800 1000 0    118  ~ 0
 Conexión USB Arduino
-Text Label 2900 6500 0    50   ~ 0
-D1
-$Comp
-L Device:R R3
-U 1 1 5BC06911
-P 3750 6400
-F 0 "R3" V 3850 6400 50  0000 C CNN
-F 1 "1k" V 3634 6400 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3680 6400 50  0001 C CNN
-F 3 "~" H 3750 6400 50  0001 C CNN
-F 4 "RC0603JR-071KL" V 3750 6400 50  0001 C CNN "Manufacturer Part Number"
-	1    3750 6400
-	0    1    1    0   
-$EndComp
-Text Label 2900 6400 0    50   ~ 0
-D0
-Wire Wire Line
-	2750 6400 3600 6400
-Text Label 4200 6400 0    50   ~ 0
-RXD
-Wire Wire Line
-	3900 6400 4400 6400
 Wire Wire Line
 	2750 6600 3100 6600
 Text Label 2900 6600 0    50   ~ 0
@@ -476,23 +454,7 @@ F 4 "ATMEGA328P-AU" H 2150 5900 50  0001 C CNN "Manufacturer Part Number"
 	1    2150 5900
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R R1
-U 1 1 5BC72B6F
-P 3450 6500
-F 0 "R1" V 3550 6500 50  0000 C CNN
-F 1 "1k" V 3334 6500 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3380 6500 50  0001 C CNN
-F 3 "~" H 3450 6500 50  0001 C CNN
-F 4 "RC0603JR-071KL" V 3450 6500 50  0001 C CNN "Manufacturer Part Number"
-	1    3450 6500
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2750 6500 3300 6500
-Wire Wire Line
-	3600 6500 4400 6500
-Text Label 4200 6500 0    50   ~ 0
+Text Label 2900 6500 0    50   ~ 0
 TXD
 $Comp
 L SamacSys_Parts:CSTNE16M0V530000R0 U2
@@ -547,10 +509,8 @@ Connection ~ 2500 3900
 Wire Wire Line
 	2500 3900 2900 3900
 Connection ~ 2150 3900
-Text Label 4900 6300 0    50   ~ 0
+Text Label 5050 6250 0    50   ~ 0
 D7
-Text Label 3150 1600 0    50   ~ 0
-D1
 Text Label 3150 1700 0    50   ~ 0
 D2
 Text Label 3150 1800 0    50   ~ 0
@@ -671,7 +631,7 @@ F 3 "" H 5300 2600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3100 1500 3300 1500
+	3100 1500 3550 1500
 Wire Wire Line
 	3100 1600 3300 1600
 Wire Wire Line
@@ -870,36 +830,36 @@ Wire Wire Line
 	7050 1500 7050 2600
 Connection ~ 8850 1500
 Wire Wire Line
-	4900 6300 4900 6350
+	5050 6250 5050 6300
 $Comp
 L Device:LED D?
 U 1 1 5BC9091B
-P 4900 6850
+P 5050 6800
 AR Path="/5B9997DB/5BC9091B" Ref="D?"  Part="1" 
 AR Path="/5BC9091B" Ref="D1"  Part="1" 
-F 0 "D1" V 4938 6733 50  0000 R CNN
-F 1 "Verde" V 4847 6733 50  0000 R CNN
-F 2 "LED_SMD:LED_0603_1608Metric" H 4900 6850 50  0001 C CNN
-F 3 "~" H 4900 6850 50  0001 C CNN
-F 4 "150060VS75000" V 4900 6850 50  0001 C CNN "Manufacturer Part Number"
-	1    4900 6850
+F 0 "D1" V 5088 6683 50  0000 R CNN
+F 1 "Verde" V 4997 6683 50  0000 R CNN
+F 2 "LED_SMD:LED_0603_1608Metric" H 5050 6800 50  0001 C CNN
+F 3 "~" H 5050 6800 50  0001 C CNN
+F 4 "150060VS75000" V 5050 6800 50  0001 C CNN "Manufacturer Part Number"
+	1    5050 6800
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	4900 6700 4900 6650
+	5050 6650 5050 6600
 $Comp
 L power:GND #PWR013
 U 1 1 5BC96C3C
-P 4900 7100
-F 0 "#PWR013" H 4900 6850 50  0001 C CNN
-F 1 "GND" H 4904 6926 50  0000 C CNN
-F 2 "" H 4900 7100 50  0001 C CNN
-F 3 "" H 4900 7100 50  0001 C CNN
-	1    4900 7100
+P 5050 7050
+F 0 "#PWR013" H 5050 6800 50  0001 C CNN
+F 1 "GND" H 5054 6876 50  0000 C CNN
+F 2 "" H 5050 7050 50  0001 C CNN
+F 3 "" H 5050 7050 50  0001 C CNN
+	1    5050 7050
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4900 7100 4900 7000
+	5050 7050 5050 6950
 $Comp
 L Connector_Generic:Conn_01x03 J1
 U 1 1 5BC51AA7
@@ -1048,15 +1008,15 @@ $EndComp
 $Comp
 L Device:R R?
 U 1 1 5C2EDFB7
-P 4900 6500
+P 5050 6450
 AR Path="/5B9997DB/5C2EDFB7" Ref="R?"  Part="1" 
 AR Path="/5C2EDFB7" Ref="R4"  Part="1" 
-F 0 "R4" H 4970 6546 50  0000 L CNN
-F 1 "220" H 4970 6455 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4830 6500 50  0001 C CNN
-F 3 "~" H 4900 6500 50  0001 C CNN
-F 4 "RC0603JR-13220RL" H 4900 6500 50  0001 C CNN "Manufacturer Part Number"
-	1    4900 6500
+F 0 "R4" H 5120 6496 50  0000 L CNN
+F 1 "220" H 5120 6405 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4980 6450 50  0001 C CNN
+F 3 "~" H 5050 6450 50  0001 C CNN
+F 4 "RC0603JR-13220RL" H 5050 6450 50  0001 C CNN "Manufacturer Part Number"
+	1    5050 6450
 	1    0    0    -1  
 $EndComp
 Wire Notes Line
@@ -1170,10 +1130,6 @@ Wire Wire Line
 	1050 5500 1200 5500
 Wire Wire Line
 	1050 5400 1200 5400
-Text Label 1100 5400 0    50   ~ 0
-D0
-Text Label 1100 5500 0    50   ~ 0
-D1
 $Comp
 L power:VBUS #PWR0103
 U 1 1 5C267EA8
@@ -1201,8 +1157,6 @@ F 3 "" H 3450 1400 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3100 1400 3450 1400
-Text Label 3150 1500 0    50   ~ 0
-D0
 $Comp
 L Diode:1N4007 D4
 U 1 1 5C28CCE7
@@ -1216,4 +1170,89 @@ F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 7050 1250 50  0001 C CNN
 $EndComp
 Text Label 3150 2100 0    50   ~ 0
 D6
+$Comp
+L Diode:1N4148 D5
+U 1 1 5C2DE090
+P 4050 6700
+F 0 "D5" H 4050 6917 50  0000 C CNN
+F 1 "1N4148" H 4050 6825 50  0000 C CNN
+F 2 "Diode_SMD:D_MiniMELF" H 4050 6525 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/85561/ls4148.pdf" H 4050 6700 50  0001 C CNN
+F 4 "LS4148-GS08" H 4050 6700 50  0001 C CNN "Manufacturer Part Number"
+	1    4050 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4148 D6
+U 1 1 5C2DE493
+P 4050 6900
+F 0 "D6" H 4050 6800 50  0000 C CNN
+F 1 "1N4148" H 4050 6700 50  0000 C CNN
+F 2 "Diode_SMD:D_MiniMELF" H 4050 6725 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/85561/ls4148.pdf" H 4050 6900 50  0001 C CNN
+F 4 "LS4148-GS08" H 4050 6900 50  0001 C CNN "Manufacturer Part Number"
+	1    4050 6900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2750 6500 3100 6500
+Text Label 3150 1600 0    50   ~ 0
+TXD
+Text Label 3150 1500 0    50   ~ 0
+TX_ESP32
+Text Label 1200 5400 2    50   ~ 0
+RXD
+Text Label 1200 5500 2    50   ~ 0
+TXD
+$Comp
+L Device:R R1
+U 1 1 5C30FBC4
+P 3600 6700
+F 0 "R1" V 3700 6700 50  0000 C CNN
+F 1 "100k" V 3484 6700 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3530 6700 50  0001 C CNN
+F 3 "~" H 3600 6700 50  0001 C CNN
+F 4 "RC0603JR-07100KL" V 3600 6700 50  0001 C CNN "Manufacturer Part Number"
+	1    3600 6700
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2750 6400 3250 6400
+Wire Wire Line
+	3900 6900 3850 6900
+Wire Wire Line
+	3250 6900 3250 6400
+Wire Wire Line
+	3900 6700 3850 6700
+Wire Wire Line
+	3850 6700 3850 6900
+Connection ~ 3850 6900
+Text Label 4250 6700 0    50   ~ 0
+TX_USB
+Text Label 4250 6900 0    50   ~ 0
+TX_ESP32
+Wire Wire Line
+	4200 6900 4650 6900
+Wire Wire Line
+	4200 6700 4650 6700
+Wire Wire Line
+	3600 6900 3600 6850
+Wire Wire Line
+	3250 6900 3600 6900
+Connection ~ 3600 6900
+Wire Wire Line
+	3600 6900 3850 6900
+$Comp
+L power:+5V #PWR021
+U 1 1 5C379480
+P 3600 6550
+F 0 "#PWR021" H 3600 6400 50  0001 C CNN
+F 1 "+5V" H 3614 6725 50  0000 C CNN
+F 2 "" H 3600 6550 50  0001 C CNN
+F 3 "" H 3600 6550 50  0001 C CNN
+	1    3600 6550
+	1    0    0    -1  
+$EndComp
+Text Label 3050 6400 2    50   ~ 0
+RXD
 $EndSCHEMATC
