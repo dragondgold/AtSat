@@ -648,17 +648,6 @@ F 3 "~" H 5750 3050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x04 J8
-U 1 1 5BE3BD5B
-P 10250 3700
-F 0 "J8" H 10050 3350 50  0000 L CNN
-F 1 "Conn_01x04" H 9850 3250 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 10250 3700 50  0001 C CNN
-F 3 "~" H 10250 3700 50  0001 C CNN
-	1    10250 3700
-	1    0    0    -1  
-$EndComp
-$Comp
 L AXTEC_IC:Conector_Expansion_CanSat J12
 U 1 1 5C26BB39
 P 8750 2100
@@ -671,4 +660,23 @@ F 3 "" H 8750 2600 50  0001 C CNN
 $EndComp
 Text Label 9650 4600 0    50   ~ 0
 Vbus
+$Comp
+L Connector_Generic:Conn_01x06 J8
+U 1 1 5C2A870C
+P 10250 3800
+F 0 "J8" H 9850 3400 50  0000 L CNN
+F 1 "Conn_01x06" H 9850 3300 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 10250 3800 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/527/ssw_sm-1370305.pdf" H 10250 3800 50  0001 C CNN
+	1    10250 3800
+	1    0    0    -1  
+$EndComp
+Text Label 9650 4000 0    50   ~ 0
+IO4
+Text Label 9650 4100 0    50   ~ 0
+IO5
+Wire Wire Line
+	10050 4000 9600 4000
+Wire Wire Line
+	10050 4100 9600 4100
 $EndSCHEMATC
