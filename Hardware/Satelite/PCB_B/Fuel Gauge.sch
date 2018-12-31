@@ -64,44 +64,12 @@ F 3 "" H 5050 4650 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5050 4650 5050 4500
-Wire Wire Line
-	5300 3500 4750 3500
-Wire Wire Line
-	4200 3600 5050 3600
 Text HLabel 4200 3500 0    50   BiDi ~ 0
 SDA
 Text HLabel 4200 3600 0    50   Input ~ 0
 SCL
 Text HLabel 3550 5050 0    50   BiDi ~ 0
 VBAT
-$Comp
-L Device:R R?
-U 1 1 5BB59022
-P 4750 2950
-AR Path="/5BA17F9C/5BB59022" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5BB59022" Ref="R?"  Part="1" 
-AR Path="/5BA1A77A/5BB59022" Ref="R?"  Part="1" 
-AR Path="/5BB59022" Ref="R?"  Part="1" 
-AR Path="/5BB1631B/5BB59022" Ref="R?"  Part="1" 
-AR Path="/5BC28DAC/5BB59022" Ref="R18"  Part="1" 
-F 0 "R18" V 4850 2950 50  0000 L CNN
-F 1 "10k" V 4650 2950 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4680 2950 50  0001 C CNN
-F 3 "~" H 4750 2950 50  0001 C CNN
-F 4 "RC0603JR-0710KL" V 4750 2950 50  0001 C CNN "Manufacturer Part Number"
-	1    4750 2950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4750 3100 4750 3500
-Connection ~ 4750 3500
-Wire Wire Line
-	4750 3500 4200 3500
-Wire Wire Line
-	5050 3100 5050 3600
-Connection ~ 5050 3600
-Wire Wire Line
-	5050 3600 5300 3600
 Wire Wire Line
 	7300 3600 7300 4150
 Wire Wire Line
@@ -209,30 +177,6 @@ F 3 "" H 7300 3150 50  0001 C CNN
 	1    7300 3150
 	1    0    0    -1  
 $EndComp
-$Comp
-L AXTEC_IC:+3V3_Internal #PWR?
-U 1 1 5BD1A8BA
-P 4900 2600
-AR Path="/5BD1A8BA" Ref="#PWR?"  Part="1" 
-AR Path="/5BC28DAC/5BD1A8BA" Ref="#PWR9"  Part="1" 
-F 0 "#PWR9" H 4900 3000 50  0001 C CNN
-F 1 "+3V3_Internal" H 4885 2775 50  0000 C CNN
-F 2 "" H 4900 2600 50  0001 C CNN
-F 3 "" H 4900 2600 50  0001 C CNN
-	1    4900 2600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4750 2650 4900 2650
-Wire Wire Line
-	5050 2650 5050 2800
-Wire Wire Line
-	4750 2650 4750 2800
-Wire Wire Line
-	4900 2600 4900 2650
-Connection ~ 4900 2650
-Wire Wire Line
-	4900 2650 5050 2650
 Wire Wire Line
 	6800 3400 6800 3450
 Wire Wire Line
@@ -244,24 +188,6 @@ Wire Wire Line
 Wire Wire Line
 	6600 3700 6500 3700
 Connection ~ 7300 4150
-$Comp
-L Device:R R?
-U 1 1 5C28A0C8
-P 5050 2950
-AR Path="/5BA17F9C/5C28A0C8" Ref="R?"  Part="1" 
-AR Path="/5BA1A7F9/5C28A0C8" Ref="R?"  Part="1" 
-AR Path="/5BA1A77A/5C28A0C8" Ref="R?"  Part="1" 
-AR Path="/5C28A0C8" Ref="R?"  Part="1" 
-AR Path="/5BB1631B/5C28A0C8" Ref="R?"  Part="1" 
-AR Path="/5BC28DAC/5C28A0C8" Ref="R19"  Part="1" 
-F 0 "R19" V 5150 2950 50  0000 L CNN
-F 1 "10k" V 4950 2950 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4980 2950 50  0001 C CNN
-F 3 "~" H 5050 2950 50  0001 C CNN
-F 4 "RC0603JR-0710KL" V 5050 2950 50  0001 C CNN "Manufacturer Part Number"
-	1    5050 2950
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:R R?
 U 1 1 5C28A173
@@ -298,4 +224,8 @@ F 4 "RC0603JR-0710KL" V 5050 4350 50  0001 C CNN "Manufacturer Part Number"
 	1    5050 4350
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	4200 3500 5300 3500
+Wire Wire Line
+	4200 3600 5300 3600
 $EndSCHEMATC
