@@ -1790,13 +1790,14 @@ Wire Wire Line
 Wire Wire Line
 	8150 7350 7750 7350
 $Comp
-L RF_Module:ESP32-WROOM-32 U3
+L PCB_C-rescue:ESP32-WROOM-32-RF_Module U3
 U 1 1 5D74DFF0
 P 6650 2850
 F 0 "U3" H 5900 4350 50  0000 C CNN
 F 1 "ESP32-WROOM-32" H 6200 4250 50  0000 C CNN
 F 2 "RF_Module:ESP32-WROOM-32" H 6650 1350 50  0001 C CNN
 F 3 "https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf" H 6350 2900 50  0001 C CNN
+F 4 "ESP32-WROOM-32" H 6650 2850 50  0001 C CNN "Manufacturer Part Number"
 	1    6650 2850
 	1    0    0    -1  
 $EndComp
@@ -2003,6 +2004,7 @@ F 0 "U7" H 6100 6550 50  0000 C CNN
 F 1 "PIC16LF18325-ISL" H 6400 6450 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 8400 5300 50  0001 C CNN
 F 3 "http://ww1.microchip.com/downloads/en/devicedoc/40001795b.pdf" H 8400 5200 50  0001 C CNN
+F 4 "PIC16LF18325-I/SL" H 8400 5900 50  0001 C CNN "Manufacturer Part Number"
 	1    8400 5900
 	1    0    0    -1  
 $EndComp
@@ -2131,10 +2133,10 @@ $EndComp
 Wire Wire Line
 	11900 9050 12600 9050
 $Comp
-L Graphic:Logo_Open_Hardware_Large #LOGO?
+L Graphic:Logo_Open_Hardware_Large #LOGO1
 U 1 1 5C32959E
 P 1850 10100
-F 0 "#LOGO?" H 1850 10600 50  0001 C CNN
+F 0 "#LOGO1" H 1850 10600 50  0001 C CNN
 F 1 "Logo_Open_Hardware_Large" H 1850 9700 50  0001 C CNN
 F 2 "" H 1850 10100 50  0001 C CNN
 F 3 "~" H 1850 10100 50  0001 C CNN
