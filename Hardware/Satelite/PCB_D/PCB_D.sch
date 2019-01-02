@@ -1298,4 +1298,15 @@ Text Label 9600 2700 0    50   ~ 0
 D-
 Text Label 9600 2800 0    50   ~ 0
 D+
+$Comp
+L Graphic:Logo_Open_Hardware_Large #LOGO?
+U 1 1 5C3319FC
+P 8750 5500
+F 0 "#LOGO?" H 8750 6000 50  0001 C CNN
+F 1 "Logo_Open_Hardware_Large" H 8750 5100 50  0001 C CNN
+F 2 "" H 8750 5500 50  0001 C CNN
+F 3 "~" H 8750 5500 50  0001 C CNN
+	1    8750 5500
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

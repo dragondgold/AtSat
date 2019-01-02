@@ -814,4 +814,15 @@ Wire Wire Line
 	2800 1400 2900 1400
 Wire Wire Line
 	2600 1500 2900 1500
+$Comp
+L Graphic:Logo_Open_Hardware_Large #LOGO?
+U 1 1 5C33AF12
+P 5250 7150
+F 0 "#LOGO?" H 5250 7650 50  0001 C CNN
+F 1 "Logo_Open_Hardware_Large" H 5250 6750 50  0001 C CNN
+F 2 "" H 5250 7150 50  0001 C CNN
+F 3 "~" H 5250 7150 50  0001 C CNN
+	1    5250 7150
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

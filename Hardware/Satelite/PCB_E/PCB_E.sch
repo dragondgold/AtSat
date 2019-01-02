@@ -671,4 +671,15 @@ F 3 "" H 8750 2600 50  0001 C CNN
 $EndComp
 Text Label 9650 4600 0    50   ~ 0
 Vbus
+$Comp
+L Graphic:Logo_Open_Hardware_Large #LOGO?
+U 1 1 5C333B8B
+P 1200 7200
+F 0 "#LOGO?" H 1200 7700 50  0001 C CNN
+F 1 "Logo_Open_Hardware_Large" H 1200 6800 50  0001 C CNN
+F 2 "" H 1200 7200 50  0001 C CNN
+F 3 "~" H 1200 7200 50  0001 C CNN
+	1    1200 7200
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
