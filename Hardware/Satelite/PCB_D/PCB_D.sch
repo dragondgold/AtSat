@@ -106,7 +106,7 @@ D2 F7 FD DA 6B 00 00 60 22 3B 71 00 00 09 09 71 00 00 09 09 71 00 00 09 09 71 00
 EndData
 $EndBitmap
 $Comp
-L PCB_D-rescue:FT231XS-Interface_USB-PCB_D-rescue-PCB_D-rescue U3
+L PCB_D-rescue:FT231XS-Interface_USB-PCB_D-rescue-PCB_D-rescue-PCB_D-rescue U3
 U 1 1 5BBD709B
 P 8750 3000
 F 0 "U3" H 9250 3900 50  0000 C CNN
@@ -195,10 +195,6 @@ Connection ~ 10150 3150
 Wire Wire Line
 	10150 3150 10150 3100
 Wire Wire Line
-	9450 2400 9550 2400
-Wire Wire Line
-	9450 3000 9550 3000
-Wire Wire Line
 	9750 1500 9750 2500
 Wire Wire Line
 	9750 2500 9850 2500
@@ -207,17 +203,10 @@ Wire Wire Line
 Wire Wire Line
 	8850 1500 8850 2100
 Wire Wire Line
-	9550 2000 8650 2000
-Wire Wire Line
 	8650 2000 8650 2100
-Wire Wire Line
-	9550 2000 9550 2400
 Connection ~ 9000 1500
 Wire Wire Line
 	9000 1500 9400 1500
-Wire Wire Line
-	9550 3000 9550 2400
-Connection ~ 9550 2400
 $Comp
 L Device:C_Small C5
 U 1 1 5BBE9661
@@ -1278,25 +1267,9 @@ Wire Wire Line
 	7900 4200 7900 3600
 Wire Wire Line
 	7900 3600 8050 3600
-Wire Wire Line
-	9450 2700 9750 2700
-Wire Wire Line
-	9750 2700 9750 2800
-Wire Wire Line
-	9750 2800 9850 2800
-Wire Wire Line
-	9850 2700 9800 2700
-Wire Wire Line
-	9800 2700 9800 2750
-Wire Wire Line
-	9800 2750 9700 2750
-Wire Wire Line
-	9700 2750 9700 2800
-Wire Wire Line
-	9700 2800 9450 2800
-Text Label 9600 2700 0    50   ~ 0
+Text Label 9450 2700 0    50   ~ 0
 D-
-Text Label 9600 2800 0    50   ~ 0
+Text Label 9450 2800 0    50   ~ 0
 D+
 $Comp
 L Graphic:Logo_Open_Hardware_Large #LOGO?
@@ -1309,4 +1282,27 @@ F 3 "~" H 8750 5500 50  0001 C CNN
 	1    8750 5500
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	9450 2700 9500 2700
+Wire Wire Line
+	9450 2800 9500 2800
+Wire Wire Line
+	9600 2000 9600 2400
+Wire Wire Line
+	9450 3000 9600 3000
+Wire Wire Line
+	8650 2000 9600 2000
+Wire Wire Line
+	9450 2400 9600 2400
+Connection ~ 9600 2400
+Wire Wire Line
+	9600 2400 9600 3000
+Text Label 9750 2700 0    50   ~ 0
+D+
+Text Label 9750 2800 0    50   ~ 0
+D-
+Wire Wire Line
+	9750 2700 9850 2700
+Wire Wire Line
+	9750 2800 9850 2800
 $EndSCHEMATC
