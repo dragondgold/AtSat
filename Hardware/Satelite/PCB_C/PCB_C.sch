@@ -2037,6 +2037,8 @@ F 0 "J4" H 14450 5850 50  0000 C CNN
 F 1 "Conector_Expansion_CanSat" H 14450 5750 50  0000 C CNN
 F 2 "" H 14450 5500 50  0001 C CNN
 F 3 "" H 14450 5500 50  0001 C CNN
+F 4 "SSQ-106-03-T-S" H 14450 5000 50  0001 C CNN "Manufacturer Part Number"
+F 5 "4" H 14450 5000 50  0001 C CNN "Quantity"
 	1    14450 5000
 	1    0    0    -1  
 $EndComp
@@ -2128,4 +2130,15 @@ F 3 "" H 1150 5750 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	11900 9050 12600 9050
+$Comp
+L Graphic:Logo_Open_Hardware_Large #LOGO?
+U 1 1 5C32959E
+P 1850 10100
+F 0 "#LOGO?" H 1850 10600 50  0001 C CNN
+F 1 "Logo_Open_Hardware_Large" H 1850 9700 50  0001 C CNN
+F 2 "" H 1850 10100 50  0001 C CNN
+F 3 "~" H 1850 10100 50  0001 C CNN
+	1    1850 10100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

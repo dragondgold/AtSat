@@ -1143,4 +1143,15 @@ Wire Wire Line
 	10050 4350 10650 4350
 Text Label 10150 4350 0    50   ~ 0
 CHG_DISABLE
+$Comp
+L Graphic:Logo_Open_Hardware_Large #LOGO?
+U 1 1 5C33960E
+P 1150 7250
+F 0 "#LOGO?" H 1150 7750 50  0001 C CNN
+F 1 "Logo_Open_Hardware_Large" H 1150 6850 50  0001 C CNN
+F 2 "" H 1150 7250 50  0001 C CNN
+F 3 "~" H 1150 7250 50  0001 C CNN
+	1    1150 7250
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
