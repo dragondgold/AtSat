@@ -671,4 +671,41 @@ Wire Wire Line
 	7850 4550 7650 4550
 Wire Wire Line
 	7650 4450 7850 4450
+$Comp
+L Connector:TestPoint_Probe TP5
+U 1 1 5C2D2DC9
+P 5750 3950
+F 0 "TP5" H 5903 4052 50  0000 L CNN
+F 1 "TestPoint_3V3" H 5903 3961 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 5950 3950 50  0001 C CNN
+F 3 "~" H 5950 3950 50  0001 C CNN
+	1    5750 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5750 3950 5650 3950
+$Comp
+L Connector:TestPoint_Probe TP6
+U 1 1 5C2DBAB3
+P 4900 5800
+F 0 "TP6" H 5053 5902 50  0000 L CNN
+F 1 "TestPoint_GND" H 5053 5811 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_1.0x1.0mm_Drill0.5mm" H 5100 5800 50  0001 C CNN
+F 3 "~" H 5100 5800 50  0001 C CNN
+	1    4900 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR043
+U 1 1 5C2DBB1F
+P 4900 5900
+F 0 "#PWR043" H 4900 5650 50  0001 C CNN
+F 1 "GND" H 4905 5727 50  0000 C CNN
+F 2 "" H 4900 5900 50  0001 C CNN
+F 3 "" H 4900 5900 50  0001 C CNN
+	1    4900 5900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 5900 4900 5800
 $EndSCHEMATC

@@ -15,14 +15,14 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 5050 3600 600  850 
+S 4500 3600 600  850 
 U 5B9997DB
 F0 "USBaSPI" 50
 F1 "USBaSPI.sch" 50
-F2 "MOSI" O R 5650 4050 50 
-F3 "SCK" O R 5650 3950 50 
-F4 "MISO" I R 5650 4150 50 
-F5 "CS" O R 5650 4250 50 
+F2 "MOSI" O R 5100 4050 50 
+F3 "SCK" O R 5100 3950 50 
+F4 "MISO" I R 5100 4150 50 
+F5 "CS" O R 5100 4250 50 
 $EndSheet
 $Sheet
 S 6100 3600 600  850 
@@ -35,12 +35,6 @@ F4 "SI" I L 6100 4050 50
 F5 "ANT" B R 6700 4050 50 
 F6 "CS" I L 6100 4250 50 
 $EndSheet
-Wire Wire Line
-	5650 3950 6100 3950
-Wire Wire Line
-	5650 4050 6100 4050
-Wire Wire Line
-	5650 4150 6100 4150
 $Comp
 L power:GND #PWR01
 U 1 1 5B9AA918
@@ -281,52 +275,113 @@ F 3 "~" H 1050 7300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x03 J3
-U 1 1 5C00A33C
-P 5900 4900
-F 0 "J3" V 5773 5080 50  0000 L CNN
-F 1 "Conn_01x03" V 5864 5080 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Horizontal" H 5900 4900 50  0001 C CNN
-F 3 "~" H 5900 4900 50  0001 C CNN
-F 4 "61300311121" V 5900 4900 50  0001 C CNN "Manufacturer Part Number"
-	1    5900 4900
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	5650 4250 5800 4250
-Wire Wire Line
-	5800 4250 5800 4700
-Wire Wire Line
-	6100 4250 5900 4250
-Wire Wire Line
-	5900 4250 5900 4700
-$Comp
 L power:GND #PWR026
 U 1 1 5C00A55B
-P 6650 4800
-F 0 "#PWR026" H 6650 4550 50  0001 C CNN
-F 1 "GND" H 6655 4627 50  0000 C CNN
-F 2 "" H 6650 4800 50  0001 C CNN
-F 3 "" H 6650 4800 50  0001 C CNN
-	1    6650 4800
+P 6050 5050
+F 0 "#PWR026" H 6050 4800 50  0001 C CNN
+F 1 "GND" H 6055 4877 50  0000 C CNN
+F 2 "" H 6050 5050 50  0001 C CNN
+F 3 "" H 6050 5050 50  0001 C CNN
+	1    6050 5050
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6000 4700 6000 4600
-Wire Wire Line
-	6000 4600 6650 4600
-Wire Wire Line
-	6650 4600 6650 4800
+	5100 3950 5200 3950
 $Comp
-L AXTEC_IC:BOM_Jumper JP1
-U 1 1 5C00354F
-P 5950 5200
-F 0 "JP1" H 6113 5273 50  0000 L CNN
-F 1 "BOM_Jumper" H 6113 5182 50  0000 L CNN
-F 2 "AXTEC:Empty_Footprint" H 5950 5300 50  0001 C CNN
-F 3 "" H 5950 5300 50  0001 C CNN
-F 4 "M7581-05" H 6113 5091 50  0000 L CNN "Manufacturer Part Number"
-	1    5950 5200
+L Connector:TestPoint_Probe TP4
+U 1 1 5C2D7A58
+P 5950 3400
+F 0 "TP4" H 6103 3502 50  0000 L CNN
+F 1 "TestPoint_CS" H 6103 3411 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 6150 3400 50  0001 C CNN
+F 3 "~" H 6150 3400 50  0001 C CNN
+	1    5950 3400
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:TestPoint_Probe TP3
+U 1 1 5C2D7AA0
+P 5950 3200
+F 0 "TP3" H 6103 3302 50  0000 L CNN
+F 1 "TestPoint_MISO" H 6103 3211 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 6150 3200 50  0001 C CNN
+F 3 "~" H 6150 3200 50  0001 C CNN
+	1    5950 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP2
+U 1 1 5C2D7ACA
+P 5950 3000
+F 0 "TP2" H 6103 3102 50  0000 L CNN
+F 1 "TestPoint_MOSI" H 6103 3011 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 6150 3000 50  0001 C CNN
+F 3 "~" H 6150 3000 50  0001 C CNN
+	1    5950 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP1
+U 1 1 5C2D7B04
+P 5950 2800
+F 0 "TP1" H 6103 2902 50  0000 L CNN
+F 1 "TestPoint_SCK" H 6103 2811 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 6150 2800 50  0001 C CNN
+F 3 "~" H 6150 2800 50  0001 C CNN
+	1    5950 2800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5600 4250 6100 4250
+Wire Wire Line
+	5100 4250 5350 4250
+Wire Wire Line
+	5200 3950 5200 2800
+Wire Wire Line
+	5200 2800 5950 2800
+Connection ~ 5200 3950
+Wire Wire Line
+	5200 3950 6100 3950
+$Comp
+L Device:Jumper_NC_Dual JP1
+U 1 1 5C2DD6B3
+P 5600 4950
+F 0 "JP1" H 5600 5096 50  0000 C CNN
+F 1 "Jumper_NC_Dual" H 5600 5187 50  0000 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm_NumberLabels" H 5600 4950 50  0001 C CNN
+F 3 "~" H 5600 4950 50  0001 C CNN
+	1    5600 4950
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5350 4950 5350 4250
+Connection ~ 5350 4250
+Wire Wire Line
+	5600 4250 5600 4850
+Wire Wire Line
+	5850 4950 6050 4950
+Wire Wire Line
+	6050 4950 6050 5050
+Wire Wire Line
+	5100 4050 5250 4050
+Wire Wire Line
+	5100 4150 5300 4150
+Wire Wire Line
+	5300 4150 5300 3200
+Wire Wire Line
+	5300 3200 5950 3200
+Connection ~ 5300 4150
+Wire Wire Line
+	5300 4150 6100 4150
+Wire Wire Line
+	5250 4050 5250 3000
+Wire Wire Line
+	5250 3000 5950 3000
+Connection ~ 5250 4050
+Wire Wire Line
+	5250 4050 6100 4050
+Wire Wire Line
+	5350 4250 5350 3400
+Wire Wire Line
+	5350 3400 5950 3400
 $EndSCHEMATC
