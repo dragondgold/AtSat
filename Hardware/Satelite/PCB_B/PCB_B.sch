@@ -203,7 +203,7 @@ U 1 1 5BC1C484
 P 3150 5750
 F 0 "U1" H 3150 6067 50  0000 C CNN
 F 1 "MIC5323-3.3YD5_TR" H 3150 5975 50  0000 C CNN
-F 2 "SOT95P280X100-5N" H 4100 5850 50  0001 L CNN
+F 2 "SamacSys_Parts:SOT95P280X100-5N" H 4100 5850 50  0001 L CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf" H 4100 5750 50  0001 L CNN
 F 4 "Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23" H 4100 5650 50  0001 L CNN "Description"
 F 5 "1" H 4100 5550 50  0001 L CNN "Height"
@@ -794,7 +794,7 @@ AR Path="/5BC14C3C/5C2C898D" Ref="IC?"  Part="1"
 AR Path="/5C2C898D" Ref="IC1"  Part="1" 
 F 0 "IC1" H 7350 5865 50  0000 C CNN
 F 1 "MCP1642B-50I_MS" H 7350 5774 50  0000 C CNN
-F 2 "SOP65P490X110-8N" H 7750 5700 50  0001 L CNN
+F 2 "SamacSys_Parts:SOP65P490X110-8N" H 7750 5700 50  0001 L CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20005253A.pdf" H 7750 5600 50  0001 L CNN
 F 4 "Switching Voltage Regulators Step-up DC/DC Reg 1 MHz, 1.6A, 5Vout" H 7750 5500 50  0001 L CNN "Description"
 F 5 "1.1" H 7750 5400 50  0001 L CNN "Height"
@@ -1106,37 +1106,37 @@ Wire Wire Line
 $Comp
 L AXTEC_IC:Spacer M1
 U 1 1 5C28AC86
-P 2600 3550
-F 0 "M1" H 2679 3543 50  0000 L CNN
-F 1 "Spacer" H 2679 3451 50  0000 L CNN
-F 2 "AXTEC:Empty_Footprint" H 2500 3700 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 2600 3800 50  0001 C CNN
-F 4 "R30-3011202" H 2679 3405 50  0001 L CNN "Manufacturer Part Number"
-	1    2600 3550
+P 5300 7000
+F 0 "M1" H 5379 6993 50  0000 L CNN
+F 1 "Spacer" H 5379 6901 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 5200 7150 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 5300 7250 50  0001 C CNN
+F 4 "R30-3011202" H 5379 6855 50  0001 L CNN "Manufacturer Part Number"
+	1    5300 7000
 	1    0    0    -1  
 $EndComp
 $Comp
 L AXTEC_IC:Spacer M2
 U 1 1 5C28AE04
-P 3100 3550
-F 0 "M2" H 3179 3543 50  0000 L CNN
-F 1 "Spacer" H 3179 3451 50  0000 L CNN
-F 2 "AXTEC:Empty_Footprint" H 3000 3700 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 3100 3800 50  0001 C CNN
-F 4 "R30-3011202" H 3179 3405 50  0001 L CNN "Manufacturer Part Number"
-	1    3100 3550
+P 5800 7000
+F 0 "M2" H 5879 6993 50  0000 L CNN
+F 1 "Spacer" H 5879 6901 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 5700 7150 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 5800 7250 50  0001 C CNN
+F 4 "R30-3011202" H 5879 6855 50  0001 L CNN "Manufacturer Part Number"
+	1    5800 7000
 	1    0    0    -1  
 $EndComp
 $Comp
 L AXTEC_IC:Spacer M3
 U 1 1 5C28AE40
-P 3600 3550
-F 0 "M3" H 3679 3543 50  0000 L CNN
-F 1 "Spacer" H 3679 3451 50  0000 L CNN
-F 2 "AXTEC:Empty_Footprint" H 3500 3700 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 3600 3800 50  0001 C CNN
-F 4 "R30-3011202" H 3679 3405 50  0001 L CNN "Manufacturer Part Number"
-	1    3600 3550
+P 6300 7000
+F 0 "M3" H 6379 6993 50  0000 L CNN
+F 1 "Spacer" H 6379 6901 50  0000 L CNN
+F 2 "AXTEC:Empty_Footprint" H 6200 7150 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" H 6300 7250 50  0001 C CNN
+F 4 "R30-3011202" H 6379 6855 50  0001 L CNN "Manufacturer Part Number"
+	1    6300 7000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1154,4 +1154,312 @@ F 3 "~" H 1150 7250 50  0001 C CNN
 	1    1150 7250
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:TestPoint_Probe TP5
+U 1 1 5C2DCB19
+P 1200 3800
+F 0 "TP5" H 1353 3902 50  0000 L CNN
+F 1 "TestPoint_5Vext" H 1353 3811 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 1400 3800 50  0001 C CNN
+F 3 "~" H 1400 3800 50  0001 C CNN
+	1    1200 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP9
+U 1 1 5C2DCB9B
+P 2600 3100
+F 0 "TP9" H 2753 3202 50  0000 L CNN
+F 1 "TestPoint_I5V" H 2753 3111 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 2800 3100 50  0001 C CNN
+F 3 "~" H 2800 3100 50  0001 C CNN
+	1    2600 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP10
+U 1 1 5C2DCBD3
+P 2600 3300
+F 0 "TP10" H 2753 3402 50  0000 L CNN
+F 1 "TestPoint_V5V" H 2753 3311 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 2800 3300 50  0001 C CNN
+F 3 "~" H 2800 3300 50  0001 C CNN
+	1    2600 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR015
+U 1 1 5C2ED28D
+P 850 3800
+F 0 "#PWR015" H 850 3650 50  0001 C CNN
+F 1 "+5V" H 864 3975 50  0000 C CNN
+F 2 "" H 850 3800 50  0001 C CNN
+F 3 "" H 850 3800 50  0001 C CNN
+	1    850  3800
+	1    0    0    -1  
+$EndComp
+Text Label 2150 3100 0    50   ~ 0
+I_SENSE_5V
+Text Label 2150 3300 0    50   ~ 0
+V_SENSE_5V
+Text Label 2100 3500 0    50   ~ 0
+I_SENSE_3V3
+Text Label 2100 3700 0    50   ~ 0
+V_SENSE_3V3
+$Comp
+L power:+3V3 #PWR014
+U 1 1 5C2ED5B1
+P 850 3550
+F 0 "#PWR014" H 850 3400 50  0001 C CNN
+F 1 "+3V3" H 864 3725 50  0000 C CNN
+F 2 "" H 850 3550 50  0001 C CNN
+F 3 "" H 850 3550 50  0001 C CNN
+	1    850  3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L AXTEC_IC:+3V3_Internal #PWR?
+U 1 1 5C2ED7BA
+P 850 3300
+AR Path="/5BB6C3A1/5C2ED7BA" Ref="#PWR?"  Part="1" 
+AR Path="/5BB6C83B/5C2ED7BA" Ref="#PWR?"  Part="1" 
+AR Path="/5BC14C3C/5C2ED7BA" Ref="#PWR?"  Part="1" 
+AR Path="/5C2ED7BA" Ref="#PWR13"  Part="1" 
+F 0 "#PWR13" H 850 3700 50  0001 C CNN
+F 1 "+3V3_Internal" H 835 3473 50  0000 C CNN
+F 2 "" H 850 3300 50  0001 C CNN
+F 3 "" H 850 3300 50  0001 C CNN
+	1    850  3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP4
+U 1 1 5C2ED891
+P 1200 3550
+F 0 "TP4" H 1353 3652 50  0000 L CNN
+F 1 "TestPoint_3v3ext" H 1353 3561 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 1400 3550 50  0001 C CNN
+F 3 "~" H 1400 3550 50  0001 C CNN
+	1    1200 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	850  3550 1200 3550
+Wire Wire Line
+	850  3800 1200 3800
+$Comp
+L Connector:TestPoint_Probe TP3
+U 1 1 5C2FEDA6
+P 1200 3300
+F 0 "TP3" H 1353 3402 50  0000 L CNN
+F 1 "TestPoint_3V3int" H 1353 3311 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 1400 3300 50  0001 C CNN
+F 3 "~" H 1400 3300 50  0001 C CNN
+	1    1200 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	850  3300 1200 3300
+Text Label 800  4000 0    50   ~ 0
+SERVOS_5V
+$Comp
+L Connector:TestPoint_Probe TP6
+U 1 1 5C304BE0
+P 1200 4000
+F 0 "TP6" H 1353 4102 50  0000 L CNN
+F 1 "TestPoint_5Vint" H 1353 4011 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 1400 4000 50  0001 C CNN
+F 3 "~" H 1400 4000 50  0001 C CNN
+	1    1200 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	800  4000 1200 4000
+$Comp
+L Connector:TestPoint_Probe TP11
+U 1 1 5C310C59
+P 2600 3500
+F 0 "TP11" H 2753 3602 50  0000 L CNN
+F 1 "TestPoint_I3V3" H 2753 3511 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 2800 3500 50  0001 C CNN
+F 3 "~" H 2800 3500 50  0001 C CNN
+	1    2600 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP12
+U 1 1 5C310CA1
+P 2600 3700
+F 0 "TP12" H 2753 3802 50  0000 L CNN
+F 1 "TestPoint_V3V3" H 2753 3711 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 2800 3700 50  0001 C CNN
+F 3 "~" H 2800 3700 50  0001 C CNN
+	1    2600 3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2150 3300 2600 3300
+Wire Wire Line
+	2150 3100 2600 3100
+Wire Wire Line
+	2100 3500 2600 3500
+Wire Wire Line
+	2100 3700 2600 3700
+$Comp
+L Connector:TestPoint_Probe TP7
+U 1 1 5C3483F7
+P 1200 4200
+F 0 "TP7" H 1353 4302 50  0000 L CNN
+F 1 "TestPoint_GND" H 1353 4211 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_1.0x1.0mm_Drill0.5mm" H 1400 4200 50  0001 C CNN
+F 3 "~" H 1400 4200 50  0001 C CNN
+	1    1200 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR016
+U 1 1 5C348466
+P 1200 4250
+F 0 "#PWR016" H 1200 4000 50  0001 C CNN
+F 1 "GND" H 1204 4076 50  0000 C CNN
+F 2 "" H 1200 4250 50  0001 C CNN
+F 3 "" H 1200 4250 50  0001 C CNN
+	1    1200 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1200 4250 1200 4200
+$Comp
+L power:+BATT #PWR012
+U 1 1 5C354F78
+P 800 3100
+F 0 "#PWR012" H 800 2950 50  0001 C CNN
+F 1 "+BATT" H 814 3275 50  0000 C CNN
+F 2 "" H 800 3100 50  0001 C CNN
+F 3 "" H 800 3100 50  0001 C CNN
+	1    800  3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP2
+U 1 1 5C354FF6
+P 1200 3100
+F 0 "TP2" H 1353 3202 50  0000 L CNN
+F 1 "TestPoint_BATT" H 1353 3111 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 1400 3100 50  0001 C CNN
+F 3 "~" H 1400 3100 50  0001 C CNN
+	1    1200 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	800  3100 1200 3100
+$Comp
+L power:VBUS #PWR09
+U 1 1 5C361E82
+P 800 2900
+F 0 "#PWR09" H 800 2750 50  0001 C CNN
+F 1 "VBUS" H 814 3075 50  0000 C CNN
+F 2 "" H 800 2900 50  0001 C CNN
+F 3 "" H 800 2900 50  0001 C CNN
+	1    800  2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	800  2900 1200 2900
+$Comp
+L Connector:TestPoint_Probe TP1
+U 1 1 5C368747
+P 1200 2900
+F 0 "TP1" H 1353 3002 50  0000 L CNN
+F 1 "TestPoint_VBUS" H 1353 2911 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 1400 2900 50  0001 C CNN
+F 3 "~" H 1400 2900 50  0001 C CNN
+	1    1200 2900
+	1    0    0    -1  
+$EndComp
+Text Label 2100 2900 0    50   ~ 0
+I_SENSE_BATT
+$Comp
+L Connector:TestPoint_Probe TP8
+U 1 1 5C368A04
+P 2600 2900
+F 0 "TP8" H 2753 3002 50  0000 L CNN
+F 1 "TestPoint_IBATT" H 2753 2911 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 2800 2900 50  0001 C CNN
+F 3 "~" H 2800 2900 50  0001 C CNN
+	1    2600 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2100 2900 2600 2900
+Text Label 3400 2900 0    50   ~ 0
+SDA
+Text Label 3400 3100 0    50   ~ 0
+SCL
+Text Label 2100 3900 0    50   ~ 0
+CHG
+Text Label 2100 4100 0    50   ~ 0
+GPOUT
+Wire Wire Line
+	2100 3900 2600 3900
+$Comp
+L Connector:TestPoint_Probe TP13
+U 1 1 5C3981D4
+P 2600 3900
+F 0 "TP13" H 2753 4002 50  0000 L CNN
+F 1 "TestPoint_CHG" H 2753 3911 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 2800 3900 50  0001 C CNN
+F 3 "~" H 2800 3900 50  0001 C CNN
+	1    2600 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP14
+U 1 1 5C39821E
+P 2600 4100
+F 0 "TP14" H 2753 4202 50  0000 L CNN
+F 1 "TestPoint_GPOUT" H 2753 4111 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 2800 4100 50  0001 C CNN
+F 3 "~" H 2800 4100 50  0001 C CNN
+	1    2600 4100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 4100 2100 4100
+$Comp
+L Connector:TestPoint_Probe TP15
+U 1 1 5C3A6505
+P 3750 2900
+F 0 "TP15" H 3903 3002 50  0000 L CNN
+F 1 "TestPoint_SDA" H 3903 2911 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 3950 2900 50  0001 C CNN
+F 3 "~" H 3950 2900 50  0001 C CNN
+	1    3750 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3400 2900 3750 2900
+$Comp
+L Connector:TestPoint_Probe TP16
+U 1 1 5C3AD634
+P 3750 3100
+F 0 "TP16" H 3903 3202 50  0000 L CNN
+F 1 "TestPoint_SCL" H 3903 3111 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 3950 3100 50  0001 C CNN
+F 3 "~" H 3950 3100 50  0001 C CNN
+	1    3750 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 3100 3400 3100
+Wire Notes Line
+	550  2450 550  4850
+Wire Notes Line
+	550  4850 4500 4850
+Wire Notes Line
+	4500 4850 4500 2450
+Wire Notes Line
+	4500 2450 550  2450
+Text Notes 1600 2650 0    118  ~ 0
+Puntos de prueba
 $EndSCHEMATC
