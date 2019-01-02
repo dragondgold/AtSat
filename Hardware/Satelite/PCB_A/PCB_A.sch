@@ -472,12 +472,6 @@ Wire Notes Line
 Wire Notes Line
 	11100 550  11100 3750
 Wire Notes Line
-	700  600  3600 600 
-Wire Notes Line
-	3600 600  3600 2350
-Wire Notes Line
-	700  600  700  2350
-Wire Notes Line
 	700  2350 3600 2350
 Text Notes 1050 900  0    157  ~ 0
 Conector Bateria\n
@@ -815,14 +809,198 @@ Wire Wire Line
 Wire Wire Line
 	2600 1500 2900 1500
 $Comp
-L Graphic:Logo_Open_Hardware_Large #LOGO?
+L Graphic:Logo_Open_Hardware_Large #LOGO1
 U 1 1 5C33AF12
 P 5250 7150
-F 0 "#LOGO?" H 5250 7650 50  0001 C CNN
+F 0 "#LOGO1" H 5250 7650 50  0001 C CNN
 F 1 "Logo_Open_Hardware_Large" H 5250 6750 50  0001 C CNN
 F 2 "" H 5250 7150 50  0001 C CNN
 F 3 "~" H 5250 7150 50  0001 C CNN
 	1    5250 7150
 	1    0    0    -1  
 $EndComp
+$Comp
+L power:+BATT #PWR014
+U 1 1 5C2D3F1A
+P 4600 1150
+F 0 "#PWR014" H 4600 1000 50  0001 C CNN
+F 1 "+BATT" H 4614 1325 50  0000 C CNN
+F 2 "" H 4600 1150 50  0001 C CNN
+F 3 "" H 4600 1150 50  0001 C CNN
+	1    4600 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP10
+U 1 1 5C2D567F
+P 5950 2000
+F 0 "TP10" H 6103 2102 50  0000 L CNN
+F 1 "TestPoint_GND" H 6103 2011 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_1.0x1.0mm_Drill0.5mm" H 6150 2000 50  0001 C CNN
+F 3 "~" H 6150 2000 50  0001 C CNN
+	1    5950 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP6
+U 1 1 5C2D56BD
+P 5950 1200
+F 0 "TP6" H 6103 1302 50  0000 L CNN
+F 1 "TestPoint_CS" H 6103 1211 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 6150 1200 50  0001 C CNN
+F 3 "~" H 6150 1200 50  0001 C CNN
+	1    5950 1200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP7
+U 1 1 5C2D56FB
+P 5950 1400
+F 0 "TP7" H 6103 1502 50  0000 L CNN
+F 1 "TestPoint_SDO" H 6103 1411 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 6150 1400 50  0001 C CNN
+F 3 "~" H 6150 1400 50  0001 C CNN
+	1    5950 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP8
+U 1 1 5C2D575A
+P 5950 1600
+F 0 "TP8" H 6103 1702 50  0000 L CNN
+F 1 "TestPoint_SDI" H 6103 1611 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 6150 1600 50  0001 C CNN
+F 3 "~" H 6150 1600 50  0001 C CNN
+	1    5950 1600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5950 1200 5600 1200
+Wire Wire Line
+	5950 1400 5600 1400
+Wire Wire Line
+	5950 1600 5600 1600
+$Comp
+L power:GND #PWR016
+U 1 1 5C2DB21A
+P 5950 2050
+F 0 "#PWR016" H 5950 1800 50  0001 C CNN
+F 1 "GND" H 5955 1877 50  0000 C CNN
+F 2 "" H 5950 2050 50  0001 C CNN
+F 3 "" H 5950 2050 50  0001 C CNN
+	1    5950 2050
+	1    0    0    -1  
+$EndComp
+Text Label 5600 1200 0    50   ~ 0
+CS
+Text Label 5600 1400 0    50   ~ 0
+SDO
+Text Label 5600 1600 0    50   ~ 0
+SDI
+$Comp
+L Connector:TestPoint_Probe TP9
+U 1 1 5C2DD179
+P 5950 1800
+F 0 "TP9" H 6103 1902 50  0000 L CNN
+F 1 "TestPoint_SCLK" H 6103 1811 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 6150 1800 50  0001 C CNN
+F 3 "~" H 6150 1800 50  0001 C CNN
+	1    5950 1800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5950 1800 5600 1800
+Text Label 5600 1800 0    50   ~ 0
+SCLK
+$Comp
+L Connector:TestPoint_Probe TP2
+U 1 1 5C2DEC1A
+P 4600 1450
+F 0 "TP2" H 5350 1600 50  0000 R CNN
+F 1 "TestPoint_GPSTX" H 5350 1500 50  0000 R CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 4800 1450 50  0001 C CNN
+F 3 "~" H 4800 1450 50  0001 C CNN
+	1    4600 1450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 1450 4900 1450
+Text Label 4700 1450 0    50   ~ 0
+GPS_TX
+$Comp
+L Connector:TestPoint_Probe TP3
+U 1 1 5C2E59E7
+P 4600 1650
+F 0 "TP3" H 5350 1800 50  0000 R CNN
+F 1 "TestPoint_P1" H 5350 1700 50  0000 R CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 4800 1650 50  0001 C CNN
+F 3 "~" H 4800 1650 50  0001 C CNN
+	1    4600 1650
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 1650 4900 1650
+Text Label 4700 1650 0    50   ~ 0
+P1
+$Comp
+L Connector:TestPoint_Probe TP4
+U 1 1 5C2E7A24
+P 4600 1850
+F 0 "TP4" H 5350 2000 50  0000 R CNN
+F 1 "TestPoint_P1" H 5350 1900 50  0000 R CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 4800 1850 50  0001 C CNN
+F 3 "~" H 4800 1850 50  0001 C CNN
+	1    4600 1850
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 1850 4900 1850
+$Comp
+L Connector:TestPoint_Probe TP5
+U 1 1 5C2E94B0
+P 4600 2050
+F 0 "TP5" H 5350 2200 50  0000 R CNN
+F 1 "TestPoint_P1" H 5350 2100 50  0000 R CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 4800 2050 50  0001 C CNN
+F 3 "~" H 4800 2050 50  0001 C CNN
+	1    4600 2050
+	-1   0    0    -1  
+$EndComp
+Text Label 4650 1850 0    50   ~ 0
+S_GLOBO
+Text Label 5150 2050 2    50   ~ 0
+S_PARACAIDAS
+Wire Wire Line
+	4600 2050 5150 2050
+Wire Wire Line
+	5950 2050 5950 2000
+Wire Wire Line
+	4600 1150 4600 1250
+$Comp
+L Connector:TestPoint_Probe TP1
+U 1 1 5C2FCED2
+P 4600 1250
+F 0 "TP1" H 5350 1400 50  0000 R CNN
+F 1 "TestPoint_BATT" H 5350 1300 50  0000 R CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 4800 1250 50  0001 C CNN
+F 3 "~" H 4800 1250 50  0001 C CNN
+	1    4600 1250
+	-1   0    0    -1  
+$EndComp
+Wire Notes Line
+	3650 2350 6900 2350
+Wire Notes Line
+	6900 2350 6900 550 
+Wire Notes Line
+	6900 550  3650 550 
+Wire Notes Line
+	3650 550  3650 2350
+Wire Notes Line
+	700  550  3600 550 
+Wire Notes Line
+	3600 550  3600 2350
+Wire Notes Line
+	700  550  700  2350
+Text Notes 4200 850  0    157  ~ 0
+Puntos de prueba\n
 $EndSCHEMATC
