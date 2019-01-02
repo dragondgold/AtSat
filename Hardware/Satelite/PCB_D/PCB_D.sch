@@ -106,18 +106,6 @@ D2 F7 FD DA 6B 00 00 60 22 3B 71 00 00 09 09 71 00 00 09 09 71 00 00 09 09 71 00
 EndData
 $EndBitmap
 $Comp
-L PCB_D-rescue:FT231XS-Interface_USB-PCB_D-rescue-PCB_D-rescue-PCB_D-rescue U3
-U 1 1 5BBD709B
-P 8750 3000
-F 0 "U3" H 9250 3900 50  0000 C CNN
-F 1 "FT231XS" H 9150 3800 50  0000 C CNN
-F 2 "Package_SO:SSOP-20_3.9x8.7mm_P0.635mm" H 9350 2050 50  0001 C CNN
-F 3 "http://www.ftdichip.com/Products/ICs/FT231X.html" H 8750 3000 50  0001 C CNN
-F 4 "FT231XS-U" H 8750 3000 50  0001 C CNN "Manufacturer Part Number"
-	1    8750 3000
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Connector:USB_B_Micro J4
 U 1 1 5BBD7273
 P 10150 2700
@@ -1305,4 +1293,15 @@ Wire Wire Line
 	9750 2700 9850 2700
 Wire Wire Line
 	9750 2800 9850 2800
+$Comp
+L Interface_USB:FT231XS U3
+U 1 1 5C33DAA5
+P 8750 3000
+F 0 "U3" H 9250 3900 50  0000 C CNN
+F 1 "FT231XS" H 9150 3800 50  0000 C CNN
+F 2 "Package_SO:SSOP-20_3.9x8.7mm_P0.635mm" H 9350 2050 50  0001 C CNN
+F 3 "http://www.ftdichip.com/Products/ICs/FT231X.html" H 8750 3000 50  0001 C CNN
+	1    8750 3000
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC
