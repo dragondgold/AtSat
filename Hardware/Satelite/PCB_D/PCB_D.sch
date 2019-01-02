@@ -152,10 +152,6 @@ F 3 "" H 9000 1700 50  0001 C CNN
 	1    9000 1700
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	9850 2700 9450 2700
-Wire Wire Line
-	9850 2800 9450 2800
 $Comp
 L power:GND #PWR020
 U 1 1 5BBDE393
@@ -1089,10 +1085,6 @@ F 3 "" H 10150 4100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	10150 4100 10150 4050
-Text Label 9650 2700 0    50   ~ 0
-D+
-Text Label 9650 2800 0    50   ~ 0
-D-
 Wire Wire Line
 	9850 3650 9700 3650
 Wire Wire Line
@@ -1255,4 +1247,55 @@ F 3 "" H 3600 6550 50  0001 C CNN
 $EndComp
 Text Label 3050 6400 2    50   ~ 0
 RXD
+$Comp
+L Device:R R3
+U 1 1 5C2E87A0
+P 7300 3950
+F 0 "R3" H 7230 3904 50  0000 R CNN
+F 1 "10k" H 7230 3996 50  0000 R CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7230 3950 50  0001 C CNN
+F 3 "~" H 7300 3950 50  0001 C CNN
+F 4 "RC0603JR-0710KL" H 7300 3950 50  0001 C CNN "Manufacturer Part Number"
+	1    7300 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VBUS #PWR0105
+U 1 1 5C2E8CBB
+P 7300 3800
+F 0 "#PWR0105" H 7300 3650 50  0001 C CNN
+F 1 "VBUS" H 7314 3975 50  0000 C CNN
+F 2 "" H 7300 3800 50  0001 C CNN
+F 3 "" H 7300 3800 50  0001 C CNN
+	1    7300 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 4100 7300 4200
+Wire Wire Line
+	7300 4200 7900 4200
+Wire Wire Line
+	7900 4200 7900 3600
+Wire Wire Line
+	7900 3600 8050 3600
+Wire Wire Line
+	9450 2700 9750 2700
+Wire Wire Line
+	9750 2700 9750 2800
+Wire Wire Line
+	9750 2800 9850 2800
+Wire Wire Line
+	9850 2700 9800 2700
+Wire Wire Line
+	9800 2700 9800 2750
+Wire Wire Line
+	9800 2750 9700 2750
+Wire Wire Line
+	9700 2750 9700 2800
+Wire Wire Line
+	9700 2800 9450 2800
+Text Label 9600 2700 0    50   ~ 0
+D-
+Text Label 9600 2800 0    50   ~ 0
+D+
 $EndSCHEMATC
