@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# AXTEC_IC_+3V3_Internal
+# AXTEC_IC:+3V3_Internal
 #
-DEF AXTEC_IC_+3V3_Internal #PWR 0 40 Y Y 1 F N
+DEF AXTEC_IC:+3V3_Internal #PWR 0 40 Y Y 1 F N
 F0 "#PWR" 0 400 50 H I C CNN
-F1 "AXTEC_IC_+3V3_Internal" 0 300 50 H V C CNN
+F1 "AXTEC_IC:+3V3_Internal" 0 300 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -16,11 +16,11 @@ X +3V3_Internal 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_BOM_Jumper
+# AXTEC_IC:BOM_Jumper
 #
-DEF AXTEC_IC_BOM_Jumper JP 0 40 Y Y 1 F N
+DEF AXTEC_IC:BOM_Jumper JP 0 40 Y Y 1 F N
 F0 "JP" 0 100 50 H V C CNN
-F1 "AXTEC_IC_BOM_Jumper" 0 -150 50 H V C CNN
+F1 "AXTEC_IC:BOM_Jumper" 0 -150 50 H V C CNN
 F2 "AXTEC:Empty_Footprint" 0 100 50 H I C CNN
 F3 "" 0 100 50 H I C CNN
 F4 "M7581-05" 100 200 50 H V C CNN "Manufacturer Part Number"
@@ -31,11 +31,11 @@ C 100 -50 35 1 1 0 N
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_Conector_Expansion_CanSat
+# AXTEC_IC:Conector_Expansion_CanSat
 #
-DEF AXTEC_IC_Conector_Expansion_CanSat J 0 40 Y Y 1 F N
+DEF AXTEC_IC:Conector_Expansion_CanSat J 0 40 Y Y 1 F N
 F0 "J" 0 850 50 H V C CNN
-F1 "AXTEC_IC_Conector_Expansion_CanSat" 0 750 50 H V C CNN
+F1 "AXTEC_IC:Conector_Expansion_CanSat" 0 750 50 H V C CNN
 F2 "" 0 500 50 H I C CNN
 F3 "" 0 500 50 H I C CNN
 DRAW
@@ -70,11 +70,11 @@ X AD0 9 650 -500 100 L 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_Conector_PCB_B-C
+# AXTEC_IC:Conector_PCB_B-C
 #
-DEF AXTEC_IC_Conector_PCB_B-C J 0 40 Y Y 1 F N
+DEF AXTEC_IC:Conector_PCB_B-C J 0 40 Y Y 1 F N
 F0 "J" 0 850 50 H V C CNN
-F1 "AXTEC_IC_Conector_PCB_B-C" 0 750 50 H V C CNN
+F1 "AXTEC_IC:Conector_PCB_B-C" 0 750 50 H V C CNN
 F2 "AXTEC:Conector_PCB_B-C_Lado_B" 0 1100 50 H I C CNN
 F3 "" -100 750 50 H I C CNN
 F4 "Hecho con dos 10132797-025100LF y sus dos opuestos 10132798-022100LF" 0 1200 50 H V C CNN "Notes"
@@ -127,11 +127,11 @@ X +BATT 9 -700 -400 100 R 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_MH_CanSat
+# AXTEC_IC:MH_CanSat
 #
-DEF AXTEC_IC_MH_CanSat MH 0 40 Y Y 1 F N
+DEF AXTEC_IC:MH_CanSat MH 0 40 Y Y 1 F N
 F0 "MH" 0 400 50 H V C CNN
-F1 "AXTEC_IC_MH_CanSat" 0 300 50 H V C CNN
+F1 "AXTEC_IC:MH_CanSat" 0 300 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -142,11 +142,11 @@ X MH3 3 150 -100 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_Spacer
+# AXTEC_IC:Spacer
 #
-DEF AXTEC_IC_Spacer M 0 40 Y Y 1 F N
+DEF AXTEC_IC:Spacer M 0 40 Y Y 1 F N
 F0 "M" 0 250 50 H V C CNN
-F1 "AXTEC_IC_Spacer" 0 200 50 H V C CNN
+F1 "AXTEC_IC:Spacer" 0 200 50 H V C CNN
 F2 "AXTEC:Empty_Footprint" -100 150 50 H I C CNN
 F3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" 0 250 50 H I C CNN
 F4 "R30-3010502" 100 350 50 H V C CNN "Manufacturer Part Number"
@@ -157,65 +157,11 @@ P 2 0 1 20 0 -150 0 -200 N
 ENDDRAW
 ENDDEF
 #
-# Connector_Generic_Conn_01x06
+# Connector:TestPoint_Probe
 #
-DEF Connector_Generic_Conn_01x06 J 0 40 Y N 1 F N
-F0 "J" 0 300 50 H V C CNN
-F1 "Connector_Generic_Conn_01x06" 0 -400 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Connector*:*_1x??_*
-$ENDFPLIST
-DRAW
-S -50 -295 0 -305 1 1 6 N
-S -50 -195 0 -205 1 1 6 N
-S -50 -95 0 -105 1 1 6 N
-S -50 5 0 -5 1 1 6 N
-S -50 105 0 95 1 1 6 N
-S -50 205 0 195 1 1 6 N
-S -50 250 50 -350 1 1 10 f
-X Pin_1 1 -200 200 150 R 50 50 1 1 P
-X Pin_2 2 -200 100 150 R 50 50 1 1 P
-X Pin_3 3 -200 0 150 R 50 50 1 1 P
-X Pin_4 4 -200 -100 150 R 50 50 1 1 P
-X Pin_5 5 -200 -200 150 R 50 50 1 1 P
-X Pin_6 6 -200 -300 150 R 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Connector_Generic_Conn_02x03_Counter_Clockwise
-#
-DEF Connector_Generic_Conn_02x03_Counter_Clockwise J 0 40 Y N 1 F N
-F0 "J" 50 200 50 H V C CNN
-F1 "Connector_Generic_Conn_02x03_Counter_Clockwise" 50 -200 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Connector*:*_2x??_*
-$ENDFPLIST
-DRAW
-S -50 -95 0 -105 1 1 6 N
-S -50 5 0 -5 1 1 6 N
-S -50 105 0 95 1 1 6 N
-S -50 150 150 -150 1 1 10 f
-S 150 -95 100 -105 1 1 6 N
-S 150 5 100 -5 1 1 6 N
-S 150 105 100 95 1 1 6 N
-X Pin_1 1 -200 100 150 R 50 50 1 1 P
-X Pin_2 2 -200 0 150 R 50 50 1 1 P
-X Pin_3 3 -200 -100 150 R 50 50 1 1 P
-X Pin_4 4 300 -100 150 L 50 50 1 1 P
-X Pin_5 5 300 0 150 L 50 50 1 1 P
-X Pin_6 6 300 100 150 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Connector_TestPoint_Probe
-#
-DEF Connector_TestPoint_Probe TP 0 30 N N 1 F N
+DEF Connector:TestPoint_Probe TP 0 30 N N 1 F N
 F0 "TP" 65 230 50 H V C CNN
-F1 "Connector_TestPoint_Probe" 65 160 50 H V C CNN
+F1 "Connector:TestPoint_Probe" 65 160 50 H V C CNN
 F2 "" 200 0 50 H I C CNN
 F3 "" 200 0 50 H I C CNN
 $FPLIST
@@ -229,11 +175,11 @@ X 1 1 0 0 0 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_USB_B_Micro
+# Connector:USB_B_Micro
 #
-DEF Connector_USB_B_Micro J 0 40 Y Y 1 F N
+DEF Connector:USB_B_Micro J 0 40 Y Y 1 F N
 F0 "J" -200 450 50 H V L CNN
-F1 "Connector_USB_B_Micro" -200 350 50 H V L CNN
+F1 "Connector:USB_B_Micro" -200 350 50 H V L CNN
 F2 "" 150 -50 50 H I C CNN
 F3 "" 150 -50 50 H I C CNN
 ALIAS USB_B_Mini
@@ -265,11 +211,65 @@ X Shield 6 -100 -400 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_C_Small
+# Connector_Generic:Conn_01x06
 #
-DEF Device_C_Small C 0 10 N N 1 F N
+DEF Connector_Generic:Conn_01x06 J 0 40 Y N 1 F N
+F0 "J" 0 300 50 H V C CNN
+F1 "Connector_Generic:Conn_01x06" 0 -400 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_1x??_*
+$ENDFPLIST
+DRAW
+S -50 -295 0 -305 1 1 6 N
+S -50 -195 0 -205 1 1 6 N
+S -50 -95 0 -105 1 1 6 N
+S -50 5 0 -5 1 1 6 N
+S -50 105 0 95 1 1 6 N
+S -50 205 0 195 1 1 6 N
+S -50 250 50 -350 1 1 10 f
+X Pin_1 1 -200 200 150 R 50 50 1 1 P
+X Pin_2 2 -200 100 150 R 50 50 1 1 P
+X Pin_3 3 -200 0 150 R 50 50 1 1 P
+X Pin_4 4 -200 -100 150 R 50 50 1 1 P
+X Pin_5 5 -200 -200 150 R 50 50 1 1 P
+X Pin_6 6 -200 -300 150 R 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Connector_Generic:Conn_02x03_Counter_Clockwise
+#
+DEF Connector_Generic:Conn_02x03_Counter_Clockwise J 0 40 Y N 1 F N
+F0 "J" 50 200 50 H V C CNN
+F1 "Connector_Generic:Conn_02x03_Counter_Clockwise" 50 -200 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_2x??_*
+$ENDFPLIST
+DRAW
+S -50 -95 0 -105 1 1 6 N
+S -50 5 0 -5 1 1 6 N
+S -50 105 0 95 1 1 6 N
+S -50 150 150 -150 1 1 10 f
+S 150 -95 100 -105 1 1 6 N
+S 150 5 100 -5 1 1 6 N
+S 150 105 100 95 1 1 6 N
+X Pin_1 1 -200 100 150 R 50 50 1 1 P
+X Pin_2 2 -200 0 150 R 50 50 1 1 P
+X Pin_3 3 -200 -100 150 R 50 50 1 1 P
+X Pin_4 4 300 -100 150 L 50 50 1 1 P
+X Pin_5 5 300 0 150 L 50 50 1 1 P
+X Pin_6 6 300 100 150 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Device:C_Small
+#
+DEF Device:C_Small C 0 10 N N 1 F N
 F0 "C" 10 70 50 H V L CNN
-F1 "Device_C_Small" 10 -80 50 H V L CNN
+F1 "Device:C_Small" 10 -80 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -283,11 +283,36 @@ X ~ 2 0 -100 80 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_R
+# Device:L_Core_Iron
 #
-DEF Device_R R 0 0 N Y 1 F N
+DEF Device:L_Core_Iron L 0 40 N N 1 F N
+F0 "L" -50 0 50 V V C CNN
+F1 "Device:L_Core_Iron" 110 0 50 V V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Choke_*
+ *Coil*
+ Inductor_*
+ L_*
+$ENDFPLIST
+DRAW
+A 0 -75 25 -899 899 0 1 0 N 0 -100 0 -50
+A 0 -25 25 -899 899 0 1 0 N 0 -50 0 0
+A 0 25 25 -899 899 0 1 0 N 0 0 0 50
+A 0 75 25 -899 899 0 1 0 N 0 50 0 100
+P 2 0 1 0 40 100 40 -100 N
+P 2 0 1 0 60 -100 60 100 N
+X 1 1 0 150 50 D 50 50 1 1 P
+X 2 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Device:R
+#
+DEF Device:R R 0 0 N Y 1 F N
 F0 "R" 80 0 50 V V C CNN
-F1 "Device_R" 0 0 50 V V C CNN
+F1 "Device:R" 0 0 50 V V C CNN
 F2 "" -70 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -300,11 +325,11 @@ X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Graphic_Logo_Open_Hardware_Large
+# Graphic:Logo_Open_Hardware_Large
 #
-DEF ~Graphic_Logo_Open_Hardware_Large #LOGO 0 40 Y Y 1 F N
+DEF ~Graphic:Logo_Open_Hardware_Large #LOGO 0 40 Y Y 1 F N
 F0 "#LOGO" 0 500 50 H I C CNN
-F1 "Graphic_Logo_Open_Hardware_Large" 0 -400 50 H I C CNN
+F1 "Graphic:Logo_Open_Hardware_Large" 0 -400 50 H I C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -312,11 +337,11 @@ P 277 1 1 0 265 -343 261 -341 250 -334 236 -325 218 -313 201 -301 187 -292 177 -
 ENDDRAW
 ENDDEF
 #
-# MCU_Microchip_PIC16_PIC16LF18325-ISL
+# MCU_Microchip_PIC16:PIC16LF18325-ISL
 #
-DEF MCU_Microchip_PIC16_PIC16LF18325-ISL U 0 40 Y Y 1 F N
+DEF MCU_Microchip_PIC16:PIC16LF18325-ISL U 0 40 Y Y 1 F N
 F0 "U" -2300 600 50 H V L CNN
-F1 "MCU_Microchip_PIC16_PIC16LF18325-ISL" -2300 500 50 H V L CNN
+F1 "MCU_Microchip_PIC16:PIC16LF18325-ISL" -2300 500 50 H V L CNN
 F2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" 0 -600 50 H I C CNN
 F3 "" 0 -700 50 H I C CNN
 ALIAS PIC16LF18325-ISL
@@ -342,11 +367,11 @@ X CLCIN2/SDA1/SDI/CCP4/C2IN1-/C1IN1-/ANC1/RC1 9 2500 200 150 L 50 50 1 1 B
 ENDDRAW
 ENDDEF
 #
-# PCB_C-rescue_ESP32-WROOM-32-RF_Module
+# PCB_C-rescue:ESP32-WROOM-32-RF_Module
 #
-DEF PCB_C-rescue_ESP32-WROOM-32-RF_Module U 0 20 Y Y 1 F N
+DEF PCB_C-rescue:ESP32-WROOM-32-RF_Module U 0 20 Y Y 1 F N
 F0 "U" -500 1350 50 H V L CNN
-F1 "PCB_C-rescue_ESP32-WROOM-32-RF_Module" 50 1350 50 H V L CNN
+F1 "PCB_C-rescue:ESP32-WROOM-32-RF_Module" 50 1350 50 H V L CNN
 F2 "RF_Module:ESP32-WROOM-32" 0 -1500 50 H I C CNN
 F3 "" -300 50 50 H I C CNN
 $FPLIST
@@ -395,11 +420,11 @@ X IO33 9 600 -900 100 L 50 50 1 1 B
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_BMX055
+# SamacSys_Parts:BMX055
 #
-DEF SamacSys_Parts_BMX055 IC 0 30 Y Y 1 F N
+DEF SamacSys_Parts:BMX055 IC 0 30 Y Y 1 F N
 F0 "IC" 1050 300 50 H V L CNN
-F1 "SamacSys_Parts_BMX055" 1050 200 50 H V L CNN
+F1 "SamacSys_Parts:BMX055" 1050 200 50 H V L CNN
 F2 "LGA_PACKAGE_20_PINS" 1050 100 50 H I L CNN
 F3 "http://www.mouser.com/ds/2/621/BST-BMX055-DS000-02-586421.pdf" 1050 0 50 H I L CNN
 F4 "Small versatile 9-axis sensor module" 1050 -100 50 H I L CNN "Description"
@@ -431,11 +456,11 @@ X SCX 9 0 -800 200 R 50 50 0 0 B
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_BQ24392RSER
+# SamacSys_Parts:BQ24392RSER
 #
-DEF SamacSys_Parts_BQ24392RSER IC 0 30 Y Y 1 F N
+DEF SamacSys_Parts:BQ24392RSER IC 0 30 Y Y 1 F N
 F0 "IC" 1350 300 50 H V L CNN
-F1 "SamacSys_Parts_BQ24392RSER" 1350 200 50 H V L CNN
+F1 "SamacSys_Parts:BQ24392RSER" 1350 200 50 H V L CNN
 F2 "RSE(R-PUQFN-N10)" 1350 100 50 H I L CNN
 F3 "http://www.ti.com/lit/gpn/bq24392" 1350 0 50 H I L CNN
 F4 "SPST USB 2.0 High-Speed Switch With Battery Charging Detection" 1350 -100 50 H I L CNN "Description"
@@ -460,11 +485,11 @@ X VBUS 9 1500 0 200 L 50 50 0 0 W
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_LFXTAL016178
+# SamacSys_Parts:LFXTAL016178
 #
-DEF SamacSys_Parts_LFXTAL016178 Y 0 30 Y Y 1 F N
+DEF SamacSys_Parts:LFXTAL016178 Y 0 30 Y Y 1 F N
 F0 "Y" 150 350 50 H V L CNN
-F1 "SamacSys_Parts_LFXTAL016178" 150 250 50 H V L CNN
+F1 "SamacSys_Parts:LFXTAL016178" 150 250 50 H V L CNN
 F2 "LFXTAL016178_1" 150 150 50 H I L CNN
 F3 "http://www.iqdfrequencyproducts.com/products/pn/LFXTAL016178Bulk.pdf" 150 50 50 H I L CNN
 F4 "IQD FREQUENCY PRODUCTS - LFXTAL016178 - CRYSTAL, 32.768KHZ, 6PF, SMD" 150 -50 50 H I L CNN "Description"
@@ -491,11 +516,11 @@ X 4 4 150 0 50 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_MCP1501T-33E_CHY
+# SamacSys_Parts:MCP1501T-33E_CHY
 #
-DEF SamacSys_Parts_MCP1501T-33E_CHY IC 0 30 Y Y 1 F N
+DEF SamacSys_Parts:MCP1501T-33E_CHY IC 0 30 Y Y 1 F N
 F0 "IC" 1050 300 50 H V L CNN
-F1 "SamacSys_Parts_MCP1501T-33E_CHY" 1050 200 50 H V L CNN
+F1 "SamacSys_Parts:MCP1501T-33E_CHY" 1050 200 50 H V L CNN
 F2 "SOT95P270X145-6N" 1050 100 50 H I L CNN
 F3 "https://componentsearchengine.com/Datasheets/1/MCP1501T-33E_CHY.pdf" 1050 0 50 H I L CNN
 F4 "Voltage References Precision Buffered Voltage Reference" 1050 -100 50 H I L CNN "Description"
@@ -515,11 +540,11 @@ X VDD 6 1200 0 200 L 50 50 0 0 W
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_MS563702BA03-50
+# SamacSys_Parts:MS563702BA03-50
 #
-DEF SamacSys_Parts_MS563702BA03-50 IC 0 30 Y Y 1 F N
+DEF SamacSys_Parts:MS563702BA03-50 IC 0 30 Y Y 1 F N
 F0 "IC" 850 300 50 H V L CNN
-F1 "SamacSys_Parts_MS563702BA03-50" 850 200 50 H V L CNN
+F1 "SamacSys_Parts:MS563702BA03-50" 850 200 50 H V L CNN
 F2 "MS5637_1" 850 100 50 H I L CNN
 F3 "http://docs-europe.electrocomponents.com/webdocs/142c/0900766b8142cddb.pdf" 850 0 50 H I L CNN
 F4 "Sensor Pressure 2bar Barometric SMD MS563702BA03-50, Barometric Pressure Sensor, 1200mbar 0 ??? 3.6 V Output, 4-Pin QFN" 850 -100 50 H I L CNN "Description"
@@ -538,11 +563,11 @@ X GND 4 1000 -100 200 L 50 50 0 0 B
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_NTB0104BQ,115
+# SamacSys_Parts:NTB0104BQ,115
 #
-DEF SamacSys_Parts_NTB0104BQ,115 U 0 30 Y Y 1 F N
+DEF SamacSys_Parts:NTB0104BQ,115 U 0 30 Y Y 1 F N
 F0 "U" 200 250 50 H V L CNN
-F1 "SamacSys_Parts_NTB0104BQ,115" 200 150 50 H V L CNN
+F1 "SamacSys_Parts:NTB0104BQ,115" 200 150 50 H V L CNN
 F2 "NTB0104BQ115" 1750 50 50 H I L CNN
 F3 "http://www.nxp.com/documents/data_sheet/NTB0104.pdf" 1750 -50 50 H I L CNN
 F4 "NXP - NTB0104BQ,115 - TRANSCEIVER, BIDIR TRANSLATOR, DHVQFN14" 1750 -150 50 H I L CNN "Description"
@@ -571,11 +596,11 @@ X NC 9 1000 -500 200 L 50 50 0 0 B
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_Si7006-A20-IM1
+# SamacSys_Parts:Si7006-A20-IM1
 #
-DEF SamacSys_Parts_Si7006-A20-IM1 U 0 30 Y Y 1 F N
+DEF SamacSys_Parts:Si7006-A20-IM1 U 0 30 Y Y 1 F N
 F0 "U" 1050 300 50 H V L CNN
-F1 "SamacSys_Parts_Si7006-A20-IM1" 1050 200 50 H V L CNN
+F1 "SamacSys_Parts:Si7006-A20-IM1" 1050 200 50 H V L CNN
 F2 "SON100P300X300X80-7N" 1050 100 50 H I L CNN
 F3 "https://www.silabs.com/documents/public/data-sheets/Si7006-A20.pdf" 1050 0 50 H I L CNN
 F4 "Si7006 Digital RH temp sensor w filter Silicon Labs Si7006-A20-IM1 Temperature & Humidity Sensor, -40  +125 C, 6-Pin DFN" 1050 -100 50 H I L CNN "Description"
@@ -598,11 +623,11 @@ X TPAD 7 600 -800 200 U 50 50 0 0 P
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_TCA9802DGKR
+# SamacSys_Parts:TCA9802DGKR
 #
-DEF SamacSys_Parts_TCA9802DGKR U 0 30 Y Y 1 F N
+DEF SamacSys_Parts:TCA9802DGKR U 0 30 Y Y 1 F N
 F0 "U" 950 300 50 H V L CNN
-F1 "SamacSys_Parts_TCA9802DGKR" 950 200 50 H V L CNN
+F1 "SamacSys_Parts:TCA9802DGKR" 950 200 50 H V L CNN
 F2 "SOP65P490X110-8N" 950 100 50 H I L CNN
 F3 "http://www.ti.com/lit/gpn/tca9802" 950 0 50 H I L CNN
 F4 "Level-Translating I2C Bus Buffer/Repeater" 950 -100 50 H I L CNN "Description"
@@ -623,11 +648,11 @@ X VCCB 8 1100 0 200 L 50 50 0 0 B
 ENDDRAW
 ENDDEF
 #
-# power_+3V3
+# power:+3V3
 #
-DEF power_+3V3 #PWR 0 0 Y Y 1 F P
+DEF power:+3V3 #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+3V3" 0 140 50 H V C CNN
+F1 "power:+3V3" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 ALIAS +3.3V
@@ -639,11 +664,11 @@ X +3V3 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_+5V
+# power:+5V
 #
-DEF power_+5V #PWR 0 0 Y Y 1 F P
+DEF power:+5V #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+5V" 0 140 50 H V C CNN
+F1 "power:+5V" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -654,11 +679,11 @@ X +5V 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_+BATT
+# power:+BATT
 #
-DEF power_+BATT #PWR 0 0 Y Y 1 F P
+DEF power:+BATT #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+BATT" 0 140 50 H V C CNN
+F1 "power:+BATT" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -669,11 +694,11 @@ X +BATT 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_GND
+# power:GND
 #
-DEF power_GND #PWR 0 0 Y Y 1 F P
+DEF power:GND #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GND" 0 -150 50 H V C CNN
+F1 "power:GND" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -682,11 +707,24 @@ X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_VBUS
+# power:GNDA
 #
-DEF power_VBUS #PWR 0 0 Y Y 1 F P
+DEF power:GNDA #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -250 50 H I C CNN
+F1 "power:GNDA" 0 -150 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
+X GNDA 1 0 0 0 D 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# power:VBUS
+#
+DEF power:VBUS #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_VBUS" 0 150 50 H V C CNN
+F1 "power:VBUS" 0 150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
