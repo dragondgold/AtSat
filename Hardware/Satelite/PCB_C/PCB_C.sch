@@ -2037,7 +2037,7 @@ U 1 1 5E0F05D9
 P 14450 5000
 F 0 "J4" H 14450 5850 50  0000 C CNN
 F 1 "Conector_Expansion_CanSat" H 14450 5750 50  0000 C CNN
-F 2 "" H 14450 5500 50  0001 C CNN
+F 2 "AXTEC:Conector_Expansion_CanSat" H 14450 5500 50  0001 C CNN
 F 3 "" H 14450 5500 50  0001 C CNN
 F 4 "SSQ-106-03-T-S" H 14450 5000 50  0001 C CNN "Manufacturer Part Number"
 F 5 "4" H 14450 5000 50  0001 C CNN "Quantity"
@@ -2143,4 +2143,286 @@ F 3 "~" H 1850 10100 50  0001 C CNN
 	1    1850 10100
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:TestPoint_Probe TP6
+U 1 1 5C2EEB35
+P 13300 6450
+F 0 "TP6" H 13453 6552 50  0000 L CNN
+F 1 "TestPoint_VREF" H 13453 6461 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 13500 6450 50  0001 C CNN
+F 3 "~" H 13500 6450 50  0001 C CNN
+	1    13300 6450
+	1    0    0    -1  
+$EndComp
+Text Label 13050 6450 0    50   ~ 0
++VREF
+Wire Wire Line
+	13050 6450 13300 6450
+Text Label 13150 6600 0    50   ~ 0
+SDA
+Text Label 13150 6750 0    50   ~ 0
+SCL
+$Comp
+L Connector:TestPoint_Probe TP7
+U 1 1 5C30929D
+P 13300 6600
+F 0 "TP7" H 13453 6702 50  0000 L CNN
+F 1 "TestPoint_SDAint" H 13453 6611 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 13500 6600 50  0001 C CNN
+F 3 "~" H 13500 6600 50  0001 C CNN
+	1    13300 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP8
+U 1 1 5C309301
+P 13300 6750
+F 0 "TP8" H 13453 6852 50  0000 L CNN
+F 1 "TestPoint_SCLint" H 13453 6761 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 13500 6750 50  0001 C CNN
+F 3 "~" H 13500 6750 50  0001 C CNN
+	1    13300 6750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13300 6750 13150 6750
+Wire Wire Line
+	13300 6600 13150 6600
+Text Label 12850 6900 0    50   ~ 0
+CHG_DETECT
+Wire Wire Line
+	12850 6900 13300 6900
+$Comp
+L Connector:TestPoint_Probe TP9
+U 1 1 5C356783
+P 13300 6900
+F 0 "TP9" H 13453 7002 50  0000 L CNN
+F 1 "TestPoint_CHGDTC" H 13453 6911 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 13500 6900 50  0001 C CNN
+F 3 "~" H 13500 6900 50  0001 C CNN
+	1    13300 6900
+	1    0    0    -1  
+$EndComp
+Text Label 12800 7050 0    50   ~ 0
+RX_ARDUINO
+Text Label 12800 7200 0    50   ~ 0
+TX_ARDUINO
+$Comp
+L Connector:TestPoint_Probe TP10
+U 1 1 5C357495
+P 13300 7050
+F 0 "TP10" H 13453 7152 50  0000 L CNN
+F 1 "TestPoint_RXard" H 13453 7061 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 13500 7050 50  0001 C CNN
+F 3 "~" H 13500 7050 50  0001 C CNN
+	1    13300 7050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP11
+U 1 1 5C357592
+P 13300 7200
+F 0 "TP11" H 13453 7302 50  0000 L CNN
+F 1 "TestPoint_TXard" H 13453 7211 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 13500 7200 50  0001 C CNN
+F 3 "~" H 13500 7200 50  0001 C CNN
+	1    13300 7200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12800 7050 13300 7050
+Wire Wire Line
+	12800 7200 13300 7200
+Text Label 12900 7350 0    50   ~ 0
+SCL_PIC16
+Text Label 12900 7500 0    50   ~ 0
+SDA_PIC16
+$Comp
+L Connector:TestPoint_Probe TP12
+U 1 1 5C38BC62
+P 13300 7350
+F 0 "TP12" H 13453 7452 50  0000 L CNN
+F 1 "TestPoint_SCLPIC" H 13453 7361 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 13500 7350 50  0001 C CNN
+F 3 "~" H 13500 7350 50  0001 C CNN
+	1    13300 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP13
+U 1 1 5C38BCCE
+P 13300 7500
+F 0 "TP13" H 13453 7602 50  0000 L CNN
+F 1 "TestPoint_SDAPIC" H 13453 7511 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 13500 7500 50  0001 C CNN
+F 3 "~" H 13500 7500 50  0001 C CNN
+	1    13300 7500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13300 7350 12900 7350
+Wire Wire Line
+	13300 7500 12900 7500
+Text Label 13250 7650 2    50   ~ 0
+TX_DEBUG
+Text Label 13250 7800 2    50   ~ 0
+RX_DEBUG
+$Comp
+L Connector:TestPoint_Probe TP14
+U 1 1 5C3C17EB
+P 13300 7650
+F 0 "TP14" H 13453 7752 50  0000 L CNN
+F 1 "TestPoint_TXDBG" H 13453 7661 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 13500 7650 50  0001 C CNN
+F 3 "~" H 13500 7650 50  0001 C CNN
+	1    13300 7650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP15
+U 1 1 5C3C1861
+P 13300 7800
+F 0 "TP15" H 13453 7902 50  0000 L CNN
+F 1 "TestPoint_RXDBG" H 13453 7811 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 13500 7800 50  0001 C CNN
+F 3 "~" H 13500 7800 50  0001 C CNN
+	1    13300 7800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12850 7650 13300 7650
+Wire Wire Line
+	13300 7800 12850 7800
+$Comp
+L Connector:TestPoint_Probe TP1
+U 1 1 5C3F7ABA
+P 12000 7350
+F 0 "TP1" H 12153 7452 50  0000 L CNN
+F 1 "TestPoint_3V3int" H 12153 7361 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 12200 7350 50  0001 C CNN
+F 3 "~" H 12200 7350 50  0001 C CNN
+	1    12000 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP2
+U 1 1 5C3F7B50
+P 12000 7500
+F 0 "TP2" H 12153 7602 50  0000 L CNN
+F 1 "TestPoint_VBUS" H 12153 7511 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 12200 7500 50  0001 C CNN
+F 3 "~" H 12200 7500 50  0001 C CNN
+	1    12000 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP3
+U 1 1 5C3F7BCC
+P 12000 7650
+F 0 "TP3" H 12153 7752 50  0000 L CNN
+F 1 "TestPoint_3V3ext" H 12153 7661 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 12200 7650 50  0001 C CNN
+F 3 "~" H 12200 7650 50  0001 C CNN
+	1    12000 7650
+	1    0    0    -1  
+$EndComp
+$Comp
+L AXTEC_IC:+3V3_Internal #PWR32
+U 1 1 5C3F7FAB
+P 11700 7350
+F 0 "#PWR32" H 11700 7750 50  0001 C CNN
+F 1 "+3V3_Internal" H 11685 7523 50  0000 C CNN
+F 2 "" H 11700 7350 50  0001 C CNN
+F 3 "" H 11700 7350 50  0001 C CNN
+	1    11700 7350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12000 7350 11700 7350
+$Comp
+L power:VBUS #PWR030
+U 1 1 5C41355D
+P 11500 7500
+F 0 "#PWR030" H 11500 7350 50  0001 C CNN
+F 1 "VBUS" H 11515 7673 50  0000 C CNN
+F 2 "" H 11500 7500 50  0001 C CNN
+F 3 "" H 11500 7500 50  0001 C CNN
+	1    11500 7500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11500 7500 12000 7500
+$Comp
+L power:+3V3 #PWR029
+U 1 1 5C42F2E6
+P 11300 7650
+F 0 "#PWR029" H 11300 7500 50  0001 C CNN
+F 1 "+3V3" H 11314 7825 50  0000 C CNN
+F 2 "" H 11300 7650 50  0001 C CNN
+F 3 "" H 11300 7650 50  0001 C CNN
+	1    11300 7650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11300 7650 12000 7650
+$Comp
+L power:+5V #PWR026
+U 1 1 5C44AD87
+P 11100 7750
+F 0 "#PWR026" H 11100 7600 50  0001 C CNN
+F 1 "+5V" H 11114 7925 50  0000 C CNN
+F 2 "" H 11100 7750 50  0001 C CNN
+F 3 "" H 11100 7750 50  0001 C CNN
+	1    11100 7750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint_Probe TP4
+U 1 1 5C44AEF7
+P 12000 7800
+F 0 "TP4" H 12153 7902 50  0000 L CNN
+F 1 "TestPoint_5Vext" H 12153 7811 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 12200 7800 50  0001 C CNN
+F 3 "~" H 12200 7800 50  0001 C CNN
+	1    12000 7800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12000 7800 11100 7800
+Wire Wire Line
+	11100 7800 11100 7750
+Wire Notes Line
+	11000 8050 14200 8050
+Wire Notes Line
+	14200 8050 14200 6150
+Wire Notes Line
+	14200 6150 11000 6150
+Wire Notes Line
+	11000 6150 11000 8050
+Text Notes 11250 6400 0    118  ~ 0
+Puntos de prueba
+$Comp
+L Connector:TestPoint_Probe TP5
+U 1 1 5C4D6CB3
+P 12050 6900
+F 0 "TP5" H 12203 7002 50  0000 L CNN
+F 1 "TestPoint_GND" H 12203 6911 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_1.0x1.0mm_Drill0.5mm" H 12250 6900 50  0001 C CNN
+F 3 "~" H 12250 6900 50  0001 C CNN
+	1    12050 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR031
+U 1 1 5C4D6DA5
+P 11700 6900
+F 0 "#PWR031" H 11700 6650 50  0001 C CNN
+F 1 "GND" H 11705 6727 50  0000 C CNN
+F 2 "" H 11700 6900 50  0001 C CNN
+F 3 "" H 11700 6900 50  0001 C CNN
+	1    11700 6900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11700 6900 12050 6900
 $EndSCHEMATC
