@@ -612,7 +612,7 @@
       (net 4 GND))
     (pad 6 smd rect (at -2.9 1.2375 270) (size 1.2 1.9) (layers F.Cu F.Mask)
       (net 4 GND))
-    (model ${KISYS3DMOD}/Connector_USB.3dshapes/USB_Micro-B_Molex-105017-0001.wrl
+    (model "${KIPRJMOD}/../Librerias KICAD/packages3D/USB_Micro-B_Molex_47346-0001.step"
       (at (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -657,7 +657,7 @@
       (net 26 "Net-(C10-Pad1)"))
     (pad 4 smd rect (at -0.875 -0.7) (size 1.15 1) (layers F.Cu F.Paste F.Mask)
       (net 4 GND))
-    (model ${KISYS3DMOD}/Crystal.3dshapes/Crystal_SMD_2520-4Pin_2.5x2.0mm.wrl
+    (model "${KIPRJMOD}/../Librerias KICAD/packages3D/Crystal_SMD_2520-4pin_2.5x2.0mm.wrl"
       (at (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -705,10 +705,10 @@
       (net 4 GND))
     (pad 3 smd rect (at 1.2 0 90) (size 0.4 1.9) (layers F.Cu F.Paste F.Mask)
       (net 13 "Net-(U3-Pad3)"))
-    (model ${KISYS3DMOD}/Crystal.3dshapes/Resonator_SMD_muRata_CSTxExxV-3Pin_3.0x1.1mm.wrl
+    (model "${KIPRJMOD}/../Librerias KICAD/packages3D/CSTNE12M0GH5L000R0.STEP"
       (at (xyz 0 0 0))
       (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
+      (rotate (xyz 90 180 0))
     )
   )
 
@@ -1148,6 +1148,11 @@
       (net 4 GND))
     (pad 5 thru_hole circle (at -2.54 -2.54 180) (size 2.5 2.5) (drill 1.6) (layers *.Cu *.Mask F.SilkS)
       (net 4 GND))
+    (model "${KIPRJMOD}/../Librerias KICAD/packages3D/5-1814832-1.stp"
+      (offset (xyz 0 0 9.5))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
   )
 
   (module SamacSys_Parts:SOT95P280X100-5N (layer F.Cu) (tedit 5BB6D2F2) (tstamp 5C0CAEF9)
@@ -1186,6 +1191,11 @@
       (net 29 "Net-(C2-Pad1)"))
     (pad 5 smd rect (at 1.3 -0.95 90) (size 0.6 1.05) (layers F.Cu F.Paste F.Mask)
       (net 3 +3V3))
+    (model "${KIPRJMOD}/../Librerias KICAD/packages3D/MIC5323-3.3YD5_TR.stp"
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
   )
 
   (module SamacSys_Parts:QFN50P400X400X100-21N-D (layer F.Cu) (tedit 5BBEC402) (tstamp 5C0CAF0F)
@@ -1252,6 +1262,11 @@
       (net 16 /USBaSPI/MOSI))
     (pad 21 smd rect (at 0 0) (size 2.5 2.5) (layers F.Cu F.Paste F.Mask)
       (net 4 GND))
+    (model "${KIPRJMOD}/../Librerias KICAD/packages3D/CC1101RGP.stp"
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
   )
 
   (module SamacSys_Parts:0915BM15A0001E (layer F.Cu) (tedit 5BBE75FB) (tstamp 5C0CAF31)
@@ -1292,6 +1307,11 @@
       (net 4 GND))
     (pad 6 smd rect (at 0.65 0.9) (size 0.35 1) (layers F.Cu F.Paste F.Mask)
       (net 4 GND))
+    (model "${KIPRJMOD}/../Librerias KICAD/packages3D/0915BM15A0001E.stp"
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 180))
+    )
   )
 
   (module Capacitor_SMD:C_0402_1005Metric (layer F.Cu) (tedit 5B301BBE) (tstamp 5C0E1AE8)
