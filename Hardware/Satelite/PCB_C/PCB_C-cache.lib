@@ -283,20 +283,28 @@ X ~ 2 0 -100 80 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device:Net-Tie_2
+# Device:L_Core_Iron
 #
-DEF Device:Net-Tie_2 NT 0 0 N N 1 F N
-F0 "NT" 0 50 50 H V C CNN
-F1 "Device:Net-Tie_2" 0 -50 50 H V C CNN
+DEF Device:L_Core_Iron L 0 40 N N 1 F N
+F0 "L" -50 0 50 V V C CNN
+F1 "Device:L_Core_Iron" 110 0 50 V V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
- Net*Tie*
+ Choke_*
+ *Coil*
+ Inductor_*
+ L_*
 $ENDFPLIST
 DRAW
-P 2 0 1 10 -50 0 50 0 N
-X 1 1 -100 0 100 R 50 50 1 1 P
-X 2 2 100 0 100 L 50 50 1 1 P
+A 0 -75 25 -899 899 0 1 0 N 0 -100 0 -50
+A 0 -25 25 -899 899 0 1 0 N 0 -50 0 0
+A 0 25 25 -899 899 0 1 0 N 0 0 0 50
+A 0 75 25 -899 899 0 1 0 N 0 50 0 100
+P 2 0 1 0 40 100 40 -100 N
+P 2 0 1 0 60 -100 60 100 N
+X 1 1 0 150 50 D 50 50 1 1 P
+X 2 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
