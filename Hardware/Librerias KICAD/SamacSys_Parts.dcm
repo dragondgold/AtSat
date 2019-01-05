@@ -133,4 +133,10 @@ K
 F https://www.mouser.com/datasheet/2/891/esp32-wroom-32d_esp32-wroom-32u_datasheet_en-1365844.pdf
 $ENDCMP
 #
+$CMP 0915AT43A0026E
+D JOHANSON TECHNOLOGY - 0915AT43A0026E - ANTENNA, CERAMIC, 915MHZ
+K
+F http://www.johansontechnology.com/images/stories/ip/rf-antennas/Antenna_0915AT43A0026_v2.pdf
+$ENDCMP
+#
 #End Doc Library
