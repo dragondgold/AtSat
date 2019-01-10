@@ -34,6 +34,10 @@ function createWindow () {
   win.on('closed', () => {
     win = null
   })
+
+  win.webContents.on('will-navigate', ev => {
+    ev.preventDefault()   
+  })
 }
 
 // Quit when all windows are closed.
