@@ -429,11 +429,11 @@ AR Path="/5BB6C3A1/5C2825F0" Ref="C?"  Part="1"
 AR Path="/5BB6C83B/5C2825F0" Ref="C?"  Part="1" 
 AR Path="/5BC14C3C/5C2825F0" Ref="C19"  Part="1" 
 F 0 "C19" H 7458 5054 50  0000 R CNN
-F 1 "10n" H 7458 5145 50  0000 R CNN
+F 1 "100n" H 7458 5145 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 7550 5100 50  0001 C CNN
 F 3 "~" H 7550 5100 50  0001 C CNN
 F 4 "10V" H 7550 5100 50  0001 C CNN "Voltage"
-F 5 "06033C103K4T2A" H 7550 5100 50  0001 C CNN "Manufacturer Part Number"
+F 5 "EMK107B7104KAHT" H 7550 5100 50  0001 C CNN "Manufacturer Part Number"
 	1    7550 5100
 	-1   0    0    1   
 $EndComp
@@ -459,7 +459,7 @@ $EndComp
 Wire Wire Line
 	7550 5300 7550 5200
 Text Notes 7150 5700 0    50   ~ 0
-fc = 723 Hz
+fc = 113 Hz
 $Comp
 L Device:C_Small C?
 U 1 1 5C694934

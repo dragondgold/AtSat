@@ -289,11 +289,11 @@ P 6700 4500
 AR Path="/5BC13C37/5C270D6B" Ref="R4"  Part="1" 
 AR Path="/5BC14C3C/5C270D6B" Ref="R?"  Part="1" 
 F 0 "R4" H 6630 4408 50  0000 R CNN
-F 1 "2k" H 6630 4500 50  0000 R CNN
+F 1 "6k8" H 6630 4500 50  0000 R CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 6630 4500 50  0001 C CNN
 F 3 "~" H 6700 4500 50  0001 C CNN
 F 4 "1%" H 6630 4592 50  0000 R CNN "Tolerance"
-F 5 "RC0603FR-102KL" V 6700 4500 50  0001 C CNN "Manufacturer Part Number"
+F 5 "RC0603FR-076K8L" V 6700 4500 50  0001 C CNN "Manufacturer Part Number"
 	1    6700 4500
 	-1   0    0    1   
 $EndComp
@@ -472,7 +472,7 @@ $EndComp
 Wire Wire Line
 	7050 5200 7050 5100
 Text Notes 6600 5550 0    50   ~ 0
-fc = 795 Hz
+fc = 234 Hz
 $Comp
 L Device:C_Small C?
 U 1 1 5C68D48B
