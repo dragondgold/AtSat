@@ -4,7 +4,11 @@
       <div class="cards-container" >
 
         <vuestic-card stripe="info"> 
+          
           <template slot="title" >
+            <span 
+              class="container-icon-home sidebar-menu-item-icon fa fa-file color-icon-home-info">
+            </span>
             {{ $t('cards.actionCreateProjectTitle') }}
           </template>
           {{ $t('cards.actionCreateProjectSub') }}
@@ -19,6 +23,9 @@
 
         <vuestic-card stripe="success">
           <template slot="title">
+            <span 
+              class="container-icon-home sidebar-menu-item-icon glyphicon glyphicon-blackboard color-icon-home-sucess">
+            </span>
             {{ $t('cards.actionOpenProjectTitle') }}
           </template>
           {{ $t('cards.actionOpenProjectSub') }}
@@ -33,6 +40,9 @@
 
         <vuestic-card stripe="warning">
           <template slot="title">
+            <span 
+              class="container-icon-home sidebar-menu-item-icon fa fa-area-chart color-icon-home-warning">
+            </span>
             {{ $t('cards.actionOpenMissionTitle') }}
           </template>
           {{ $t('cards.actionOpenMissionSub') }}
@@ -105,6 +115,25 @@ export default {
 
 <style lang="scss">
   $singleGutter: #{(19/16)}rem;
+
+  .color-icon-home-info{
+    color: $brand-info
+  }
+
+  .color-icon-home-sucess{
+    color: $brand-success
+  }
+
+  .color-icon-home-warning{
+    color: $brand-warning
+  }
+
+  .container-icon-home{
+    display: block;
+    font-size: 7rem;
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
 
   .cards-container {
     display: flex;

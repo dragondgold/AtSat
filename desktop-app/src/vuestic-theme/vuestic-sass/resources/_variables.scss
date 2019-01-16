@@ -80,6 +80,8 @@ $content-wrap-pb: $layout-padding;
 $made-by-footer-pb: 27px;
 
 $greeny-box-shadow: 0 4px 9.6px 0.4px rgba($vue-green, .5);
+$info-box-shadow: 0 4px 9.6px 0.4px rgba($brand-info, .5);
+$warningy-box-shadow: 0 4px 9.6px 0.4px rgba($brand-warning, .5);
 
 $min-z-index: -1000;
 
@@ -221,9 +223,9 @@ $btn-with-icon-icon-size: 2rem;
 $btn-group-button-padding-x: 1.53rem;
 $btn-box-shadow: $greeny-box-shadow;
 $btn-box-danger-shadow: 0px 4px 70px -16px $brand-danger;
-$btn-box-warning-shadow: 0px 4px 70px -16px $brand-warning;
+$btn-box-warning-shadow: $warningy-box-shadow;
 $btn-box-success-shadow: $greeny-box-shadow;
-$btn-box-info-shadow: 0px 4px 70px -16px $brand-info;
+$btn-box-info-shadow: $info-box-shadow;
 $btn-box-pale-shadow: 0px 4px 70px -16px $theme-pale;
 $btn-box-dark-shadow: 0px 4px 70px -16px $almost-black;
 $btn-border-radius: 1.875rem;
