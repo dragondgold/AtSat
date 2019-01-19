@@ -64,7 +64,7 @@ const path = require('path')
 const {dialog} = require('electron').remote
 
 import VuesticCard from '../../vuestic-theme/vuestic-components/vuestic-card/VuesticCard'
-import utils from 'services/utils'
+import ProyectManager from 'services/projectManager'
 
 export default {
   name: 'cards',
@@ -87,20 +87,7 @@ export default {
       this.$router.push({name:'newProject'})
     },
     openProject() {
-      let path =
-      dialog.showOpenDialog({ 
-          properties: [ 
-              'openFile'
-          ],        
-          filters: [
-            {name: 'Custom File Type', extensions: ['cansat_pro']},
-          ]
-
-      })
-      if(path[0]){
-        utils.loadFile(path[0])
-      }
-      
+      ProyectManager.openProject()
     },
   
     goToOpenMission() {

@@ -98,13 +98,13 @@ import VuesticSidebar
   from '../../../vuestic-theme/vuestic-components/vuestic-sidebar/VuesticSidebar'
 import SidebarLink from './components/SidebarLink'
 import SidebarLinkGroup from './components/SidebarLinkGroup'
-import projectManager from 'services/projectManager'
+import ProjectManager from 'services/projectManager'
 
 export default {
   name: 'app-sidebar',
   methods:{
     openExistingProject(){
-      projectManager.openProject()
+      ProjectManager.openProject()
     }
   },
   components: {
