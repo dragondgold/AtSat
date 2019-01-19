@@ -1,6 +1,6 @@
-update=31/12/2018 1:40:39 p. m.
+update=19-Jan-19 03:02:23
 version=1
-last_client=eeschema
+last_client=kicad
 [general]
 version=1
 RootSch=
@@ -34,7 +34,7 @@ LibDir=
 [schematic_editor]
 version=1
 PageLayoutDescrFile=
-PlotDirectoryName=
+PlotDirectoryName=D:/Google Drive AXTEC/Proyecto Final CanSat/Tesis/images/esquemas/
 SubpartIdSeparator=0
 SubpartFirstId=65
 NetFmtName=
