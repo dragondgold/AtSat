@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# AXTEC_IC_+3V3_Internal
+# AXTEC_IC:+3V3_Internal
 #
-DEF AXTEC_IC_+3V3_Internal #PWR 0 40 Y Y 1 F N
+DEF AXTEC_IC:+3V3_Internal #PWR 0 40 Y Y 1 F N
 F0 "#PWR" 0 400 50 H I C CNN
-F1 "AXTEC_IC_+3V3_Internal" 0 300 50 H V C CNN
+F1 "AXTEC_IC:+3V3_Internal" 0 300 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -16,11 +16,11 @@ X +3V3_Internal 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_A2235-H
+# AXTEC_IC:A2235-H
 #
-DEF AXTEC_IC_A2235-H U 0 40 Y Y 1 F N
+DEF AXTEC_IC:A2235-H U 0 40 Y Y 1 F N
 F0 "U" -700 600 50 H V C CNN
-F1 "AXTEC_IC_A2235-H" 650 600 50 H V C CNN
+F1 "AXTEC_IC:A2235-H" 650 600 50 H V C CNN
 F2 "AXTEC:A2235-H" -450 900 50 H I C CNN
 F3 "http://update.maestro-wireless.com/GNSS/A2235-H/Maestro_GPS_Receiver_A2235_H_User_Manual_V13.pdf" 1300 800 50 H I C CNN
 F4 "A2235-H" -600 700 50 H I C CNN "Manufacturer Part Number"
@@ -59,11 +59,11 @@ X GND_2 9 -950 -350 200 R 50 50 1 0 W
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_Conector_PCB_A-B
+# AXTEC_IC:Conector_PCB_A-B
 #
-DEF AXTEC_IC_Conector_PCB_A-B J 0 40 Y Y 1 F N
+DEF AXTEC_IC:Conector_PCB_A-B J 0 40 Y Y 1 F N
 F0 "J" 150 550 50 H V C CNN
-F1 "AXTEC_IC_Conector_PCB_A-B" 150 450 50 H V C CNN
+F1 "AXTEC_IC:Conector_PCB_A-B" 150 450 50 H V C CNN
 F2 "" -100 450 50 H I C CNN
 F3 "" -100 450 50 H I C CNN
 DRAW
@@ -88,11 +88,11 @@ X CS 9 -550 -500 100 R 50 50 1 1 O
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_MH_CanSat
+# AXTEC_IC:MH_CanSat
 #
-DEF AXTEC_IC_MH_CanSat MH 0 40 Y Y 1 F N
+DEF AXTEC_IC:MH_CanSat MH 0 40 Y Y 1 F N
 F0 "MH" 0 400 50 H V C CNN
-F1 "AXTEC_IC_MH_CanSat" 0 300 50 H V C CNN
+F1 "AXTEC_IC:MH_CanSat" 0 300 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -103,11 +103,11 @@ X MH3 3 150 -100 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# AXTEC_IC_Spacer
+# AXTEC_IC:Spacer
 #
-DEF AXTEC_IC_Spacer M 0 40 Y Y 1 F N
+DEF AXTEC_IC:Spacer M 0 40 Y Y 1 F N
 F0 "M" 0 250 50 H V C CNN
-F1 "AXTEC_IC_Spacer" 0 200 50 H V C CNN
+F1 "AXTEC_IC:Spacer" 0 200 50 H V C CNN
 F2 "AXTEC:Empty_Footprint" -100 150 50 H I C CNN
 F3 "https://www.mouser.com/datasheet/2/181/R30-301-1135805.pdf" 0 250 50 H I C CNN
 F4 "R30-3010502" 100 350 50 H V C CNN "Manufacturer Part Number"
@@ -118,11 +118,29 @@ P 2 0 1 20 0 -150 0 -200 N
 ENDDRAW
 ENDDEF
 #
-# Connector_Generic_Conn_01x02
+# Connector:TestPoint_Probe
 #
-DEF Connector_Generic_Conn_01x02 J 0 40 Y N 1 F N
+DEF Connector:TestPoint_Probe TP 0 30 N N 1 F N
+F0 "TP" 65 230 50 H V C CNN
+F1 "Connector:TestPoint_Probe" 65 160 50 H V C CNN
+F2 "" 200 0 50 H I C CNN
+F3 "" 200 0 50 H I C CNN
+$FPLIST
+ Pin*
+ Test*
+$ENDFPLIST
+DRAW
+P 4 0 1 0 50 30 0 0 30 50 50 30 F
+P 5 0 1 0 55 25 25 55 95 125 125 95 55 25 f
+X 1 1 0 0 0 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Connector_Generic:Conn_01x02
+#
+DEF Connector_Generic:Conn_01x02 J 0 40 Y N 1 F N
 F0 "J" 0 100 50 H V C CNN
-F1 "Connector_Generic_Conn_01x02" 0 -200 50 H V C CNN
+F1 "Connector_Generic:Conn_01x02" 0 -200 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -137,11 +155,11 @@ X Pin_2 2 -200 -100 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_Generic_Conn_01x03
+# Connector_Generic:Conn_01x03
 #
-DEF Connector_Generic_Conn_01x03 J 0 40 Y N 1 F N
+DEF Connector_Generic:Conn_01x03 J 0 40 Y N 1 F N
 F0 "J" 0 200 50 H V C CNN
-F1 "Connector_Generic_Conn_01x03" 0 -200 50 H V C CNN
+F1 "Connector_Generic:Conn_01x03" 0 -200 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -158,29 +176,11 @@ X Pin_3 3 -200 -100 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_TestPoint_Probe
+# Device:C_Small
 #
-DEF Connector_TestPoint_Probe TP 0 30 N N 1 F N
-F0 "TP" 65 230 50 H V C CNN
-F1 "Connector_TestPoint_Probe" 65 160 50 H V C CNN
-F2 "" 200 0 50 H I C CNN
-F3 "" 200 0 50 H I C CNN
-$FPLIST
- Pin*
- Test*
-$ENDFPLIST
-DRAW
-P 4 0 1 0 50 30 0 0 30 50 50 30 F
-P 5 0 1 0 55 25 25 55 95 125 125 95 55 25 f
-X 1 1 0 0 0 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Device_C_Small
-#
-DEF Device_C_Small C 0 10 N N 1 F N
+DEF Device:C_Small C 0 10 N N 1 F N
 F0 "C" 10 70 50 H V L CNN
-F1 "Device_C_Small" 10 -80 50 H V L CNN
+F1 "Device:C_Small" 10 -80 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -194,11 +194,11 @@ X ~ 2 0 -100 80 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_Crystal_GND24
+# Device:Crystal_GND24
 #
-DEF Device_Crystal_GND24 Y 0 40 Y N 1 F N
+DEF Device:Crystal_GND24 Y 0 40 Y N 1 F N
 F0 "Y" 125 200 50 H V L CNN
-F1 "Device_Crystal_GND24" 125 125 50 H V L CNN
+F1 "Device:Crystal_GND24" 125 125 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -221,11 +221,11 @@ X 4 4 0 -200 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_L
+# Device:L
 #
-DEF Device_L L 0 40 N N 1 F N
+DEF Device:L L 0 40 N N 1 F N
 F0 "L" -50 0 50 V V C CNN
-F1 "Device_L" 75 0 50 V V C CNN
+F1 "Device:L" 75 0 50 V V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -244,11 +244,11 @@ X 2 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_LED
+# Device:LED
 #
-DEF Device_LED D 0 40 N N 1 F N
+DEF Device:LED D 0 40 N N 1 F N
 F0 "D" 0 100 50 H V C CNN
-F1 "Device_LED" 0 -100 50 H V C CNN
+F1 "Device:LED" 0 -100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -267,11 +267,11 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_Polyfuse
+# Device:Polyfuse
 #
-DEF Device_Polyfuse F 0 0 N Y 1 F N
+DEF Device:Polyfuse F 0 0 N Y 1 F N
 F0 "F" -100 0 50 V V C CNN
-F1 "Device_Polyfuse" 100 0 50 V V C CNN
+F1 "Device:Polyfuse" 100 0 50 V V C CNN
 F2 "" 50 -200 50 H I L CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -287,11 +287,11 @@ X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_R
+# Device:R
 #
-DEF Device_R R 0 0 N Y 1 F N
+DEF Device:R R 0 0 N Y 1 F N
 F0 "R" 80 0 50 V V C CNN
-F1 "Device_R" 0 0 50 V V C CNN
+F1 "Device:R" 0 0 50 V V C CNN
 F2 "" -70 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -304,11 +304,11 @@ X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Graphic_Logo_Open_Hardware_Large
+# Graphic:Logo_Open_Hardware_Large
 #
-DEF ~Graphic_Logo_Open_Hardware_Large #LOGO 0 40 Y Y 1 F N
+DEF ~Graphic:Logo_Open_Hardware_Large #LOGO 0 40 Y Y 1 F N
 F0 "#LOGO" 0 500 50 H I C CNN
-F1 "Graphic_Logo_Open_Hardware_Large" 0 -400 50 H I C CNN
+F1 "Graphic:Logo_Open_Hardware_Large" 0 -400 50 H I C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -316,11 +316,11 @@ P 277 1 1 0 265 -343 261 -341 250 -334 236 -325 218 -313 201 -301 187 -292 177 -
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_0915BM15A0001E
+# SamacSys_Parts:0915BM15A0001E
 #
-DEF SamacSys_Parts_0915BM15A0001E U 0 30 Y Y 1 F N
+DEF SamacSys_Parts:0915BM15A0001E U 0 30 Y Y 1 F N
 F0 "U" -350 350 50 H V L CNN
-F1 "SamacSys_Parts_0915BM15A0001E" -350 250 50 H V L CNN
+F1 "SamacSys_Parts:0915BM15A0001E" -350 250 50 H V L CNN
 F2 "0915BM15A0001E" 350 200 50 H I L CNN
 F3 "http://www.mouser.com/datasheet/2/611/0915BM15A0001-242333.pdf" 350 100 50 H I L CNN
 F4 "Signal Conditioning 915MHz BALUN/FILTER" 350 0 50 H I L CNN "Description"
@@ -339,11 +339,11 @@ X GND 6 -500 -100 200 R 50 50 0 0 W
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_500SSP1S1M6QEA
+# SamacSys_Parts:500SSP1S1M6QEA
 #
-DEF SamacSys_Parts_500SSP1S1M6QEA S 0 30 Y Y 1 F N
+DEF SamacSys_Parts:500SSP1S1M6QEA S 0 30 Y Y 1 F N
 F0 "S" -300 400 50 H V L CNN
-F1 "SamacSys_Parts_500SSP1S1M6QEA" -300 300 50 H V L CNN
+F1 "SamacSys_Parts:500SSP1S1M6QEA" -300 300 50 H V L CNN
 F2 "500SSP1S1M6QEA" 350 100 50 H I L CNN
 F3 "https://www.e-switch.com/system/asset/product_line/data_sheet/115/500.pdf" 350 0 50 H I L CNN
 F4 "Slide Switches SPDT RA SLIDE PC MNT" 350 -100 50 H I L CNN "Description"
@@ -364,11 +364,11 @@ X ~ 5 50 -250 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_CC1101RGP
+# SamacSys_Parts:CC1101RGP
 #
-DEF SamacSys_Parts_CC1101RGP U 0 30 Y Y 1 F N
+DEF SamacSys_Parts:CC1101RGP U 0 30 Y Y 1 F N
 F0 "U" 1350 700 50 H V L CNN
-F1 "SamacSys_Parts_CC1101RGP" 1350 600 50 H V L CNN
+F1 "SamacSys_Parts:CC1101RGP" 1350 600 50 H V L CNN
 F2 "QFN50P400X400X100-21N-D" 1350 500 50 H I L CNN
 F3 "http://www.ti.com/lit/ds/symlink/cc1101.pdf" 1350 400 50 H I L CNN
 F4 "Texas Instruments CC1101RGP, RF Transceiver IC Triple Band 1.8  3.6 V 20-Pin QFN" 1350 300 50 H I L CNN "Description"
@@ -405,11 +405,11 @@ X AVDD_1 9 800 -1400 200 U 50 50 0 0 B
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_CONUFL001-SMD
+# SamacSys_Parts:CONUFL001-SMD
 #
-DEF SamacSys_Parts_CONUFL001-SMD J 0 30 Y Y 1 F N
+DEF SamacSys_Parts:CONUFL001-SMD J 0 30 Y Y 1 F N
 F0 "J" 300 300 50 H V L CNN
-F1 "SamacSys_Parts_CONUFL001-SMD" 300 200 50 H V L CNN
+F1 "SamacSys_Parts:CONUFL001-SMD" 300 200 50 H V L CNN
 F2 "CONUFL001-SMD" 300 100 50 H I L CNN
 F3 "https://componentsearchengine.com/Datasheets/1/CONUFL001-SMD.pdf" 300 0 50 H I L CNN
 F4 "RF Connectors / Coaxial Connectors U.FL Straight Surface Mount Jack" 300 -100 50 H I L CNN "Description"
@@ -424,11 +424,11 @@ X GND 3 450 0 200 L 50 50 0 0 W
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts_SSM3J338R,LF
+# SamacSys_Parts:SSM3J338R,LF
 #
-DEF SamacSys_Parts_SSM3J338R,LF Q 0 30 Y Y 1 F N
+DEF SamacSys_Parts:SSM3J338R,LF Q 0 30 Y Y 1 F N
 F0 "Q" 450 150 50 H V L CNN
-F1 "SamacSys_Parts_SSM3J338R,LF" 450 50 50 H V L CNN
+F1 "SamacSys_Parts:SSM3J338R,LF" 450 50 50 H V L CNN
 F2 "SamacSys_Parts:SSM3J332RLFT" 450 -50 50 H I L CNN
 F3 "http://toshiba.semicon-storage.com/info/docget.jsp?did=30384&prodName=SSM3J338R" 450 -150 50 H I L CNN
 F4 "MOSFET Small-signal MOSFET Vdss= -12V, ID= -6A" 450 -250 50 H I L CNN "Description"
@@ -454,11 +454,11 @@ X ~ 3 300 400 100 D 50 50 0 0 B
 ENDDRAW
 ENDDEF
 #
-# Transistor_BJT_BC817
+# Transistor_BJT:BC817
 #
-DEF Transistor_BJT_BC817 Q 0 0 Y N 1 F N
+DEF Transistor_BJT:BC817 Q 0 0 Y N 1 F N
 F0 "Q" 200 75 50 H V L CNN
-F1 "Transistor_BJT_BC817" 200 0 50 H V L CNN
+F1 "Transistor_BJT:BC817" 200 0 50 H V L CNN
 F2 "Package_TO_SOT_SMD:SOT-23" 200 -75 50 H I L CIN
 F3 "" 0 0 50 H I L CNN
 ALIAS BC818 BC847 BC848 BC849 BC850 MMBT3904 MMBT5550L MMBT5551L
@@ -477,11 +477,11 @@ X C 3 100 200 100 D 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# power_+5V
+# power:+5V
 #
-DEF power_+5V #PWR 0 0 Y Y 1 F P
+DEF power:+5V #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+5V" 0 140 50 H V C CNN
+F1 "power:+5V" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -492,11 +492,11 @@ X +5V 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_+BATT
+# power:+BATT
 #
-DEF power_+BATT #PWR 0 0 Y Y 1 F P
+DEF power:+BATT #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+BATT" 0 140 50 H V C CNN
+F1 "power:+BATT" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -507,11 +507,11 @@ X +BATT 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_GND
+# power:GND
 #
-DEF power_GND #PWR 0 0 Y Y 1 F P
+DEF power:GND #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GND" 0 -150 50 H V C CNN
+F1 "power:GND" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW

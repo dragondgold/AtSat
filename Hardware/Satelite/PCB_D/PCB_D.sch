@@ -15,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Bitmap
-Pos 8100 6800
+Pos 8100 6850
 Scale 1.000000
 Data
 89 50 4E 47 0D 0A 1A 0A 00 00 00 0D 49 48 44 52 00 00 02 71 00 00 00 AA 08 06 00 00 00 C2 EB 19 
@@ -992,8 +992,6 @@ F 4 "RC0603JR-13220RL" H 5050 6450 50  0001 C CNN "Manufacturer Part Number"
 	1    5050 6450
 	1    0    0    -1  
 $EndComp
-Wire Notes Line
-	10900 6500 8950 6500
 $Comp
 L AXTEC_IC:BOM_Jumper JP1
 U 1 1 5C31B4FD

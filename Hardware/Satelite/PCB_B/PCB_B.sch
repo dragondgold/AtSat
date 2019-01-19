@@ -347,7 +347,7 @@ Wire Wire Line
 Text Notes 2150 5150 0    118  ~ 0
 Regulador Interno 3V3
 $Bitmap
-Pos 8100 6800
+Pos 8100 6850
 Scale 1.000000
 Data
 89 50 4E 47 0D 0A 1A 0A 00 00 00 0D 49 48 44 52 00 00 02 71 00 00 00 AA 08 06 00 00 00 C2 EB 19 
