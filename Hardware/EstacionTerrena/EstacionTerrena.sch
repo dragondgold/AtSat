@@ -5,9 +5,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 3
-Title ""
-Date ""
-Rev ""
+Title "Estación terrena"
+Date "2019-01-19"
+Rev "1.0.0"
 Comp ""
 Comment1 ""
 Comment2 ""

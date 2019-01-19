@@ -1,14 +1,14 @@
 (export (version D)
   (design
     (source C:\Users\Leonardo\Documents\Repos\CanSat\Hardware\Satelite\PCB_E\PCB_E.sch)
-    (date "31/12/2018 3:59:47 p. m.")
+    (date "19/1/2019 3:41:59 p. m.")
     (tool "Eeschema (5.0.1)-4")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
-        (title)
+        (title PCB_E)
         (company)
-        (rev)
-        (date)
+        (rev 1.0.0)
+        (date 2019-01-19)
         (source PCB_E.sch)
         (comment (number 1) (value ""))
         (comment (number 2) (value ""))
@@ -123,7 +123,7 @@
       (datasheet https://www.mouser.com/datasheet/2/527/ssw_sm-1370305.pdf)
       (libsource (lib Connector_Generic) (part Conn_01x06) (description "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"))
       (sheetpath (names /) (tstamps /))
-      (tstamp 5C2A870C)))
+      (tstamp 5C5B02DA)))
   (libparts
     (libpart (lib AXTEC_IC) (part Conector_Expansion_CanSat)
       (fields

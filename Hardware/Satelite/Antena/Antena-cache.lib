@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# Connector_Generic:Conn_01x01
+# Connector_Generic_Conn_01x01
 #
-DEF Connector_Generic:Conn_01x01 J 0 40 Y N 1 F N
+DEF Connector_Generic_Conn_01x01 J 0 40 Y N 1 F N
 F0 "J" 0 100 50 H V C CNN
-F1 "Connector_Generic:Conn_01x01" 0 -100 50 H V C CNN
+F1 "Connector_Generic_Conn_01x01" 0 -100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -18,11 +18,11 @@ X Pin_1 1 -200 0 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Mechanical:MountingHole
+# Mechanical_MountingHole
 #
-DEF Mechanical:MountingHole H 0 40 Y Y 1 F N
+DEF Mechanical_MountingHole H 0 40 Y Y 1 F N
 F0 "H" 0 200 50 H V C CNN
-F1 "Mechanical:MountingHole" 0 125 50 H V C CNN
+F1 "Mechanical_MountingHole" 0 125 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -33,11 +33,11 @@ C 0 0 50 0 1 50 N
 ENDDRAW
 ENDDEF
 #
-# SamacSys_Parts:0915AT43A0026E
+# SamacSys_Parts_0915AT43A0026E
 #
-DEF SamacSys_Parts:0915AT43A0026E ANT 0 30 Y Y 1 F N
+DEF SamacSys_Parts_0915AT43A0026E ANT 0 30 Y Y 1 F N
 F0 "ANT" 850 300 50 H V L CNN
-F1 "SamacSys_Parts:0915AT43A0026E" 850 200 50 H V L CNN
+F1 "SamacSys_Parts_0915AT43A0026E" 850 200 50 H V L CNN
 F2 "ANTC8020X90N" 850 100 50 H I L CNN
 F3 "http://www.johansontechnology.com/images/stories/ip/rf-antennas/Antenna_0915AT43A0026_v2.pdf" 850 0 50 H I L CNN
 F4 "JOHANSON TECHNOLOGY - 0915AT43A0026E - ANTENNA, CERAMIC, 915MHZ" 850 -100 50 H I L CNN "Description"
@@ -53,11 +53,11 @@ X NC 2 1000 0 200 L 50 50 0 0 B
 ENDDRAW
 ENDDEF
 #
-# power:GND
+# power_GND
 #
-DEF power:GND #PWR 0 0 Y Y 1 F P
+DEF power_GND #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power:GND" 0 -150 50 H V C CNN
+F1 "power_GND" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW

@@ -5,9 +5,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
-Date ""
-Rev ""
+Title "PCB_D"
+Date "2019-01-19"
+Rev "1.0.0"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -1292,7 +1292,7 @@ Wire Wire Line
 Wire Wire Line
 	9750 2800 9850 2800
 $Comp
-L Interface_USB:FT231XS U3
+L PCB_D-rescue:FT231XS-Interface_USB U3
 U 1 1 5C33DAA5
 P 8750 3000
 F 0 "U3" H 9250 3900 50  0000 C CNN

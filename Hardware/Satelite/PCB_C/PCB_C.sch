@@ -5,9 +5,9 @@ EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 4
-Title ""
-Date ""
-Rev ""
+Title "PCB_C - Jerarquía"
+Date "2019-01-19"
+Rev "1.0.0"
 Comp ""
 Comment1 ""
 Comment2 ""

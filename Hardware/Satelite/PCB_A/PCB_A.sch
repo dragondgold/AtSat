@@ -6,7 +6,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 3
 Title "PCB_A"
-Date ""
+Date "2019-01-19"
 Rev "1.0.0"
 Comp "AXTEC Ingeniería"
 Comment1 ""
@@ -913,7 +913,7 @@ Wire Notes Line
 Text Notes 4200 850  0    157  ~ 0
 Puntos de prueba\n
 $Bitmap
-Pos 8050 6850
+Pos 8050 6750
 Scale 1.000000
 Data
 89 50 4E 47 0D 0A 1A 0A 00 00 00 0D 49 48 44 52 00 00 02 71 00 00 00 AA 08 06 00 00 00 C2 EB 19 
