@@ -1292,7 +1292,7 @@ Wire Wire Line
 Wire Wire Line
 	9750 2800 9850 2800
 $Comp
-L PCB_D-rescue:FT231XS-Interface_USB U3
+L PCB_D-rescue:FT231XS-Interface_USB-PCB_D-rescue U3
 U 1 1 5C33DAA5
 P 8750 3000
 F 0 "U3" H 9250 3900 50  0000 C CNN
