@@ -1,0 +1,15 @@
+{
+	"Add include guard": {
+		"prefix": "guard",
+		"description": "Adds an ifndef include guard to a C header",
+		"body": [
+			"#ifndef __${TM_FILENAME/^([^\\.]*)\\..*$/${1:/upcase}/}_${TM_FILENAME/^.*\\.([^\\.]*)$/${1:/upcase}/}__",
+			"#define __${TM_FILENAME/^([^\\.]*)\\..*$/${1:/upcase}/}_${TM_FILENAME/^.*\\.([^\\.]*)$/${1:/upcase}/}__",
+			"",
+			"$0",
+			"",
+			"#endif // __${TM_FILENAME/^([^\\.]*)\\..*$/${1:/upcase}/}_${TM_FILENAME/^.*\\.([^\\.]*)$/${1:/upcase}/}__",
+			""
+		]
+	}
+}

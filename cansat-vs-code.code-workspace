@@ -12,6 +12,15 @@
 		"terminal.integrated.env.windows": {
 			"CHERE_INVOKING": "1",
 			"MSYSTEM": "MINGW32",
+		},
+		"files.associations": {
+			"esp_system.h": "c",
+			"aux_ps.h": "c",
+			"semphr.h": "c",
+			"cansat.h": "c",
+			"gpio.h": "c",
+			"freertos.h": "c",
+			"spi_manager.h": "c"
 		}
 	}
 }
