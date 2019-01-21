@@ -70,7 +70,7 @@ export default {
     watch: {
         newNotificationModal (newCount) {
             let lengthM = this.$store.getters.axtec.notificationsModal.length
-            if(lengthM > 0){
+            if(lengthM > 0 && this.$store.getters.axtec.notificationsModal[this.indexModal]){
                 this.indexModal = length-1
                 this.title =  this.$store.getters.axtec.notificationsModal[this.indexModal].title
                 this.content = this.$store.getters.axtec.notificationsModal[this.indexModal].content
@@ -82,7 +82,7 @@ export default {
         },
         newNotificationToast (newCount) {
             let lengthT = this.$store.getters.axtec.notificationsToast.length
-            if(lengthT > 0){
+            if(lengthT > 0 && this.$store.getters.axtec.notificationsToast[this.indexToast]){
                 this.indexToast = length-1
                 this.toastText =  this.$store.getters.axtec.notificationsToast[this.indexToast].text
                 this.toastIcon = this.$store.getters.axtec.notificationsToast[this.indexToast].icon
