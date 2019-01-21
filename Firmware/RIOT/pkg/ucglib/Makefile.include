@@ -1,6 +1,0 @@
-INCLUDES += -I$(PKGDIRBASE)/ucglib/csrc
-
-# Link SDL if enabled.
-ifneq (,$(filter ucglib_sdl,$(USEMODULE)))
-  LINKFLAGS += `sdl2-config --libs`
-endif

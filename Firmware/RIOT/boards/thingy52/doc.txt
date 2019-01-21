@@ -1,5 +1,0 @@
-/**
-@defgroup    boards_thingy52 Nordic Thingy:52
-@ingroup     boards
-@brief       Support for the Nordic Thingy:52 board
- */

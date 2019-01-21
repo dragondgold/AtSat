@@ -1,4 +1,0 @@
-ifneq (,$(filter jerryscript,$(USEPKG)))
-  USEMODULE += jerryport-minimal
-  USEMODULE += jerryscript-ext
-endif

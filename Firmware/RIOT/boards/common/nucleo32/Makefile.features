@@ -1,2 +1,0 @@
-# Various common features of Nucleo boards
-FEATURES_PROVIDED += arduino

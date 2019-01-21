@@ -1,0 +1,58 @@
+{
+    "version": "2.0.0",
+    "tasks":[
+        {
+            "label": "Build CanSat Firmware",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "~/esp/cansat_firmware",
+                "-j8",
+                "flash"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "Serial Monitor",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "~/esp/cansat_firmware",
+                "monitor"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        }
+    ]
+}
