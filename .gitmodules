@@ -1,3 +1,4 @@
 [submodule "esp-idf"]
 	path = esp-idf
-	url = C:\\msys32\\home\\tmax4\\esp\\esp-idf
+	url = https://github.com/espressif/esp-idf.git
+	branch = v3.1.2

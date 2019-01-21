@@ -2,7 +2,62 @@
     "version": "2.0.0",
     "tasks":[
         {
-            "label": "Build CanSat Firmware",
+            "label": "Flash & Monitor",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "~/esp/cansat_firmware",
+                "-j8",
+                "flash",
+                "monitor"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "~/esp/cansat_firmware",
+                "-j8",
+                "all"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "Flash",
             "type": "shell",
             "command": "make",
             "args": [
