@@ -1,2 +1,0 @@
-USEMODULE += gnrc_udp
-USEMODULE += gnrc_ipv6

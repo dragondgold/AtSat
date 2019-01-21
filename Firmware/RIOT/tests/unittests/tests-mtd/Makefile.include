@@ -1,2 +1,0 @@
-USEMODULE += mtd
-USEMODULE += vfs

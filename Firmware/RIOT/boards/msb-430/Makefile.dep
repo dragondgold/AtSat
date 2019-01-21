@@ -1,3 +1,0 @@
-ifneq (,$(filter saul_default,$(USEMODULE)))
-  USEMODULE += sht11
-endif

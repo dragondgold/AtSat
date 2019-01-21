@@ -1,3 +1,0 @@
-export CPU_MODEL = nrf52840xxaa
-
-include $(RIOTBOARD)/common/nrf52xxxdk/Makefile.include

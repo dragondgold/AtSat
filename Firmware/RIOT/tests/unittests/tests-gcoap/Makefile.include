@@ -1,5 +1,0 @@
-# Specify the mandatory networking modules
-USEMODULE += gcoap
-USEMODULE += gnrc_ipv6
-
-USEMODULE += random
