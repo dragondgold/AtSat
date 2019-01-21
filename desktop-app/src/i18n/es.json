@@ -5,17 +5,31 @@
         "wizard":{
           "tittle": "Asistente de proyecto",
           "stepOne":{
-            "label": "Nombre",
-            "name": "Seleccione un nombre para su nuevo proyecto",
+            "label": "Proyecto",
+            "description": "Nombre y ubicación",
+            "titleName": "Escriba un nombre para su nuevo proyecto",
+            "name": "Nombre",
             "invalidName": "Nombre invalido",
-            "location": "Seleccione donde desea guardar el proyecto",
+            "titleLocation": "Eliga una ubicación donde guardar su proyecto",
+            "location": "Ubicación",
             "invalidLocation": "Directorio invalido"
           },
           "stepTwo":{
-            "label": "Estación terrena"
+            "label": "Estación terrena",
+            "description": "Comunicación",
+            "selectPort": "Puerto",
+            "titlePort": "Selecione el puerto donde esta conectada su estacion terrena"
           },
           "stepThree":{
-            "label": "CanSat"
+            "label": "CanSat",
+            "description": "Configuraciones",
+            "selectCanSat": "CanSat",
+            "titleCanSat": "Selecione su CanSat de la lista para crear un enlace",
+            "titleName": "Asignele un nombre a su CanSat para poder distinguirlo en futuras conexiones"   
+          },
+          "stepLast":{
+            "description": "Su CanSat esta listo para usar y conectado a la estación terrena, antes de ralizar una mision es aconsejable realizar los test de integridad para verificar el correcto funcionamiento de su equipo.",
+            "goToTest": "Realizar tests"
           }
         }
       }  

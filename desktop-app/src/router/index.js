@@ -144,9 +144,24 @@ export default new Router({
           component: EmptyParentComponent,
           children: [
             {
-              name: 'configSat',
-              path: 'configSat',
-              component: lazyLoading('cansat/sat/configSat'),
+              name: 'linkSat',
+              path: 'linkSat',
+              component: lazyLoading('cansat/sat/linkSat'),
+            },
+            {
+              name: 'fusesSat',
+              path: 'fusesSat',
+              component: lazyLoading('cansat/sat/fusesSat'),
+            },
+            {
+              name: 'testSat',
+              path: 'testSat',
+              component: lazyLoading('cansat/sat/testSat'),
+            },
+            {
+              name: 'sensorSat',
+              path: 'sensorSat',
+              component: lazyLoading('cansat/sat/sensorSat'),
             },
           ],
         },

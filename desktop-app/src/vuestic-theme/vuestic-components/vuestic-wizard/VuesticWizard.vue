@@ -184,7 +184,7 @@ $wizard-body-vl-min-height: 20rem;
 
 $wizard-body-hl-step-h-padding: 15%;
 
-$wizard-body-step-v-padding: 2.25rem;
+$wizard-body-step-v-padding: 0.85rem;
 $wizard-body-step-item-margin-bottom: $wizard-body-step-v-padding;
 
 .wizard {
