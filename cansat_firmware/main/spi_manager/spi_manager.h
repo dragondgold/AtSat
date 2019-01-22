@@ -2,8 +2,9 @@
 #define __SPI_MANAGER_H__
 
 #include <stdbool.h>
+#include "esp_system.h"
 
-void spi_manager_init(void);
+esp_err_t spi_manager_init(void);
 
 void spi_manager_enable_buffer(void);
 void spi_manager_disable_buffer(void);

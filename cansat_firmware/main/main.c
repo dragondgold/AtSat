@@ -15,6 +15,9 @@
 #include "i2c_manager/i2c_manager.h"
 #include "spi_manager/spi_manager.h"
 #include "gps_manager/gps_manager.h"
+#include "imu_manager/imu_manager.h"
+#include "pressure_manager/pressure_manager.h"
+#include "temp_hum_manager/temp_hum_manager.h"
 
 void app_main()
 {
@@ -33,8 +36,11 @@ void app_main()
     fflush(stdout);
 
     // Init every system in the satellite
-    aux_ps_init();
-    i2c_manager_init();
-    spi_manager_init();
-    gps_manager_init();
+    ESP_ERROR_CHECK(aux_ps_init());
+    ESP_ERROR_CHECK(i2c_manager_init());
+    ESP_ERROR_CHECK(spi_manager_init());
+    ESP_ERROR_CHECK(gps_manager_init());
+    ESP_ERROR_CHECK(imu_manager_init());
+    ESP_ERROR_CHECK(pressure_manager_init());
+    ESP_ERROR_CHECK(temp_hum_manager_init());
 }

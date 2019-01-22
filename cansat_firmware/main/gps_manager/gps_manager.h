@@ -1,6 +1,22 @@
 #ifndef __GPS_MANAGER_H__
 #define __GPS_MANAGER_H__
 
-void gps_manager_init(void);
+#include <stdbool.h>
+#include "esp_system.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "minmea/minmea.h"
+
+// Task settings
+#define GPS_MANAGER_STACK_SIZE          1024
+#define GPS_MANAGER_TASK_PRIORITY       1
+#define GPS_MANAGER_AFFINITY            tskNO_AFFINITY
+
+#define GPS_MANAGER_UART_BUFFER_SIZE    512
+
+esp_err_t gps_manager_init(void);
+
+bool gps_manager_is_valid_location(void);
+struct minmea_sentence_gga gps_manager_get_gga(void);
 
 #endif // __GPS_MANAGER_H__
