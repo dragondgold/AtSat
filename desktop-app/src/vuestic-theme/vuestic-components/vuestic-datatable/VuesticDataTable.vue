@@ -243,6 +243,10 @@ export default {
   },
 
   methods: {
+    refresh(){
+      this.$refs.vuetable.refresh() // https://github.com/ratiw/vuetable-2/issues/205
+      this.$refs.vuetable.reload();
+    },
     onFilterSet (filterText) {
       this.filterText = filterText
       Vue.nextTick(() => this.$refs.vuetable.refresh())

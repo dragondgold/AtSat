@@ -3,7 +3,7 @@
     "project":{
       "new":{
         "wizard":{
-          "tittle": "Asistente de proyecto",
+          "title": "Asistente de proyecto",
           "stepOne":{
             "label": "Proyecto",
             "description": "Nombre y ubicación",
@@ -33,6 +33,11 @@
           }
         }
       }  
+    },
+    "notifications":{
+      "center":{
+        "title": "Centro de notificaciones"
+      }
     }
   },
   "auth": {

@@ -1,4 +1,7 @@
 import store from '../store'
+const moment = require('moment')
+const uuidv4 = require('uuid/v4')
+
 export default {
   hex2rgb (hex, opacity) {
     hex = (hex + '').trim()
@@ -34,5 +37,11 @@ export default {
     if(store.getters.axtec.consoleDebug){
       console.log(type,content)
     }
-  }
+  },
+  getDate(){
+    return moment().format("YYYY-MM-DD HH:mm")
+  },
+  generateUUID(){
+    return uuidv4()
+  },
 }

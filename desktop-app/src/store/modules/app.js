@@ -84,11 +84,15 @@ const mutations = {
   pushNotificationModal(state,data){
     state.axtec.notificationsModal.push({
       'title': data.title, 
+      'date': data.date,
       'content': data.content,
+      'code': data.code,
       'ok': data.okCallback,
       'cancel': data.cancelCallback,
       'okText': data.okText,
-      'cancelText': data.cancelText
+      'cancelText': data.cancelText,
+      'uuid': data.uuid,
+      'type': data.type,
     })
   },
   pushNotificationToast(state,data){

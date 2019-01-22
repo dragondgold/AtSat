@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
                 <vuestic-widget class="no-h-padding"
-                        :headerText="$t('cansat.project.new.wizard.tittle')">
+                        :headerText="$t('cansat.project.new.wizard.title')">
           <vuestic-wizard @wizardComplete="successProject"
             :steps="vsSteps">
             <div slot="page1" class="form-wizard-tab-content">
@@ -141,7 +141,7 @@ export default {
           label: this.$t('cansat.project.new.wizard.stepOne.label'),
           slot: 'page1',
           onNext: () => {
-            
+    
           },
           isValid: () => {
             let valid = this.isFormPathValid(this.getPath())

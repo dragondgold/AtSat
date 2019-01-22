@@ -75,8 +75,9 @@ export default {
                 this.title =  this.$store.getters.axtec.notificationsModal[this.indexModal].title
                 this.content = this.$store.getters.axtec.notificationsModal[this.indexModal].content
                 this.okText = this.$store.getters.axtec.notificationsModal[this.indexModal].okText
-                this.cancelText = this.$store.getters.axtec.notificationsModal[this.indexModal].cancelText
+                this.cancelText = this.$store.getters.axtec.notificationsModal[this.indexModal].cancelText 
                 this.showModal()
+                this.displayed = true
                 utils.log('Showing modal', this.$store.getters.axtec.notificationsModal[this.indexModal]) 
             }
         },

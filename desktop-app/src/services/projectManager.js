@@ -4,6 +4,7 @@ const mkdirp = require('mkdirp')
 const getDirName = require('path').dirname
 const {dialog} = require('electron').remote
 
+import utils from '../services/utils'
 import store from '../store'
 
 export default {
@@ -17,10 +18,14 @@ export default {
     showSaveProject(){
         store.commit('pushNotificationModal',{ 
             'title': 'Desea crear un nuevo proyecto', 
+            'date': utils.getDate(),
             'content': '¿Esta seguro que desea crear un nuevo proyecto?. Desea guardar los cambios y continuar',
+            'code': 0,
             'okCallback': this.openDialog,
             'okText': 'Continuar',
-            'cancelText': 'Cancelar'
+            'cancelText': 'Cancelar',
+            'uuid':  utils.generateUUID(),
+            'type': 'info',
         })
     },
     openDialog() {
