@@ -1,4 +1,75 @@
 {
+  "cansat":{
+    "dialog": {
+      "open": "Open a file \"cansat_pro\"" 
+    },
+    "home":{
+      "cards": {
+        "newProject": "Create a new project",
+        "openProject": "Open an existing project",
+        "loadMission": "Analyze a past mission"
+      }
+    },
+    "project":{
+      "new":{
+        "wizard":{
+          "title": "Project wizard",
+          "stepOne":{
+            "label": "Project",
+            "description": "Name and location",
+            "titleName": "Set name for your project",
+            "name": "Name",
+            "invalidName": "Invalid Name",
+            "titleLocation": "Choose a folder",
+            "location": "Location",
+            "invalidLocation": "Invalid location"
+          },
+          "stepTwo":{
+            "label": "Earth station",
+            "description": "Link",
+            "selectPort": "Port",
+            "titlePort": "Select a port"
+          },
+          "stepThree":{
+            "label": "CanSat",
+            "description": "Configurations",
+            "selectCanSat": "CanSat",
+            "titleCanSat": "Select your CanSat from the list below",
+            "titleName": "Set a custom name for your CanSat"   
+          },
+          "stepLast":{
+            "description": "Your CanSat is ready to use and connected to the earth station, before completing a mission it is advisable to perform the integrity tests to verify the correct functioning of your equipment.",
+            "goToTest": "Test it now"
+          }
+        }
+      }  
+    },
+    "notifications":{
+      "center":{
+        "title": "Notifications center",
+        "searchLabel": "Search",
+        "perPageLabel": "Per page",
+        "table": {
+          "title": "Title",
+          "code": "Code",
+          "date": "Date",
+          "type": "Type"
+        },
+        "types": {
+          "error": "Error",
+          "info": "Info"
+        }
+      },
+      "modal": {
+        "okBtn": "Ok",
+        "cancelBtn": "Cancel",
+        "project":{
+          "titleNew": "New project",
+          "contentNew": "Do you want to save the changes and continue?"
+        }
+      }
+    }
+  },
   "auth": {
     "agree": "I agree to",
     "alreadyJoined": "Already joined?",

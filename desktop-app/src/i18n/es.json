@@ -1,5 +1,15 @@
 {
   "cansat":{
+    "dialog": {
+      "open": "Selecione un archivo \"cansat_pro\"" 
+    },
+    "home":{
+      "cards": {
+        "newProject": "Crea un proyecto nuevo",
+        "openProject": "Abre un proyecto existente",
+        "loadMission": "Abre una mission pasada"
+      }
+    },
     "project":{
       "new":{
         "wizard":{
@@ -36,7 +46,27 @@
     },
     "notifications":{
       "center":{
-        "title": "Centro de notificaciones"
+        "title": "Centro de notificaciones",
+        "searchLabel": "Buscar",
+        "perPageLabel": "Por página",
+        "table": {
+          "title": "Titulo",
+          "code": "Código",
+          "date": "Fecha",
+          "type": "Tipo"
+        },
+        "types": {
+          "error": "Error",
+          "info": "Info"
+        }
+      },
+      "modal": {
+        "okBtn": "Continuar",
+        "cancelBtn": "Cancel",
+        "project":{
+          "titleNew": "Nuevo proyecto",
+          "contentNew": "¿Esta seguro que desea crear un nuevo proyecto?. Desea guardar los cambios y continuar"
+        }
       }
     }
   },
@@ -190,7 +220,7 @@
   "menu": {
     "about": "Acerca",
     "aboutDocs": "Documentación",
-    "home": "Home",
+    "home": "Inicio",
     "project":"Proyecto",
     "projectNew": "Nuevo",
     "projectOpen": "Abrir",
@@ -307,7 +337,7 @@
       "score": "Puntuación"
     },
     "dataTable": {
-      "noDataAvailable": "No Data Available"
+      "noDataAvailable": "No hay notificaciones para mostrar"
     }
   },
   "user": {

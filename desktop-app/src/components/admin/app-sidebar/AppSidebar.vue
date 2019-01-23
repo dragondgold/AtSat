@@ -32,12 +32,6 @@
             <span>{{ $t('menu.projectSave') }}</span>
           </span>
         </sidebar-link>
-        <sidebar-link
-          :to="{ name: 'configProject' }">
-          <span slot="title">
-            <span>{{ $t('menu.projectConfig') }}</span>
-          </span>
-        </sidebar-link>
       </sidebar-link-group>
       <sidebar-link-group>
         <span slot="title">

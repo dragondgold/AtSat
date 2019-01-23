@@ -6,6 +6,7 @@ const {dialog} = require('electron').remote
 
 import utils from '../services/utils'
 import store from '../store'
+import Vue from 'vue'
 
 export default {
     openProject(){  
@@ -17,21 +18,22 @@ export default {
     },
     showSaveProject(){
         store.commit('pushNotificationModal',{ 
-            'title': 'Desea crear un nuevo proyecto', 
+            'title': vm.$t('cansat.notifications.modal.project.titleNew'), 
             'date': utils.getDate(),
-            'content': '¿Esta seguro que desea crear un nuevo proyecto?. Desea guardar los cambios y continuar',
+            'content': vm.$t('cansat.notifications.modal.project.contentNew'),
             'code': 0,
-            'okCallback': this.openDialog,
-            'okText': 'Continuar',
-            'cancelText': 'Cancelar',
-            'uuid':  utils.generateUUID(),
-            'type': 'info',
+            'okCallback': vm.openDialog,
+            'okText': vm.$t('cansat.notifications.modal.okBtn'),
+            'cancelText': vm.$t('cansat.notifications.modal.cancelBtn'),
+            'uuid': utils.generateUUID().toString(),
+            'type': vm.$t('cansat.notifications.center.types.info')
         })
     },
     openDialog() {
 
         let path =
         dialog.showOpenDialog({ 
+            'title': vm.$t('cansat.dialog.open'),
             properties: [ 
                 'openFile',
             ],        
@@ -72,7 +74,7 @@ export default {
                     alert("An error ocurred reading the file "+ err.message)
                     return ''
                 }else{
-                    if(store.getters.axtec.consoleDebug){
+                    if(store.getters.axtec.debug){
                         console.log(data)
                     }         
                     return data

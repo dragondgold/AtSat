@@ -34,9 +34,13 @@ router.afterEach((to, from) => {
 
 /* eslint-disable no-new */
 
-new Vue({
+
+
+let vm = new Vue({
   el: '#app',
   router,
   store,
   render: h => h(App)
 })
+
+global.vm = vm

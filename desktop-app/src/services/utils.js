@@ -34,12 +34,12 @@ export default {
     return rgb
   },
   log(type,content){
-    if(store.getters.axtec.consoleDebug){
+    if(store.getters.axtec.debug){
       console.log(type,content)
     }
   },
   getDate(){
-    return moment().format("YYYY-MM-DD HH:mm")
+    return moment().format("YYYY-MM-DD HH:mm:ss")
   },
   generateUUID(){
     return uuidv4()

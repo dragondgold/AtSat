@@ -23,7 +23,7 @@ const state = {
   },
   isLoading: true,
   axtec: {
-    consoleDebug: true,
+    debug: false,
     notificationsModal: [
         
     ],

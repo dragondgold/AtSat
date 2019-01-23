@@ -24,7 +24,7 @@ export default {
     },
     getLastError () {
         let code = MCP2210.Mcp2210_GetLastError(0)
-        if(store.getters.axtec.consoleDebug){
+        if(store.getters.axtec.debug){
             console.log('MCP2210 Last error code: ' + code)
         }
         return code
@@ -33,7 +33,7 @@ export default {
         let vid = 0x4D8
         let pid = 0xDE
         let devCount = MCP2210.Mcp2210_GetConnectedDevCount(vid,pid)
-        if(store.getters.axtec.consoleDebug){
+        if(store.getters.axtec.debug){
             console.log('MCP2210 Connected devs: ' + devCount)
         } 
         return devCount

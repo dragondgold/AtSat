@@ -2,7 +2,7 @@
   <div class="form-wizard-page">
     <div class="row">
       <div class="col-md-12">
-        <p class="pt-3 mb-0">
+        <p class="pt-3 mb-0" v-if="debug">
             <button class="btn btn-warning btn-micro float-right" @click="add()">
               {{ $t('cards.go') }}
               <span class="glyphicon glyphicon-arrow-right"></span>
@@ -18,6 +18,9 @@
             :paginationPath="paginationPath"
             :tableData="tableData"
             ref="vuetable"
+            :filterInputLabel="filterInputLabel"
+            :itemsPerPageLabel="itemsPerPageLabel"
+            :perPageSelectorShown="false"
           >
             <spring-spinner
               slot="loading"
@@ -41,35 +44,35 @@ import utils from '../../../services/utils'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Table',
+  name: 'Table-Notifications',
   components: {
     SpringSpinner
   },
   data () {
     return {
-      tableData: {'data': this.$store.getters.axtec.notificationsModal},
+      debug: this.$store.getters.axtec.debug,
+      tableData:{ 'data': this.$store.getters.axtec.notificationsModal.slice().reverse()},
+      data: {},
       apiUrl: '',
       apiMode: false, // Choose api mode or just pass array in data-table component
+      filterInputLabel: this.$t('cansat.notifications.center.searchLabel'),
+      itemsPerPageLabel: this.$t('cansat.notifications.center.perPageLabel'),
       tableFields: [
         {
           name: 'title', // Object property name in your data e.g. (data[0].name)
-          sortField: 'title', // Object property name in your data which will be used for sorting
+          title: this.$t('cansat.notifications.center.table.title'), // Object property name in your data which will be used for sorting
         },
         {
           name: 'code',
-          title: 'code' // Title of column
+          title: this.$t('cansat.notifications.center.table.code') // Title of column
         },
         {
           name: 'type',
-          title: 'tipo' // Title of column
+          title: this.$t('cansat.notifications.center.table.type') // Title of column
         },
         {
           name: 'date',
-          title: 'date'
-        },
-        {
-          name: 'uuid',
-          title: 'uuid'
+          title: this.$t('cansat.notifications.center.table.date')
         }
       ],
       itemsPerPage: [  // values in dropdown "Items Per Page"
@@ -97,25 +100,23 @@ export default {
 
   watch:{
     newNotification(newV){  
-      
       this.tableData.data = newV.slice().reverse()
       this.$refs.vuetable.refresh() // https://github.com/ratiw/vuetable-2/issues/205
     }
   },
 
   methods:{
-    
     add(){
         this.$store.commit('pushNotificationModal',{ 
-            'title': 'Desea crear un nuevo proyecto', 
+            'title': this.$t('cansat.notifications.modal.project.titleNew'), 
             'date': utils.getDate(),
-            'content': '¿Esta seguro que desea crear un nuevo proyecto?. Desea guardar los cambios y continuar',
+            'content': this.$t('cansat.notifications.modal.project.contentNew'),
             'code': 0,
             'okCallback': this.openDialog,
-            'okText': 'Continuar',
-            'cancelText': 'Cancelar',
+            'okText': this.$t('cansat.notifications.modal.okBtn'),
+            'cancelText': this.$t('cansat.notifications.modal.cancelBtn'),
             'uuid': utils.generateUUID().toString(),
-            'type': 'error'
+            'type': this.$t('cansat.notifications.center.types.error')
         })
     },
   } 

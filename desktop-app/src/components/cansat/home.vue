@@ -2,58 +2,22 @@
   <div class="row">
     <div class="col-md-12 col-sm-12">
       <div class="cards-container" >
-
-        <vuestic-card stripe="info"> 
-          
-          <template slot="title" >
-            <span 
-              class="container-icon-home sidebar-menu-item-icon fa fa-file color-icon-home-info">
-            </span>
-            {{ $t('cards.actionCreateProjectTitle') }}
-          </template>
-          {{ $t('cards.actionCreateProjectSub') }}
-          <p class="pt-3 mb-0">
-            <button class="btn btn-info btn-micro float-right" @click="goToNewProject()">
-              {{ $t('cards.go') }}
-              <span class="glyphicon glyphicon-arrow-right"></span>
-            </button>
-          </p>          
-
-        </vuestic-card>
-
-        <vuestic-card stripe="success">
-          <template slot="title">
-            <span 
-              class="container-icon-home sidebar-menu-item-icon glyphicon glyphicon-blackboard color-icon-home-sucess">
-            </span>
-            {{ $t('cards.actionOpenProjectTitle') }}
-          </template>
-          {{ $t('cards.actionOpenProjectSub') }}
-          <p class="pt-3 mb-0">
-            <button class="btn btn-success btn-micro float-right" @click="openProject()">
-              {{ $t('cards.go') }}
-              <span class="glyphicon glyphicon-arrow-right"></span>
-            </button>
-          </p>
-
-        </vuestic-card>
-
-        <vuestic-card stripe="warning">
-          <template slot="title">
-            <span 
-              class="container-icon-home sidebar-menu-item-icon fa fa-area-chart color-icon-home-warning">
-            </span>
-            {{ $t('cards.actionOpenMissionTitle') }}
-          </template>
-          {{ $t('cards.actionOpenMissionSub') }}
-          <p class="pt-3 mb-0">
-            <button class="btn btn-warning btn-micro float-right" @click="goToOpenMission()">
-              {{ $t('cards.go') }}
-              <span class="glyphicon glyphicon-arrow-right"></span>
-            </button>
-          </p>
-        </vuestic-card>
-
+        <vuestic-card v-for="(card,key) in cards.data" :key="key" :stripe="card.stripe">            
+            <template slot="title" >
+                <span :class="[card.icon, 'color-icon-home-' + card.stripe]"
+                class="container-icon-home sidebar-menu-item-icon ">
+                </span>
+                <h4>  {{$t(card.title) }}</h4>
+               
+            </template>
+            <p v-if="card.subtitle != undefined"> {{card.subtitle}}</p>
+            <p class="pt-3 mb-0">
+                <button :class="['btn-' + card.stripe]" class="btn btn-micro float-right" @click="card.go()">
+                {{ $t('cards.go') }}
+                <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+            </p>          
+        </vuestic-card>   
       </div>
     </div>
   </div>
@@ -67,12 +31,17 @@ import VuesticCard from '../../vuestic-theme/vuestic-components/vuestic-card/Vue
 import ProyectManager from 'services/projectManager'
 
 export default {
-  name: 'cards',
+  name: 'home-axtec',
   components: { VuesticCard },
   data () {
     return {
         isShown: false,
-        newProImg: path.resolve('./src/assets/images/cansat.png')
+        newProImg: path.resolve('./src/assets/images/cansat.png'),
+        cards: { 'data': [ 
+          { 'stripe' : 'info', 'title' :  'cansat.home.cards.newProject', 'icon' : 'fa fa-file', 'go': this.goToNewProject },
+          { 'stripe' : 'success', 'title' : 'cansat.home.cards.openProject', 'icon' : 'glyphicon glyphicon-blackboard', 'go': this.openProject },
+          { 'stripe' : 'warning', 'title' : 'cansat.home.cards.loadMission', 'icon' : 'fa fa-area-chart', 'go': this.goToOpenMission }
+        ]}
     }
   },
   methods: {
@@ -94,6 +63,9 @@ export default {
       this.$router.push({name:'openProject'})
     }
   },
+  created(){
+
+  }
 }
 </script>
 
@@ -107,7 +79,7 @@ export default {
     color: $brand-info
   }
 
-  .color-icon-home-sucess{
+  .color-icon-home-success{
     color: $brand-success
   }
 
