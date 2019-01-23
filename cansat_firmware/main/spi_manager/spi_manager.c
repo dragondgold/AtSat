@@ -10,8 +10,10 @@ static StaticSemaphore_t mutex_buffer;
 static SemaphoreHandle_t mutex;
 static bool enabled = false;
 
-void spi_manager_init(void)
+esp_err_t spi_manager_init(void)
 {
+    esp_err_t err;
+
     // Create the mutex for this resource
     mutex = xSemaphoreCreateMutexStatic(&mutex_buffer);
 
@@ -22,9 +24,14 @@ void spi_manager_init(void)
     config.pull_up_en = GPIO_PULLUP_DISABLE;
     config.pull_down_en = GPIO_PULLDOWN_DISABLE;
     config.intr_type = GPIO_INTR_DISABLE;
-    gpio_config(&config);
+    if((err = gpio_config(&config)) != ESP_OK)
+    {
+        return err;
+    }
 
     spi_manager_disable_buffer();
+
+    return err;
 }
 
 void spi_manager_enable_buffer(void)

@@ -2,8 +2,9 @@
 #define __I2C_MANAGER_H__
 
 #include <stdbool.h>
+#include "esp_system.h"
 
-void i2c_manager_init(void);
+esp_err_t i2c_manager_init(void);
 
 void i2c_manager_enable_buffer(void);
 void i2c_manager_disable_buffer(void);

@@ -8,6 +8,9 @@
 #define ARDUINO_UART_NUMBER         UART_NUM_1
 #define DEBUG_UART_NUMBER           UART_NUM_0
 
+#define PIC16_I2C_NUMBER            I2C_NUM_0
+#define GENERAL_I2C_NUMBER          I2C_NUM_1
+
 #define CHARGER_DETECTION_PIN       GPIO_NUM_36
 #define CHARGING_DETECTION_PIN      GPIO_NUM_39
 
@@ -32,6 +35,6 @@
 #define I2C_ENABLE_PIN              GPIO_NUM_25
 #define SPI_ENABLE_PIN              GPIO_NUM_27
 #define GPOUT_PIN                   GPIO_NUM_34
-#define GPS_TX_PIN                  GPIO_NUM_35
+#define GPS_TX_PIN                  GPIO_NUM_35      
 
 #endif

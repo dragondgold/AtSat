@@ -10,8 +10,10 @@ static StaticSemaphore_t mutex_buffer;
 static SemaphoreHandle_t mutex;
 static bool enabled = false;
 
-void aux_ps_init(void) 
+esp_err_t aux_ps_init(void) 
 {
+    esp_err_t err;
+
     // Create the mutex for this resource
     mutex = xSemaphoreCreateMutexStatic(&mutex_buffer);
 
@@ -22,10 +24,15 @@ void aux_ps_init(void)
     config.pull_up_en = GPIO_PULLUP_DISABLE;
     config.pull_down_en = GPIO_PULLDOWN_DISABLE;
     config.intr_type = GPIO_INTR_DISABLE;
-    gpio_config(&config);
+    if((err = gpio_config(&config)) != ESP_OK)
+    {
+        return err;
+    }
 
     // Disable auxiliary supplies
     aux_ps_disable();
+
+    return err;
 }
 
 void aux_ps_enable(void)
