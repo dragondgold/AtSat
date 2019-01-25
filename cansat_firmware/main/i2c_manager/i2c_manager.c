@@ -7,16 +7,26 @@
 #include "driver/gpio.h"
 #include "driver/i2c.h"
 
+#include "esp_log.h"
+
+static const char* TAG = "i2c";
+
 static StaticSemaphore_t mutex_buffer;
 static SemaphoreHandle_t mutex;
 static bool enabled = false;
+
+static StaticSemaphore_t i2c_mutex_buffers[2];
+static SemaphoreHandle_t i2c_mutexes[2];
 
 esp_err_t i2c_manager_init(void)
 {
     esp_err_t err;
 
-    // Create the mutex for this resource
+    // Create the mutexes for the I2C buffer and I2C peripherals
     mutex = xSemaphoreCreateMutexStatic(&mutex_buffer);
+
+    i2c_mutexes[0] = xSemaphoreCreateMutexStatic(&i2c_mutex_buffers[0]);
+    i2c_mutexes[1] = xSemaphoreCreateMutexStatic(&i2c_mutex_buffers[1]);
 
     // Configure pin
     gpio_config_t config;
@@ -109,4 +119,83 @@ void i2c_manager_disable_buffer(void)
 bool i2c_manager_is_buffer_disabled(void)
 {
     return enabled;
+}
+
+esp_err_t i2c_manager_acquire(i2c_port_t port, TickType_t timeout)
+{
+    if(port > 1 || port < 0)
+    {
+        return ESP_FAIL;
+    }
+
+    if(xSemaphoreTake(i2c_mutexes[port], timeout)) return ESP_OK;
+    else return ESP_FAIL;
+}
+
+esp_err_t i2c_manager_release(i2c_port_t port)
+{
+    if(port > 1 || port < 0)
+    {
+        return ESP_FAIL;
+    }
+
+    if(xSemaphoreGive(i2c_mutexes[port])) return ESP_OK;
+    else return ESP_FAIL;
+}
+
+esp_err_t i2c_manager_read_register(i2c_port_t port, TickType_t timeout, uint8_t slave_addr, uint8_t reg_addr, uint8_t* value)
+{
+    esp_err_t err;
+
+    // Acquire the I2C module
+    if((err = i2c_manager_acquire(port, timeout)) != ESP_OK)
+    {
+        return err;
+    }
+
+    // Create the commands
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, slave_addr, true);
+    i2c_master_write_byte(cmd, reg_addr, true);
+    i2c_master_read_byte(cmd, value, I2C_MASTER_NACK);
+    i2c_master_stop(cmd);
+
+    // Send everything, this will block until everything is sent
+    err = i2c_master_cmd_begin(port, cmd, timeout);
+    i2c_cmd_link_delete(cmd);
+
+    // Release the bus
+    i2c_manager_release(port);
+    return err;
+}
+
+esp_err_t i2c_manager_read_register_multiple(i2c_port_t port, TickType_t timeout, uint8_t slave_addr, uint8_t reg_addr, unsigned int length, uint8_t* values)
+{
+    esp_err_t err;
+
+    // Acquire the I2C module
+    if((err = i2c_manager_acquire(port, timeout)) != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Error acquiring port %d", port);
+        return err;
+    }
+
+    // Create the commands
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, slave_addr, true);
+    i2c_master_write_byte(cmd, reg_addr, true);
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, slave_addr | 0x01, true);
+    i2c_master_read(cmd, values, length, I2C_MASTER_LAST_NACK);
+    i2c_master_stop(cmd);
+
+    // Send everything, this will block until everything is sent
+    err = i2c_master_cmd_begin(port, cmd, timeout);
+    i2c_cmd_link_delete(cmd);
+
+    // Release the bus
+    i2c_manager_release(port);
+    return err;
 }

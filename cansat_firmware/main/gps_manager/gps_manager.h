@@ -8,8 +8,8 @@
 #include "minmea/minmea.h"
 
 // Task settings
-#define GPS_MANAGER_STACK_SIZE          1024
-#define GPS_MANAGER_TASK_PRIORITY       1
+#define GPS_MANAGER_STACK_SIZE          1500
+#define GPS_MANAGER_TASK_PRIORITY       2
 #define GPS_MANAGER_AFFINITY            tskNO_AFFINITY
 
 #define GPS_MANAGER_UART_BUFFER_SIZE    512
