@@ -27,7 +27,8 @@
 			"temp_hum_manager.h": "c",
 			"stdint.h": "c",
 			"string.h": "c",
-			"minmea.h": "c"
+			"minmea.h": "c",
+			"pressure_manager.h": "c"
 		}
 	}
 }
