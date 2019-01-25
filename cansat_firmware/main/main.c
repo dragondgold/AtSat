@@ -46,7 +46,7 @@ void app_main()
     ESP_ERROR_CHECK(gps_manager_init());
     ESP_ERROR_CHECK(imu_manager_init());
     ESP_ERROR_CHECK(pressure_manager_init());
-    //ESP_ERROR_CHECK(temp_hum_manager_init());
+    ESP_ERROR_CHECK(temp_hum_manager_init());
 
     ESP_LOGI(TAG, "Systems initialized");
 }

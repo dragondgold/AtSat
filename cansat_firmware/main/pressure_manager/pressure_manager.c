@@ -5,8 +5,6 @@
 #include "esp_system.h"
 #include "driver/i2c.h"
 #include "freertos/FreeRTOS.h"
-
-#define LOG_LOCAL_LEVEL ESP_LOG_VERBOSE
 #include "esp_log.h"
 
 static const char* TAG = "pressure";
@@ -227,4 +225,14 @@ esp_err_t pressure_manager_do_sample(void)
     ESP_LOGE(TAG, "Error getting sampling mutex");
 
     return ESP_FAIL;
+}
+
+float pressure_manager_get_pressure(void)
+{
+    return pressure;
+}
+
+float pressure_manager_get_temperature(void)
+{
+    return temperature;
 }

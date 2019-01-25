@@ -158,6 +158,8 @@ esp_err_t i2c_manager_read_register(i2c_port_t port, TickType_t timeout, uint8_t
     i2c_master_start(cmd);
     i2c_master_write_byte(cmd, slave_addr, true);
     i2c_master_write_byte(cmd, reg_addr, true);
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, slave_addr | 0x01, true);
     i2c_master_read_byte(cmd, value, I2C_MASTER_NACK);
     i2c_master_stop(cmd);
 

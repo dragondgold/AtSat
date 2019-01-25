@@ -15,4 +15,7 @@ esp_err_t pressure_manager_init(void);
 
 esp_err_t pressure_manager_do_sample(void);
 
+float pressure_manager_get_pressure(void);
+float pressure_manager_get_temperature(void);
+
 #endif // __PRESSURE_MANAGER_H__
