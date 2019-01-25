@@ -41,7 +41,7 @@ static esp_err_t send_cmd(uint8_t command)
 }
 
 /**
- * @brief Manager for the temperature and humidty sensor Si7006-A20
+ * @brief Manager for the temperature and humidity sensor Si7006-A20
  * @return esp_err_t 
  */
 esp_err_t temp_hum_manager_init(void)
