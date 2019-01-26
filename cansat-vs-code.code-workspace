@@ -28,7 +28,8 @@
 			"stdint.h": "c",
 			"string.h": "c",
 			"minmea.h": "c",
-			"pressure_manager.h": "c"
+			"pressure_manager.h": "c",
+			"bmm050.h": "c"
 		}
 	}
 }

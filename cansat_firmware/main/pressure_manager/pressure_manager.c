@@ -108,7 +108,7 @@ esp_err_t pressure_manager_init(void)
     // Do the first sample
     pressure_manager_do_sample();
     
-    ESP_LOGI(TAG, "Ready");
+    ESP_LOGI(TAG, "Ready!");
 
     return ESP_OK;
 }

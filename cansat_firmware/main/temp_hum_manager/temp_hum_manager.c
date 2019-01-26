@@ -56,7 +56,7 @@ esp_err_t temp_hum_manager_init(void)
     // Make the first sample
     temp_hum_manager_sample();
 
-    ESP_LOGI(TAG, "Initialized!");
+    ESP_LOGI(TAG, "Ready!");
 
     return ESP_OK;
 }
