@@ -51,11 +51,12 @@ const {app} = require('electron')
 export default {
   name: 'cansat-project-wizard',
   components: {
-    etWidget,
     projectWidget,
+    etWidget,
     cansatWidget
   },
   created(){
+    this.clearStatuses()
     mcp2210.getConnectedDevCount()
   },
   computed: {
@@ -68,7 +69,6 @@ export default {
     
           },
           isValid: () => {
-
             return this.$refs.projectWidget.isValid()
           },
         },
@@ -76,10 +76,10 @@ export default {
           label: this.$t('cansat.project.new.wizard.stepTwo.label'),
           slot: 'page2',
           onNext: () => {
-            
+
           },
           isValid: () => {
-            return this.$refs.etWidget.isValid()
+            return  this.$refs.etWidget.isValid()
           },
         },
         {
@@ -89,7 +89,7 @@ export default {
             
           },
           isValid: () => {
-            return this.$refs.cansatWidget.isValid()
+            return  this.$refs.cansatWidget.isValid()
           },
         },
       ]
@@ -101,8 +101,13 @@ export default {
     }
   },
   methods: {
+    clearStatuses(){
+      this.$store.commit('axtecPath','')
+      
+    },
     successProject(){
-      //this.$store.commit('axtecPath',this.getPath())
+      this.$store.commit('axtecPath',this.$refs.projectWidget.getPath())
+      this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': true})
       this.$store.commit('pushNotificationToast',{ 
           'text': 'Creando nuevo proyecto', 
           'icon': 'fa-commenting'          

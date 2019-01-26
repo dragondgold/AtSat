@@ -1,5 +1,17 @@
 {
   "cansat":{
+    "link":{
+      "title": "Link",
+      "connect": "Connect",
+      "disconnect": "Disconnect",
+      "etConnectedLabel": "Earth station connected to: ",
+      "etDisconnectedLabel": "Please connect an earth station",
+      "tabs":{
+        "et": "Earth station",
+        "cansat": "CanSat",
+        "configLabel": "Configurations"
+      }
+    },
     "dialog": {
       "open": "Open a file \"cansat_pro\"" 
     },

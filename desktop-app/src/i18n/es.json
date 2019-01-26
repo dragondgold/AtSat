@@ -1,5 +1,17 @@
 {
   "cansat":{
+    "link":{
+      "title": "Enlace",
+      "connect": "Conectar",
+      "disconnect": "Desconectar",
+      "etConnectedLabel": "Estación terrena conectada en: ",
+      "etDisconnectedLabel": "Estacion terrena no conectada",
+      "tabs":{
+        "et": "Estación terrena",
+        "cansat": "CanSat",
+        "configLabel": "Configuraciones"
+      }
+    },
     "dialog": {
       "open": "Selecione un archivo \"cansat_pro\"" 
     },

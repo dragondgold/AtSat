@@ -1,6 +1,6 @@
 <template>
     <div class="form-wizard-tab-content">
-        <h4>{{'cansat.project.new.wizard.stepOne.description' | translate}}</h4>
+        <h4 v-if="showDescription">{{'cansat.project.new.wizard.stepOne.description' | translate}}</h4>
         <p>{{ $t('cansat.project.new.wizard.stepOne.titleName') }}</p> 
         <div class="form-group with-icon-right" style="width: inherit"
             :class="{'has-error': !isFormPathValid(projectName), 'valid': isFormPathValid(projectName)}">
@@ -55,6 +55,12 @@ const homedir = require('os').homedir()
 
 export default {
     name: 'project-widget',
+    props: {
+        showDescription: {
+            type: Boolean,
+            default: true
+        }
+    },
     data () {
         return {
             projectName: '',
