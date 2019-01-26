@@ -6,6 +6,15 @@
       "disconnect": "Desconectar",
       "etConnectedLabel": "Estación terrena conectada en: ",
       "etDisconnectedLabel": "Estacion terrena no conectada",
+      "cansatIDLabel": "CanSat ID: ",
+      "cansatNameLabel": "CanSat name: ",
+      "cansatSignalLabel": "Nivel de señal: ",
+      "table":{ 
+        "id": "ID",
+        "name": "Nombre",
+        "signal": "Señal",
+        "action": "Acción"
+      },
       "tabs":{
         "et": "Estación terrena",
         "cansat": "CanSat",

@@ -36,6 +36,7 @@ const state = {
         id: '',
         name:'',
         connected:'',
+        signal: '',
         sensors: [{
           type: '',
           status:'',
@@ -61,6 +62,7 @@ const state = {
       }],
       earthStation: {
         id: '',
+        port: '',
         connected: false
       }
     },
@@ -106,6 +108,18 @@ const mutations = {
   setStatusCanSat(state, data){
     state.axtec.project.cansat[data.index].connected = data.connected
   },
+  setNameCanSat(state, data){
+    state.axtec.project.cansat[data.index].name = data.name
+  },
+  setIDCanSat(state, data){
+    state.axtec.project.cansat[data.index].id = data.id
+  },
+  setPortEarthStation(state, port){
+    state.axtec.project.earthStation.port = port
+  },
+  setSignalCanSat(state, data){
+    state.axtec.project.cansat[data.index].signal = data.signal
+  },
 }
 
 const actions = {
@@ -126,6 +140,18 @@ const actions = {
   },
   setStatusCanSat({ commit }, data){
     commit(setStatusCanSat,data)
+  },
+  setNameCanSat({ commit }, data){
+    commit(setNameCanSat,data)
+  },
+  setIDCanSat({ commit }, data){
+    commit(setIDCanSat,data)
+  },
+  setSignalCanSat({ commit }, data){
+    commit(setSignalCanSat,data)
+  },
+  setPortEarthStation({ commit }, data){
+    commit(setPortEarthStation,data)
   },
 }
 

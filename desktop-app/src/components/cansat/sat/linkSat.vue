@@ -1,20 +1,12 @@
 <template>
-  <vuestic-widget class="no-padding no-v-padding" :headerText="this.$t('cansat.link.title')">
-    <div class="row">
-      <div class="col-md-6 pt-3">
+  <vuestic-widget class="no-padding no-v-padding widget-min-height" :headerText="this.$t('cansat.link.title')">
+    <div class="row" >
+      <div class="col-md-5 pt-3">
         <et-widget :enableWizard="false"/>
       </div> 
-      <div class="col-md-6 pt-3">
+      <div class="col-md-7 pt-3">
         <cansat-widget :enableWizard="false"/>
       </div> 
-      <div class="col-md-12"> 
-        <p class="pt-3" style="text-align: center">
-          <button class="btn btn-success btn-micro " >
-            hola
-            <span class="glyphicon glyphicon-arrow-right"></span>
-          </button>
-        </p>
-      </div>
     </div> 
   </vuestic-widget>
 </template>
@@ -52,3 +44,9 @@ export default {
   } 
 }
 </script>
+
+<style lang="scss">
+  .widget-min-height{
+    min-height: 25rem;
+  }
+</style>
