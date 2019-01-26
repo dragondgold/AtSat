@@ -29,7 +29,8 @@
 			"string.h": "c",
 			"minmea.h": "c",
 			"pressure_manager.h": "c",
-			"bmm050.h": "c"
+			"bmm050.h": "c",
+			"esp_log.h": "c"
 		}
 	}
 }

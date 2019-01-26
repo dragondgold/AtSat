@@ -94,7 +94,7 @@ esp_err_t imu_manager_sample_all(void)
         // Read accelerometer bytes (2 bytes per axis)
         ESP_LOGV(TAG, "Starting accelerometer read");
         if((err = i2c_manager_read_register_multiple(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, 
-            IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_DATA_REG, 6, acc)))
+            IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_DATA_REG, 6, acc)) != ESP_OK)
             {
                 ESP_LOGE(TAG, "Error reading accelerometer: %d", err);
                 xSemaphoreGive(sample_mutex);
@@ -120,7 +120,7 @@ esp_err_t imu_manager_sample_all(void)
         // Read gyroscope bytes (2 bytes per axis)
         ESP_LOGV(TAG, "Starting gyroscope read");
         if((err = i2c_manager_read_register_multiple(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, 
-            IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_DATA_REG, 6, gyro)))
+            IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_DATA_REG, 6, gyro)) != ESP_OK)
             {
                 ESP_LOGE(TAG, "Error reading gyroscope: %d", err);
                 xSemaphoreGive(sample_mutex);
@@ -144,14 +144,25 @@ esp_err_t imu_manager_sample_all(void)
         }
 
         // Read magnetometer bytes (2 bytes per axis)
+        ESP_LOGV(TAG, "Reading magnetometer ID");
+        if((err = i2c_manager_read_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS,
+            IMU_MANAGER_MAGNETOMETER_ADDRESS, 0x40, mag)) != ESP_OK)
+            {
+                ESP_LOGE(TAG, "Error reading magnetometer ID: %d", err);
+                xSemaphoreGive(sample_mutex);
+                return err;
+            }
+        ESP_LOGV(TAG, "Magnetometer ID: %d", mag[0]);
+
         ESP_LOGV(TAG, "Starting magnetometer read");
         if((err = i2c_manager_read_register_multiple(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, 
-            IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_DATA_REG, 6, mag)))
+            IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_DATA_REG, 6, mag)) != ESP_OK)
             {
                 ESP_LOGE(TAG, "Error reading magnetometer: %d", err);
                 xSemaphoreGive(sample_mutex);
                 return err;
             }
+        ESP_LOGV(TAG, "Mag array: %d, %d, %d, %d, %d, %d", mag[0], mag[1], mag[2], mag[3], mag[4], mag[5]);
         // Convert the data to 13-bits
         mag_data.x = ((mag[1] * 256) + (mag[0] & 0xF8)) / 8;
         if (mag_data.x > 4095)
@@ -181,6 +192,10 @@ esp_err_t imu_manager_sample_all(void)
     return ESP_FAIL;
 }
 
+/**
+ * @brief Get acceleration values from the accelerometer in milli-g
+ * @return imu_axis_data_f_t 
+ */
 imu_axis_data_f_t imu_manager_get_acceleration(void)
 {
     // Calculate the acceleration in mg
@@ -197,6 +212,10 @@ imu_axis_data_f_t imu_manager_get_acceleration(void)
     return data;
 }
 
+/**
+ * @brief Get angular velocity from the gyroscope in degrees/s
+ * @return imu_axis_data_f_t 
+ */
 imu_axis_data_f_t imu_manager_get_gyro(void)
 {
     // Calculate angular velocity in degrees/s
@@ -213,6 +232,10 @@ imu_axis_data_f_t imu_manager_get_gyro(void)
     return data;
 }
 
+/**
+ * @brief Get magnetic field strength from the magnetometer in uT
+ * @return imu_axis_data_f_t 
+ */
 imu_axis_data_f_t imu_manager_get_magnetometer(void)
 {
     // Calculate magnetic field in uT
