@@ -9,6 +9,12 @@ typedef struct {
     int32_t z;
 } imu_axis_data_t;
 
+typedef struct {
+    float x;
+    float y;
+    float z;
+} imu_axis_data_f_t;
+
 #define IMU_MANAGER_ACCELEROMETER_ADDRESS       (0x18 << 1)
 #define IMU_MANAGER_GYROSCOPE_ADDRESS           (0x68 << 1)
 #define IMU_MANAGER_MAGNETOMETER_ADDRESS        (0x10 << 1)
@@ -38,5 +44,9 @@ typedef struct {
 
 esp_err_t imu_manager_init(void);
 esp_err_t imu_manager_sample_all(void);
+
+imu_axis_data_f_t imu_manager_get_acceleration(void);
+imu_axis_data_f_t imu_manager_get_gyro(void);
+imu_axis_data_f_t imu_manager_get_magnetometer(void);
 
 #endif // __IMU_MANAGER_H__

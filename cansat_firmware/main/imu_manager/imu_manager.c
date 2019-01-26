@@ -6,29 +6,36 @@
 #include "esp_system.h"
 #include "driver/i2c.h"
 #include "freertos/FreeRTOS.h"
-
-#define LOG_LOCAL_LEVEL ESP_LOG_VERBOSE
 #include "esp_log.h"
 
 static const char* TAG = "imu";
 
-static StaticSemaphore_t mutex_buffer;
-static SemaphoreHandle_t mutex;
+static StaticSemaphore_t sample_mutex_buffer;
+static SemaphoreHandle_t sample_mutex;
 
+// Data
 static imu_axis_data_t acc_data, gyro_data, mag_data;
+static unsigned int acc_range = 4;          // g
+static unsigned int gyro_range = 250;       // degree/s
+
+// Constants
+// The magnetometer has a range in the XY axis of 1300 uT and
+//  2500 uT in the Z axis.
+const float mag_factor_xy = 1300.0 / 8192.0;
+const float mag_factor_z = 2500.0 / 8192.0;
 
 esp_err_t imu_manager_init(void)
 {
     ESP_LOGI(TAG, "Initializing");
 
     // Create mutex for this resource
-    mutex = xSemaphoreCreateMutexStatic(&mutex_buffer);
+    sample_mutex = xSemaphoreCreateMutexStatic(&sample_mutex_buffer);
 
     esp_err_t err = ESP_OK;
 
-    // Setup accelerometer, 4g range, 7.81 Hz filter, normal mode
+    // Setup accelerometer, 4g range, 125 Hz filter, normal mode
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_PMU_RANGE_REG, 0x04);
-    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_PMU_BW_REG, 0x08);
+    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_PMU_BW_REG, 0x0C);
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_PMU_LPW, 0x00);
     if(err != ESP_OK)
     {
@@ -79,7 +86,7 @@ esp_err_t imu_manager_sample_all(void)
 {
     ESP_LOGV(TAG, "Starting sample");
 
-    if(xSemaphoreTake(mutex, 100 / portTICK_PERIOD_MS))
+    if(xSemaphoreTake(sample_mutex, 100 / portTICK_PERIOD_MS))
     {
         uint8_t acc[6], gyro[6], mag[6];
         esp_err_t err;
@@ -90,6 +97,7 @@ esp_err_t imu_manager_sample_all(void)
             IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_DATA_REG, 6, acc)))
             {
                 ESP_LOGE(TAG, "Error reading accelerometer: %d", err);
+                xSemaphoreGive(sample_mutex);
                 return err;
             }
         // Convert the data to 12-bits
@@ -115,6 +123,7 @@ esp_err_t imu_manager_sample_all(void)
             IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_DATA_REG, 6, gyro)))
             {
                 ESP_LOGE(TAG, "Error reading gyroscope: %d", err);
+                xSemaphoreGive(sample_mutex);
                 return err;
             }
         // Convert the data to 16-bits
@@ -140,6 +149,7 @@ esp_err_t imu_manager_sample_all(void)
             IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_DATA_REG, 6, mag)))
             {
                 ESP_LOGE(TAG, "Error reading magnetometer: %d", err);
+                xSemaphoreGive(sample_mutex);
                 return err;
             }
         // Convert the data to 13-bits
@@ -163,6 +173,7 @@ esp_err_t imu_manager_sample_all(void)
         ESP_LOGV(TAG, "Gyroscope (x,y,z): %d, %d, %d", gyro_data.x, gyro_data.y, gyro_data.z);
         ESP_LOGV(TAG, "Magnetometer (x,y,z): %d, %d, %d", mag_data.x, mag_data.y, mag_data.z);
 
+        xSemaphoreGive(sample_mutex);
         return ESP_OK;
     }
     ESP_LOGE(TAG, "Error getting sampling mutex");
@@ -170,7 +181,49 @@ esp_err_t imu_manager_sample_all(void)
     return ESP_FAIL;
 }
 
-imu_axis_data_t imu_manager_get_acceleration(void)
+imu_axis_data_f_t imu_manager_get_acceleration(void)
 {
-    return NULL;
+    // Calculate the acceleration in mg
+    float factor = (float)(acc_range * 1000) / 4096.0;
+    imu_axis_data_f_t data = 
+    {
+        .x = (float)acc_data.x * factor,
+        .y = (float)acc_data.y * factor,
+        .z = (float)acc_data.z * factor
+    };
+
+    ESP_LOGV(TAG, "Accelerometer mg (x,y,z): %.2f,%.2f,%.2f", data.x, data.y, data.z);
+
+    return data;
+}
+
+imu_axis_data_f_t imu_manager_get_gyro(void)
+{
+    // Calculate angular velocity in degrees/s
+    float factor = (float)gyro_range / 32768.0;
+    imu_axis_data_f_t data = 
+    {
+        .x = (float)gyro_data.x * factor,
+        .y = (float)gyro_data.y * factor,
+        .z = (float)gyro_data.z * factor
+    };
+
+    ESP_LOGV(TAG, "Gyroscope degrees (x,y,z): %.2f,%.2f,%.2f", data.x, data.y, data.z);
+
+    return data;
+}
+
+imu_axis_data_f_t imu_manager_get_magnetometer(void)
+{
+    // Calculate magnetic field in uT
+    imu_axis_data_f_t data = 
+    {
+        .x = (float)mag_data.x * mag_factor_xy,
+        .y = (float)mag_data.y * mag_factor_xy,
+        .z = (float)mag_data.z * mag_factor_z
+    };
+
+    ESP_LOGV(TAG, "Magnetometer uT (x,y,z): %.2f,%.2f,%.2f", data.x, data.y, data.z);
+
+    return data;
 }
