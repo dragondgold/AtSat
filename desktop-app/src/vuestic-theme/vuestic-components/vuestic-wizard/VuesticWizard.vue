@@ -143,9 +143,11 @@ export default {
       }
     },
     completeWizard () {
-      this.wizardCompleted = true
-      this.$emit('wizardComplete')
-      this.goNext()
+      if(this.isCurrentStepValid()){
+        this.wizardCompleted = true
+        this.$emit('wizardComplete')
+        this.goNext()
+      }  
     },
     isLastStep () {
       return this.currentStep === this.steps.length - 1

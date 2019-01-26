@@ -12,7 +12,7 @@
             :class="{'has-value': !!value}"
             v-model="displayValue"
             :name="name"
-            :options="options"
+            :options="options" :disabled="disabled"
           >
           <label class="control-label">{{label}}</label><i class="bar"/>
           <small v-show="hasErrors()" class="help text-danger">
@@ -64,6 +64,10 @@ export default {
     dropdown: Dropdown
   },
   props: {
+    disabled: {
+      type: Boolean,
+      required: false
+    },
     label: String,
     options: Array,
     value: {

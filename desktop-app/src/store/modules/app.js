@@ -23,7 +23,7 @@ const state = {
   },
   isLoading: true,
   axtec: {
-    debug: false,
+    debug: true,
     notificationsModal: [
         
     ],
@@ -35,8 +35,7 @@ const state = {
       cansat:[{
         id: '',
         name:'',
-        status:'',
-        protocol: '',
+        connected:'',
         sensors: [{
           type: '',
           status:'',
@@ -60,9 +59,9 @@ const state = {
           }]
         }
       }],
-      groundStation: {
+      earthStation: {
         id: '',
-        status: '' 
+        connected: false
       }
     },
     data:{
@@ -100,7 +99,13 @@ const mutations = {
       'text': data.text, 
       'icon': data.icon,
     })
-  }
+  },
+  setStatusEarthStation(state, status){
+    state.axtec.project.earthStation.connected = status
+  },
+  setStatusCanSat(state, data){
+    state.axtec.project.cansat[data.index].connected = data.connected
+  },
 }
 
 const actions = {
@@ -115,7 +120,13 @@ const actions = {
   },
   pushNotificationToast( { commit }, data){
     commit(pushNotificationToast,data)
-  }
+  },
+  setStatusEarthStation({ commit }, data){
+    commit(setStatusEarthStation,data)
+  },
+  setStatusCanSat({ commit }, data){
+    commit(setStatusCanSat,data)
+  },
 }
 
 export default {
