@@ -40,13 +40,13 @@ void app_main()
 
     // Init every system in the satellite
     ESP_LOGI(TAG, "Initializing systems");
-    ESP_ERROR_CHECK(aux_ps_init());
-    ESP_ERROR_CHECK(i2c_manager_init());
-    ESP_ERROR_CHECK(spi_manager_init());
-    ESP_ERROR_CHECK(gps_manager_init());
-    ESP_ERROR_CHECK(imu_manager_init());
-    ESP_ERROR_CHECK(pressure_manager_init());
-    ESP_ERROR_CHECK(temp_hum_manager_init());
+    aux_ps_init();
+    i2c_manager_init();
+    spi_manager_init();
+    gps_manager_init();
+    pressure_manager_init();
+    temp_hum_manager_init();
+    imu_manager_init();
 
-    ESP_LOGI(TAG, "Systems initialized");
+    ESP_LOGI(TAG, "Systems ready!");
 }
