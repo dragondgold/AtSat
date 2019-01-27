@@ -15,10 +15,7 @@
 #include "aux_ps/aux_ps.h"
 #include "i2c_manager/i2c_manager.h"
 #include "spi_manager/spi_manager.h"
-#include "gps_manager/gps_manager.h"
-#include "imu_manager/imu_manager.h"
-#include "pressure_manager/pressure_manager.h"
-#include "temp_hum_manager/temp_hum_manager.h"
+#include "sensor_manager/sensor_manager.h"
 
 static const char* TAG = "main";
 
@@ -43,10 +40,7 @@ void app_main()
     aux_ps_init();
     i2c_manager_init();
     spi_manager_init();
-    gps_manager_init();
-    pressure_manager_init();
-    temp_hum_manager_init();
-    imu_manager_init();
+    sensor_manager_init();
 
     ESP_LOGI(TAG, "Systems ready!");
 }

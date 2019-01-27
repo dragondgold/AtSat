@@ -46,7 +46,9 @@ esp_err_t imu_manager_init(void);
 esp_err_t imu_manager_sample_all(void);
 
 imu_axis_data_f_t imu_manager_get_acceleration(void);
+imu_axis_data_t imu_manager_get_acceleration_raw(void);
 imu_axis_data_f_t imu_manager_get_gyro(void);
+imu_axis_data_t imu_manager_get_gyro_raw(void);
 imu_axis_data_f_t imu_manager_get_magnetometer(void);
 
 #endif // __IMU_MANAGER_H__

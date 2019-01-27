@@ -211,6 +211,10 @@ imu_axis_data_f_t imu_manager_get_acceleration(void)
 
     return data;
 }
+imu_axis_data_t imu_manager_get_acceleration_raw(void)
+{
+    return acc_data;
+}
 
 /**
  * @brief Get angular velocity from the gyroscope in degrees/s
@@ -230,6 +234,10 @@ imu_axis_data_f_t imu_manager_get_gyro(void)
     ESP_LOGV(TAG, "Gyroscope degrees (x,y,z): %.2f,%.2f,%.2f", data.x, data.y, data.z);
 
     return data;
+}
+imu_axis_data_t imu_manager_get_gyro_raw(void)
+{
+    return gyro_data;
 }
 
 /**
