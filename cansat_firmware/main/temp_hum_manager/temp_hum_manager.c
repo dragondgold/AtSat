@@ -133,3 +133,8 @@ esp_err_t temp_hum_manager_sample(void)
     
     return ESP_FAIL;
 }
+
+unsigned int temp_hum_manager_get_humidity(void)
+{
+    return humidity;
+}

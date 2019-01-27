@@ -15,10 +15,7 @@
 #include "aux_ps/aux_ps.h"
 #include "i2c_manager/i2c_manager.h"
 #include "spi_manager/spi_manager.h"
-#include "gps_manager/gps_manager.h"
-#include "imu_manager/imu_manager.h"
-#include "pressure_manager/pressure_manager.h"
-#include "temp_hum_manager/temp_hum_manager.h"
+#include "sensor_manager/sensor_manager.h"
 
 static const char* TAG = "main";
 
@@ -39,14 +36,20 @@ void app_main()
     fflush(stdout);
 
     // Init every system in the satellite
+    esp_err_t err = ESP_OK;
     ESP_LOGI(TAG, "Initializing systems");
-    aux_ps_init();
-    i2c_manager_init();
-    spi_manager_init();
-    gps_manager_init();
-    pressure_manager_init();
-    temp_hum_manager_init();
-    imu_manager_init();
 
-    ESP_LOGI(TAG, "Systems ready!");
+    err += aux_ps_init();
+    err += i2c_manager_init();
+    err += spi_manager_init();
+    err += sensor_manager_init();
+
+    if(err == ESP_OK)
+    {
+        ESP_LOGI(TAG, "Systems ready!");
+    }
+    else
+    {
+        ESP_LOGE(TAG, "System init failed!");
+    }
 }
