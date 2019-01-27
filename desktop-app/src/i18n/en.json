@@ -1,10 +1,32 @@
 {
   "cansat":{
+    "protections":{
+      "title": "Protections",
+      "tabs":{
+        "electrical":{
+          "title": "Electrical",
+          "vbat": "V Battery",
+          "table":{
+            "name": "Power suply",
+            "voltage": "voltage",
+            "current": "current",
+            "maxCurrent": "Max current",
+            "status": "Status"
+          }
+        },
+        "physical":{
+          "title": "Physical",
+          "table":{
+            
+          }
+        }
+      }
+    },
     "link":{
       "title": "Link",
       "connect": "Connect",
       "disconnect": "Disconnect",
-      "etConnectedLabel": "Earth station connected to: ",
+      "etConnectedLabel": "Connected to: ",
       "etDisconnectedLabel": "Please connect an earth station",
       "cansatIDLabel": "CanSat ID: ",
       "cansatSignalLabel": "Signal level: ",

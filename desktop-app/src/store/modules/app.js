@@ -53,10 +53,25 @@ const state = {
         }],
         protections: {
           powerSupply: [{
-            voltage: '',
-            current: '',
-            status: '',
-            maxCurrent: '',
+            name: 'cansat.protections.tabs.electrical.vbat',
+            voltage: '3.7 V',
+            current: '0 mA',
+            status: 'Active',
+            maxCurrent: '1 A',
+          },
+          {
+            name: '3.3 V Ext',
+            voltage: '3.3 V',
+            current: '0 mA',
+            status: 'Error',
+            maxCurrent: '300 mA',
+          },
+          {
+            name: '5 V Ext',
+            voltage: '5 V',
+            current: '0 mA',
+            status: 'Error',
+            maxCurrent: '200 mA',
           }]
         }
       }],

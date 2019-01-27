@@ -58,7 +58,7 @@ export default {
     }
     .nav {
       margin: 0;
-      padding-top: 2.25rem;
+      padding-top: 0.25rem;
       .nav-item {
         flex-grow: 1;
         text-align: center;

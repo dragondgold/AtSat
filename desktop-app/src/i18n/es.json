@@ -1,10 +1,34 @@
 {
   "cansat":{
+    "protections":{
+      "title": "Protecciones",
+      "tabs":{
+        "electrical":{
+          "title": "Eléctricas",
+          "vbat": "V Batería",
+          "5v": "5 V Ext",
+          "3v3": "3.3 V Ext",
+          "table":{
+            "name": "Fuente",
+            "voltage": "Voltaje",
+            "current": "Corriente",
+            "maxCurrent": "Corriente máxima",
+            "status": "Estado"
+          }
+        },
+        "physical":{
+          "title": "Físicas",
+          "table":{
+            
+          }
+        }
+      }
+    },
     "link":{
       "title": "Enlace",
       "connect": "Conectar",
       "disconnect": "Desconectar",
-      "etConnectedLabel": "Estación terrena conectada en: ",
+      "etConnectedLabel": "Conectada en: ",
       "etDisconnectedLabel": "Estacion terrena no conectada",
       "cansatIDLabel": "CanSat ID: ",
       "cansatNameLabel": "CanSat name: ",

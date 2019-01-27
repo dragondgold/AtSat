@@ -46,7 +46,7 @@
           </span>
         </sidebar-link>
         <sidebar-link
-          :to="{ name: 'fusesSat' }">
+          :to="{ name: 'protectionsSat' }">
           <span slot="title">
             <span>{{ $t('menu.satFuses') }}</span>
           </span>
