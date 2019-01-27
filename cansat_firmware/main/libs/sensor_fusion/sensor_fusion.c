@@ -17,8 +17,6 @@
 #include "sensor_drv.h"
 #include "fusion.h"
 //#include "debug.h"
-
-#define LOG_LOCAL_LEVEL     ESP_LOG_VERBOSE
 #include "esp_log.h"
 
 static const char* TAG = "fusion";

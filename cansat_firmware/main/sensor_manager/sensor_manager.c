@@ -3,7 +3,6 @@
 #include "config/cansat.h"
 #include "esp_system.h"
 #include "freertos/FreeRTOS.h"
-#define LOG_LOCAL_LEVEL     ESP_LOG_VERBOSE
 #include "esp_log.h"
 #include "libs/sensor_fusion/sensor_fusion.h"
 
@@ -15,9 +14,9 @@
 static const char* TAG = "sensor";
 
 // Sensor fusion
-static SensorFusionGlobals sfg;
-static struct PhysicalSensor sensors[2];
-static registerDeviceInfo_t i2cBusInfo = {
+static SensorFusionGlobals sfg;                 // Sensor fusion instance
+static struct PhysicalSensor sensors[2];        // Storage for the sensors used
+static registerDeviceInfo_t i2cBusInfo = {      // It doesn't matter, this is not used in our case
     .deviceInstance     = 0,
     .functionParam      = NULL,
     .idleFunction       = NULL
@@ -45,7 +44,7 @@ static void sensors_sample_task(void* arg)
         sfg.runFusion(&sfg);
         sfg.loopcounter++;
 
-        ESP_LOGI(TAG, "Roll: %.2f, %.2f, %.2f", sfg.SV_6DOF_GY_KALMAN.fPhiPl, sfg.SV_6DOF_GY_KALMAN.fThePl, sfg.SV_6DOF_GY_KALMAN.fPsiPl);
+        ESP_LOGV(TAG, "Roll: %.2f, %.2f, %.2f", sfg.SV_6DOF_GY_KALMAN.fPhiPl, sfg.SV_6DOF_GY_KALMAN.fThePl, sfg.SV_6DOF_GY_KALMAN.fPsiPl);
 
         vTaskDelay(100 / portTICK_PERIOD_MS);
     }
@@ -115,16 +114,24 @@ static int8_t read_gyro(struct PhysicalSensor *sensor, SensorFusionGlobals *sfg)
 
 esp_err_t sensor_manager_init(void)
 {
+    esp_err_t err = ESP_OK;
+
     ESP_LOGI(TAG, "Initializing");
 
     // Create mutex for this resource
     sample_mutex = xSemaphoreCreateMutexStatic(&sample_mutex_buffer);
 
     // Init sensors
-    gps_manager_init();
-    pressure_manager_init();
-    temp_hum_manager_init();
-    imu_manager_init();
+    err += gps_manager_init();
+    err += pressure_manager_init();
+    err += temp_hum_manager_init();
+    err += imu_manager_init();
+
+    if(err != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Error starting sensor manager");
+        return err;
+    }
 
     // Task to sample sensors
     task_handle = xTaskCreateStaticPinnedToCore(sensors_sample_task, "sensors", SENSOR_MANAGER_STACK_SIZE, 

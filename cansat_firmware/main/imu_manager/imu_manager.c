@@ -32,6 +32,7 @@ esp_err_t imu_manager_init(void)
     sample_mutex = xSemaphoreCreateMutexStatic(&sample_mutex_buffer);
 
     esp_err_t err = ESP_OK;
+    uint8_t id;
 
     // Setup accelerometer, 4g range, 125 Hz filter, normal mode
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_PMU_RANGE_REG, 0x04);
@@ -42,29 +43,56 @@ esp_err_t imu_manager_init(void)
         ESP_LOGE(TAG, "Error configuring accelerometer");
         return ESP_FAIL;
     }
+    // Read accelerometer ID
+    i2c_manager_read_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_ID_REG, &id);
+    ESP_LOGV(TAG, "Accelerometer ID: %d", id);
+    if(id != IMU_MANAGER_ACC_ID) 
+    {
+        ESP_LOGE(TAG, "Error reading accelerometer ID");
+        return ESP_FAIL;
+    }
 
     // Setup gyroscope, 250 degrees/s, 100 Hz sample rate, normal mode
     err = ESP_OK;
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_RANGE_REG, 0x03);
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_BW_REG, 0x07);
-    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_LPM1, 0x00);
+    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_LPM1_REG, 0x00);
     if(err != ESP_OK)
     {
         ESP_LOGE(TAG, "Error configuring gyroscope");
         return ESP_FAIL;
     }
+    // Read gyroscope ID
+    i2c_manager_read_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_ID_REG, &id);
+    ESP_LOGV(TAG, "Gyroscope ID: %d", id);
+    if(id != IMU_MANAGER_GYRO_ID) 
+    {
+        ESP_LOGE(TAG, "Error reading gyroscope ID");
+        return ESP_FAIL;
+    }
 
     // Setup magnetometer, soft reset, 30 Hz sample rate, enable all axis (x,y and z), 4 repetitions x-y axis, 15 repetitions z axis
     err = ESP_OK;
-    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_BASE_REG, 0x83);
-    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_BASE_2_REG, 0x38);
+    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_PWRCTRL_REG, 0x82);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
+    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_PWRCTRL_REG, 0x01);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
+    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_OP_MODE_REG, 0x38);
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_BASE_3_REG, 0x84);
-    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_BASE_4_REG, 0x04);
-    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_BASE_5_REG, 0x0F);
+    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_REP_XY_REG, 0x07);
+    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_REP_Z_REG, 0x22);
     if(err != ESP_OK)
     {
         ESP_LOGE(TAG, "Error configuring magnetometer");
         return ESP_FAIL;
+    }
+    // Read magnetometer ID
+    i2c_manager_read_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_ID_REG, &id);
+    ESP_LOGV(TAG, "Magnetometer ID: %d", id);
+    if(id != IMU_MANAGER_MAG_ID) 
+    {
+        ESP_LOGE(TAG, "Error reading magnetometer ID");
+        //return ESP_FAIL;
     }
 
     // Give some time for the IMU to take samples

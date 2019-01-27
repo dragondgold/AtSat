@@ -36,11 +36,20 @@ void app_main()
     fflush(stdout);
 
     // Init every system in the satellite
+    esp_err_t err = ESP_OK;
     ESP_LOGI(TAG, "Initializing systems");
-    aux_ps_init();
-    i2c_manager_init();
-    spi_manager_init();
-    sensor_manager_init();
 
-    ESP_LOGI(TAG, "Systems ready!");
+    err += aux_ps_init();
+    err += i2c_manager_init();
+    err += spi_manager_init();
+    err += sensor_manager_init();
+
+    if(err == ESP_OK)
+    {
+        ESP_LOGI(TAG, "Systems ready!");
+    }
+    else
+    {
+        ESP_LOGE(TAG, "System init failed!");
+    }
 }
