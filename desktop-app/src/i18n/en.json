@@ -6,6 +6,15 @@
       "disconnect": "Disconnect",
       "etConnectedLabel": "Earth station connected to: ",
       "etDisconnectedLabel": "Please connect an earth station",
+      "cansatIDLabel": "CanSat ID: ",
+      "cansatSignalLabel": "Signal level: ",
+      "cansatNameLabel": "CanSat name: ",
+      "table":{ 
+        "id": "ID",
+        "name": "Name",
+        "signal": "Signal",
+        "action": "Action"
+      },
       "tabs":{
         "et": "Earth station",
         "cansat": "CanSat",

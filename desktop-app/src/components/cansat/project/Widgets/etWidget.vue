@@ -18,7 +18,7 @@
         </div>
         <div class="form-wizard-tab-content" v-if="!enableWizard" >
             <p v-if="isConnected">  {{$t('cansat.link.etConnectedLabel') + USBPort.toUpperCase()}}  </p>
-            <p class="pt-3 mb-0" style="text-align:center">
+            <p class="pt-1 mb-0" style="text-align:center">
             <button v-if="!isConnected" class="btn btn-success btn-micro " @click="connect()">
                 {{ $t('cansat.link.connect') }}
                 <span class="fa fa-link"></span>
@@ -41,39 +41,50 @@ export default {
             default: true
         }
     },
-    created(){
-        if(this.$store.getters.axtec.project.earthStation.status == 'Connected'){
-            this.isConnected = true
-        }
-    },
     data () {
         return {
-            USBPort: '',
+            USBPort: this.$store.getters.axtec.project.earthStation.port,
             USBList: [ 'com1', 'com2'],
             valid: false,
-            isConnected: false
+            isConnected: this.$store.getters.axtec.project.earthStation.connected
         }
     },
-    computed:{
-
+    created(){
+        if(this.enableWizard){
+            this.clearStatusesOnDisconnect()
+        }
     },
     methods:{
-        connect(){
-            this.isConnected = true
-            this.$store.commit('setStatusEarthStation', true)
+        setStatusesOnConnect(){
+            this.$store.commit('setPortEarthStation', this.USBPort )
+            this.$store.commit('setStatusEarthStation', true )
         },
-        disconnect(){
-            this.isConnected = false
+        clearStatusesOnDisconnect(){
+            this.$store.commit('setPortEarthStation', '')
             this.$store.commit('setStatusEarthStation', false)
             this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': false})
+            this.$store.commit('setIDCanSat', { 'index': 0, 'id': ''})
+            this.$store.commit('setNameCanSat', { 'index': 0, 'name': ''})
+            this.isConnected =false
+        },
+        connect(){
+            if(this.USBPort != ''){
+                this.setStatusesOnConnect()
+                this.isConnected = this.$store.getters.axtec.project.earthStation.connected 
+            }          
+        },
+        disconnect(){
+            this.clearStatusesOnDisconnect()
+            this.isConnected = this.$store.getters.axtec.project.earthStation.connected
         },
         validateConnection(){
             if(this.USBPort != ''){
                 this.valid = true
-                this.isValid(this.valid)
+                if(this.enableWizard){
+                    this.setStatusesOnConnect()
+                }
             }else{
                 this.valid = false
-                this.isValid(this.valid)
             }
         },
         isValid(){

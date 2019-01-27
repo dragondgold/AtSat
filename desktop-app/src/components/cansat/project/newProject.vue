@@ -2,7 +2,7 @@
   <div class="form-wizard-page">
     <div class="row">
       <div class="col-md-12">
-                <vuestic-widget class="no-h-padding"
+                <vuestic-widget class="no-h-padding widget-min-height"
                         :headerText="$t('cansat.project.new.wizard.title')">
           <vuestic-wizard @wizardComplete="successProject"
             :steps="vsSteps">
@@ -56,8 +56,11 @@ export default {
     cansatWidget
   },
   created(){
-    this.clearStatuses()
+    
     mcp2210.getConnectedDevCount()
+  },
+  mounted(){
+    this.clearStatuses() 
   },
   computed: {
     vsSteps () {
@@ -102,12 +105,15 @@ export default {
   },
   methods: {
     clearStatuses(){
-      this.$store.commit('axtecPath','')
-      
+      console.log("Clear statuses")
+      this.$refs.etWidget.clearStatusesOnDisconnect()
+      this.$refs.cansatWidget.clearStatusesOnDisconnect()
     },
     successProject(){
-      this.$store.commit('axtecPath',this.$refs.projectWidget.getPath())
-      this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': true})
+      this.$store.commit('axtecPath', this.$refs.projectWidget.getPath())
+      this.$store.commit('setNameCanSat', { 'index': 0, 'name': this.$refs.cansatWidget.getName()})
+      this.$refs.etWidget.setStatusesOnConnect()
+      this.$refs.cansatWidget.setStatusesOnConnect()
       this.$store.commit('pushNotificationToast',{ 
           'text': 'Creando nuevo proyecto', 
           'icon': 'fa-commenting'          

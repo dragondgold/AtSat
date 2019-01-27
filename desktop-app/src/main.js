@@ -18,6 +18,7 @@ Vue.use(YmapPlugin)
 
 // NOTE: workaround for VeeValidate + vuetable-2
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
+Vue.config.devtools = true
 
 router.beforeEach((to, from, next) => {
   if(to.name != 'not-found-simple'){ // Avoiding router
