@@ -474,7 +474,7 @@ void runFusion(SensorFusionGlobals *sfg)
 void initializeFusionEngine(SensorFusionGlobals *sfg)
 {
     int16_t status = 0;
-    struct ControlSubsystem    *pComm;
+    //struct ControlSubsystem    *pComm;
     //pComm = sfg->pControlSubsystem;
 
     // TODO: do we need this?

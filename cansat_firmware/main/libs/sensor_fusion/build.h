@@ -68,12 +68,7 @@
 #define ACCEL_FIFO_SIZE     32      ///< FXOS8700 (accel), MMA8652, FXLS8952 all have 32 element FIFO
 #define MAG_FIFO_SIZE       16      ///< FXOS8700 (mag), MAG3110 have no FIFO so equivalent to 1 element FIFO
 #define GYRO_FIFO_SIZE      32      ///< FXAX21000, FXAS21002 have 32 element FIFO
-#define ACCEL_ODR_HZ        125     ///< (int) requested accelerometer ODR Hz (over-rides MAG_ODR_HZ for FXOS8700)
-#define MAG_ODR_HZ          30      ///< (int) requested magnetometer ODR Hz (over-ridden by ACCEL_ODR_HZ for FXOS8700)
-#define GYRO_ODR_HZ         100     ///< (int) requested gyroscope ODR Hz
-#define FUSION_HZ           10      ///< (int) actual rate of fusion algorithm execution and sensor FIFO reads
-#define FAST_LOOP_HZ        10      ///< Over Sample Ratio * FUSION_HZ when using no FIFO
-#define OVERSAMPLE_RATE FAST_LOOP_HZ / FUSION_HZ
+#define FUSION_HZ           50      ///< (int) actual rate of fusion algorithm execution and sensor FIFO reads
 ///@}
 
 #endif // BUILD_H
