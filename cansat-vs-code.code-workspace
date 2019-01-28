@@ -31,7 +31,19 @@
 			"pressure_manager.h": "c",
 			"bmm050.h": "c",
 			"esp_log.h": "c",
-			"sensor_fusion.h": "c"
+			"sensor_fusion.h": "c",
+			"chrono": "c",
+			"ratio": "c",
+			"system_error": "c",
+			"type_traits": "c",
+			"xfunctional": "c",
+			"xlocmon": "c",
+			"xstddef": "c",
+			"xtr1common": "c",
+			"functional": "c",
+			"algorithm": "c",
+			"limits": "c",
+			"math.h": "c"
 		}
 	}
 }
