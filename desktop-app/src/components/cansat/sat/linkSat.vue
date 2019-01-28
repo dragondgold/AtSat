@@ -7,13 +7,20 @@
       <div class="col-md-7 pt-3">
         <cansat-widget :enableWizard="false"/>
       </div> 
-    </div> 
+    </div>
+    <p v-if="etConnected && canSatConnected" class="pt-1 mb-3" style="text-align:center">
+        <button class="btn btn-success btn-micro" @click="goToTest()">
+            {{'cansat.link.goToTest' | translate }}
+            <span class="fa fa-link"></span>
+        </button>
+    </p> 
   </vuestic-widget>
 </template>
 
 <script>
 import etWidget from './../project/Widgets/etWidget'
 import cansatWidget from './../project/Widgets/cansatWidget'
+import defaultProtections from 'data/Protections'
 
 export default {
   name: 'link-sat',
@@ -23,7 +30,8 @@ export default {
   },
   data () {
     return {
-      
+      etConnected: this.$store.getters.axtec.project.cansat[0].connected,
+      canSatConnected: this.$store.getters.axtec.project.earthStation.connected,
    }
   },
 
@@ -32,15 +40,35 @@ export default {
   },
 
   computed: {
-
+    isCanSatConnected(){
+      return this.$store.getters.axtec.project.cansat[0].connected
+    },
+    isETConnected(){
+      return this.$store.getters.axtec.project.earthStation.connected
+    }
   },
 
   watch:{
-
+    isCanSatConnected(changes){
+      this.etConnected = changes
+      if(changes){
+        this.resetProtections()
+      }
+    },
+    isETConnected(changes){
+      this.canSatConnected = changes
+    }
   },
 
   methods:{
-
+    goToTest(){
+      this.$router.push({name:'testSat'})
+    },
+    resetProtections(){
+      this.$store.commit('setElectricalProtectionsPS', defaultProtections.powerSuplies[defaultProtections.vBatt])
+      this.$store.commit('setElectricalProtectionsPS', defaultProtections.powerSuplies[defaultProtections.v3v3])
+      this.$store.commit('setElectricalProtectionsPS', defaultProtections.powerSuplies[defaultProtections.v5v])
+    }
   } 
 }
 </script>

@@ -13,3 +13,45 @@
     </div>
   </div>
 </template>
+
+<script>
+
+export default {
+  name: 'test-sat',
+  components: {
+
+  },
+  data () {
+    return {
+      etConnected: this.$store.getters.axtec.project.cansat[0].connected,
+      canSatConnected: this.$store.getters.axtec.project.earthStation.connected,
+   }
+  },
+
+  created(){
+
+  },
+
+  computed: {
+    isCanSatConnected(){
+      return this.$store.getters.axtec.project.cansat[0].connected
+    },
+    isETConnected(){
+      return this.$store.getters.axtec.project.earthStation.connected
+    }
+  },
+
+  watch:{
+    isCanSatConnected(changes){
+      this.etConnected = changes
+    },
+    isETConnected(changes){
+      this.canSatConnected = changes
+    }
+  },
+
+  methods:{
+
+  } 
+}
+</script>

@@ -53,25 +53,25 @@ const state = {
         }],
         protections: {
           powerSupply: [{
-            name: 'cansat.protections.tabs.electrical.vbat',
-            voltage: '3.7 V',
-            current: '0 mA',
-            status: 'Active',
-            maxCurrent: '1 A',
+            name: 'cansat.protections.vBatt', // V Battery
+            voltage: '',
+            current: '',
+            status: '',
+            maxCurrent: '',
           },
           {
-            name: '3.3 V Ext',
-            voltage: '3.3 V',
-            current: '0 mA',
-            status: 'Error',
-            maxCurrent: '300 mA',
+            name: '3.3 V Ext', // 3.3 V 
+            voltage: '',
+            current: '',
+            status: '',
+            maxCurrent: '',
           },
-          {
-            name: '5 V Ext',
-            voltage: '5 V',
-            current: '0 mA',
-            status: 'Error',
-            maxCurrent: '200 mA',
+          { 
+            name: '5 V Ext', // 5 V 
+            voltage: '',
+            current: '',
+            status: '',
+            maxCurrent: '',
           }]
         }
       }],
@@ -135,6 +135,12 @@ const mutations = {
   setSignalCanSat(state, data){
     state.axtec.project.cansat[data.index].signal = data.signal
   },
+  setElectricalProtectionsPS(state, data){ // Set data to an specific PS (Power supply)
+    if(data.voltage != undefined) state.axtec.project.cansat[data.cansatIndex].protections.powerSupply[data.psIndex].voltage = data.voltage
+    if(data.current != undefined) state.axtec.project.cansat[data.cansatIndex].protections.powerSupply[data.psIndex].current = data.current
+    if(data.maxCurrent != undefined) state.axtec.project.cansat[data.cansatIndex].protections.powerSupply[data.psIndex].maxCurrent = data.maxCurrent
+    if(data.status != undefined) state.axtec.project.cansat[data.cansatIndex].protections.powerSupply[data.psIndex].status = data.status
+  },
 }
 
 const actions = {
@@ -167,6 +173,9 @@ const actions = {
   },
   setPortEarthStation({ commit }, data){
     commit(setPortEarthStation,data)
+  },
+  setElectricalProtectionsPS({ commit }, data){
+    commit(setElectricalProtectionsPS,data)
   },
 }
 

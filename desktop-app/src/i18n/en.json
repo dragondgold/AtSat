@@ -1,29 +1,24 @@
 {
   "cansat":{
     "protections":{
-      "title": "Protections",
-      "tabs":{
-        "electrical":{
-          "title": "Electrical",
-          "vbat": "V Battery",
-          "table":{
-            "name": "Power suply",
-            "voltage": "voltage",
-            "current": "current",
-            "maxCurrent": "Max current",
-            "status": "Status"
-          }
-        },
-        "physical":{
-          "title": "Physical",
-          "table":{
-            
-          }
-        }
+      "title": "Electrical protections",
+      "noConnected": "CanSat isn't connected.",
+      "goToLink": "Link",
+      "goToSensors": "See sensors",
+      "vBatt": "V Battery",
+      "table":{
+        "name": "Power supply",
+        "voltage": "voltage",
+        "current": "current",
+        "maxCurrent": "Max current",
+        "status": "Status",
+        "actions": "Actions",
+        "restart": "Enable"
       }
     },
     "link":{
       "title": "Link",
+      "goToTest": "Test",
       "connect": "Connect",
       "disconnect": "Disconnect",
       "etConnectedLabel": "Connected to: ",
@@ -293,8 +288,8 @@
     "missionNew": "New",
     "missionOpen": "Open",
     "sat": "Cansat", 
-    "satEnlace": "Enlace",
-    "satFuses": "Fuses",
+    "satEnlace": "Link",
+    "satProtections": "Protections",
     "satTest": "Test",
     "satSensores": "Sensors",
     "auth": "Auth",
