@@ -9,7 +9,7 @@ https://github.com/sparkfun/SparkFun_BQ27441_Arduino_Library
 #include <stdbool.h>
 #include <stdint.h>
 
-#define BQ27441_I2C_ADDRESS 0x55 // Default I2C address of the BQ27441-G1A
+#define BQ27441_I2C_ADDRESS 0xAA // Default I2C address of the BQ27441-G1A
 
 ///////////////////////
 // General Constants //

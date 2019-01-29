@@ -4,6 +4,20 @@
 #include "driver/gpio.h"
 #include "driver/uart.h"
 
+// Tasks settings
+#define BATTERY_MANAGER_STACK_SIZE      1500
+#define BATTERY_MANAGER_TASK_PRIORITY   2
+#define BATTERY_MANAGER_AFFINITY        tskNO_AFFINITY
+
+#define GPS_MANAGER_STACK_SIZE          1500
+#define GPS_MANAGER_TASK_PRIORITY       2
+#define GPS_MANAGER_AFFINITY            tskNO_AFFINITY
+
+#define SENSOR_MANAGER_STACK_SIZE       1500
+#define SENSOR_MANAGER_TASK_PRIORITY    2
+#define SENSOR_MANAGER_AFFINITY         tskNO_AFFINITY
+
+// Pin definitions
 #define GPS_UART_NUMBER             UART_NUM_2
 #define ARDUINO_UART_NUMBER         UART_NUM_1
 #define DEBUG_UART_NUMBER           UART_NUM_0
