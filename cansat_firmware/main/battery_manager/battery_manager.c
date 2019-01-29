@@ -43,6 +43,7 @@ static void battery_sample_task(void* args)
             if(!battery_data.is_charging)
             {
                 gpio_set_direction(CHARGER_ISET_PIN, GPIO_MODE_DEF_INPUT);
+                battery_data.charging_at_max = false;
             }
             
             // Charger detected? Use current defined by the ISET resistor (300 mA)
@@ -123,7 +124,7 @@ esp_err_t battery_manager_init(void)
             // Currently we are not using GPOUT pin at all.
             ESP_LOGV(TAG, "Configuring pins");
             gpio_config_t config;
-            config.pin_bit_mask = (1ULL << AUX_PS_ENABLE_PIN) | (1ULL << CHARGING_DETECTION_PIN) | (1 << CHARGER_DETECTION_PIN);
+            config.pin_bit_mask = (1ULL << AUX_PS_ENABLE_PIN) | (1ULL << CHARGING_DETECTION_PIN) | (1ULL << CHARGER_DETECTION_PIN);
             config.mode = GPIO_MODE_DEF_INPUT;
             config.pull_up_en = GPIO_PULLUP_DISABLE;
             config.pull_down_en = GPIO_PULLDOWN_DISABLE;
