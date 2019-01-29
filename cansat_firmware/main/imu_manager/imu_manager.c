@@ -52,9 +52,9 @@ esp_err_t imu_manager_init(void)
         return ESP_FAIL;
     }
 
-    // Setup gyroscope, 250 degrees/s, 100 Hz sample rate, normal mode
+    // Setup gyroscope, 2000 degrees/s scale, 100 Hz sample rate, normal mode
     err = ESP_OK;
-    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_RANGE_REG, 0x03);
+    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_RANGE_REG, 0x00);
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_BW_REG, 0x07);
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_GYROSCOPE_ADDRESS, IMU_MANAGER_GYRO_LPM1_REG, 0x00);
     if(err != ESP_OK)

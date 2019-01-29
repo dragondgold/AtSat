@@ -21,9 +21,10 @@ static registerDeviceInfo_t i2cBusInfo = {      // It doesn't matter, this is no
     .functionParam      = NULL,
     .idleFunction       = NULL
 };
-static int16_t accCountsPerG = 1024;            // 1024 counts per g as the accelerometer is in the 4g range
-static int16_t gyroCountsPerDegPerSec = 131;    // 131 counts per degree/s as the gyro is in the 250 degree/s range
-static int16_t magCountsPeruT = 6;              // 6 counts per uT using the 1300 uT range from the XY axis
+static int16_t accCountsPerG = 512;                 // 512 counts per g as the accelerometer is in the 4g range (12-bit)
+static int16_t gyroCountsPerDegPerSec = 16;         // 16 counts per degree/s as the gyro is in the 2000 degree/s range (16-bit)
+static int16_t magCountsPeruT = 3;                  // 3 counts per uT using the 1300 uT range from the XY axis (13-bit)
+static const float mag_z_scale_factor = 1.92307;    // 2500 uT / 1300 uT. Scaling to make the 2500 uT axis behave as 1300 uT range
 
 // Mutex
 static StaticSemaphore_t sample_mutex_buffer;
@@ -110,6 +111,8 @@ static int8_t read_acc(struct PhysicalSensor *sensor, SensorFusionGlobals *sfg)
     imu_axis_data_t raw = imu_manager_get_acceleration_raw();
     int16_t data[3] = { raw.x, raw.y, raw.z };
 
+    //ESP_LOGV(TAG, "Acc: %d %d %d", raw.x, raw.y, raw.z);
+
     // Condition the sample and add it to the FIFO for the sensor fusion
     conditionSample(data);
     addToFifo((union FifoSensor*) &(sfg->Accel), ACCEL_FIFO_SIZE, data);
@@ -122,6 +125,8 @@ static int8_t read_gyro(struct PhysicalSensor *sensor, SensorFusionGlobals *sfg)
     imu_axis_data_t raw = imu_manager_get_gyro_raw();
     int16_t data[3] = { raw.x, raw.y, raw.z };
 
+    //ESP_LOGV(TAG, "Gyro: %d %d %d", raw.x, raw.y, raw.z);
+
     // Condition the sample and add it to the FIFO for the sensor fusion
     conditionSample(data);
     addToFifo((union FifoSensor*) &(sfg->Gyro), GYRO_FIFO_SIZE, data);
@@ -132,7 +137,27 @@ static int8_t read_gyro(struct PhysicalSensor *sensor, SensorFusionGlobals *sfg)
 static int8_t read_mag(struct PhysicalSensor *sensor, SensorFusionGlobals *sfg)
 {
     imu_axis_data_t raw = imu_manager_get_mag_raw();
+
+    // The magnetometer has different scales for the XY and Z axis. XY axis
+    //  have a full scale range of 1300 uT and the Z axis has a full scale
+    //  range of 2500 uT (typical values).
+    // So we have to scale the Z axis to behave as a 1300 uT full range because
+    //  the fusion lib expects the same range for all the axis.
+    raw.z = (float)raw.z * mag_z_scale_factor;
+
+    // Clip the output
+    if(raw.z > 8192)
+    {
+        raw.z = 8192;
+    }
+    else if(raw.z < -8192)
+    {
+        raw.z = -8192;
+    }
+
     int16_t data[3] = { raw.x, raw.y, raw.z };
+
+    //ESP_LOGV(TAG, "Mag: %d %d %d", raw.x, raw.y, raw.z);
 
     // Condition the sample and add it to the FIFO for the sensor fusion
     conditionSample(data);

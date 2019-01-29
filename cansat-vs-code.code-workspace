@@ -43,7 +43,11 @@
 			"functional": "c",
 			"algorithm": "c",
 			"limits": "c",
-			"math.h": "c"
+			"math.h": "c",
+			"bq27441.h": "c",
+			"battery_manager.h": "c",
+			"stdatomic.h": "c",
+			"esp_types.h": "c"
 		}
 	}
 }
