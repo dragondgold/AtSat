@@ -1,0 +1,24 @@
+#ifndef __BATTERY_MANAGER_H__
+#define __BATTERY_MANAGER_H__
+
+#include "esp_system.h"
+
+typedef struct 
+{
+    uint8_t soc;                    // State of charge in %
+    uint16_t volts;                 // Battery voltage in mV
+    uint16_t avg_current;           // Average current in mA
+    uint8_t total_capacity;         // Total battery capacity in mAh
+    uint8_t remaining_capacity;     // Remaining battery capacity in mAh
+    uint8_t health;                 // Battery health in %
+} battery_data_t;
+
+#define BATTERY_MANAGER_BATTERY_MAH             600
+#define BATTERY_MANAGER_SOC1_SET_THRESHOLD      15      // 15 %
+#define BATTERY_MANAGER_SOC1_CLEAR_THRESHOLD    20      // 20 %
+#define BATTERY_MANAGER_SOCF_SET_THRESHOLD      5       // 5 %
+#define BATTERY_MANAGER_SOCF_CLEAR_THRESHOLD    10      // 10 %
+
+esp_err_t battery_manager_init(void);
+
+#endif // __BATTERY_MANAGER_H__

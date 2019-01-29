@@ -11,11 +11,13 @@
 #include "esp_system.h"
 #include "esp_spi_flash.h"
 #include "esp_log.h"
+#include "driver/gpio.h"
 
 #include "aux_ps/aux_ps.h"
 #include "i2c_manager/i2c_manager.h"
 #include "spi_manager/spi_manager.h"
 #include "sensor_manager/sensor_manager.h"
+#include "battery_manager/battery_manager.h"
 
 static const char* TAG = "main";
 
@@ -39,10 +41,14 @@ void app_main()
     esp_err_t err = ESP_OK;
     ESP_LOGI(TAG, "Initializing systems");
 
+    // Install gpio isr service
+    gpio_install_isr_service(0);
+
     err += aux_ps_init();
     err += i2c_manager_init();
     err += spi_manager_init();
     err += sensor_manager_init();
+    err += battery_manager_init();
 
     if(err == ESP_OK)
     {
