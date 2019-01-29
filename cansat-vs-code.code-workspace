@@ -47,7 +47,8 @@
 			"bq27441.h": "c",
 			"battery_manager.h": "c",
 			"stdatomic.h": "c",
-			"esp_types.h": "c"
+			"esp_types.h": "c",
+			"stdlib.h": "c"
 		}
 	}
 }

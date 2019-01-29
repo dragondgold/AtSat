@@ -5,13 +5,18 @@
 #include "freertos/FreeRTOS.h"
 #include "esp_log.h"
 #include "libs/sensor_fusion/sensor_fusion.h"
+#include "minmea/minmea.h"
 
 #include "gps_manager/gps_manager.h"
 #include "imu_manager/imu_manager.h"
 #include "pressure_manager/pressure_manager.h"
 #include "temp_hum_manager/temp_hum_manager.h"
 
+#include <string.h>
+
 static const char* TAG = "sensor";
+
+sensors_data_t sensors_data;
 
 // Sensor fusion
 static SensorFusionGlobals sfg;                 // Sensor fusion instance
@@ -31,11 +36,15 @@ static StaticSemaphore_t sample_mutex_buffer;
 static SemaphoreHandle_t sample_mutex;
 
 // Task
-static StackType_t stack[SENSOR_MANAGER_STACK_SIZE];
-static StaticTask_t task;
-static TaskHandle_t task_handle;
+static StackType_t stack_fusion[SENSOR_MANAGER_FUSION_STACK_SIZE];
+static StaticTask_t task_fusion;
+static TaskHandle_t task_handle_fusion;
 
-static void sensors_sample_task(void* arg) 
+static StackType_t stack_sensors[SENSOR_MANAGER_SENSORS_STACK_SIZE];
+static StaticTask_t task_sensors;
+static TaskHandle_t task_handle_sensors;
+
+static void fusion_task(void* arg) 
 {
     while(true)
     {
@@ -48,11 +57,51 @@ static void sensors_sample_task(void* arg)
 
         ESP_LOGV(TAG, "Roll: %.2f, %.2f, %.2f", sfg.SV_9DOF_GBY_KALMAN.fPhiPl, sfg.SV_9DOF_GBY_KALMAN.fThePl, sfg.SV_9DOF_GBY_KALMAN.fPsiPl);
 
+        // Update the data
+        if(xSemaphoreTake(sample_mutex, 20 / portTICK_PERIOD_MS))
+        {
+            sensors_data.gyro = imu_manager_get_gyro();
+            sensors_data.acc = imu_manager_get_acceleration();
+            sensors_data.mag = imu_manager_get_magnetometer();
+            sensors_data.orientation.x = sfg.SV_9DOF_GBY_KALMAN.fPhiPl;
+            sensors_data.orientation.y = sfg.SV_9DOF_GBY_KALMAN.fThePl;
+            sensors_data.orientation.z = sfg.SV_9DOF_GBY_KALMAN.fPsiPl;
+            xSemaphoreGive(sample_mutex);
+        }
+
         // Sample at FUSION_HZ rate
         #if FUSION_HZ > configTICK_RATE_HZ
             #error FUSION_HZ cannot be higher than the RTOS tick rate
         #endif
         vTaskDelay(((1.0F/(float)FUSION_HZ)*1000) / portTICK_PERIOD_MS);
+    }
+}
+
+static void sensors_task(void* arg)
+{
+    struct minmea_sentence_gga gps_data;
+
+    while(true)
+    {
+        // Update temperature, pressure, humidity and location every 500 ms
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+
+        pressure_manager_do_sample();
+        temp_hum_manager_sample();
+
+        // Update the data
+        if(xSemaphoreTake(sample_mutex, 100 / portTICK_PERIOD_MS))
+        {
+            sensors_data.pressure = pressure_manager_get_pressure();
+            sensors_data.temperature = pressure_manager_get_temperature();
+            sensors_data.humidity = (uint8_t)temp_hum_manager_get_humidity();
+
+            gps_data = gps_manager_get_gga();
+            sensors_data.latitude = gps_data.latitude;
+            sensors_data.longitude = gps_data.longitude;
+            sensors_data.altitude = minmea_tofloat(&gps_data.altitude);
+            xSemaphoreGive(sample_mutex);
+        }
     }
 }
 
@@ -187,9 +236,11 @@ esp_err_t sensor_manager_init(void)
         return err;
     }
 
-    // Task to sample sensors
-    task_handle = xTaskCreateStaticPinnedToCore(sensors_sample_task, "sensors", SENSOR_MANAGER_STACK_SIZE, 
-        NULL, SENSOR_MANAGER_TASK_PRIORITY, stack, &task, SENSOR_MANAGER_AFFINITY);
+    // Tasks to sample sensors and run fusion algorithm
+    task_handle_fusion = xTaskCreateStaticPinnedToCore(fusion_task, "fusion", SENSOR_MANAGER_FUSION_STACK_SIZE, 
+        NULL, SENSOR_MANAGER_FUSION_TASK_PRIORITY, stack_fusion, &task_fusion, SENSOR_MANAGER_FUSION_AFFINITY);
+    task_handle_sensors = xTaskCreateStaticPinnedToCore(sensors_task, "sensors", SENSOR_MANAGER_SENSORS_STACK_SIZE, 
+        NULL, SENSOR_MANAGER_SENSORS_TASK_PRIORITY, stack_sensors, &task_sensors, SENSOR_MANAGER_SENSORS_AFFINITY);
 
     // Initialize sensor fusion. The sensor fusion library is the version 7.2 provided by NXP and modified
     //  so it can work standalone in other microcontrollers and outside their framework. The modifications
@@ -208,4 +259,18 @@ esp_err_t sensor_manager_init(void)
     ESP_LOGI(TAG, "Ready!");
 
     return ESP_OK;
+}
+
+bool sensor_manager_get_data(sensors_data_t* data)
+{
+    if(xSemaphoreTake(sample_mutex, 100 / portTICK_PERIOD_MS))
+    {
+        // Copy the data
+        memcpy((void *)data, (void *)(&sensors_data), sizeof(sensors_data_t));
+        xSemaphoreGive(sample_mutex);
+        
+        return true;
+    }
+
+    return false;
 }
