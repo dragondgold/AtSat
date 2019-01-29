@@ -42,7 +42,7 @@ import { mapGetters } from 'vuex'
 import projectWidget from './Widgets/projectWidget'
 import etWidget from './Widgets/etWidget'
 import cansatWidget from './Widgets/cansatWidget'
-
+import defaultProtections from 'data/Protections'
 
 const {dialog} = require('electron').remote
 const storage = require('electron-json-storage')
@@ -114,6 +114,7 @@ export default {
       this.$store.commit('setNameCanSat', { 'index': 0, 'name': this.$refs.cansatWidget.getName()})
       this.$refs.etWidget.setStatusesOnConnect()
       this.$refs.cansatWidget.setStatusesOnConnect()
+      this.resetProtections()
       this.$store.commit('pushNotificationToast',{ 
           'text': 'Creando nuevo proyecto', 
           'icon': 'fa-commenting'          
@@ -121,6 +122,11 @@ export default {
     },
     goToTestCanSat(){
       this.$router.push({ name: 'testSat' })
+    },
+    resetProtections(){
+      this.$store.commit('setElectricalProtectionsPS', defaultProtections.powerSuplies[defaultProtections.vBatt])
+      this.$store.commit('setElectricalProtectionsPS', defaultProtections.powerSuplies[defaultProtections.v3v3])
+      this.$store.commit('setElectricalProtectionsPS', defaultProtections.powerSuplies[defaultProtections.v5v])
     }
   }
 }

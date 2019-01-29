@@ -1,31 +1,24 @@
 {
   "cansat":{
     "protections":{
-      "title": "Protecciones",
-      "tabs":{
-        "electrical":{
-          "title": "Eléctricas",
-          "vbat": "V Batería",
-          "5v": "5 V Ext",
-          "3v3": "3.3 V Ext",
-          "table":{
-            "name": "Fuente",
-            "voltage": "Voltaje",
-            "current": "Corriente",
-            "maxCurrent": "Corriente máxima",
-            "status": "Estado"
-          }
-        },
-        "physical":{
-          "title": "Físicas",
-          "table":{
-            
-          }
-        }
+      "title": "Protecciones eléctricas",
+      "noConnected": "CanSat no conectado.",
+      "goToLink": "Enlazar",
+      "goToSensors": "Ver sensores",
+      "vBatt": "V Batería",
+      "table":{
+        "name": "Fuentes",
+        "voltage": "Voltaje",
+        "current": "Corriente",
+        "maxCurrent": "Corriente max",
+        "status": "Estado",
+        "actions": "Acciones",
+        "restart": "Habilitar"
       }
     },
     "link":{
       "title": "Enlace",
+      "goToTest": "Hacer test",
       "connect": "Conectar",
       "disconnect": "Desconectar",
       "etConnectedLabel": "Conectada en: ",
@@ -276,7 +269,7 @@
     "missionOpen": "Importar",
     "sat": "Cansat", 
     "satEnlace": "Enlace",
-    "satFuses": "Protecciones",
+    "satProtections": "Protecciones",
     "satTest": "Pruebas de integridad",
     "satSensores": "Sensores",
     "auth": "Autenticación",

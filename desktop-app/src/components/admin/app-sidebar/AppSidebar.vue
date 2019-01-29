@@ -46,15 +46,15 @@
           </span>
         </sidebar-link>
         <sidebar-link
-          :to="{ name: 'protectionsSat' }">
-          <span slot="title">
-            <span>{{ $t('menu.satFuses') }}</span>
-          </span>
-        </sidebar-link>
-        <sidebar-link
           :to="{ name: 'testSat' }">
           <span slot="title">
             <span>{{ $t('menu.satTest') }}</span>
+          </span>
+        </sidebar-link>
+        <sidebar-link
+          :to="{ name: 'protectionsSat' }">
+          <span slot="title">
+            <span>{{ $t('menu.satProtections') }}</span>
           </span>
         </sidebar-link>
         <sidebar-link

@@ -79,7 +79,7 @@
 
 <script>
 const isValidPath = require('is-valid-path')
-import { VPopover } from 'v-tooltip'
+import defaultProtections from 'data/Protections'
 
 export default {
     name: 'cansat-widget',
@@ -88,9 +88,6 @@ export default {
             type: Boolean,
             default: true
         }
-    },
-    components: {
-        VPopover
     },
     data () {
         return {
@@ -136,6 +133,7 @@ export default {
             this.$store.commit('setIDCanSat', { 'index': 0, 'id': this.selectedCansat})
             this.$store.commit('setNameCanSat', { 'index': 0, 'name': this.canSatName})
             this.$store.commit('setSignalCanSat', { 'index': 0, 'signal': this.signalLevel})
+            this.restartPowerSupply() // To set protections          
         },
         clearStatusesOnDisconnect(){
             this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': false})
@@ -170,6 +168,26 @@ export default {
         },
         getSignalLevel(){
             return this.signalLevel = 10
+        },
+        restartPowerSupply(index){
+            this.$store.commit('setElectricalProtectionsPS',
+            { 
+                'cansatIndex': 0,
+                'psIndex': defaultProtections.vBatt,  // V Batt
+                'status': "Active"
+            })
+            this.$store.commit('setElectricalProtectionsPS',
+            { 
+                'cansatIndex': 0, 
+                'psIndex': defaultProtections.v3v3,   // 3.3 V
+                'status' : 'Active'
+            })
+            this.$store.commit('setElectricalProtectionsPS',
+            { 
+                'cansatIndex': 0, 
+                'psIndex':  defaultProtections.v5v,   // 5 V
+                'status' : 'Active'
+            })
         }
     }
 }
