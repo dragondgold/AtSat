@@ -74,9 +74,9 @@ esp_err_t imu_manager_init(void)
     // Setup magnetometer, soft reset, 30 Hz sample rate, enable all axis (x,y and z), 4 repetitions x-y axis, 15 repetitions z axis
     err = ESP_OK;
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_PWRCTRL_REG, 0x82);
-    vTaskDelay(100 / portTICK_PERIOD_MS);
+    vTaskDelay(10 / portTICK_PERIOD_MS);
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_PWRCTRL_REG, 0x01);
-    vTaskDelay(100 / portTICK_PERIOD_MS);
+    vTaskDelay(10 / portTICK_PERIOD_MS);
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_OP_MODE_REG, 0x38);
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_BASE_3_REG, 0x84);
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_REP_XY_REG, 0x07);
@@ -92,7 +92,7 @@ esp_err_t imu_manager_init(void)
     if(id != IMU_MANAGER_MAG_ID) 
     {
         ESP_LOGE(TAG, "Error reading magnetometer ID");
-        //return ESP_FAIL;
+        return ESP_FAIL;
     }
 
     // Give some time for the IMU to take samples
@@ -172,16 +172,6 @@ esp_err_t imu_manager_sample_all(void)
         }
 
         // Read magnetometer bytes (2 bytes per axis)
-        ESP_LOGV(TAG, "Reading magnetometer ID");
-        if((err = i2c_manager_read_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS,
-            IMU_MANAGER_MAGNETOMETER_ADDRESS, 0x40, mag)) != ESP_OK)
-            {
-                ESP_LOGE(TAG, "Error reading magnetometer ID: %d", err);
-                xSemaphoreGive(sample_mutex);
-                return err;
-            }
-        ESP_LOGV(TAG, "Magnetometer ID: %d", mag[0]);
-
         ESP_LOGV(TAG, "Starting magnetometer read");
         if((err = i2c_manager_read_register_multiple(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, 
             IMU_MANAGER_MAGNETOMETER_ADDRESS, IMU_MANAGER_MAG_DATA_REG, 6, mag)) != ESP_OK)

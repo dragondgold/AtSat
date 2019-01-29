@@ -217,6 +217,7 @@ esp_err_t i2c_manager_write_register_multiple(i2c_port_t port, TickType_t timeou
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
     i2c_master_start(cmd);
     i2c_master_write_byte(cmd, slave_addr, true);
+    i2c_master_write_byte(cmd, reg_addr, true);
     i2c_master_write(cmd, values, length, true);
     i2c_master_stop(cmd);
 
