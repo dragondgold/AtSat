@@ -5,7 +5,7 @@
 #include "esp_system.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "minmea/minmea.h"
+#include "libs/minmea/minmea.h"
 
 #define GPS_MANAGER_UART_BUFFER_SIZE    512
 

@@ -5,7 +5,7 @@
 #include "freertos/FreeRTOS.h"
 #include "esp_log.h"
 #include "libs/sensor_fusion/sensor_fusion.h"
-#include "minmea/minmea.h"
+#include "libs/minmea/minmea.h"
 
 #include "gps_manager/gps_manager.h"
 #include "imu_manager/imu_manager.h"

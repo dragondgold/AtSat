@@ -7,7 +7,7 @@
 #include "freertos/semphr.h"
 #include "driver/gpio.h"
 #include "driver/uart.h"
-#include "minmea/minmea.h"
+#include "libs/minmea/minmea.h"
 #include "esp_log.h"
 
 static const char* TAG = "gps";
