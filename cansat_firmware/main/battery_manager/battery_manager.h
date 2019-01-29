@@ -2,6 +2,7 @@
 #define __BATTERY_MANAGER_H__
 
 #include "esp_system.h"
+#include <stdbool.h>
 
 typedef struct 
 {
@@ -11,6 +12,8 @@ typedef struct
     uint8_t total_capacity;         // Total battery capacity in mAh
     uint8_t remaining_capacity;     // Remaining battery capacity in mAh
     uint8_t health;                 // Battery health in %
+    bool is_charging;               // Is the battery being charged?
+    bool charging_at_max;           // Is the battery charging with full current?
 } battery_data_t;
 
 #define BATTERY_MANAGER_BATTERY_MAH             600

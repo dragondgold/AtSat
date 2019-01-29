@@ -49,7 +49,7 @@ static void sensors_sample_task(void* arg)
         ESP_LOGV(TAG, "Roll: %.2f, %.2f, %.2f", sfg.SV_9DOF_GBY_KALMAN.fPhiPl, sfg.SV_9DOF_GBY_KALMAN.fThePl, sfg.SV_9DOF_GBY_KALMAN.fPsiPl);
 
         // Sample at FUSION_HZ rate
-        #if FUSION_HZ > 100
+        #if FUSION_HZ > configTICK_RATE_HZ
             #error FUSION_HZ cannot be higher than the RTOS tick rate
         #endif
         vTaskDelay(((1.0F/(float)FUSION_HZ)*1000) / portTICK_PERIOD_MS);

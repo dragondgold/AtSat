@@ -23,8 +23,10 @@ static void battery_sample_task(void* args)
 {
     while(1)
     {
+        // Check battery and charger status every 1 second
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
         ESP_LOGV(TAG, "Checking battery");
-        
+
         // Take the mutex so other tasks cannot read the data while it's being
         //  modified
         if(xSemaphoreTake(mutex, 5000 / portTICK_PERIOD_MS))
@@ -35,7 +37,28 @@ static void battery_sample_task(void* args)
             battery_data.total_capacity = bq27441_get_capacity(FULL);
             battery_data.remaining_capacity = bq27441_get_capacity(REMAIN);
             battery_data.health = bq27441_get_soh(PERCENT);
+            battery_data.is_charging = !gpio_get_level(CHARGING_DETECTION_PIN);
 
+            // When not charging (USB disconnected), set the charging current at minimum
+            if(!battery_data.is_charging)
+            {
+                gpio_set_direction(CHARGER_ISET_PIN, GPIO_MODE_DEF_INPUT);
+            }
+            
+            // Charger detected? Use current defined by the ISET resistor (300 mA)
+            if(gpio_get_level(CHARGER_DETECTION_PIN))
+            {
+                gpio_set_direction(CHARGER_ISET_PIN, GPIO_MODE_DEF_OUTPUT);
+                gpio_set_level(CHARGER_ISET_PIN, 0);
+                battery_data.charging_at_max = true;
+            }
+            else
+            {
+                // Charge at minimum current (100 mA)
+                gpio_set_direction(CHARGER_ISET_PIN, GPIO_MODE_DEF_INPUT);
+                battery_data.charging_at_max = false;
+            }
+            
             xSemaphoreGive(mutex);
         }
         else 
@@ -96,11 +119,23 @@ esp_err_t battery_manager_init(void)
 
             esp_err_t err;
 
-            // Set GPOUT pin as input. Currently we are not using this pin at all.
-            ESP_LOGV(TAG, "Configuring GPOUT pin");
+            // Set GPOUT, CHARGING_DETECTION_PIN and CHARGER_DETECTION_PIN pins as input.
+            // Currently we are not using GPOUT pin at all.
+            ESP_LOGV(TAG, "Configuring pins");
             gpio_config_t config;
-            config.pin_bit_mask = (1 << AUX_PS_ENABLE_PIN);
-            config.mode = GPIO_MODE_DEF_OUTPUT;
+            config.pin_bit_mask = (1ULL << AUX_PS_ENABLE_PIN) | (1ULL << CHARGING_DETECTION_PIN) | (1 << CHARGER_DETECTION_PIN);
+            config.mode = GPIO_MODE_DEF_INPUT;
+            config.pull_up_en = GPIO_PULLUP_DISABLE;
+            config.pull_down_en = GPIO_PULLDOWN_DISABLE;
+            config.intr_type = GPIO_INTR_DISABLE;
+            if((err = gpio_config(&config)) != ESP_OK)
+            {
+                return err;
+            }
+
+            // Set ISET pin as input at start so the charging current is 100 mA
+            config.pin_bit_mask = (1ULL << CHARGER_ISET_PIN);
+            config.mode = GPIO_MODE_DEF_INPUT;
             config.pull_up_en = GPIO_PULLUP_DISABLE;
             config.pull_down_en = GPIO_PULLDOWN_DISABLE;
             config.intr_type = GPIO_INTR_DISABLE;

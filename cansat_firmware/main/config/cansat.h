@@ -17,14 +17,16 @@
 #define SENSOR_MANAGER_TASK_PRIORITY    2
 #define SENSOR_MANAGER_AFFINITY         tskNO_AFFINITY
 
-// Pin definitions
+// UART
 #define GPS_UART_NUMBER             UART_NUM_2
 #define ARDUINO_UART_NUMBER         UART_NUM_1
 #define DEBUG_UART_NUMBER           UART_NUM_0
 
+// I2C
 #define PIC16_I2C_NUMBER            I2C_NUM_0
 #define GENERAL_I2C_NUMBER          I2C_NUM_1
 
+// Pin definitions
 #define CHARGER_DETECTION_PIN       GPIO_NUM_36
 #define CHARGING_DETECTION_PIN      GPIO_NUM_39
 
@@ -34,7 +36,7 @@
 #define RX_DEBUG_PIN                GPIO_NUM_3
 #define LED_PIN                     GPIO_NUM_2
 #define AUX_PS_ENABLE_PIN           GPIO_NUM_4
-#define CHARGER_ISET_PIN            GPIO_NUM_29
+#define CHARGER_ISET_PIN            GPIO_NUM_5
 #define SDO_PIN                     GPIO_NUM_12
 #define SDI_PIN                     GPIO_NUM_13
 #define SCLK_PIN                    GPIO_NUM_14
