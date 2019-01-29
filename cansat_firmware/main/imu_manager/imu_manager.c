@@ -35,7 +35,7 @@ esp_err_t imu_manager_init(void)
     uint8_t id;
 
     // Setup accelerometer, 4g range, 125 Hz filter, normal mode
-    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_PMU_RANGE_REG, 0x04);
+    err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_PMU_RANGE_REG, 0x05);
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_PMU_BW_REG, 0x0C);
     err += i2c_manager_write_register(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS, IMU_MANAGER_ACCELEROMETER_ADDRESS, IMU_MANAGER_ACC_PMU_LPW, 0x00);
     if(err != ESP_OK)
@@ -275,4 +275,8 @@ imu_axis_data_f_t imu_manager_get_magnetometer(void)
     ESP_LOGV(TAG, "Magnetometer uT (x,y,z): %.2f,%.2f,%.2f", data.x, data.y, data.z);
 
     return data;
+}
+imu_axis_data_t imu_manager_get_mag_raw(void)
+{
+    return mag_data;
 }

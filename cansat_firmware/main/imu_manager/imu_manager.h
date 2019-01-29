@@ -56,5 +56,6 @@ imu_axis_data_t imu_manager_get_acceleration_raw(void);
 imu_axis_data_f_t imu_manager_get_gyro(void);
 imu_axis_data_t imu_manager_get_gyro_raw(void);
 imu_axis_data_f_t imu_manager_get_magnetometer(void);
+imu_axis_data_t imu_manager_get_mag_raw(void);
 
 #endif // __IMU_MANAGER_H__

@@ -15,14 +15,15 @@ static const char* TAG = "sensor";
 
 // Sensor fusion
 static SensorFusionGlobals sfg;                 // Sensor fusion instance
-static struct PhysicalSensor sensors[2];        // Storage for the sensors used
+static struct PhysicalSensor sensors[3];        // Storage for the sensors used
 static registerDeviceInfo_t i2cBusInfo = {      // It doesn't matter, this is not used in our case
     .deviceInstance     = 0,
     .functionParam      = NULL,
     .idleFunction       = NULL
 };
 static int16_t accCountsPerG = 1024;            // 1024 counts per g as the accelerometer is in the 4g range
-static int16_t gyroCountsPerDegPerSec = 218;    // 218 counts per degree/s as the gyro is in the 150 degree/s range 
+static int16_t gyroCountsPerDegPerSec = 131;    // 131 counts per degree/s as the gyro is in the 250 degree/s range
+static int16_t magCountsPeruT = 6;              // 6 counts per uT using the 1300 uT range from the XY axis
 
 // Mutex
 static StaticSemaphore_t sample_mutex_buffer;
@@ -44,7 +45,7 @@ static void sensors_sample_task(void* arg)
         sfg.runFusion(&sfg);
         sfg.loopcounter++;
 
-        ESP_LOGV(TAG, "Roll: %.2f, %.2f, %.2f", sfg.SV_6DOF_GY_KALMAN.fPhiPl, sfg.SV_6DOF_GY_KALMAN.fThePl, sfg.SV_6DOF_GY_KALMAN.fPsiPl);
+        ESP_LOGV(TAG, "Roll: %.2f, %.2f, %.2f", sfg.SV_9DOF_GBY_KALMAN.fPhiPl, sfg.SV_9DOF_GBY_KALMAN.fThePl, sfg.SV_9DOF_GBY_KALMAN.fPsiPl);
 
         // Sample at FUSION_HZ rate
         #if FUSION_HZ > 100
@@ -88,6 +89,18 @@ static int8_t dummy_sensor_init(struct PhysicalSensor *sensor, SensorFusionGloba
         sensor->isInitialized = F_USING_GYRO;
         sfg->Gyro.isEnabled = true;
     }
+    // Magnetometer init
+    else if(sensor->addr == IMU_MANAGER_MAGNETOMETER_ADDRESS)
+    {
+        ESP_LOGV(TAG, "Init mag");
+        sfg->Mag.iWhoAmI = 62;          // Dummy value (should be something like the sensor ID)
+        sfg->Mag.iCountsPeruT = magCountsPeruT;
+        sfg->Mag.fCountsPeruT = 1.0F / (float)magCountsPeruT;
+
+        sfg->Mag.iFIFOCount = 0;
+        sensor->isInitialized = F_USING_MAG;
+        sfg->Mag.isEnabled = true;
+    }
 
     return 0;
 }
@@ -112,6 +125,18 @@ static int8_t read_gyro(struct PhysicalSensor *sensor, SensorFusionGlobals *sfg)
     // Condition the sample and add it to the FIFO for the sensor fusion
     conditionSample(data);
     addToFifo((union FifoSensor*) &(sfg->Gyro), GYRO_FIFO_SIZE, data);
+
+    return SENSOR_ERROR_NONE;
+}
+
+static int8_t read_mag(struct PhysicalSensor *sensor, SensorFusionGlobals *sfg)
+{
+    imu_axis_data_t raw = imu_manager_get_mag_raw();
+    int16_t data[3] = { raw.x, raw.y, raw.z };
+
+    // Condition the sample and add it to the FIFO for the sensor fusion
+    conditionSample(data);
+    addToFifo((union FifoSensor*) &(sfg->Mag), MAG_FIFO_SIZE, data);
 
     return SENSOR_ERROR_NONE;
 }
@@ -150,6 +175,7 @@ esp_err_t sensor_manager_init(void)
     // Install sensors
     sfg.installSensor(&sfg, &sensors[0], IMU_MANAGER_ACCELEROMETER_ADDRESS, 1, NULL, &i2cBusInfo, dummy_sensor_init, read_acc);
     sfg.installSensor(&sfg, &sensors[1], IMU_MANAGER_GYROSCOPE_ADDRESS, 1, NULL, &i2cBusInfo, dummy_sensor_init, read_gyro);
+    sfg.installSensor(&sfg, &sensors[2], IMU_MANAGER_MAGNETOMETER_ADDRESS, 1, NULL, &i2cBusInfo, dummy_sensor_init, read_mag);
 
     // Initialize sensors
     sfg.initializeFusionEngine(&sfg);
