@@ -18,6 +18,7 @@
 #include "spi_manager/spi_manager.h"
 #include "sensor_manager/sensor_manager.h"
 #include "battery_manager/battery_manager.h"
+#include "servo_manager/servo_manager.h"
 
 static const char* TAG = "main";
 
@@ -49,6 +50,7 @@ void app_main()
     err += spi_manager_init();
     err += sensor_manager_init();
     err += battery_manager_init();
+    err += servo_manager_init();
 
     if(err == ESP_OK)
     {
