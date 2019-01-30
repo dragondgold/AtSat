@@ -48,7 +48,10 @@
 			"battery_manager.h": "c",
 			"stdatomic.h": "c",
 			"esp_types.h": "c",
-			"stdlib.h": "c"
+			"stdlib.h": "c",
+			"servo_manager.h": "c",
+			"ledc.h": "c",
+			"esp_spi_flash.h": "c"
 		}
 	}
 }
