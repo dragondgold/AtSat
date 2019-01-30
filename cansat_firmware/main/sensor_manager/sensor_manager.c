@@ -10,7 +10,7 @@
 #include "gps_manager/gps_manager.h"
 #include "imu_manager/imu_manager.h"
 #include "pressure_manager/pressure_manager.h"
-#include "temp_hum_manager/temp_hum_manager.h"
+#include "humidity_manager/humidity_manager.h"
 
 #include <string.h>
 
@@ -87,14 +87,14 @@ static void sensors_task(void* arg)
         vTaskDelay(500 / portTICK_PERIOD_MS);
 
         pressure_manager_do_sample();
-        temp_hum_manager_sample();
+        humidity_manager_sample();
 
         // Update the data
         if(xSemaphoreTake(sample_mutex, 100 / portTICK_PERIOD_MS))
         {
             sensors_data.pressure = pressure_manager_get_pressure();
             sensors_data.temperature = pressure_manager_get_temperature();
-            sensors_data.humidity = (uint8_t)temp_hum_manager_get_humidity();
+            sensors_data.humidity = (uint8_t)humidity_manager_get_humidity();
 
             gps_data = gps_manager_get_gga();
             sensors_data.latitude = gps_data.latitude;
@@ -227,7 +227,7 @@ esp_err_t sensor_manager_init(void)
     // Init sensors
     err += gps_manager_init();
     err += pressure_manager_init();
-    err += temp_hum_manager_init();
+    err += humidity_manager_init();
     err += imu_manager_init();
 
     if(err != ESP_OK)

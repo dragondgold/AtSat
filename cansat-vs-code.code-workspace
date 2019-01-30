@@ -24,7 +24,7 @@
 			"gps_manager.h": "c",
 			"esp_err.h": "c",
 			"imu_manager.h": "c",
-			"temp_hum_manager.h": "c",
+			"humidity_manager.h": "c",
 			"stdint.h": "c",
 			"string.h": "c",
 			"minmea.h": "c",
