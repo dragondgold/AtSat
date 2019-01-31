@@ -20,7 +20,6 @@
 <script>
 import etWidget from './../project/Widgets/etWidget'
 import cansatWidget from './../project/Widgets/cansatWidget'
-import defaultProtections from 'data/Protections'
 
 export default {
   name: 'link-sat',
@@ -52,7 +51,7 @@ export default {
     isCanSatConnected(changes){
       this.etConnected = changes
       if(changes){
-        this.resetProtections()
+        
       }
     },
     isETConnected(changes){
@@ -63,11 +62,6 @@ export default {
   methods:{
     goToTest(){
       this.$router.push({name:'testSat'})
-    },
-    resetProtections(){
-      this.$store.commit('setElectricalProtectionsPS', defaultProtections.powerSuplies[defaultProtections.vBatt])
-      this.$store.commit('setElectricalProtectionsPS', defaultProtections.powerSuplies[defaultProtections.v3v3])
-      this.$store.commit('setElectricalProtectionsPS', defaultProtections.powerSuplies[defaultProtections.v5v])
     }
   } 
 }

@@ -149,19 +149,19 @@ export default new Router({
               component: lazyLoading('cansat/sat/linkSat'),
             },
             {
-              name: 'protectionsSat',
-              path: 'protectionsSat',
-              component: lazyLoading('cansat/sat/protectionsSat'),
-            },
-            {
               name: 'testSat',
               path: 'testSat',
               component: lazyLoading('cansat/sat/testSat'),
             },
             {
-              name: 'sensorSat',
-              path: 'sensorSat',
-              component: lazyLoading('cansat/sat/sensorSat'),
+              name: 'resourcesSat',
+              path: 'resourcesSat',
+              component: lazyLoading('cansat/sat/resourcesSat'),
+            },
+            {
+              name: 'newSensor',
+              path: 'newSensor',
+              component: lazyLoading('cansat/sat/newSensor'),
             },
 
           ],

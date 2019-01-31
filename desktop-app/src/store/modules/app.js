@@ -36,44 +36,36 @@ const state = {
         id: '',
         name:'',
         connected:'',
-        signal: '',
-        sensors: [{
-          type: '',
-          status:'',
-          samplingTime: '',
-          samples: [{
-            value: '',
-            timespan:''
-          }],
-          threshold: ''
-        }],
-        actuators: [{
-          type:'',
-          status: ''
-        }],
-        protections: {
-          powerSupply: [{
-            name: 'cansat.protections.vBatt', // V Battery
-            voltage: '',
-            current: '',
-            status: '',
-            maxCurrent: '',
+        location:{
+          lat: -31.416930,
+          lng: -62.084470
+        },
+        signal: 0,
+        battery: 0,
+        altitude: 0, // It´s a copy of altitude on sensor. Is needed for map
+        sensors:[ 
+          {
+            id: '',
+            type: '',
+            status:'',
+            samples: [{
+              value: '',
+              timespan:''
+            }],
+            thresholdP: '',
+            thresholdN: ''
+          }
+        ],
+        actuators: [
+          {
+            type:'', // Parachute
+            status: ''
           },
           {
-            name: '3.3 V Ext', // 3.3 V 
-            voltage: '',
-            current: '',
-            status: '',
-            maxCurrent: '',
-          },
-          { 
-            name: '5 V Ext', // 5 V 
-            voltage: '',
-            current: '',
-            status: '',
-            maxCurrent: '',
-          }]
-        }
+            type:'', // Balloon
+            status: ''
+          }
+        ],
       }],
       earthStation: {
         id: '',
@@ -135,12 +127,56 @@ const mutations = {
   setSignalCanSat(state, data){
     state.axtec.project.cansat[data.index].signal = data.signal
   },
-  setElectricalProtectionsPS(state, data){ // Set data to an specific PS (Power supply)
-    if(data.voltage != undefined) state.axtec.project.cansat[data.cansatIndex].protections.powerSupply[data.psIndex].voltage = data.voltage
-    if(data.current != undefined) state.axtec.project.cansat[data.cansatIndex].protections.powerSupply[data.psIndex].current = data.current
-    if(data.maxCurrent != undefined) state.axtec.project.cansat[data.cansatIndex].protections.powerSupply[data.psIndex].maxCurrent = data.maxCurrent
-    if(data.status != undefined) state.axtec.project.cansat[data.cansatIndex].protections.powerSupply[data.psIndex].status = data.status
+  setActuators(state, data){
+    if(data.status != undefined) state.axtec.project.cansat[data.cansatIndex].actuators[data.actuatorIndex].status = data.status
+    if(data.type != undefined) state.axtec.project.cansat[data.cansatIndex].actuators[data.actuatorIndex].type = data.type
   },
+  addNewSensor(state,data){
+    if(data.clear){
+      state.axtec.project.cansat[data.cansatIndex].sensors = []
+    }
+    state.axtec.project.cansat[data.cansatIndex].sensors.push({
+      id: data.id, 
+      type: data.type,
+      status: data.status,
+      step: data.step,
+      ... (data.minValue != undefined ? { minValue: data.minValue} : []),
+      ... (data.maxValue != undefined ? {maxValue: data.maxValue} : []),
+      ... (data.lastValue != undefined ? {lastValue: data.lastValue} : []),
+      ... (data.minThreshold != undefined ? {minThreshold: data.minThreshold} : []),
+      ... (data.maxThreshold != undefined ? {maxThreshold: data.maxThreshold} : []),
+      ... (data.lastValue != undefined ? {lastValue: data.lastValue} : []),
+      ... (data.x != undefined ? {x: data.x} : []),
+      ... (data.y != undefined ? {y: data.y} : []),
+      ... (data.z != undefined ? {z: data.z} : []),
+      unit: data.unit,
+      cansatIndex: data.cansatIndex, 
+      _type: data._type           
+    }) 
+  },
+  setSensor(state,data){
+    if(data.status != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].status = data.status
+    if(data.lastValue != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].lastValue = data.lastValue
+    if(data.minThreshold != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].minThreshold = data.minThreshold
+    if(data.maxThreshold != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].maxThreshold = data.maxThreshold
+    if(data.minValue != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].minValue = data.minValue
+    if(data.maxValue != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].maxValue = data.maxValue
+    if(data.x != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].x = data.x
+    if(data.y != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].y = data.y
+    if(data.z != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].z = data.z
+    if(data.step != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].z = data.step
+    if(data.unit != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].unit = data.unit
+    if(data.type != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].type = data.type
+    if(data._type != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1]._type = data._type
+
+  },
+  setLocation(state,data){
+    if(data.lat != undefined) state.axtec.project.cansat[data.cansatIndex].location.lat = data.lat
+    if(data.lng != undefined) state.axtec.project.cansat[data.cansatIndex].location.lng = data.lng
+  },
+  removeSensor(state,data){
+    state.axtec.project.cansat[data.cansatIndex].sensors.splice(data.id-1, 1)
+  }
 }
 
 const actions = {
@@ -174,8 +210,23 @@ const actions = {
   setPortEarthStation({ commit }, data){
     commit(setPortEarthStation,data)
   },
-  setElectricalProtectionsPS({ commit }, data){
-    commit(setElectricalProtectionsPS,data)
+  setActuators({ commit }, data){
+    commit(setActuators,data)
+  },
+  setActuators({ commit }, data){
+    commit(setActuators,data)
+  },
+  addNewSensor({ commit }, data){
+    commit(addNewSensor,data)
+  },
+  setSensor({ commit }, data){
+    commit(setSensor,data)
+  },
+  setLocation({ commit }, data){
+    commit(setLocation,data)
+  },
+  removeSensor({ commit }, data){
+    commit(removeSensor,data)
   },
 }
 

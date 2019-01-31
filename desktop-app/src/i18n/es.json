@@ -1,20 +1,99 @@
 {
   "cansat":{
-    "protections":{
-      "title": "Protecciones eléctricas",
-      "noConnected": "CanSat no conectado.",
-      "goToLink": "Enlazar",
-      "goToSensors": "Ver sensores",
-      "vBatt": "V Batería",
-      "table":{
-        "name": "Fuentes",
-        "voltage": "Voltaje",
-        "current": "Corriente",
-        "maxCurrent": "Corriente max",
-        "status": "Estado",
-        "actions": "Acciones",
-        "restart": "Habilitar"
-      }
+    "resources":{
+      "title": "Recursos",  
+      "sensors":{
+        "title": "Sensores",
+        "ok": "OK",
+        "danger": "Cuidado",
+        "battery": "Batería",
+        "giroscope": "Giroscopio",
+        "magnetometer": "Magnetómetro",
+        "accelerometer": "Acelerómetro",
+        "temperature": "Temperatura",
+        "humidity": "Humedad",
+        "pressure": "Presión",
+        "altitude": "Altitud",
+        "vBatt": "V Batería",
+        "iBatt": "I Batería",
+        "v3v3": "Voltaje 3.3 V",
+        "i3v3": "Corriente 3.3 V",
+        "v5v": "Voltaje 5 V",
+        "i5v": "Corriente 5 V",
+        "gps":{
+          "title": "GPS",
+          "markerTitle": "CanSat: ",
+          "center": "Centrar"
+        },
+        "tabs":{
+          "imu":{
+            "title": "Vectoriales",
+            "table":{       
+              "id": "ID",
+              "type": "Tipo",
+              "x": "X",
+              "y": "Y",
+              "z": "Z",
+              "maxThreshold": "Max",
+              "unit": "Unidad",
+              "actions": "Acciones",
+              "status": "Estado",
+              "resetThreshold": "Reiniciar límites" 
+            }
+          },
+          "variables":{
+            "title": "Escalares",
+            "table":{       
+              "id": "ID",
+              "type": "Tipo",
+              "min": "Min",
+              "max": "Max",
+              "value": "Valor",
+              "unit": "Unidad",
+              "actions": "Acciones",
+              "status": "Estado",
+              "resetThreshold": "Reiniciar límites",
+              "resetPowerSuply": "Reiniciar fuente"              
+            }
+          },
+          "createdByUser":{
+            "title": "Creados por el usuario",
+            "button": "Crear o editar",
+            "empty": "No hay sensores creados",
+            "newSensor":{
+              "title": "Nuevos sensores",
+              "subtitle": "Agrege un nuevo sensor configurando su tipo, rango mínimo y máximo que puede tener y la unidad medida.",
+              "back": "Atrás",
+              "delete": "Borrar",
+              "add": "Agregar",
+              "edit": "Editar",
+              "invalidMin": "Debe ser menor al máximo",
+              "invalidUnit": "No puede ser nulo",
+              "invalidType": "No puede ser nulo"
+
+            }
+          },
+          "location":{
+            "title": "Ubicación"
+          },
+          "powerSupplies":{
+            "title": "Fuentes de Alimentación"
+          }
+        }   
+      },
+      "actuators":{
+        "title": "Actuadores",
+        "balloon": "Globo",
+        "parachute": "Paraícadas",
+        "table":{
+          "id": "ID",
+          "type": "Tipo",
+          "status": "Estado",
+          "actions": "Acciones"
+        }
+      }, 
+      "open": "Abrir",
+      "close": "Cerrar"     
     },
     "link":{
       "title": "Enlace",
@@ -269,9 +348,8 @@
     "missionOpen": "Importar",
     "sat": "Cansat", 
     "satEnlace": "Enlace",
-    "satProtections": "Protecciones",
     "satTest": "Pruebas de integridad",
-    "satSensores": "Sensores",
+    "satResources": "Recursos",
     "auth": "Autenticación",
     "buttons": "Botones",
     "charts": "Gráficos",

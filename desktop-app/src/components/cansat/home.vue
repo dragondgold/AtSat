@@ -24,19 +24,14 @@
 </template>
 
 <script>
-const path = require('path')
-const {dialog} = require('electron').remote
-
-import VuesticCard from '../../vuestic-theme/vuestic-components/vuestic-card/VuesticCard'
 import ProyectManager from 'services/projectManager'
+import defaultActuators from 'data/Actuators'
+import defaultSensors from 'data/Sensors'
 
 export default {
   name: 'home-axtec',
-  components: { VuesticCard },
   data () {
     return {
-        isShown: false,
-        newProImg: path.resolve('./src/assets/images/cansat.png'),
         cards: { 'data': [ 
           { 'stripe' : 'info', 'title' :  'cansat.home.cards.newProject', 'icon' : 'fa fa-file', 'go': this.goToNewProject },
           { 'stripe' : 'success', 'title' : 'cansat.home.cards.openProject', 'icon' : 'glyphicon glyphicon-blackboard', 'go': this.openProject },
@@ -44,37 +39,38 @@ export default {
         ]}
     }
   },
+
+  created(){
+    if(this.$store.getters.axtec.debug){ // Initialize data structure
+      console.log("Setting up modules", "Debug: " + this.$store.getters.axtec.debug )   
+      this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': true})
+
+      // Load actuators from data/Actuators
+      this.$store.commit('setActuators', defaultActuators.actuators[defaultActuators.parachute])
+      this.$store.commit('setActuators', defaultActuators.actuators[defaultActuators.balloon])
+
+      // Load sensors from data/Sensors
+      for(let s = 0; s < defaultSensors.sensors.length; s++){ 
+        this.$store.commit('addNewSensor', defaultSensors.sensors[s])
+      } 
+    }
+  },
+
   methods: {
-    addCards () {
-      this.isShown = true
-      setTimeout(() => {
-        this.isShown = false
-        ++this.listLoops
-      }, 1000)
-    },
     goToNewProject() {
       this.$router.push({name:'newProject'})
     },
     openProject() {
       ProyectManager.openProject()
     },
-  
     goToOpenMission() {
       this.$router.push({name:'openProject'})
     }
   },
-  created(){
-
-  }
 }
 </script>
 
-
-
-
 <style lang="scss">
-  $singleGutter: #{(19/16)}rem;
-
   .color-icon-home-info{
     color: $brand-info
   }
@@ -92,39 +88,5 @@ export default {
     font-size: 7rem;
     text-align: center;
     margin-bottom: 0.75rem;
-  }
-
-  .cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin: -$singleGutter;
-    align-items: flex-start;
-    .vuestic-card {
-      margin: $singleGutter;
-
-      width: calc(33% - #{$singleGutter} * 2);
-
-      @include media-breakpoint-only(xl) {
-        width: calc(25% - #{$singleGutter} * 2);
-      }
-
-      @include media-breakpoint-only(lg) {
-        width: calc(33.3% - #{$singleGutter} * 2);
-      }
-
-      @include media-breakpoint-only(sm) {
-        width: calc(50% - #{$singleGutter} * 2);
-      }
-
-      @include media-breakpoint-only(xs) {
-        width: calc(100% - #{$singleGutter} * 2);
-      }
-    }
-  }
-
-  .pre-loader-container {
-    height: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
   }
 </style>

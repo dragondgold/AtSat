@@ -13,7 +13,8 @@
       </template>
       <button
         v-else
-        class="vuestic-collapse__header__button btn btn-primary"
+        class="vuestic-collapse__header__button btn" style="
+    box-shadow: 0 4px 9.6px 0.4px rgba(255, 255,255, 0.5)"
       >
         <slot name="header"/>
       </button>

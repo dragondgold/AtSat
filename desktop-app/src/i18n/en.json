@@ -1,20 +1,98 @@
 {
   "cansat":{
-    "protections":{
-      "title": "Electrical protections",
-      "noConnected": "CanSat isn't connected.",
-      "goToLink": "Link",
-      "goToSensors": "See sensors",
-      "vBatt": "V Battery",
-      "table":{
-        "name": "Power supply",
-        "voltage": "voltage",
-        "current": "current",
-        "maxCurrent": "Max current",
-        "status": "Status",
-        "actions": "Actions",
-        "restart": "Enable"
-      }
+    "resources":{
+      "title": "Resources", 
+      "sensors":{
+        "title": "Sensors",
+        "ok": "OK",
+        "danger": "Danger",
+        "battery": "Battery",
+        "giroscope": "Giroscope",
+        "magnetometer": "Magnetometer",
+        "accelerometer": "Accelerometer",
+        "temperature": "Temperature",
+        "humidity": "Humidity",
+        "pressure": "Pressure",
+        "altitude": "Altitude",
+        "vBatt": "V Battery",
+        "iBatt": "I Battery",
+        "v3v3": "Voltage 3.3 V",
+        "i3v3": "Current 3.3 V",
+        "v5v": "Voltage 5 V",
+        "i5v": "Current 5 V",
+        "gps":{
+          "title": "GPS",
+          "markerTitle": "CanSat: ",
+          "center": "Center"
+        },
+        "tabs":{
+          "imu":{
+            "title": "Vector",
+            "table":{       
+              "id": "ID",
+              "type": "Type",
+              "x": "X",
+              "y": "Y",
+              "z": "Z",
+              "maxThreshold": "Max",
+              "unit": "Unit",
+              "actions": "Actions",
+              "status": "Status",
+              "resetThreshold": "Set default values"          
+            }
+          },
+          "variables":{
+            "title": "Scalar",
+            "table":{       
+              "id": "ID",
+              "type": "Type",
+              "min": "Min",
+              "max": "Max",
+              "value": "Value",
+              "unit": "Unit",
+              "actions": "Actions",
+              "status": "Status",
+              "resetThreshold": "Set default values",
+              "resetPowerSuply": "Reset power suply"
+            }
+          },
+          "createdByUser":{
+            "title": "Created by user",
+            "empty": "No sensors created",
+            "button": "Add or edit",
+            "newSensor":{
+              "title": "New sensor",
+              "subtitle": "Add a new sensor by configuring its type, minimum and maximum range it can have and the unit measured.",
+              "back": "Back",
+              "delete": "Delete",
+              "add": "Add",
+              "edit": "Edit",
+              "invalidMin": "Must be less than the maximum",
+              "invalidUnit": "It can't be empty",
+              "invalidType": "It can't be empty"
+            }
+          },
+          "location":{
+            "title": "Ubicación"
+          },
+          "powerSupplies":{
+            "title": "Fuentes de Alimentación"
+          }
+        }
+      },
+      "actuators":{
+        "title": "Actuators",
+        "balloon": "Balloon",
+        "parachute": "Parachute",
+        "table":{
+          "id": "ID",
+          "type": "Type",
+          "status": "Status",
+          "actions": "Actions"
+        }
+      }, 
+      "open": "Open",
+      "close": "Close"     
     },
     "link":{
       "title": "Link",
@@ -289,9 +367,8 @@
     "missionOpen": "Open",
     "sat": "Cansat", 
     "satEnlace": "Link",
-    "satProtections": "Protections",
     "satTest": "Test",
-    "satSensores": "Sensors",
+    "satResources": "Resources",
     "auth": "Auth",
     "buttons": "Buttons",
     "charts": "Charts",

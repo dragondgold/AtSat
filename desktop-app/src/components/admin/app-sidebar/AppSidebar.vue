@@ -52,15 +52,9 @@
           </span>
         </sidebar-link>
         <sidebar-link
-          :to="{ name: 'protectionsSat' }">
+          :to="{ name: 'resourcesSat' }">
           <span slot="title">
-            <span>{{ $t('menu.satProtections') }}</span>
-          </span>
-        </sidebar-link>
-        <sidebar-link
-          :to="{ name: 'sensorSat' }">
-          <span slot="title">
-            <span>{{ $t('menu.satSensores') }}</span>
+            <span>{{ $t('menu.satResources') }}</span>
           </span>
         </sidebar-link>     
       </sidebar-link-group>

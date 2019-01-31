@@ -79,7 +79,8 @@
 
 <script>
 const isValidPath = require('is-valid-path')
-import defaultProtections from 'data/Protections'
+import defaultActuators from 'data/Actuators'
+import defaultSensors from 'data/Sensors'
 
 export default {
     name: 'cansat-widget',
@@ -133,7 +134,8 @@ export default {
             this.$store.commit('setIDCanSat', { 'index': 0, 'id': this.selectedCansat})
             this.$store.commit('setNameCanSat', { 'index': 0, 'name': this.canSatName})
             this.$store.commit('setSignalCanSat', { 'index': 0, 'signal': this.signalLevel})
-            this.restartPowerSupply() // To set protections          
+            this.resetActuators()
+            this.createSensors()          
         },
         clearStatusesOnDisconnect(){
             this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': false})
@@ -145,7 +147,6 @@ export default {
             if( this.canSatName != '' &&  this.selectedCansat != ''){
                 this.setStatusesOnConnect()
             }
-            
         },
         disconnect(){
             this.clearStatusesOnDisconnect()
@@ -169,25 +170,14 @@ export default {
         getSignalLevel(){
             return this.signalLevel = 10
         },
-        restartPowerSupply(index){
-            this.$store.commit('setElectricalProtectionsPS',
-            { 
-                'cansatIndex': 0,
-                'psIndex': defaultProtections.vBatt,  // V Batt
-                'status': "Active"
-            })
-            this.$store.commit('setElectricalProtectionsPS',
-            { 
-                'cansatIndex': 0, 
-                'psIndex': defaultProtections.v3v3,   // 3.3 V
-                'status' : 'Active'
-            })
-            this.$store.commit('setElectricalProtectionsPS',
-            { 
-                'cansatIndex': 0, 
-                'psIndex':  defaultProtections.v5v,   // 5 V
-                'status' : 'Active'
-            })
+        resetActuators(){
+            this.$store.commit('setActuators', defaultActuators.actuators[defaultActuators.parachute])
+            this.$store.commit('setActuators', defaultActuators.actuators[defaultActuators.balloon])
+        },
+        createSensors(){
+            for(let s = 0; s < defaultSensors.sensors.length; s++){
+                this.$store.commit('addNewSensor', defaultSensors.sensors[s])
+            }     
         }
     }
 }
