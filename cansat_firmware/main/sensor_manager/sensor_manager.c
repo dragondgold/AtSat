@@ -236,12 +236,6 @@ esp_err_t sensor_manager_init(void)
         return err;
     }
 
-    // Tasks to sample sensors and run fusion algorithm
-    task_handle_fusion = xTaskCreateStaticPinnedToCore(fusion_task, "fusion", SENSOR_MANAGER_FUSION_STACK_SIZE, 
-        NULL, SENSOR_MANAGER_FUSION_TASK_PRIORITY, stack_fusion, &task_fusion, SENSOR_MANAGER_FUSION_AFFINITY);
-    task_handle_sensors = xTaskCreateStaticPinnedToCore(sensors_task, "sensors", SENSOR_MANAGER_SENSORS_STACK_SIZE, 
-        NULL, SENSOR_MANAGER_SENSORS_TASK_PRIORITY, stack_sensors, &task_sensors, SENSOR_MANAGER_SENSORS_AFFINITY);
-
     // Initialize sensor fusion. The sensor fusion library is the version 7.2 provided by NXP and modified
     //  so it can work standalone in other microcontrollers and outside their framework. The modifications
     //  are not perfect but they work for this case. The library was downloaded from:
@@ -255,6 +249,12 @@ esp_err_t sensor_manager_init(void)
 
     // Initialize sensors
     sfg.initializeFusionEngine(&sfg);
+
+    // Tasks to sample sensors and run fusion algorithm
+    task_handle_fusion = xTaskCreateStaticPinnedToCore(fusion_task, "fusion", SENSOR_MANAGER_FUSION_STACK_SIZE, 
+        NULL, SENSOR_MANAGER_FUSION_TASK_PRIORITY, stack_fusion, &task_fusion, SENSOR_MANAGER_FUSION_AFFINITY);
+    task_handle_sensors = xTaskCreateStaticPinnedToCore(sensors_task, "sensors", SENSOR_MANAGER_SENSORS_STACK_SIZE, 
+        NULL, SENSOR_MANAGER_SENSORS_TASK_PRIORITY, stack_sensors, &task_sensors, SENSOR_MANAGER_SENSORS_AFFINITY);
 
     ESP_LOGI(TAG, "Ready!");
 
