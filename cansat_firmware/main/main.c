@@ -107,6 +107,8 @@ void app_main()
     err += servo_manager_init();
     err += led_manager_init();
 
+    ESP_LOGI(TAG, "RAM left %d bytes", esp_get_free_heap_size());
+
     if(err == ESP_OK)
     {
         ESP_LOGI(TAG, "Systems ready!");
