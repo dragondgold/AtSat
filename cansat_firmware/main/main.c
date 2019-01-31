@@ -8,16 +8,73 @@
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/timers.h"
 #include "esp_system.h"
 #include "esp_spi_flash.h"
-#include "esp_log.h"
+#include "driver/gpio.h"
+#include "esp_err.h"
+#include "config/cansat.h"
 
 #include "aux_ps/aux_ps.h"
 #include "i2c_manager/i2c_manager.h"
 #include "spi_manager/spi_manager.h"
 #include "sensor_manager/sensor_manager.h"
+#include "battery_manager/battery_manager.h"
+#include "servo_manager/servo_manager.h"
+#include "led_manager/led_manager.h"
+
+#ifdef DEBUG
+    #define LOG_LOCAL_LEVEL ESP_LOG_DEBUG
+#endif
+#include "esp_log.h"
 
 static const char* TAG = "main";
+
+#ifdef DEBUG
+/**
+ * @brief Print information about the system. For this to work configUSE_TRACE_FACILITY must be enabled
+ *  using 'make menuconfig' then selecting 'Component config->FreeRTOS->Enable FreeRTOS trace facility'
+ */
+void vGetRunTimeStats(TimerHandle_t xTimer)
+{
+    ESP_LOGD(TAG, "Getting runtime data");
+
+    TaskStatus_t *pxTaskStatusArray;
+    volatile UBaseType_t uxArraySize, x;
+
+    // Take a snapshot of the number of tasks in case it changes while this
+    // function is executing.
+    uxArraySize = uxTaskGetNumberOfTasks();
+    ESP_LOGD(TAG, "%d tasks running", uxArraySize);
+
+    // Allocate a TaskStatus_t structure for each task.  An array could be
+    // allocated statically at compile time.
+    pxTaskStatusArray = pvPortMalloc( uxArraySize * sizeof( TaskStatus_t ) );
+
+    if(pxTaskStatusArray != NULL)
+    {
+        // Generate raw status information about each task.
+        uxArraySize = uxTaskGetSystemState(pxTaskStatusArray, uxArraySize, NULL);
+
+        // For each populated position in the pxTaskStatusArray array,
+        // format the raw data as human readable ASCII data
+        for( x = 0; x < uxArraySize; x++ )
+        {
+            ESP_LOGD(TAG, "------ Task \"%s\"", pxTaskStatusArray[x].pcTaskName);
+            ESP_LOGD(TAG, "Free stack: %d bytes", pxTaskStatusArray[x].usStackHighWaterMark);
+        }
+
+        // The array is no longer needed, free the memory it consumes.
+        vPortFree(pxTaskStatusArray);
+    }
+    else
+    {
+        ESP_LOGD(TAG, "------ pxTaskStatusArray is NULL");
+    }
+
+    ESP_LOGD(TAG, "------ Finished vGetRunTimeStats()");
+}
+#endif
 
 void app_main()
 {
@@ -39,10 +96,18 @@ void app_main()
     esp_err_t err = ESP_OK;
     ESP_LOGI(TAG, "Initializing systems");
 
+    // Install gpio isr service
+    gpio_install_isr_service(0);
+
     err += aux_ps_init();
     err += i2c_manager_init();
     err += spi_manager_init();
     err += sensor_manager_init();
+    err += battery_manager_init();
+    err += servo_manager_init();
+    err += led_manager_init();
+
+    ESP_LOGI(TAG, "RAM left %d bytes", esp_get_free_heap_size());
 
     if(err == ESP_OK)
     {
@@ -52,4 +117,12 @@ void app_main()
     {
         ESP_LOGE(TAG, "System init failed!");
     }
+
+// When debug is defined, print the system status after 3 seconds running
+#ifdef DEBUG
+    if(xTimerStart((int)xTimerCreate("stats_tmr", pdMS_TO_TICKS(3000), pdFALSE, (void *)0, vGetRunTimeStats), 500 / portTICK_PERIOD_MS) == pdFAIL)
+    {
+        ESP_LOGE(TAG, "Error starting timer");
+    }
+#endif
 }

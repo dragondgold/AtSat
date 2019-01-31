@@ -24,7 +24,7 @@
 			"gps_manager.h": "c",
 			"esp_err.h": "c",
 			"imu_manager.h": "c",
-			"temp_hum_manager.h": "c",
+			"humidity_manager.h": "c",
 			"stdint.h": "c",
 			"string.h": "c",
 			"minmea.h": "c",
@@ -43,7 +43,15 @@
 			"functional": "c",
 			"algorithm": "c",
 			"limits": "c",
-			"math.h": "c"
+			"math.h": "c",
+			"bq27441.h": "c",
+			"battery_manager.h": "c",
+			"stdatomic.h": "c",
+			"esp_types.h": "c",
+			"stdlib.h": "c",
+			"servo_manager.h": "c",
+			"ledc.h": "c",
+			"esp_spi_flash.h": "c"
 		}
 	}
 }

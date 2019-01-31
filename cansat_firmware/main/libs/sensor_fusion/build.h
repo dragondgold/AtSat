@@ -35,7 +35,7 @@
 /// These bit-field values are used to declare which sensor types are used in the application.
 /// Change bit-field values to 0x0000 for any features NOT USED
 #define F_USING_ACCEL 0x0001       ///< nominally 0x0001 if an accelerometer is to be used, 0x0000 otherwise
-#define F_USING_MAG 0x0000         ///< nominally 0x0002 if an magnetometer  is to be used, 0x0000 otherwise
+#define F_USING_MAG 0x0002         ///< nominally 0x0002 if an magnetometer  is to be used, 0x0000 otherwise
 #define F_USING_GYRO 0x0004        ///< nominally 0x0004 if a gyro           is to be used, 0x0000 otherwise
 #define F_USING_PRESSURE 0x0000    ///< nominally 0x0008 if altimeter        is to be used, 0x0000 otherwise
 #define F_USING_TEMPERATURE 0x0000 ///< nominally 0x0010 if temp sensor      is to be used, 0x0000 otherwise
@@ -57,9 +57,9 @@
 #define F_6DOF_GB_BASIC \
     0x0000 ///< 6DOF accel and mag eCompass algorithm selector               - 0x1000 to include, 0x0000 otherwise
 #define F_6DOF_GY_KALMAN \
-    0x2000 ///< 6DOF accel and gyro (Kalman) algorithm selector              - 0x2000 to include, 0x0000 otherwise
+    0x0000 ///< 6DOF accel and gyro (Kalman) algorithm selector              - 0x2000 to include, 0x0000 otherwise
 #define F_9DOF_GBY_KALMAN \
-    0x0000 ///< 9DOF accel, mag and gyro algorithm selector                  - 0x4000 to include, 0x0000 otherwise
+    0x4000 ///< 9DOF accel, mag and gyro algorithm selector                  - 0x4000 to include, 0x0000 otherwise
 ///@}
 
 /// @name SensorParameters
@@ -68,7 +68,7 @@
 #define ACCEL_FIFO_SIZE     32      ///< FXOS8700 (accel), MMA8652, FXLS8952 all have 32 element FIFO
 #define MAG_FIFO_SIZE       16      ///< FXOS8700 (mag), MAG3110 have no FIFO so equivalent to 1 element FIFO
 #define GYRO_FIFO_SIZE      32      ///< FXAX21000, FXAS21002 have 32 element FIFO
-#define FUSION_HZ           50      ///< (int) actual rate of fusion algorithm execution and sensor FIFO reads
+#define FUSION_HZ           20      ///< (int) actual rate of fusion algorithm execution and sensor FIFO reads
 ///@}
 
 #endif // BUILD_H

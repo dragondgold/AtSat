@@ -7,7 +7,7 @@
 #include "freertos/semphr.h"
 #include "driver/gpio.h"
 #include "driver/uart.h"
-#include "minmea/minmea.h"
+#include "libs/minmea/minmea.h"
 #include "esp_log.h"
 
 static const char* TAG = "gps";
@@ -26,7 +26,7 @@ static void gps_rcv_task(void* arg)
 {
     size_t len;
 
-    ESP_LOGI(TAG, "Task started");
+    ESP_LOGV(TAG, "Task started");
 
     while(true)
     {
@@ -46,13 +46,17 @@ static void gps_rcv_task(void* arg)
                 if(uart_read_bytes(GPS_UART_NUMBER, buffer, sizeof(buffer), 100 / portTICK_PERIOD_MS) == sizeof(buffer))
                 {
                     char* start = (char *)buffer;
-                    char* dollar, *asterisk;
+                    char* dollar = NULL, *asterisk = NULL;
                     do {
                         // Find a complete NMEA string. A NMEA string looks like:
                         //  $GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47
                         // So we look for the characters '$' and '*'
                         dollar = strchr(start, '$');
-                        asterisk = strchr(dollar, '*');
+                        
+                        if(dollar != NULL)
+                        {
+                            asterisk = strchr(dollar, '*');
+                        }
 
                         if(dollar && asterisk)
                         {
@@ -151,7 +155,6 @@ bool gps_manager_is_valid_location(void)
 {
     return last_gga.fix_quality == 1;
 }
-
 
 struct minmea_sentence_gga gps_manager_get_gga(void)
 {

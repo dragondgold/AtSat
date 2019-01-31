@@ -1,4 +1,4 @@
-#include "temp_hum_manager.h"
+#include "humidity_manager.h"
 
 #include "config/cansat.h"
 #include "i2c_manager/i2c_manager.h"
@@ -44,7 +44,7 @@ static esp_err_t send_cmd(uint8_t command)
  * @brief Manager for the temperature and humidity sensor Si7006-A20
  * @return esp_err_t 
  */
-esp_err_t temp_hum_manager_init(void)
+esp_err_t humidity_manager_init(void)
 {
     ESP_LOGI(TAG, "Initializing");
 
@@ -54,14 +54,14 @@ esp_err_t temp_hum_manager_init(void)
     humidity = 0;
 
     // Make the first sample
-    temp_hum_manager_sample();
+    humidity_manager_sample();
 
     ESP_LOGI(TAG, "Ready!");
 
     return ESP_OK;
 }
 
-esp_err_t temp_hum_manager_sample(void)
+esp_err_t humidity_manager_sample(void)
 {
     ESP_LOGV(TAG, "Starting sample");
     if(xSemaphoreTake(mutex, 100 / portTICK_PERIOD_MS))
@@ -134,7 +134,7 @@ esp_err_t temp_hum_manager_sample(void)
     return ESP_FAIL;
 }
 
-unsigned int temp_hum_manager_get_humidity(void)
+unsigned int humidity_manager_get_humidity(void)
 {
     return humidity;
 }
