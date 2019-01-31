@@ -47,8 +47,8 @@
 #define LED_PIN                     GPIO_NUM_2
 #define AUX_PS_ENABLE_PIN           GPIO_NUM_4
 #define CHARGER_ISET_PIN            GPIO_NUM_5
-#define SDO_PIN                     GPIO_NUM_12
-#define SDI_PIN                     GPIO_NUM_13
+#define MISO_PIN                    GPIO_NUM_12
+#define MOSI_PIN                    GPIO_NUM_13
 #define SCLK_PIN                    GPIO_NUM_14
 #define CS_PIN                      GPIO_NUM_15
 #define TX_ARDUINO_PIN              GPIO_NUM_16
