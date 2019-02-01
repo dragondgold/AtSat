@@ -89,16 +89,17 @@ const mutations = {
   },
   pushNotificationModal(state,data){
     state.axtec.notificationsModal.push({
-      'title': data.title, 
-      'date': data.date,
-      'content': data.content,
-      'code': data.code,
-      'ok': data.okCallback,
-      'cancel': data.cancelCallback,
-      'okText': data.okText,
-      'cancelText': data.cancelText,
-      'uuid': data.uuid,
-      'type': data.type,
+      ... (data.title != undefined ? { title: data.title} : []),
+      ... (data.date != undefined ? {date: data.date} : []),
+      ... (data.content != undefined ? {content: data.content} : []),
+      ... (data.code != undefined ? {code: data.code} : []),
+      ... (data.okCallback != undefined ? {okCallback: data.okCallback} : []),
+      ... (data.cancelCallback != undefined ? {cancelCallback: data.cancelCallback} : []),
+      ... (data.okText != undefined ? {okText: data.okText} : []),
+      ... (data.cancelText != undefined ? {cancelText: data.cancelText} : []),
+      ... (data.uuid != undefined ? {uuid: data.uuid} : []),
+      ... (data.type != undefined ? {type: data.type} : []),
+      ... (data.cancelDisabled != undefined ? {cancelDisabled: data.cancelDisabled} : {cancelDisabled: false})
     })
   },
   pushNotificationToast(state,data){

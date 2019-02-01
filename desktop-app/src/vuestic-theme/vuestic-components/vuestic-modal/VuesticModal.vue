@@ -29,7 +29,7 @@
                   <button type="button" v-if="!noButtons" :class="okClass" @click="ok" :disabled="okDisabled">
                     {{ okText }}
                   </button>
-                  <button type="button" v-if="!noButtons" :class="cancelClass" @click="cancel" :disabled="cancelDisabled">
+                  <button type="button" v-if="!noButtons" v-show="!cancelDisabled" :class="cancelClass" @click="cancel" :disabled="cancelDisabled">
                     {{ cancelText }}
                   </button>
                 </slot>

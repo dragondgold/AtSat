@@ -1,5 +1,21 @@
 {
   "cansat":{
+    "test":{
+      "title": "Test de integridad",
+      "description": "Los test verificaran el correcto funcionamiento de su CanSat. Durante el proceso, se le harán preguntas y mostrarán alertas en caso de falla",
+      "start": "Iniciar tests",
+      "results": "ver resultados",
+      "goToMission": "Hacer una misión",
+      "ok": "Todos los sistemas funcionan correctamente",
+      "error": "Error detectado: ",
+      "subtitle": "Resultados: ",
+      "testingLabel":" Test: ",
+      "table":{
+        "test": "Tests",
+        "progress": "Progreso",
+        "status": "Estado"
+      }
+    },
     "resources":{
       "title": "Recursos",  
       "sensors":{
@@ -181,15 +197,37 @@
         },
         "types": {
           "error": "Error",
-          "info": "Info"
+          "info": "Info",
+          "action": "Action"
         }
       },
       "modal": {
         "okBtn": "Continuar",
         "cancelBtn": "Cancel",
+        "yesBtn": "Si",
+        "noBtn": "No",
         "project":{
           "titleNew": "Nuevo proyecto",
           "contentNew": "¿Esta seguro que desea crear un nuevo proyecto?. Desea guardar los cambios y continuar"
+        },
+        "test":{
+          "finished": "Test finalizado",
+          "parachute": "Probando actuador de paracaídas",
+          "parachuteContent": "¿El actuador del paracaídas se abrió y cerró correctamente?",
+          "parachuteError": "Error en actuador paracaídas",
+          "actuatorsContentError": "Verifique que los servomotores estén conectados y su movimiento no se encuentre bloqueado",
+          "balloon": "Probando actuador de globo",
+          "balloonError": "Error en actuador globo",
+          "balloonContent": "¿El actuador del globo se abrió y cerró correctamente?",
+          "sensors": "Probando sensores",
+          "sensorsError": "Error en sensores",
+          "sensorsContentError": "Valores fuera de los rangos permitidos",
+          "powerSupplies": "Probando fuentes de alimentación",
+          "powerSuppliesError": "Error en fuentes de alimentación",
+          "powerSuppliesContentError": "Verifique que todos los circuitos funcionen correctamente",
+          "gps": "Probando GPS",
+          "gpsError": "Error en GPS",
+          "gpsContentError": "No se pudo localizar la ubicación de su CanSat"
         }
       }
     }
