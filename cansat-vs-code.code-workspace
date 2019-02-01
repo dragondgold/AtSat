@@ -51,7 +51,13 @@
 			"stdlib.h": "c",
 			"servo_manager.h": "c",
 			"ledc.h": "c",
-			"esp_spi_flash.h": "c"
+			"esp_spi_flash.h": "c",
+			"spi_common.h": "c",
+			"xiosbase": "cpp",
+			"random": "c",
+			"array": "c",
+			"vector": "c",
+			"xstring": "c"
 		}
 	}
 }
