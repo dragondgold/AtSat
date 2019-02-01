@@ -18,7 +18,7 @@
                     <td>{{sensor.z}}</td>
                     <td> 
                         <span class="input-group" >
-                            <input class="input--textfield disable-caret" 
+                            <input class="input--textfield disable-caret" @keypress.prevent
                             :min="sensor.minValue" :max="sensor.maxValue" :value="sensor.maxThreshold" :step="sensor.step" type="number" @input="updateMaxThreshold(sensor,$event.target.value)"/>
                         </span>
                     </td>
@@ -74,7 +74,11 @@ export default {
         },
         updateMaxThreshold(sensor,value){
             let s = JSON.parse(JSON.stringify(sensor)) // https://github.com/vuejs/vue/issues/971
-            s.maxThreshold = Number(value)
+            if(s.maxThreshold == '' || s.maxThreshold > s.maxValue){
+                s.maxThreshold = s.maxValue
+            }else{
+                s.maxThreshold = Number(value)
+            }
             this.$store.commit('setSensor', s)
         },
         resetThreshold(sensor){

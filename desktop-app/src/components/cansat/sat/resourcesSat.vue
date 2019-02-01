@@ -45,9 +45,9 @@
               <div slot="body">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="collapse-page__content">
-                      <locationsWidget/>
-                    </div>
+                      <div class="collapse-page__content">
+                          <location-sat></location-sat>
+                      </div>                
                   </div>
                 </div>
               </div>
@@ -72,7 +72,7 @@
 import actuatorsWidget from './Widgets/actuatorsWidget'
 import sensorsWidget from './Widgets/sensorsWidget'
 import powerSuppliesWidget from './Widgets/powerSuppliesWidget'
-import locationsWidget from './Widgets/locationsWidget'
+import locationSat from './locationSat'
 
 import defaultActuators from 'data/Actuators'
 import defaultSensors from 'data/Sensors'
@@ -83,7 +83,7 @@ export default {
       actuatorsWidget,
       sensorsWidget,
       powerSuppliesWidget,
-      locationsWidget
+      locationSat
     },
     data () {
         return {
@@ -115,6 +115,9 @@ export default {
     methods:{
       goToLink(){
         this.$router.push({name:'linkSat'})
+      },
+      goToLocation(){
+        this.$router.push({name:'locationSat'})
       }
     }
 }
@@ -142,10 +145,12 @@ export default {
     color: transparent;
     text-shadow: 0 0 0 gray;
     text-align: center;
-
     &:focus {
         outline: none;
     }
   }
+  .maps-height {
+      height: 500px;
+    }
 
 </style>

@@ -38,7 +38,8 @@ const state = {
         connected:'',
         location:{
           lat: -31.416930,
-          lng: -62.084470
+          lng: -62.084470,
+          history:[]
         },
         signal: 0,
         battery: 0,
@@ -72,9 +73,6 @@ const state = {
         port: '',
         connected: false
       }
-    },
-    data:{
-
     }
   }
 }
@@ -164,15 +162,23 @@ const mutations = {
     if(data.x != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].x = data.x
     if(data.y != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].y = data.y
     if(data.z != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].z = data.z
-    if(data.step != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].z = data.step
+    if(data.step != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].step = data.step
     if(data.unit != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].unit = data.unit
     if(data.type != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].type = data.type
     if(data._type != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1]._type = data._type
 
   },
-  setLocation(state,data){
-    if(data.lat != undefined) state.axtec.project.cansat[data.cansatIndex].location.lat = data.lat
-    if(data.lng != undefined) state.axtec.project.cansat[data.cansatIndex].location.lng = data.lng
+  addNewLocation(state,data){
+    if(data.clear){
+      state.axtec.project.cansat[data.cansatIndex].location.history = []
+    }
+    state.axtec.project.cansat[data.cansatIndex].location.history.push({
+      lat: data.lat, 
+      lng: data.lng,
+      date: data.date,              
+    }) 
+    state.axtec.project.cansat[data.cansatIndex].location.lat = data.lat
+    state.axtec.project.cansat[data.cansatIndex].location.lng = data.lng
   },
   removeSensor(state,data){
     state.axtec.project.cansat[data.cansatIndex].sensors.splice(data.id-1, 1)
@@ -222,8 +228,8 @@ const actions = {
   setSensor({ commit }, data){
     commit(setSensor,data)
   },
-  setLocation({ commit }, data){
-    commit(setLocation,data)
+  addNewLocation({ commit }, data){
+    commit(addNewLocation,data)
   },
   removeSensor({ commit }, data){
     commit(removeSensor,data)

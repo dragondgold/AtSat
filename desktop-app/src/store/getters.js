@@ -9,6 +9,7 @@ const cansatName = state => state.app.axtec.project.cansat[0].name
 const cansatAltitude = state => state.app.axtec.project.cansat[0].altitude
 const cansatBattery = state => state.app.axtec.project.cansat[0].battery
 const cansatSensors = state => state.app.axtec.project.cansat[0].sensors
+const cansatLocHistory = state => state.app.axtec.project.cansat[0].location.history
 
 export {
   toggleWithoutAnimation,
@@ -21,5 +22,6 @@ export {
   cansatName,
   cansatAltitude,
   cansatBattery,
-  cansatSensors
+  cansatSensors,
+  cansatLocHistory
 }

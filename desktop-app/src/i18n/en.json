@@ -73,7 +73,14 @@
             }
           },
           "location":{
-            "title": "Ubicación"
+            "title": "Location",
+            "current": "Current location",
+            "historic": "Historic",
+            "table":{
+              "latitude": "Latitude",
+              "longitude": "Longitude",
+              "date": "Date"
+            }
           },
           "powerSupplies":{
             "title": "Fuentes de Alimentación"

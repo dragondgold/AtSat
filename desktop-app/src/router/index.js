@@ -159,13 +159,16 @@ export default new Router({
               component: lazyLoading('cansat/sat/resourcesSat'),
             },
             {
+              name: 'locationSat',
+              path: 'locationSat',
+              component: lazyLoading('cansat/sat/locationSat'),
+            },
+            {
               name: 'newSensor',
               path: 'newSensor',
               component: lazyLoading('cansat/sat/newSensor'),
-            },
-
-          ],
-          
+            }
+          ],        
         },
         {
           name: 'notificationsCenter',

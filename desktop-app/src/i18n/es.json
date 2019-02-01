@@ -74,7 +74,14 @@
             }
           },
           "location":{
-            "title": "Ubicación"
+            "title": "Ubicación",
+            "current": "Ubicación actual",
+            "historic": "Historial",
+            "table":{
+              "latitude": "Latitud",
+              "longitude": "Longitud",
+              "date": "Fecha"
+            }
           },
           "powerSupplies":{
             "title": "Fuentes de Alimentación"
@@ -453,7 +460,7 @@
       "score": "Puntuación"
     },
     "dataTable": {
-      "noDataAvailable": "No hay notificaciones para mostrar"
+      "noDataAvailable": "No hay datos relevantes"
     }
   },
   "user": {

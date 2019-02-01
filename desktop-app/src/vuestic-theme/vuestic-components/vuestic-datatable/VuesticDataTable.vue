@@ -156,6 +156,7 @@ export default {
       type: Object,
       default: () => QueryParams
     },
+    
     appendParams: {
       type: Object,
       default () {
@@ -171,7 +172,7 @@ export default {
       dataCount: 0,
       css: DataTableStyles,
       loading: false,
-      noDataTemplate: ''
+      noDataTemplate: ' '
     }
   },
   computed: {
