@@ -14,6 +14,8 @@ static const char* TAG = "spi";
 // Mutexes
 static StaticSemaphore_t buffer_mutex_buffer;
 static SemaphoreHandle_t buffer_mutex;
+static StaticSemaphore_t spi_mutex_buffer;
+static SemaphoreHandle_t spi_mutex;
 static bool enabled = false;
 
 static spi_device_handle_t cc1101_spi;
@@ -26,6 +28,7 @@ esp_err_t spi_manager_init(void)
 
     // Create the buffer_mutex for this resource
     buffer_mutex = xSemaphoreCreateMutexStatic(&buffer_mutex_buffer);
+    spi_mutex = xSemaphoreCreateMutexStatic(&spi_mutex_buffer);
 
     // Configure pin for SPI buffer
     gpio_config_t config;
@@ -123,4 +126,33 @@ void spi_manager_disable_buffer(void)
 bool spi_manager_is_buffer_disabled(void)
 {
     return enabled;
+}
+
+esp_err_t spi_manager_acquire(TickType_t timeout)
+{
+    if(xSemaphoreTake(spi_mutex, timeout)) return ESP_OK;
+    return ESP_FAIL;
+}
+
+esp_err_t spi_manager_release(void)
+{
+    if(xSemaphoreGive(spi_mutex)) return ESP_OK;
+    return ESP_FAIL;
+}
+
+esp_err_t spi_manager_device_transmit(spi_transaction_t* trans, TickType_t timeout)
+{
+    esp_err_t err;
+
+    // Acquire the SPI bus
+    if((err = spi_manager_acquire(timeout)) != ESP_OK)
+    {
+        return err;
+    }
+
+    err = spi_device_transmit(cc1101_spi, trans);
+
+    // Release the bus and return
+    spi_manager_release();
+    return err;
 }
