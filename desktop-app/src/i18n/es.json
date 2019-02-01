@@ -125,6 +125,7 @@
       "disconnect": "Desconectar",
       "etConnectedLabel": "Conectada en: ",
       "etDisconnectedLabel": "Estacion terrena no conectada",
+      "cansatDisconnectedLabel": "Conéctese a un CanSat",
       "cansatIDLabel": "CanSat ID: ",
       "cansatNameLabel": "CanSat name: ",
       "cansatSignalLabel": "Nivel de señal: ",

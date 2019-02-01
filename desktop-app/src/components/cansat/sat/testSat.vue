@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col-md-12">
         <vuestic-widget :headerText="$t('cansat.test.title')">
-          <div v-if="!isTestRunning" class="col-md-12 mb-3" style="text-align:center;">
+          <div v-if="isConnected">
+            <div v-if="!isTestRunning" class="col-md-12 mb-3" style="text-align:center;">
               <p>
                 {{$t('cansat.test.description')}}
                </p> 
@@ -40,22 +41,33 @@
                     </td>
                 </tr>
             </tbody> 
-        </table>       
-        <div v-if="testFinished">
-          <h4 class="mb-2" style="text-align:center;">
-              <span v-if="anErrorOcurred"> {{$t('cansat.test.error') + $t(tests[actualTest].name)}}</span>
-              <span v-else> {{$t('cansat.test.ok')}}</span>
-          </h4>
-          <div class="col-md-12 mt-2" style="height: 2rem;text-align:center;" >
-              <button class="btn btn-micro btn-info" :style="anErrorOcurred? '' : 'float:left;'" @click="goToResources()">
-                <span>{{$t('cansat.test.results')}}</span>
-              </button>
-              <div v-show="!anErrorOcurred">
-                <button  class="btn btn-micro btn-success" style="float:right;" @click="goToMission()">
-                  <span>{{$t('cansat.test.goToMission')}}</span>
+          </table>       
+          <div v-if="testFinished">
+            <h4 class="mb-2" style="text-align:center;">
+                <span v-if="anErrorOcurred"> {{$t('cansat.test.error') + $t(tests[actualTest].name)}}</span>
+                <span v-else> {{$t('cansat.test.ok')}}</span>
+            </h4>
+            <div class="col-md-12 mt-2" style="height: 2rem;text-align:center;" >
+                <button class="btn btn-micro btn-info" :style="anErrorOcurred? '' : 'float:left;'" @click="goToResources()">
+                  <span>{{$t('cansat.test.results')}}</span>
                 </button>
-              </div>           
-          </div> 
+                <div v-show="!anErrorOcurred">
+                  <button  class="btn btn-micro btn-success" style="float:right;" @click="goToMission()">
+                    <span>{{$t('cansat.test.goToMission')}}</span>
+                  </button>
+                </div>           
+            </div> 
+          </div>
+
+        </div>
+        <div v-else>
+          <p>{{$t('cansat.link.cansatDisconnectedLabel')}}</p>
+            <p class="pt-1 mb-3" style="text-align:center">
+                <button class="btn btn-success btn-micro" @click="goToLink()">
+                    {{'cansat.link.title' | translate }}
+                    <span class="fa fa-link"></span>
+                </button>
+            </p>
         </div>
         </vuestic-widget>
       </div>
@@ -75,9 +87,10 @@ export default {
   data () {
     return {
       debug: this.$store.getters.axtec.debug,
+      isConnected: this.$store.getters.axtec.project.cansat[0].connected,
+      testResult: this.$store.getters.axtec.project.cansat[0].testOk,
       testTimetoout: 1000,
-      etConnected: this.$store.getters.axtec.project.cansat[0].connected,
-      canSatConnected: this.$store.getters.axtec.project.earthStation.connected,
+
       fieldsSensors: [
         { title : 'cansat.test.table.test'},
         { title: 'cansat.test.table.status'}
@@ -92,31 +105,29 @@ export default {
       isTestRunning: false,
       testFinished: false,
       anErrorOcurred: false,
-      testingName: '',
-      timeout:10000,
-      timeoutPromise: {}
+      testingName: ''
    }
   },
 
   created(){
-
+  
   },
 
   computed: {
     isCanSatConnected(){
       return this.$store.getters.axtec.project.cansat[0].connected
     },
-    isETConnected(){
-      return this.$store.getters.axtec.project.earthStation.connected
+    isTestOk(){
+      return this.$store.getters.axtec.project.cansat[0].testOk
     }
   },
 
   watch:{ 
     isCanSatConnected(changes){
-      this.etConnected = changes
+      this.isConnected = changes
     },
-    isETConnected(changes){
-      this.canSatConnected = changes
+    isTestOk(changes){
+      this.testResult = changes
     }
   },
 
@@ -164,7 +175,6 @@ export default {
       })
     },
     okCallbackActuators(){
-      clearTimeout(this.timeoutPromise)
       if(this.testingName == 'parachute'){
         this.testBalloon()
       }else{
@@ -219,7 +229,6 @@ export default {
       }
     },
     okCallbackSensors(){
-      clearTimeout(this.timeoutPromise)
       this.tests[this.actualTest].status = 'ok'
       this.actualTest++
       this.tests[this.actualTest].test()
@@ -256,7 +265,6 @@ export default {
       }
     },
     okCallbackPowerSupplies(){ 
-      clearTimeout(this.timeoutPromise)
       this.tests[this.actualTest].status = 'ok'
       this.actualTest++
       this.tests[this.actualTest].test()
@@ -278,7 +286,6 @@ export default {
     },
 
     testGPS(){
-      clearTimeout(this.timeoutPromise)
       this.$store.commit('pushNotificationModal',{ 
             'title': this.$t('cansat.notifications.modal.test.gps'), 
             'date': utils.getDate(),
@@ -304,6 +311,10 @@ export default {
             'uuid': utils.generateUUID().toString(),
             'type': this.$t('cansat.notifications.center.types.info'),      
       })
+      this.$store.commit('setTestStatus',{ 
+        cansatIndex: 0, 
+        testOk: true
+      })
     },
     errorCallbackGPS(){ 
       this.error()
@@ -326,6 +337,10 @@ export default {
       this.anErrorOcurred = true
       this.finish()
       this.tests[this.actualTest].errorNotif()
+      this.$store.commit('setTestStatus',{ 
+        cansatIndex: 0, 
+        testOk: false
+      })
     },
     finish(){
       this.testFinished = true
@@ -342,6 +357,9 @@ export default {
     },
     goToMission(){
       this.$router.push({name:'missionSat'})
+    },
+    goToLink(){
+      this.$router.push({name:'linkSat'})
     },
   } 
 }

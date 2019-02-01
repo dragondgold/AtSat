@@ -44,6 +44,7 @@ const state = {
         signal: 0,
         battery: 0,
         altitude: 0, // It´s a copy of altitude on sensor. Is needed for map
+        testOk: false,
         sensors:[ 
           {
             id: '',
@@ -183,7 +184,10 @@ const mutations = {
   },
   removeSensor(state,data){
     state.axtec.project.cansat[data.cansatIndex].sensors.splice(data.id-1, 1)
-  }
+  },
+  setTestStatus(state,data){
+    state.axtec.project.cansat[data.cansatIndex].testOk = data.testOk
+  },
 }
 
 const actions = {
@@ -234,6 +238,9 @@ const actions = {
   },
   removeSensor({ commit }, data){
     commit(removeSensor,data)
+  },
+  setTestStatus({ commit }, data){
+    commit(setTestStatus,data)
   },
 }
 

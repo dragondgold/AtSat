@@ -124,6 +124,7 @@
       "disconnect": "Disconnect",
       "etConnectedLabel": "Connected to: ",
       "etDisconnectedLabel": "Please connect an earth station",
+      "cansatDisconnectedLabel": "Please connect to a CanSat",
       "cansatIDLabel": "CanSat ID: ",
       "cansatSignalLabel": "Signal level: ",
       "cansatNameLabel": "CanSat name: ",
