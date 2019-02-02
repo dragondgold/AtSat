@@ -8,13 +8,14 @@
 #include "driver/spi_common.h"
 #include "driver/spi_master.h"
 #include "spi_manager/spi_manager.h"
+#include "esp_timer.h"
 
 #define WRITE_BURST         0x40
 #define READ_SINGLE         0x80
 #define READ_BURST          0xC0
 #define BYTES_IN_RXFIFO     0x47
-#define TIMEOUT_PINS        400
-#define TIMEOUT_SPI         100
+#define TIMEOUT_PINS        (50*1000)   // In us
+#define TIMEOUT_SPI         100         // In ms
 
 static int mdcf1 = 0x00;
 static int mdcf0 = 0xF8;
@@ -40,14 +41,12 @@ static uint8_t rx_buffer[CC1101_RX_BUFFER_SIZE];
 
 static inline bool wait_for_low(gpio_num_t pin, unsigned int timeout)
 {
-    // Wait for MISO pin to get low
-    unsigned int n = 0;
+    // Wait for pin to get low
 	while(gpio_get_level(pin))
     {
-        vTaskDelay(pdMS_TO_TICKS(10));
-        if(++n > timeout)
+        int64_t start = esp_timer_get_time();
+        if(esp_timer_get_time() - start > timeout)
         {
-            // Timeout
             return false;
         }
     }
