@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <modal v-bind:large="true" v-bind:force="true" ref="modal" :cancelText="cancelText" :okText="okText" @ok="ok()" @cancel="cancel()">
+        <modal v-bind:large="true" v-bind:force="true" ref="modal" :cancelText="cancelText" :cancelDisabled="cancelDisabled" :okText="okText" @ok="ok()" @cancel="cancel()">
             <div slot="title">{{ title }}</div>
             <div>
             {{ content }}
@@ -29,7 +29,8 @@ export default {
             toastDuration: 2500,
             toastIcon: 'fa-rocket',
             toastPosition: 'bottom-right',
-            isToastFullWidth: false
+            isToastFullWidth: false,
+            cancelDisabled: false
         }
     },
     components: {
@@ -40,14 +41,14 @@ export default {
             this.$refs.modal.open() // $refs property name same as in ref="modal"
         },
         ok(){
-            if(this.$store.getters.axtec.notificationsModal[this.indexModal].ok !== undefined){
-                this.$store.getters.axtec.notificationsModal[this.indexModal].ok()
+            if(this.$store.getters.axtec.notificationsModal[this.indexModal].okCallback !== undefined){
+                this.$store.getters.axtec.notificationsModal[this.indexModal].okCallback()
             }
             
         },
         cancel(){
-            if(this.$store.getters.axtec.notificationsModal[this.indexModal].cancel !== undefined){
-                this.$store.getters.axtec.notificationsModal[this.indexModal].cancel()
+            if(this.$store.getters.axtec.notificationsModal[this.indexModal].cancelCallback !== undefined){
+                this.$store.getters.axtec.notificationsModal[this.indexModal].cancelCallback()
             }
         },
         launchToast () {
@@ -76,8 +77,12 @@ export default {
                 this.content =  this.$t(this.$store.getters.axtec.notificationsModal[this.indexModal].content)
                 this.okText =  this.$t(this.$store.getters.axtec.notificationsModal[this.indexModal].okText)
                 this.cancelText = this.$t(this.$store.getters.axtec.notificationsModal[this.indexModal].cancelText) 
-                this.showModal()
-                utils.log('Showing modal', this.$store.getters.axtec.notificationsModal[this.indexModal]) 
+                this.cancelDisabled = this.$store.getters.axtec.notificationsModal[this.indexModal].cancelDisabled
+                if(!this.$store.getters.axtec.notificationsModal[this.indexModal].type.includes('Info')){
+                    this.showModal()
+                    utils.log('Showing modal', this.$store.getters.axtec.notificationsModal[this.indexModal]) 
+                }
+                utils.log('Add modal to center', this.$store.getters.axtec.notificationsModal[this.indexModal]) 
             }
         },
         newNotificationToast () {

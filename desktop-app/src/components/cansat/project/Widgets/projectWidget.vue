@@ -50,6 +50,7 @@
 </template>
 
 <script>
+const {dialog} = require('electron').remote
 const isValidPath = require('is-valid-path')
 const homedir = require('os').homedir()
 

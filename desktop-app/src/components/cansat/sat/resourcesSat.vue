@@ -54,10 +54,10 @@
             </vuestic-collapse>
           </vuestic-accordion>
           <div v-else>
-            <p>{{$t('cansat.protections.noConnected')}}</p>
+            <p>{{$t('cansat.link.cansatDisconnectedLabel')}}</p>
             <p class="pt-1 mb-3" style="text-align:center">
                 <button class="btn btn-success btn-micro" @click="goToLink()">
-                    {{'cansat.protections.goToLink' | translate }}
+                    {{'cansat.link.title' | translate }}
                     <span class="fa fa-link"></span>
                 </button>
             </p>
