@@ -37,6 +37,7 @@
 <script>
 import CountriesList from 'data/CountriesList'
 import utils from 'services/utils'
+import projectManager from 'services/projectManager'
 import mcp2210 from 'services/mcp2210'
 import { mapGetters } from 'vuex'
 import projectWidget from './Widgets/projectWidget'
@@ -118,6 +119,14 @@ export default {
           'text': 'Creando nuevo proyecto', 
           'icon': 'fa-commenting'          
         })
+      this.$store.commit('pushNotificationModal',{ 
+          'title': this.$t('cansat.notifications.modal.project.createdOk'), 
+          'date': utils.getDate(),
+          'code': 0,
+          'uuid': utils.generateUUID().toString(),
+          'type': this.$t('cansat.notifications.center.types.info')
+      })
+      projectManager.saveProject()
     },
     goToTestCanSat(){
       this.$router.push({ name: 'testSat' })

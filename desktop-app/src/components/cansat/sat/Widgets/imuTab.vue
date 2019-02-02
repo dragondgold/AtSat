@@ -68,7 +68,7 @@ export default {
     methods:{
         filterSensors(s){
             let filtered = s.filter(function(n) {
-                return (n.x != undefined)
+                return (n._type == 'vector')
             });
             return filtered
         },

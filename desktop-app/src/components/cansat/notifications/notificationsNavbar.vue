@@ -1,10 +1,12 @@
 <template>
-  <div class="notification-dropdown"  @click="goToNotifications()">
+  <div class="notification-dropdown"  @click="goToNotifications()" >
     <span class="fa fa-bell bell-notification-navbar"/>
   </div>
 </template>
 
 <script>
+import ProjectManager from 'services/projectManager'
+
 export default {
   name: 'notifications-navbar',
   data () {

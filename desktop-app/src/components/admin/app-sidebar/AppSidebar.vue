@@ -27,7 +27,7 @@
           </span>
         </sidebar-link>
         <sidebar-link
-          :to="{ name: 'saveProject' }">
+          :to="{ name: 'not-found-simple' }" :event="''" @click.native.prevent="saveActualProject()">
           <span slot="title">
             <span>{{ $t('menu.projectSave') }}</span>
           </span>
@@ -87,12 +87,33 @@ import VuesticSidebar
 import SidebarLink from './components/SidebarLink'
 import SidebarLinkGroup from './components/SidebarLinkGroup'
 import ProjectManager from 'services/projectManager'
+import utils from 'services/utils'
 
 export default {
   name: 'app-sidebar',
   methods:{
     openExistingProject(){
-      ProjectManager.openProject()
+        if(this.$store.getters.axtec.project.path !== ''){
+          this.$store.commit('pushNotificationModal',{ 
+              'title': this.$t('cansat.notifications.modal.project.open'), 
+              'date': utils.getDate(),
+              'content': this.$t('cansat.notifications.modal.project.contentOverwriteNew'),
+              'code': 0,
+              'okCallback': this.showOpenDialogAnyway,
+              'okText': this.$t('cansat.notifications.modal.project.openAnyway'),
+              'cancelText': this.$t('cansat.notifications.modal.cancelBtn'),
+              'uuid': utils.generateUUID().toString(),
+              'type': this.$t('cansat.notifications.center.types.action')
+          })
+        }else{
+          ProjectManager.openProjectDialog(false)
+        }
+    },
+    saveActualProject(){
+      ProjectManager.saveProject()
+    },
+    showOpenDialogAnyway(){
+      ProjectManager.openProjectDialog(true)
     }
   },
   components: {

@@ -1,5 +1,19 @@
 {
   "cansat":{
+    "mission":{
+      "new":{
+        "title": "New mission",
+        "description": "Select a name and location to save your mission data"
+      },
+      "import": "Import",
+      "export": "Export",
+      "create": "Create",
+      "start": "Start",
+      "save": "Save",
+      "end": "End",
+      "nameLabel": "Name",
+      "dateLabel": "Date"
+    },
     "test":{
       "title": "Integrity test",
       "description": "The tests will verify the correct operation of your CanSat. During the process, you will be asked questions and will show you alerts in case of failure",
@@ -10,6 +24,7 @@
       "error": "Error detected: ",
       "subtitle": "Output: ",
       "testingLabel":" Test: ",
+      "tips": "If you want to add a new sensor, you can do it in Resources > Sensors > Created by user",
       "table":{
         "test": "Tests",
         "progress": "Progress",
@@ -141,7 +156,8 @@
       }
     },
     "dialog": {
-      "open": "Open a file \"cansat_pro\"" 
+      "open": "Open a file \"cansat_pro\"" ,
+      "save": "Save your project" 
     },
     "home":{
       "cards": {
@@ -186,7 +202,7 @@
     },
     "notifications":{
       "center":{
-        "title": "Notifications center",
+        "title": "Notification center",
         "searchLabel": "Search",
         "perPageLabel": "Per page",
         "table": {
@@ -207,8 +223,20 @@
         "noBtn": "No",
         "cancelBtn": "Cancel",
         "project":{
-          "titleNew": "New project",
-          "contentNew": "Do you want to save the changes and continue?"
+          "loadedOk": "The project has been succesfully loaded.",
+          "openAnyway": "Open anyway",
+          "wrongID": "Wrong ID. Project can not be opened.",
+          "duplicateIds": "Duplicate IDs not allowed. Project can not be opened.",
+          "invalid": "Invalid project. It can not be opened.",
+          "invalidContent": "Invalid structure. It can not be opened.",
+          "invalidFormat": "Invalid format. It can not be opened.",
+          "incompleteFormat": "Incomplet project. It can not be opened.",
+          "missingSensors": "Missing sensors. It can not be opened.",
+          "open": "Open project.",
+          "contentOverwriteNew": "You will lose the data of the current project if you do not save it first.",
+          "createdOk": "Project has been succesfully created.",
+          "saveOk": "Project has been succesfully saved.",
+          "saveError": "An error occurred saving the project."
         },
         "test":{
           "finished": "Finished test",
@@ -216,7 +244,7 @@
           "parachuteContent": "Did the parachute actuator open and close properly?",
           "parachuteError": "Parachute actuator error",
           "actuatorsContentError": "Verify that the servomotors are connected and their movement is not blocked",
-          "balloon": "Testing ballon actuator",
+          "balloon": "Testing balloon actuator",
           "balloonContent": "Did the balloon actuator open and close properly?",
           "balloonError": "Balloon actuator error",
           "sensors": "Testing sensors",

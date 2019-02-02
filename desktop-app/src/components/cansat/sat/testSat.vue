@@ -57,6 +57,9 @@
                   </button>
                 </div>           
             </div> 
+            <div class="col-md-12 mt-2" style="text-align:center;">
+              <small> {{$t('cansat.test.tips')}} </small>
+            </div>
           </div>
 
         </div>
@@ -315,6 +318,11 @@ export default {
         cansatIndex: 0, 
         testOk: true
       })
+      this.$store.commit('pushNotificationToast',{ 
+          'text': this.$t('cansat.test.ok'), 
+          'icon': 'fa-check'          
+        })
+        
     },
     errorCallbackGPS(){ 
       this.error()
@@ -341,6 +349,10 @@ export default {
         cansatIndex: 0, 
         testOk: false
       })
+      this.$store.commit('pushNotificationToast',{ 
+        'text': this.$t('cansat.test.error') + this.$t(this.tests[this.actualTest].name), 
+        'icon': 'fa-remove'          
+      })
     },
     finish(){
       this.testFinished = true
@@ -356,7 +368,7 @@ export default {
       this.$router.push({name:'resourcesSat'})
     },
     goToMission(){
-      this.$router.push({name:'missionSat'})
+      this.$router.push({name:'newMission'})
     },
     goToLink(){
       this.$router.push({name:'linkSat'})
@@ -364,3 +376,22 @@ export default {
   } 
 }
 </script>
+
+<style lang="scss">
+    .icon-table {
+        font-size: 1rem;
+        color: white;
+        border-radius: 50%;
+        padding: 0.5rem
+    }
+    .icon-table-success{
+        background-color: $brand-success;
+    }
+    .icon-table-info{
+        background-color: $brand-info;
+    }
+    .icon-table-danger{
+        background-color: $brand-danger;
+    }
+
+</style>

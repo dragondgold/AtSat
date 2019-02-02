@@ -85,7 +85,7 @@ export default {
         let files = dialog.showOpenDialog({
             properties: ['openDirectory']
         })
-        if(files[0] != null){
+        if(files != undefined){
 
             this.$data.projectLocation = files[0]
             //let json = JSON.stringify(this.$store.getters.axtec.project)

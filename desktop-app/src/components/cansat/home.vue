@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-12 col-sm-12">
+    <div class="col-md-12">
       <div class="cards-container" >
         <vuestic-card v-for="(card,key) in cards.data" :key="key" :stripe="card.stripe">            
             <template slot="title" >
@@ -16,7 +16,7 @@
                 {{ $t('cards.go') }}
                 <span class="glyphicon glyphicon-arrow-right"></span>
                 </button>
-            </p>          
+            </p>        
         </vuestic-card>   
       </div>
     </div>
@@ -88,5 +88,41 @@ export default {
     font-size: 7rem;
     text-align: center;
     margin-bottom: 0.75rem;
+  }
+
+  $singleGutter: #{(19/16)}rem;
+
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -$singleGutter;
+    align-items: flex-start;
+    .vuestic-card {
+      margin: $singleGutter;
+
+      width: calc(33% - #{$singleGutter} * 2);
+
+      @include media-breakpoint-only(xl) {
+        width: calc(25% - #{$singleGutter} * 2);
+      }
+
+      @include media-breakpoint-only(lg) {
+        width: calc(33.3% - #{$singleGutter} * 2);
+      }
+
+      @include media-breakpoint-only(sm) {
+        width: calc(50% - #{$singleGutter} * 2);
+      }
+
+      @include media-breakpoint-only(xs) {
+        width: calc(100% - #{$singleGutter} * 2);
+      }
+    }
+  }
+
+  .pre-loader-container {
+    height: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
 </style>

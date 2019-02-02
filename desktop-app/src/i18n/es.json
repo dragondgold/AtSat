@@ -1,5 +1,19 @@
 {
   "cansat":{
+    "mission":{
+      "new":{
+        "title": "Nueva misión",
+        "description": "Selecione un nombre y ubicación para guardar los datos obtenidos en su misión"
+      },
+      "import": "Importar",
+      "export": "Exportar",
+      "save": "Guardar",
+      "create": "Crear",
+      "start": "Iniciar",
+      "end": "Terminar",
+      "nameLabel": "Nombre",
+      "dateLabel": "Fecha"
+    },
     "test":{
       "title": "Test de integridad",
       "description": "Los test verificaran el correcto funcionamiento de su CanSat. Durante el proceso, se le harán preguntas y mostrarán alertas en caso de falla",
@@ -10,6 +24,7 @@
       "error": "Error detectado: ",
       "subtitle": "Resultados: ",
       "testingLabel":" Test: ",
+      "tips": "Si desea agregar un nuevo sensor, puede hacerlo en Recursos > Sensores > Creado por el usuario",
       "table":{
         "test": "Tests",
         "progress": "Progreso",
@@ -142,7 +157,8 @@
       }
     },
     "dialog": {
-      "open": "Selecione un archivo \"cansat_pro\"" 
+      "open": "Selecione un archivo \"cansat_pro\"",
+      "save": "Guardar su proyecto" 
     },
     "home":{
       "cards": {
@@ -199,7 +215,7 @@
         "types": {
           "error": "Error",
           "info": "Info",
-          "action": "Action"
+          "action": "Acción"
         }
       },
       "modal": {
@@ -208,8 +224,21 @@
         "yesBtn": "Si",
         "noBtn": "No",
         "project":{
-          "titleNew": "Nuevo proyecto",
-          "contentNew": "¿Esta seguro que desea crear un nuevo proyecto?. Desea guardar los cambios y continuar"
+          "loadedOk": "El proyecto se cargó correctamente.",
+          "openAnyway": "Abrir de todas formas",
+          "wrongID": "ID erróneo. No se puede abrir el projecto.",
+          "duplicateIds": "IDs duplicados no permitidos. No se puede abrir el projecto.",
+          "invalid": "Proyecto inválido. No se pudo abrir.",
+          "invalidContent": "Estructura inválida. No se pudo abrir.",
+          "invalidFormat": "Formato inválido. No se pudo abrir.",
+          "incompleteFormat": "Projecto incompleto. No se pudo abrir.",
+          "missingSensors": "Sensores faltantes. No se pudo abrir el proyecto.",
+          "open": "Cargar proyecto.",
+          "titleNew": "Nuevo proyecto.",
+          "contentOverwriteNew": "Perderá los datos del proyecto actual si no los guarda primero.",
+          "createdOk": "Proyecto creado correctamente.",
+          "saveOk": "Proyecto guardado correctamente.",
+          "saveError": "Error al guardar proyecto."
         },
         "test":{
           "finished": "Test finalizado",

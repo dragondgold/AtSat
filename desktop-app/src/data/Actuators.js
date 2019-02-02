@@ -6,7 +6,8 @@ export default {
             cansatIndex: 0,
             actuatorIndex: 0, 
             type:'cansat.resources.actuators.parachute',
-            status: 'cansat.resources.close'
+            status: 'cansat.resources.close',
+            clear: true     // Only the first element defines clear. This parameter determines if we need to clean the sensor array before loading it
         },
         { 
             cansatIndex: 0,
