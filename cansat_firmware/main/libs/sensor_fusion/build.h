@@ -68,7 +68,7 @@
 #define ACCEL_FIFO_SIZE     32      ///< FXOS8700 (accel), MMA8652, FXLS8952 all have 32 element FIFO
 #define MAG_FIFO_SIZE       16      ///< FXOS8700 (mag), MAG3110 have no FIFO so equivalent to 1 element FIFO
 #define GYRO_FIFO_SIZE      32      ///< FXAX21000, FXAS21002 have 32 element FIFO
-#define FUSION_HZ           20      ///< (int) actual rate of fusion algorithm execution and sensor FIFO reads
+#define FUSION_HZ           10      ///< (int) actual rate of fusion algorithm execution and sensor FIFO reads
 ///@}
 
 #endif // BUILD_H

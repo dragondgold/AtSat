@@ -53,7 +53,7 @@ esp_err_t i2c_manager_init(void)
     general_i2c_config.sda_pullup_en = GPIO_PULLUP_DISABLE;
     general_i2c_config.scl_io_num = SCL_PIN;
     general_i2c_config.scl_pullup_en = GPIO_PULLUP_DISABLE;
-    general_i2c_config.master.clk_speed = 400000;
+    general_i2c_config.master.clk_speed = 50000;
     if((err = i2c_param_config(GENERAL_I2C_NUMBER, &general_i2c_config)) != ESP_OK)
     {
         return err;
@@ -179,7 +179,7 @@ esp_err_t i2c_manager_read_register_multiple(i2c_port_t port, TickType_t timeout
     // Acquire the I2C module
     if((err = i2c_manager_acquire(port, timeout)) != ESP_OK)
     {
-        ESP_LOGE(TAG, "Error acquiring port %d on read", port);
+        ESP_LOGW(TAG, "Error acquiring port %d on read", port);
         return err;
     }
 
@@ -209,7 +209,7 @@ esp_err_t i2c_manager_write_register_multiple(i2c_port_t port, TickType_t timeou
     // Acquire the I2C module
     if((err = i2c_manager_acquire(port, timeout)) != ESP_OK)
     {
-        ESP_LOGE(TAG, "Error acquiring port %d on write", port);
+        ESP_LOGW(TAG, "Error acquiring port %d on write", port);
         return err;
     }
 
@@ -233,4 +233,30 @@ esp_err_t i2c_manager_write_register_multiple(i2c_port_t port, TickType_t timeou
 esp_err_t i2c_manager_write_register(i2c_port_t port, TickType_t timeout, uint8_t slave_addr, uint8_t reg_addr, uint8_t value)
 {
     return i2c_manager_write_register_multiple(port, timeout, slave_addr, reg_addr, 1, &value);
+}
+
+esp_err_t i2c_manager_slave_exists(i2c_port_t port, TickType_t timeout, uint8_t slave_addr)
+{
+    esp_err_t err;
+
+    // Acquire the I2C module
+    if((err = i2c_manager_acquire(port, timeout)) != ESP_OK)
+    {
+        ESP_LOGW(TAG, "Error acquiring port %d on write", port);
+        return err;
+    }
+
+    // Create the commands
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, slave_addr, true);
+    i2c_master_stop(cmd);
+
+    // Send everything, this will block until everything is sent
+    err = i2c_master_cmd_begin(port, cmd, timeout);
+    i2c_cmd_link_delete(cmd);
+
+    // Release the bus
+    i2c_manager_release(port);
+    return err;
 }
