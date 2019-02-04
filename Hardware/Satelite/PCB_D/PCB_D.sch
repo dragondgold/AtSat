@@ -1147,7 +1147,7 @@ F 2 "Diode_SMD:D_MiniMELF" H 4050 6525 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/85561/ls4148.pdf" H 4050 6700 50  0001 C CNN
 F 4 "LS4148-GS08" H 4050 6700 50  0001 C CNN "Manufacturer Part Number"
 	1    4050 6700
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 $Comp
 L Diode:1N4148 D6
@@ -1159,7 +1159,7 @@ F 2 "Diode_SMD:D_MiniMELF" H 4050 6725 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/85561/ls4148.pdf" H 4050 6900 50  0001 C CNN
 F 4 "LS4148-GS08" H 4050 6900 50  0001 C CNN "Manufacturer Part Number"
 	1    4050 6900
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 Wire Wire Line
 	2750 6500 3100 6500
@@ -1176,10 +1176,10 @@ L Device:R R1
 U 1 1 5C30FBC4
 P 3600 6700
 F 0 "R1" V 3700 6700 50  0000 C CNN
-F 1 "100k" V 3484 6700 50  0000 C CNN
+F 1 "10k" V 3484 6700 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3530 6700 50  0001 C CNN
 F 3 "~" H 3600 6700 50  0001 C CNN
-F 4 "RC0603JR-07100KL" V 3600 6700 50  0001 C CNN "Manufacturer Part Number"
+F 4 "RC0603JR-0710KL" V 3600 6700 50  0001 C CNN "Manufacturer Part Number"
 	1    3600 6700
 	-1   0    0    1   
 $EndComp
