@@ -1,9 +1,10 @@
 #include "battery_manager.h"
 #include "libs/bq27441_driver/bq27441.h"
-#include "esp_log.h"
 #include "driver/gpio.h"
 #include "config/cansat.h"
 #include "freertos/FreeRTOS.h"
+
+#include "esp_log.h"
 
 static const char* TAG = "battery";
 
@@ -38,6 +39,14 @@ static void battery_sample_task(void* args)
             battery_data.remaining_capacity = bq27441_get_capacity(REMAIN);
             battery_data.health = bq27441_get_soh(PERCENT);
             battery_data.is_charging = !gpio_get_level(CHARGING_DETECTION_PIN);
+
+            ESP_LOGV(TAG, "Battery SOC: %d %%", battery_data.soc);
+            ESP_LOGV(TAG, "Battery voltage: %d mV", battery_data.volts);
+            ESP_LOGV(TAG, "Battery avg current: %d mA", battery_data.avg_current);
+            ESP_LOGV(TAG, "Battery total capacity: %d mAh", battery_data.total_capacity);
+            ESP_LOGV(TAG, "Battery remaining capacity: %d mAh", battery_data.remaining_capacity);
+            ESP_LOGV(TAG, "Battery health %d %%", battery_data.remaining_capacity);
+            ESP_LOGV(TAG, "Battery is %s", battery_data.is_charging ? "charging" : "not charging");
 
             // When not charging (USB disconnected), set the charging current at minimum
             if(!battery_data.is_charging)
@@ -76,24 +85,28 @@ esp_err_t battery_manager_init(void)
     // Create mutex for this resource
     mutex = xSemaphoreCreateMutexStatic(&mutex_buffer);
     
-    if(bq27441_init() == ESP_OK)
+    if(bq27441_init())
     {
         // Enter configuration mode
+        ESP_LOGV(TAG, "Entering configuration mode");
         if(bq27441_enter_config(true))
         {
             // Capacity
+            ESP_LOGV(TAG, "Setting capacity");
             if(!bq27441_set_capacity(BATTERY_MANAGER_BATTERY_MAH))
             {
                 ESP_LOGE(TAG, "Error setting battery capacity");
                 return ESP_FAIL;
             }
             // GPOUT polarity
+            ESP_LOGV(TAG, "Setting GPOUT polarity");
             if(!bq27441_set_gpout_polarity(false))
             {
                 ESP_LOGE(TAG, "Error setting GPOUT polarity");
                 return ESP_FAIL;
             }
             // GPOUT function
+            ESP_LOGV(TAG, "Setting GPOUT function");
             if(!bq27441_set_gpout_function(BAT_LOW))
             {
                 ESP_LOGE(TAG, "Error setting GPOUT function");
@@ -101,17 +114,20 @@ esp_err_t battery_manager_init(void)
             }
 
             // Thresholds for battery low
+            ESP_LOGV(TAG, "Setting low threshold");
             if(!bq27441_set_soc1_thresholds(BATTERY_MANAGER_SOC1_SET_THRESHOLD, BATTERY_MANAGER_SOC1_CLEAR_THRESHOLD))
             {
                 ESP_LOGE(TAG, "Error setting SOC1 thresholds");
                 return ESP_FAIL;
             }
+            ESP_LOGV(TAG, "Setting high threshold");
             if(!bq27441_set_socf_thresholds(BATTERY_MANAGER_SOCF_SET_THRESHOLD, BATTERY_MANAGER_SOCF_CLEAR_THRESHOLD))
             {
                 ESP_LOGE(TAG, "Error setting SOCF thresholds");
                 return ESP_FAIL;
             }
 
+            ESP_LOGV(TAG, "Exitting config mode");
             if(!bq27441_exit_config(true))
             {
                 ESP_LOGE(TAG, "Error exitting config");
@@ -146,6 +162,7 @@ esp_err_t battery_manager_init(void)
             }
 
             // Task to sample sensors
+            ESP_LOGV(TAG, "Starting task");
             task_handle = xTaskCreateStaticPinnedToCore(battery_sample_task, "battery", BATTERY_MANAGER_STACK_SIZE, 
                 NULL, BATTERY_MANAGER_TASK_PRIORITY, stack, &task, BATTERY_MANAGER_AFFINITY);
 
