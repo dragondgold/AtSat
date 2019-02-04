@@ -27,13 +27,14 @@
 import ProyectManager from 'services/projectManager'
 import defaultActuators from 'data/Actuators'
 import defaultSensors from 'data/Sensors'
+import utils from 'services/utils'
 
 export default {
   name: 'home-axtec',
   data () {
     return {
         cards: { 'data': [ 
-          { 'stripe' : 'info', 'title' :  'cansat.home.cards.newProject', 'icon' : 'fa fa-file', 'go': this.goToNewProject },
+          { 'stripe' : 'info', 'title' :  'cansat.home.cards.newProject', 'icon' : 'fa fa-file', 'go': this.createNewProject },
           { 'stripe' : 'success', 'title' : 'cansat.home.cards.openProject', 'icon' : 'glyphicon glyphicon-blackboard', 'go': this.openProject },
           { 'stripe' : 'warning', 'title' : 'cansat.home.cards.loadMission', 'icon' : 'fa fa-area-chart', 'go': this.goToOpenMission }
         ]}
@@ -57,14 +58,35 @@ export default {
   },
 
   methods: {
-    goToNewProject() {
-      this.$router.push({name:'newProject'})
+    createNewProject() {
+      if(this.$store.getters.axtec.project.path !== ''){
+          this.$store.commit('pushNotificationModal',{ 
+              'title': this.$t('cansat.notifications.modal.project.titleNew'), 
+              'date': utils.getDate(),
+              'content': this.$t('cansat.notifications.modal.project.contentOverwriteNew'),
+              'code': 0,
+              'okCallback': this.goToNewProject,
+              'okText': this.$t('cansat.notifications.modal.project.openAnyway'),
+              'cancelText': this.$t('cansat.notifications.modal.cancelBtn'),
+              'uuid': utils.generateUUID().toString(),
+              'type': this.$t('cansat.notifications.center.types.action')
+          })
+        }else{
+          this.goToNewProject()
+        }
     },
     openProject() {
-      ProyectManager.openProject()
+      if(this.$store.getters.axtec.project.path == ''){
+         ProyectManager.openProjectDialog(false)
+      }else{
+        ProyectManager.openProjectDialog(true)
+      }    
     },
     goToOpenMission() {
       this.$router.push({name:'openProject'})
+    },
+    goToNewProject(){
+      this.$router.push({name:'newProject'})
     }
   },
 }

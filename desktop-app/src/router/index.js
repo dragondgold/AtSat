@@ -98,16 +98,6 @@ export default new Router({
               name: 'newProject',
               path: 'newProject',
               component: lazyLoading('cansat/project/newProject'),
-            },
-            {
-              name: 'saveProject',
-              path: 'saveProject',
-              component: lazyLoading('cansat/project/saveProject'),
-            },            
-            {
-              name: 'configProject',
-              path: 'configProject',
-              component: lazyLoading('cansat/project/configProject')
             }
           ],
         },

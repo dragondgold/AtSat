@@ -16,7 +16,7 @@
           <span>{{ $t('menu.project') }}</span>
         </span>
         <sidebar-link
-          :to="{ name: 'newProject' }">
+           :to="{ name: 'not-found-simple' }" :event="''" @click.native.prevent="newProject()">
           <span slot="title">
             <span>{{ $t('menu.projectNew') }}</span>
           </span>
@@ -92,6 +92,23 @@ import utils from 'services/utils'
 export default {
   name: 'app-sidebar',
   methods:{
+    newProject(){
+      if(this.$store.getters.axtec.project.path !== ''){
+          this.$store.commit('pushNotificationModal',{ 
+              'title': this.$t('cansat.notifications.modal.project.titleNew'), 
+              'date': utils.getDate(),
+              'content': this.$t('cansat.notifications.modal.project.contentOverwriteNew'),
+              'code': 0,
+              'okCallback': this.goToNewProject,
+              'okText': this.$t('cansat.notifications.modal.project.openAnyway'),
+              'cancelText': this.$t('cansat.notifications.modal.cancelBtn'),
+              'uuid': utils.generateUUID().toString(),
+              'type': this.$t('cansat.notifications.center.types.action')
+          })
+        }else{
+          this.goToNewProject()
+        }
+    },
     openExistingProject(){
         if(this.$store.getters.axtec.project.path !== ''){
           this.$store.commit('pushNotificationModal',{ 
@@ -114,6 +131,9 @@ export default {
     },
     showOpenDialogAnyway(){
       ProjectManager.openProjectDialog(true)
+    },
+    goToNewProject(){
+       this.$router.push({name:'newProject'})
     }
   },
   components: {
