@@ -22,6 +22,7 @@ static esp_err_t send_cmd(uint8_t command)
     // Acquire the I2C module
     if((err = i2c_manager_acquire(GENERAL_I2C_NUMBER, 500 / portTICK_PERIOD_MS)) != ESP_OK)
     {
+        ESP_LOGE(TAG, "Error acquiring bus");
         return err;
     }
 
@@ -91,7 +92,7 @@ esp_err_t pressure_manager_init(void)
     ESP_LOGV(TAG, "Restarting sensor");
     if((err = send_cmd(PRESSURE_MANAGER_RESET_CMD)) != ESP_OK)
     {
-        ESP_LOGE(TAG, "Error restarting sensor in init: %d", err);
+        ESP_LOGE(TAG, "Error restarting sensor in init: %s", esp_err_to_name(err));
         return err;
     }
 
@@ -99,7 +100,7 @@ esp_err_t pressure_manager_init(void)
     ESP_LOGV(TAG, "Reading coefficients");
     if((err = read_coefficients()) != ESP_OK)
     {
-        ESP_LOGE(TAG, "Error reading coefficients: %d", err);
+        ESP_LOGE(TAG, "Error reading coefficients: %s", esp_err_to_name(err));
         return err;
     }
     ESP_LOGV(TAG, "Coefficients are: %d,%d,%d,%d,%d,%d", coefficients[0], coefficients[1],
@@ -123,7 +124,7 @@ esp_err_t pressure_manager_do_sample(void)
         // Reset the sensor before each sample just in case it hangs or something
         if((err = send_cmd(PRESSURE_MANAGER_RESET_CMD)) != ESP_OK)
         {
-            ESP_LOGE(TAG, "Error restarting sensor %d:", err);
+            ESP_LOGE(TAG, "Error restarting sensor %s:", esp_err_to_name(err));
             pressure = temperature = 0;
             xSemaphoreGive(mutex);
             return err;
@@ -132,7 +133,7 @@ esp_err_t pressure_manager_do_sample(void)
         // Sample pressure
         if((err = send_cmd(PRESSURE_MANAGER_PRESSURE_OSR_512_CMD)) != ESP_OK)
         {
-            ESP_LOGE(TAG, "Error sampling pressure: %d", err);
+            ESP_LOGE(TAG, "Error sampling pressure: %s", esp_err_to_name(err));
             pressure = temperature = 0;
             xSemaphoreGive(mutex);
             return err;
@@ -145,7 +146,7 @@ esp_err_t pressure_manager_do_sample(void)
         if((err = i2c_manager_read_register_multiple(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS,
             PRESSURE_MANAGER_ADDRESS, PRESSURE_MANAGER_ADC_RESULT_CMD, 3, buffer_pressure)) != ESP_OK)
         {
-            ESP_LOGE(TAG, "Error reading pressure ADC: %d", err);
+            ESP_LOGE(TAG, "Error reading pressure ADC: %s", esp_err_to_name(err));
             pressure = temperature = 0;
             xSemaphoreGive(mutex);
             return err;
@@ -154,7 +155,7 @@ esp_err_t pressure_manager_do_sample(void)
         // Sample the temperature now
         if((err = send_cmd(PRESSURE_MANAGER_TEMP_OSR_512_CMD)) != ESP_OK)
         {
-            ESP_LOGE(TAG, "Error sampling temperature: %d", err);
+            ESP_LOGE(TAG, "Error sampling temperature: %s", esp_err_to_name(err));
             pressure = temperature = 0;
             xSemaphoreGive(mutex);
             return err;
@@ -167,7 +168,7 @@ esp_err_t pressure_manager_do_sample(void)
         if((err = i2c_manager_read_register_multiple(GENERAL_I2C_NUMBER, 100 / portTICK_PERIOD_MS,
             PRESSURE_MANAGER_ADDRESS, PRESSURE_MANAGER_ADC_RESULT_CMD, 3, buffer_temp)) != ESP_OK)
         {
-            ESP_LOGE(TAG, "Error reading temperature ADC: %d", err);
+            ESP_LOGE(TAG, "Error reading temperature ADC: %s", esp_err_to_name(err));
             pressure = temperature = 0;
             xSemaphoreGive(mutex);
             return err;
