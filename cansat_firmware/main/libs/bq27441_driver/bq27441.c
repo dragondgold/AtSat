@@ -2,9 +2,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "esp_timer.h"
 #include "i2c_manager/i2c_manager.h"
 #include "config/cansat.h"
 #include "freertos/FreeRTOS.h"
+
+#include "esp_log.h"
+static const char* TAG = "bq27441";
 
 #define constrain(amt,low,high) ((int8_t)(amt)<(int8_t)(low)?(int8_t)(low):((int8_t)(amt)>(int8_t)(high)?(int8_t)(high):(int8_t)(amt)))
 
@@ -14,15 +18,19 @@ static bool _userConfigControl = false;     // Global to identify that user has 
 // Read a specified number of bytes over I2C at a given subAddress
 static bool i2c_read_bytes(uint8_t subAddress, uint8_t * dest, uint8_t count)
 {
-    return i2c_manager_read_register_multiple(GENERAL_I2C_NUMBER, BQ27441_I2C_TIMEOUT / portTICK_PERIOD_MS,
-     BQ27441_I2C_ADDRESS, subAddress, count, dest) == ESP_OK;
+    esp_err_t err = i2c_manager_read_register_multiple(GENERAL_I2C_NUMBER, BQ27441_I2C_TIMEOUT / portTICK_PERIOD_MS,
+     BQ27441_I2C_ADDRESS, subAddress, count, dest);
+
+	 return err == ESP_OK;
 }
 
 // Write a specified number of bytes over I2C to a given subAddress
 static bool i2c_write_bytes(uint8_t subAddress, uint8_t * src, uint8_t count)
 {
-    return i2c_manager_write_register_multiple(GENERAL_I2C_NUMBER, BQ27441_I2C_TIMEOUT / portTICK_PERIOD_MS,
-     BQ27441_I2C_ADDRESS, subAddress, count, src) == ESP_OK;
+    esp_err_t err = i2c_manager_write_register_multiple(GENERAL_I2C_NUMBER, BQ27441_I2C_TIMEOUT / portTICK_PERIOD_MS,
+     BQ27441_I2C_ADDRESS, subAddress, count, src);
+
+	return err == ESP_OK;
 }
 
 /**
@@ -133,14 +141,17 @@ static uint16_t read_control_word(uint16_t function)
 	uint8_t command[2] = {subCommandLSB, subCommandMSB};
 	uint8_t data[2] = {0, 0};
 	
-	i2c_write_bytes((uint8_t) 0, command, 2);
-	
-	if (i2c_read_bytes((uint8_t) 0, data, 2))
+	if (i2c_write_bytes((uint8_t) 0, command, 2) && i2c_read_bytes((uint8_t) 0, data, 2))
 	{
 		return ((uint16_t)data[1] << 8) | data[0];
 	}
+	else
+	{
+		ESP_LOGE(TAG, "Error on read_control_word() with function: %d", function);
+	}
 	
-	return false;
+	
+	return 0;
 }
 
 /**
@@ -274,10 +285,17 @@ static bool execute_control_word(uint16_t function)
     uint8_t subCommandMSB = (function >> 8);
 	uint8_t subCommandLSB = (function & 0x00FF);
 	uint8_t command[2] = {subCommandLSB, subCommandMSB};
-	//uint8_t data[2] = {0, 0};
 	
-	if (i2c_write_bytes((uint8_t) 0, command, 2))
+	ESP_LOGV(TAG, "Executing control word: %d", function);
+	if (i2c_write_bytes(0x00, command, 2))
+	{
 		return true;
+	}
+	else
+	{
+		ESP_LOGE(TAG, "Error executing control word: %d", function);
+	}
+	
 	
 	return false;
 }
@@ -333,7 +351,9 @@ static uint8_t read_extended_data(uint8_t classID, uint8_t offset)
 // Initializes I2C and verifies communication with the BQ27441.
 bool bq27441_init(void)
 {
+	ESP_LOGV(TAG, "bq27441_init()");
 	uint16_t deviceID = bq27441_get_device_type(); // Read deviceType from BQ27441;
+	ESP_LOGV(TAG, "Device ID: %d", deviceID);
 	
 	if (deviceID == BQ27441_DEVICE_ID)
 	{
@@ -617,18 +637,32 @@ bool bq27441_enter_config(bool userControl)
 	
 	if (sealed())
 	{
+		ESP_LOGV(TAG, "Unsealing");
 		_sealFlag = true;
 		unseal(); // Must be unsealed before making changes
 	}
 	
 	if (execute_control_word(BQ27441_CONTROL_SET_CFGUPDATE))
 	{
+		ESP_LOGV(TAG, "Waiting for status flag to enter config mode");
 		int16_t timeout = BQ27441_I2C_TIMEOUT;
 		while ((timeout--) && (!(bq27441_get_status() & BQ27441_FLAG_CFGUPMODE)))
-			//delay(1);
+		{
+			// Wait 1 ms for a very rough timeout
+			int64_t start = esp_timer_get_time();
+			while(esp_timer_get_time() - start < 1000);
+		}
 		
 		if (timeout > 0)
+		{
+			ESP_LOGV(TAG, "Config mode active");
 			return true;
+		}
+		else
+		{
+			ESP_LOGV(TAG, "Time out!");
+		}
+		
 	}
 	
 	return false;
@@ -650,7 +684,12 @@ bool bq27441_exit_config(bool resim)
 		{
 			int16_t timeout = BQ27441_I2C_TIMEOUT;
 			while ((timeout--) && ((bq27441_get_flags() & BQ27441_FLAG_CFGUPMODE)))
-				//delay(1);
+			{
+				// Wait 1 ms for a very rough timeout
+				int64_t start = esp_timer_get_time();
+				while(esp_timer_get_time() - start < 1000);
+			}
+
 			if (timeout > 0)
 			{
 				if (_sealFlag) seal(); // Seal back up if we IC was sealed coming in
