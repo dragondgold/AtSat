@@ -201,126 +201,6 @@ static uint16_t read_control_word(uint16_t function)
 }
 
 /**
-    Read a 16-bit command word from the BQ27441-G1A
-    
-    @param subAddress is the command to be read from
-    @return 16-bit value of the command's contents
-*/	
-static uint16_t read_word(uint8_t subAddress)
-{
-    uint8_t data[2] = {0};
-	i2c_read_bytes(subAddress, data, 2);
-	return ((uint16_t) data[1] << 8) | data[0];
-}
-
-/**
-    Check if the BQ27441-G1A is sealed or not.
-    
-    @return true if the chip is sealed
-*/
-static bool sealed(void)
-{
-    uint16_t stat = bq27441_get_status();
-	return stat & BQ27441_STATUS_SS;
-}
-
-/**
-    Seal the BQ27441-G1A
-    
-    @return true on success
-*/
-static bool seal(void)
-{
-    return read_control_word(BQ27441_CONTROL_SEALED);
-}
-
-/**
-    UNseal the BQ27441-G1A
-    
-    @return true on success
-*/
-static bool unseal(void)
-{
-    // To unseal the BQ27441, write the key to the control
-	// command. Then immediately write the same key to control again.
-	if (read_control_word(BQ27441_UNSEAL_KEY))
-	{
-		return (bool)read_control_word(BQ27441_UNSEAL_KEY);
-	}
-
-	return false;
-}
-    
-/**
-    Read the 16-bit op_config register from extended data
-    
-    @return op_config register contents
-*/
-static uint16_t op_config(void)
-{
-    return read_word(BQ27441_EXTENDED_OPCONFIG);
-}
-
-/**
-    Write a specified number of bytes to extended data specifying a 
-    class ID, position offset.
-    
-    @param classID is the id of the class to be read from
-            offset is the byte position of the byte to be read
-            data is the data buffer to be written
-            len is the number of bytes to be written
-    @return true on success
-*/
-static bool write_extended_data(uint8_t classID, uint8_t offset, uint8_t * data, uint8_t len)
-{
-    if (len > 32)
-		return false;
-	
-	if (!_userConfigControl) bq27441_enter_config(false);
-	
-	if (!block_data_control()) // // enable block data memory control
-		return false; // Return false if enable fails
-	if (!block_data_class(classID)) // Write class ID using DataBlockClass()
-		return false;
-	
-	block_data_offset(offset / 32); // Write 32-bit block offset (usually 0)
-	compute_block_checksum(); // Compute checksum going in
-	//uint8_t oldCsum = block_data_checksum();
-
-	// Write data bytes:
-	for (int i = 0; i < len; i++)
-	{
-		// Write to offset, mod 32 if offset is greater than 32
-		// The block_data_offset above sets the 32-bit block
-		write_block_data((offset % 32) + i, data[i]);
-	}
-	
-	// Write new checksum using block_data_checksum (0x60)
-	uint8_t newCsum = compute_block_checksum(); // Compute the new checksum
-	write_block_checksum(newCsum);
-
-	if (!_userConfigControl) bq27441_exit_config(true);
-	
-	return true;
-}
-
-/**
-    Write the 16-bit op_config register in extended data
-    
-    @param New 16-bit value for op_config
-    @return true on success
-*/	
-static bool write_op_config(uint16_t value)
-{
-    uint8_t opConfigMSB = value >> 8;
-	uint8_t opConfigLSB = value & 0x00FF;
-	uint8_t opConfigData[2] = {opConfigMSB, opConfigLSB};
-	
-	// OpConfig register location: BQ27441_ID_REGISTERS id, offset 0
-	return write_extended_data(BQ27441_ID_REGISTERS, 0, opConfigData, 2);
-}
-
-/**
     Execute a subcommand() from the BQ27441-G1A's control()
     
     @param function is the subcommand of control() to be executed
@@ -379,6 +259,170 @@ static bool execute_control_word(uint16_t function)
 		return true;
 	}
 	return false;
+}
+
+/**
+    Read a 16-bit command word from the BQ27441-G1A
+    
+    @param subAddress is the command to be read from
+    @return 16-bit value of the command's contents
+*/	
+static uint16_t read_word(uint8_t subAddress)
+{
+    uint8_t data[2] = {0};
+	i2c_read_bytes(subAddress, data, 2);
+	return ((uint16_t) data[1] << 8) | data[0];
+}
+
+/**
+    Check if the BQ27441-G1A is sealed or not.
+    
+    @return true if the chip is sealed
+*/
+static bool sealed(void)
+{
+    uint16_t stat = bq27441_get_status();
+	return stat & BQ27441_STATUS_SS;
+}
+
+/**
+    Seal the BQ27441-G1A
+    
+    @return true on success
+*/
+static bool seal(void)
+{
+    return read_control_word(BQ27441_CONTROL_SEALED);
+}
+
+/**
+    UNseal the BQ27441-G1A
+    
+    @return true on success
+*/
+static bool unseal(void)
+{
+    // To unseal the BQ27441, write the key to the control
+	// command. Then immediately write the same key to control again.
+	if (execute_control_word(BQ27441_UNSEAL_KEY))
+	{
+		if(!execute_control_word(BQ27441_UNSEAL_KEY))
+		{
+			return false;
+		}
+
+		// Check if unseal was executed
+		if(!sealed())
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+    
+/**
+    Read the 16-bit op_config register from extended data
+    
+    @return op_config register contents
+*/
+static uint16_t op_config(void)
+{
+    return read_word(BQ27441_EXTENDED_OPCONFIG);
+}
+
+/**
+    Write a specified number of bytes to extended data specifying a 
+    class ID, position offset.
+    
+    @param classID is the id of the class to be read from
+            offset is the byte position of the byte to be read
+            data is the data buffer to be written
+            len is the number of bytes to be written
+    @return true on success
+*/
+static bool write_extended_data(uint8_t classID, uint8_t offset, uint8_t * data, uint8_t len)
+{
+	ESP_LOGV(TAG, "Writting extended data with class ID %d and offset %d", classID, offset);
+
+    if (len > 32)
+		return false;
+	
+	if (!_userConfigControl) 
+	{
+		ESP_LOGV(TAG, "write_extended_data(): entering config mode");
+		if(!bq27441_enter_config(false))
+		{
+			return false;
+		}
+	}
+	
+	// Enable block data memory control
+	ESP_LOGV(TAG, "write_extended_data(): enable block data control");
+	if (!block_data_control())
+	{
+		return false;
+	}
+	 // Write class ID using DataBlockClass()
+	ESP_LOGV(TAG, "write_extended_data(): set block data class");
+	if (!block_data_class(classID))
+	{
+		return false;
+	}
+	
+	// Write 32-bit block offset (usually 0)
+	ESP_LOGV(TAG, "write_extended_data(): set block data offset");
+	if(!block_data_offset(offset / 32))
+	{
+		return false;
+	}
+	compute_block_checksum(); 			// Compute checksum going in
+	uint8_t oldCsum = block_data_checksum();
+	ESP_LOGV(TAG, "write_extended_data(): old checksum -> %d", oldCsum);
+
+	// Write data bytes
+	ESP_LOGV(TAG, "write_extended_data(): write block data");
+	for (int i = 0; i < len; i++)
+	{
+		// Write to offset, mod 32 if offset is greater than 32
+		// The block_data_offset above sets the 32-bit block
+		if(!write_block_data((offset % 32) + i, data[i]))
+		{
+			ESP_LOGE(TAG, "write_extended_data(): error writting block data in position %d", i);
+		}
+	}
+	
+	// Write new checksum using block_data_checksum (0x60)
+	uint8_t newCsum = compute_block_checksum(); // Compute the new checksum
+	ESP_LOGV(TAG, "write_extended_data(): writting new checksum -> %d", newCsum);
+	if(!write_block_checksum(newCsum))
+	{
+		ESP_LOGE(TAG, "Error writting new checksum");
+	}
+
+	ESP_LOGV(TAG, "write_extended_data(): Finish!");
+	if (!_userConfigControl)
+	{
+		bq27441_exit_config(true);
+	}
+	
+	return true;
+}
+
+/**
+    Write the 16-bit op_config register in extended data
+    
+    @param New 16-bit value for op_config
+    @return true on success
+*/	
+static bool write_op_config(uint16_t value)
+{
+    uint8_t opConfigMSB = value >> 8;
+	uint8_t opConfigLSB = value & 0x00FF;
+	uint8_t opConfigData[2] = {opConfigMSB, opConfigLSB};
+	
+	// OpConfig register location: BQ27441_ID_REGISTERS id, offset 0
+	return write_extended_data(BQ27441_ID_REGISTERS, 0, opConfigData, 2);
 }
 
 /**

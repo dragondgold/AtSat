@@ -161,7 +161,7 @@ https://github.com/sparkfun/SparkFun_BQ27441_Arduino_Library
 #define BQ27441_OPCONFIG_GPIOPOL  (1<<11)
 #define BQ27441_OPCONFIG_SLEEP    (1<<5)
 #define BQ27441_OPCONFIG_RMFCC    (1<<4)
-#define BQ27441_OPCONFIG_BATLOWEN (1<<2)
+#define BQ27441_OPCONFIG_BATLOWEN (1<<3)
 #define BQ27441_OPCONFIG_TEMPS    (1<<0)
 
 #define BQ27441_I2C_TIMEOUT 500

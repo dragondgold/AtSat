@@ -8,7 +8,7 @@ typedef struct
 {
     uint8_t soc;                    // State of charge in %
     uint16_t volts;                 // Battery voltage in mV
-    uint16_t avg_current;           // Average current in mA
+    int16_t avg_current;            // Average current in mA
     uint8_t total_capacity;         // Total battery capacity in mAh
     uint8_t remaining_capacity;     // Remaining battery capacity in mAh
     uint8_t health;                 // Battery health in %
