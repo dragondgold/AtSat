@@ -6,6 +6,7 @@
 #include "i2c_manager/i2c_manager.h"
 #include "config/cansat.h"
 #include "freertos/FreeRTOS.h"
+#include "driver/i2c.h"
 
 #include "esp_log.h"
 static const char* TAG = "bq27441";
@@ -16,21 +17,21 @@ static bool _sealFlag = false;              // Global to identify that IC was pr
 static bool _userConfigControl = false;     // Global to identify that user has control over entering/exiting config
 
 // Read a specified number of bytes over I2C at a given subAddress
-static bool i2c_read_bytes(uint8_t subAddress, uint8_t * dest, uint8_t count)
+static esp_err_t i2c_read_bytes(uint8_t subAddress, uint8_t * dest, uint8_t count)
 {
     esp_err_t err = i2c_manager_read_register_multiple(GENERAL_I2C_NUMBER, BQ27441_I2C_TIMEOUT / portTICK_PERIOD_MS,
      BQ27441_I2C_ADDRESS, subAddress, count, dest);
 
-	 return err == ESP_OK;
+	return err;
 }
 
 // Write a specified number of bytes over I2C to a given subAddress
-static bool i2c_write_bytes(uint8_t subAddress, uint8_t * src, uint8_t count)
+static esp_err_t i2c_write_bytes(uint8_t subAddress, uint8_t * src, uint8_t count)
 {
-    esp_err_t err = i2c_manager_write_register_multiple(GENERAL_I2C_NUMBER, BQ27441_I2C_TIMEOUT / portTICK_PERIOD_MS,
+	esp_err_t err = i2c_manager_write_register_multiple(GENERAL_I2C_NUMBER, BQ27441_I2C_TIMEOUT / portTICK_PERIOD_MS,
      BQ27441_I2C_ADDRESS, subAddress, count, src);
 
-	return err == ESP_OK;
+	return err;
 }
 
 /**
@@ -41,7 +42,7 @@ static bool i2c_write_bytes(uint8_t subAddress, uint8_t * src, uint8_t count)
 static bool block_data_control(void)
 {
     uint8_t enableByte = 0x00;
-	return i2c_write_bytes(BQ27441_EXTENDED_CONTROL, &enableByte, 1);
+	return i2c_write_bytes(BQ27441_EXTENDED_CONTROL, &enableByte, 1) == ESP_OK;
 }
 
 /**
@@ -52,7 +53,7 @@ static bool block_data_control(void)
 */
 static bool block_data_class(uint8_t id)
 {
-    return i2c_write_bytes(BQ27441_EXTENDED_DATACLASS, &id, 1);
+    return i2c_write_bytes(BQ27441_EXTENDED_DATACLASS, &id, 1) == ESP_OK;
 }
 
 /**
@@ -63,7 +64,7 @@ static bool block_data_class(uint8_t id)
 */
 static bool block_data_offset(uint8_t offset)
 {
-    return i2c_write_bytes(BQ27441_EXTENDED_DATABLOCK, &offset, 1);
+    return i2c_write_bytes(BQ27441_EXTENDED_DATABLOCK, &offset, 1) == ESP_OK;
 }
 
 // Read the current checksum using block_data_checksum()
@@ -93,7 +94,7 @@ static uint8_t read_block_data(uint8_t offset)
 static bool write_block_data(uint8_t offset, uint8_t data)
 {
     uint8_t address = offset + BQ27441_EXTENDED_BLOCKDATA;
-	return i2c_write_bytes(address, &data, 1);
+	return i2c_write_bytes(address, &data, 1) == ESP_OK;
 }
 
 /**
@@ -125,7 +126,7 @@ static uint8_t compute_block_checksum(void)
 */
 static bool write_block_checksum(uint8_t csum)
 {
-    return i2c_write_bytes(BQ27441_EXTENDED_CHECKSUM, &csum, 1);
+    return i2c_write_bytes(BQ27441_EXTENDED_CHECKSUM, &csum, 1) == ESP_OK;
 }
 
 /**
@@ -136,22 +137,67 @@ static bool write_block_checksum(uint8_t csum)
 */	
 static uint16_t read_control_word(uint16_t function)
 {
-    uint8_t subCommandMSB = (function >> 8);
+	uint8_t subCommandMSB = (function >> 8);
 	uint8_t subCommandLSB = (function & 0x00FF);
-	uint8_t command[2] = {subCommandLSB, subCommandMSB};
-	uint8_t data[2] = {0, 0};
-	
-	if (i2c_write_bytes((uint8_t) 0, command, 2) && i2c_read_bytes((uint8_t) 0, data, 2))
+	esp_err_t err;
+
+    // Acquire the I2C module
+    if((err = i2c_manager_acquire(GENERAL_I2C_NUMBER, pdMS_TO_TICKS(200))) != ESP_OK)
+    {
+        ESP_LOGW(TAG, "Error acquiring port");
+        return 0;
+    }
+
+    // Create the commands
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, BQ27441_I2C_ADDRESS, true);
+    i2c_master_write_byte(cmd, 0x00, true);		// Always 0x00 for control()
+	i2c_master_write_byte(cmd, subCommandLSB, true);
+    i2c_master_stop(cmd);
+    if((err = i2c_master_cmd_begin(GENERAL_I2C_NUMBER, cmd, pdMS_TO_TICKS(200))) != ESP_OK)
 	{
-		return ((uint16_t)data[1] << 8) | data[0];
+		ESP_LOGE(TAG, "Error sending control() byte: %d", err);
 	}
-	else
+    i2c_cmd_link_delete(cmd);
+	// Delay
+	int64_t start = esp_timer_get_time();
+	while(esp_timer_get_time() - start < 1000);
+
+	// Send first sub-control byte
+	cmd = i2c_cmd_link_create();
+	i2c_master_start(cmd);
+	i2c_master_write_byte(cmd, BQ27441_I2C_ADDRESS, true);
+	i2c_master_write_byte(cmd, 0x01, true);		// Always 0x00 for control()
+	i2c_master_write_byte(cmd, subCommandMSB, true);
+	i2c_master_stop(cmd);
+	if((err = i2c_master_cmd_begin(GENERAL_I2C_NUMBER, cmd, pdMS_TO_TICKS(200))) != ESP_OK)
 	{
-		ESP_LOGE(TAG, "Error on read_control_word() with function: %d", function);
+		ESP_LOGE(TAG, "Error sending sub-control LSB byte: %d", err);
 	}
-	
-	
-	return 0;
+	i2c_cmd_link_delete(cmd);	
+	// Delay
+	start = esp_timer_get_time();
+	while(esp_timer_get_time() - start < 1000);
+
+	// Release the bus
+    i2c_manager_release(GENERAL_I2C_NUMBER);
+
+	// Send second sub-control byte and read the 2 bytes
+	uint8_t data[2] = {0};
+	err = i2c_manager_read_register_multiple(GENERAL_I2C_NUMBER, pdMS_TO_TICKS(200), BQ27441_I2C_ADDRESS, 0x00, 2, data);
+	// Delay
+	start = esp_timer_get_time();
+	while(esp_timer_get_time() - start < 1000);
+
+    if(err != ESP_OK)
+	{
+		ESP_LOGE(TAG, "Error sending sub-control MSB byte and reading: %d", err);
+		return 0;
+	}
+
+	// Return data read
+	return ((uint16_t)data[1] << 8) | data[0];
 }
 
 /**
@@ -160,7 +206,7 @@ static uint16_t read_control_word(uint16_t function)
     @param subAddress is the command to be read from
     @return 16-bit value of the command's contents
 */	
-static uint16_t read_word(uint16_t subAddress)
+static uint16_t read_word(uint8_t subAddress)
 {
     uint8_t data[2] = {0};
 	i2c_read_bytes(subAddress, data, 2);
@@ -282,21 +328,56 @@ static bool write_op_config(uint16_t value)
 */	
 static bool execute_control_word(uint16_t function)
 {
-    uint8_t subCommandMSB = (function >> 8);
+	uint8_t subCommandMSB = (function >> 8);
 	uint8_t subCommandLSB = (function & 0x00FF);
-	uint8_t command[2] = {subCommandLSB, subCommandMSB};
-	
-	ESP_LOGV(TAG, "Executing control word: %d", function);
-	if (i2c_write_bytes(0x00, command, 2))
+	esp_err_t err1, err2;
+
+    // Acquire the I2C module
+    if((err1 = i2c_manager_acquire(GENERAL_I2C_NUMBER, pdMS_TO_TICKS(200))) != ESP_OK)
+    {
+        ESP_LOGW(TAG, "Error acquiring port: %d", err1);
+        return 0;
+    }
+
+    // Create the commands
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, BQ27441_I2C_ADDRESS, true);
+    i2c_master_write_byte(cmd, 0x00, true);		// Always 0x00 for control()
+	i2c_master_write_byte(cmd, subCommandLSB, true);
+    i2c_master_stop(cmd);
+    if((err1 = i2c_master_cmd_begin(GENERAL_I2C_NUMBER, cmd, pdMS_TO_TICKS(200))) != ESP_OK)
+	{
+		ESP_LOGE(TAG, "Error sending control() byte on execute_control_word(): %d", err1);
+	}
+    i2c_cmd_link_delete(cmd);
+	// Delay
+	int64_t start = esp_timer_get_time();
+	while(esp_timer_get_time() - start < 1000);
+
+	// Send first sub-control byte
+	cmd = i2c_cmd_link_create();
+	i2c_master_start(cmd);
+	i2c_master_write_byte(cmd, BQ27441_I2C_ADDRESS, true);
+	i2c_master_write_byte(cmd, 0x01, true);		// Always 0x01 for control()
+	i2c_master_write_byte(cmd, subCommandMSB, true);
+	i2c_master_stop(cmd);
+	if((err2 = i2c_master_cmd_begin(GENERAL_I2C_NUMBER, cmd, pdMS_TO_TICKS(200))) != ESP_OK)
+	{
+		ESP_LOGE(TAG, "Error sending sub-control LSB byte on execute_control_word(): %d", err2);
+	}
+	i2c_cmd_link_delete(cmd);	
+	// Delay
+	start = esp_timer_get_time();
+	while(esp_timer_get_time() - start < 1000);
+
+	// Release the bus
+    i2c_manager_release(GENERAL_I2C_NUMBER);
+
+	if(err1 == ESP_OK && err2 == ESP_OK)
 	{
 		return true;
 	}
-	else
-	{
-		ESP_LOGE(TAG, "Error executing control word: %d", function);
-	}
-	
-	
 	return false;
 }
 
@@ -351,6 +432,7 @@ static uint8_t read_extended_data(uint8_t classID, uint8_t offset)
 // Initializes I2C and verifies communication with the BQ27441.
 bool bq27441_init(void)
 {
+	//ESP_LOGV(TAG, "bq27441 in bus?: %d", i2c_manager_slave_exists(GENERAL_I2C_NUMBER, pdMS_TO_TICKS(200), BQ27441_I2C_ADDRESS));
 	ESP_LOGV(TAG, "bq27441_init()");
 	uint16_t deviceID = bq27441_get_device_type(); // Read deviceType from BQ27441;
 	ESP_LOGV(TAG, "Device ID: %d", deviceID);
@@ -633,6 +715,7 @@ uint16_t bq27441_get_device_type(void)
 // and you want control over when to bq27441_exit_config
 bool bq27441_enter_config(bool userControl)
 {
+	ESP_LOGV(TAG, "bq27441_enter_config()");
 	if (userControl) _userConfigControl = true;
 	
 	if (sealed())
@@ -644,9 +727,10 @@ bool bq27441_enter_config(bool userControl)
 	
 	if (execute_control_word(BQ27441_CONTROL_SET_CFGUPDATE))
 	{
-		ESP_LOGV(TAG, "Waiting for status flag to enter config mode");
+		// Wait for CFGUPMODE to be set
+		ESP_LOGV(TAG, "Waiting to enter config mode");
 		int16_t timeout = BQ27441_I2C_TIMEOUT;
-		while ((timeout--) && (!(bq27441_get_status() & BQ27441_FLAG_CFGUPMODE)))
+		while ((timeout--) && (!(bq27441_get_flags() & BQ27441_FLAG_CFGUPMODE)))
 		{
 			// Wait 1 ms for a very rough timeout
 			int64_t start = esp_timer_get_time();
@@ -662,8 +746,12 @@ bool bq27441_enter_config(bool userControl)
 		{
 			ESP_LOGV(TAG, "Time out!");
 		}
-		
 	}
+	else
+	{
+		ESP_LOGE(TAG, "Error executing control word BQ27441_CONTROL_SET_CFGUPDATE");
+	}
+	
 	
 	return false;
 }
@@ -692,10 +780,21 @@ bool bq27441_exit_config(bool resim)
 
 			if (timeout > 0)
 			{
+				ESP_LOGV(TAG, "Exit from config mode successfull");
 				if (_sealFlag) seal(); // Seal back up if we IC was sealed coming in
 				return true;
 			}
+			else
+			{
+				ESP_LOGV(TAG, "Time out to exit config mode!");
+			}
+			
 		}
+		else
+		{
+			ESP_LOGV(TAG, "Error applying soft reset");
+		}
+		
 		return false;
 	}
 	else
@@ -707,11 +806,17 @@ bool bq27441_exit_config(bool resim)
 // Read the bq27441_get_flags() command
 uint16_t bq27441_get_flags(void)
 {
-	return read_word(BQ27441_COMMAND_FLAGS);
+	uint16_t word = read_word(BQ27441_COMMAND_FLAGS);
+	return word;
 }
 
 // Read the CONTROL_STATUS subcommand of control()
 uint16_t bq27441_get_status(void)
 {
 	return read_control_word(BQ27441_CONTROL_STATUS);
+}
+
+uint16_t bq27441_read_flags(void)
+{
+	return read_word(BQ27441_COMMAND_FLAGS);
 }
