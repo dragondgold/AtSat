@@ -18,7 +18,7 @@ static StaticTask_t task;
 static TaskHandle_t task_handle;
 
 // Battery data
-battery_data_t battery_data;
+battery_data_t battery_data = {0};
 
 static void battery_sample_task(void* args)
 {
@@ -27,6 +27,12 @@ static void battery_sample_task(void* args)
         // Check battery and charger status every 1 second
         vTaskDelay(1000 / portTICK_PERIOD_MS);
         ESP_LOGV(TAG, "Checking battery");
+
+        // Inform on charger connect/disconnect
+        if(battery_data.is_charging != !gpio_get_level(CHARGING_DETECTION_PIN))
+        {
+            ESP_LOGI(TAG, "Battery %s", (!gpio_get_level(CHARGING_DETECTION_PIN)) ? "started charging" : "stopped charging");
+        }
 
         // Take the mutex so other tasks cannot read the data while it's being
         //  modified
