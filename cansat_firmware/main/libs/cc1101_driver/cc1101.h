@@ -163,8 +163,13 @@ void cc1101_set_tx(void);
  * @return true if frequency was set
  */
 bool cc1101_set_mhz(float mhz);
-
-void cc1101_send_data(uint8_t *txBuffer, uint8_t size);
+/**
+ * @brief Send data
+ * @param tx_buffer pointer to the array of bytes to send
+ * @param size number of bytes to send (no more than 61)
+ * @return true if data was sent
+ */
+bool cc1101_send_data(uint8_t *tx_buffer, uint8_t size);
 /**
  * @brief Set channel spacing.
  * @param chsp channel spacing level from 1 to 10

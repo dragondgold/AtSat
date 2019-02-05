@@ -18,9 +18,6 @@ static StackType_t stack[GPS_MANAGER_STACK_SIZE];
 static StaticTask_t task;
 static TaskHandle_t task_handle;
 
-static uint8_t tx_buffer[256];
-static uint8_t rx_buffer[256];
-
 static void com_task(void* arg) 
 {
     while(true)
