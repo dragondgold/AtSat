@@ -27,7 +27,7 @@ static esp_err_t send_cmd(uint8_t command)
     // Create the commands
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
     i2c_master_start(cmd);
-    i2c_master_write_byte(cmd, TEMP_HUM_MANAGER_DEVICE_ADDRESS, true);
+    i2c_master_write_byte(cmd, HUM_MANAGER_DEVICE_ADDRESS, true);
     i2c_master_write_byte(cmd, command, true);
     i2c_master_stop(cmd);
 
@@ -69,9 +69,9 @@ esp_err_t humidity_manager_sample(void)
         esp_err_t err;
 
         // Start humidity sample
-        if((err = send_cmd(TEMP_HUM_MANAGER_MEASURE_HUM_NO_HOLD_CMD)) != ESP_OK)
+        if((err = send_cmd(HUM_MANAGER_MEASURE_HUM_NO_HOLD_CMD)) != ESP_OK)
         {
-            ESP_LOGE(TAG, "Error starting sample: %d", err);
+            ESP_LOGE(TAG, "Error starting sample: %s", esp_err_to_name(err));
             xSemaphoreGive(mutex);
             return err;
         }
@@ -81,7 +81,7 @@ esp_err_t humidity_manager_sample(void)
         ESP_LOGV(TAG, "Reading humidity");
         if((err = i2c_manager_acquire(GENERAL_I2C_NUMBER, 500 / portTICK_PERIOD_MS)) != ESP_OK)
         {
-            ESP_LOGE(TAG, "Error reading sample: %d", err);
+            ESP_LOGE(TAG, "Error reading sample: %s", esp_err_to_name(err));
             xSemaphoreGive(mutex);
             return err;
         }
@@ -90,7 +90,7 @@ esp_err_t humidity_manager_sample(void)
         uint8_t buffer[2];
         i2c_cmd_handle_t cmd = i2c_cmd_link_create();
         i2c_master_start(cmd);
-        i2c_master_write_byte(cmd, TEMP_HUM_MANAGER_DEVICE_ADDRESS | 0x01, true);
+        i2c_master_write_byte(cmd, HUM_MANAGER_DEVICE_ADDRESS | 0x01, true);
         i2c_master_read(cmd, buffer, 2, I2C_MASTER_LAST_NACK);
         i2c_master_stop(cmd);
         err = i2c_master_cmd_begin(GENERAL_I2C_NUMBER, cmd, 100 / portTICK_PERIOD_MS);
@@ -99,7 +99,7 @@ esp_err_t humidity_manager_sample(void)
 
         if(err != ESP_OK)
         {
-            ESP_LOGE(TAG, "Error on I2C: %d", err);
+            ESP_LOGE(TAG, "Error reading humidity I2C: %s", esp_err_to_name(err));
             xSemaphoreGive(mutex);
             return err;
         }

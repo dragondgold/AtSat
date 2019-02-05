@@ -7,7 +7,7 @@
 //#define DEBUG
 
 // Tasks settings
-#define BATTERY_MANAGER_STACK_SIZE              1000
+#define BATTERY_MANAGER_STACK_SIZE              1500
 #define BATTERY_MANAGER_TASK_PRIORITY           2
 #define BATTERY_MANAGER_AFFINITY                tskNO_AFFINITY
 

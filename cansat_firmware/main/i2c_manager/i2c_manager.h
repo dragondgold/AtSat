@@ -19,5 +19,6 @@ esp_err_t i2c_manager_read_register(i2c_port_t port, TickType_t timeout, uint8_t
 esp_err_t i2c_manager_read_register_multiple(i2c_port_t port, TickType_t timeout, uint8_t slave_addr, uint8_t reg_addr, unsigned int length, uint8_t* values);
 esp_err_t i2c_manager_write_register(i2c_port_t port, TickType_t timeout, uint8_t slave_addr, uint8_t reg_addr, uint8_t value);
 esp_err_t i2c_manager_write_register_multiple(i2c_port_t port, TickType_t timeout, uint8_t slave_addr, uint8_t reg_addr, unsigned int length, uint8_t* values);
+esp_err_t i2c_manager_slave_exists(i2c_port_t port, TickType_t timeout, uint8_t slave_addr);
 
 #endif

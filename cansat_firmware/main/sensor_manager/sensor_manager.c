@@ -96,10 +96,12 @@ static void sensors_task(void* arg)
             sensors_data.temperature = pressure_manager_get_temperature();
             sensors_data.humidity = (uint8_t)humidity_manager_get_humidity();
 
-            gps_data = gps_manager_get_gga();
-            sensors_data.latitude = gps_data.latitude;
-            sensors_data.longitude = gps_data.longitude;
-            sensors_data.altitude = minmea_tofloat(&gps_data.altitude);
+            if(gps_manager_get_gga(&gps_data))
+            {
+                sensors_data.latitude = gps_data.latitude;
+                sensors_data.longitude = gps_data.longitude;
+                sensors_data.altitude = minmea_tofloat(&gps_data.altitude);
+            }
             xSemaphoreGive(sample_mutex);
         }
     }

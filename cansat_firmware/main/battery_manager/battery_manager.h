@@ -8,7 +8,7 @@ typedef struct
 {
     uint8_t soc;                    // State of charge in %
     uint16_t volts;                 // Battery voltage in mV
-    uint16_t avg_current;           // Average current in mA
+    int16_t avg_current;            // Average current in mA
     uint8_t total_capacity;         // Total battery capacity in mAh
     uint8_t remaining_capacity;     // Remaining battery capacity in mAh
     uint8_t health;                 // Battery health in %
@@ -21,6 +21,7 @@ typedef struct
 #define BATTERY_MANAGER_SOC1_CLEAR_THRESHOLD    20      // 20 %
 #define BATTERY_MANAGER_SOCF_SET_THRESHOLD      5       // 5 %
 #define BATTERY_MANAGER_SOCF_CLEAR_THRESHOLD    10      // 10 %
+#define BATTERY_MANAGER_OVERRIDE_CURRENT        true
 
 esp_err_t battery_manager_init(void);
 

@@ -99,6 +99,9 @@ void app_main()
     // Install gpio isr service
     gpio_install_isr_service(0);
 
+    // Give some time to circuits to power-up
+    vTaskDelay(pdMS_TO_TICKS(500));
+
     err += aux_ps_init();
     err += i2c_manager_init();
     err += spi_manager_init();
