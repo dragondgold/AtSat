@@ -1,7 +1,8 @@
 #include "led_manager.h"
 #include "config/cansat.h"
-#include "esp_log.h"
 #include "driver/ledc.h"
+
+#include "esp_log.h"
 
 static const uint32_t duty_resolution = 16;
 static const uint32_t duty_max = 65536;         // 2^duty_resolution
@@ -31,6 +32,11 @@ static bool fade = false;
 static void set_led_duty(float duty, bool fade, int fade_time)
 {
     ESP_LOGV(TAG, "Run set_led_duty(). %.2f, %d, %d", duty, fade, fade_time);
+    if(duty > 100) duty = 100;
+    else if(duty < 0) duty = 0;
+
+    // 100% duty is 0 clocks in the API and 0% duty is X clocks in the API
+    duty = 100 - duty;
     
     // Stop any fading currently active
     ledc_stop(LEDC_HIGH_SPEED_MODE, LED_MANAGER_LED_CHANNEL, 0);
@@ -104,7 +110,7 @@ static void led_task(void* args)
 
             case OFF:
                 ESP_LOGV(TAG, "Run OFF");
-                ledc_stop(LEDC_HIGH_SPEED_MODE, LED_MANAGER_LED_CHANNEL, 0);
+                set_led_duty(0, false, 0);
                 timeout = portMAX_DELAY;
                 break;
         }

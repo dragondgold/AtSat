@@ -23,7 +23,7 @@
 #define SENSOR_MANAGER_SENSORS_TASK_PRIORITY    3
 #define SENSOR_MANAGER_SENSORS_AFFINITY         tskNO_AFFINITY
 
-#define LED_MANAGER_STACK_SIZE                  1100
+#define LED_MANAGER_STACK_SIZE                  1300
 #define LED_MANAGER_TASK_PRIORITY               2
 #define LED_MANAGER_AFFINITY                    tskNO_AFFINITY
 
