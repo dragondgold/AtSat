@@ -12,6 +12,6 @@
 esp_err_t gps_manager_init(void);
 
 bool gps_manager_is_valid_location(void);
-struct minmea_sentence_gga gps_manager_get_gga(void);
+bool gps_manager_get_gga(struct minmea_sentence_gga* data);
 
 #endif // __GPS_MANAGER_H__
