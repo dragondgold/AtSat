@@ -116,7 +116,7 @@ export default {
             'okText': this.$t('cansat.notifications.modal.okBtn'),
             'cancelText': this.$t('cansat.notifications.modal.cancelBtn'),
             'uuid': utils.generateUUID().toString(),
-            'type': this.$t('cansat.notifications.center.types.info')
+            'type': this.$t('cansat.notifications.center.types.error')
         })
     },
   } 

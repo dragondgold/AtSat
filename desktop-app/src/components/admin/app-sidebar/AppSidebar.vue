@@ -71,9 +71,21 @@
           </span>
         </sidebar-link>
         <sidebar-link
-          :to="{ name: 'openMission' }">
+          :to="{ name: 'not-found-simple' }" :event="''" @click.native.prevent="importMission()">
           <span slot="title">
             <span>{{ $t('menu.missionOpen') }}</span>
+          </span>
+        </sidebar-link>
+        <sidebar-link
+          :to="{ name: 'not-found-simple' }" :event="''" @click.native.prevent="saveActualMission()">
+          <span slot="title">
+            <span>{{ $t('menu.missionSave') }}</span>
+          </span>
+        </sidebar-link>
+        <sidebar-link
+          :to="{ name: 'dashboardMission' }">
+          <span slot="title">
+            <span>{{ $t('menu.missioDashboard') }}</span>
           </span>
         </sidebar-link>
       </sidebar-link-group>
@@ -87,6 +99,7 @@ import VuesticSidebar
 import SidebarLink from './components/SidebarLink'
 import SidebarLinkGroup from './components/SidebarLinkGroup'
 import ProjectManager from 'services/projectManager'
+import MissionManager from 'services/missionManager'
 import utils from 'services/utils'
 
 export default {
@@ -126,11 +139,34 @@ export default {
           ProjectManager.openProjectDialog(false)
         }
     },
+    importMission(){
+      if(this.$store.getters.axtec.project.mission.path !== ''){
+          this.$store.commit('pushNotificationModal',{ 
+              'title': this.$t('cansat.notifications.modal.mission.import'), 
+              'date': utils.getDate(),
+              'content': this.$t('cansat.notifications.modal.mission.contentOverwriteNew'),
+              'code': 0,
+              'okCallback': this.showOpenDialogAnywayMission,
+              'okText': this.$t('cansat.notifications.modal.project.openAnyway'),
+              'cancelText': this.$t('cansat.notifications.modal.cancelBtn'),
+              'uuid': utils.generateUUID().toString(),
+              'type': this.$t('cansat.notifications.center.types.action')
+          })
+        }else{
+          MissionManager.openMissionDialog(false)
+        }
+    },
     saveActualProject(){
       ProjectManager.saveProject()
     },
+    saveActualMission(){
+      MissionManager.saveMission()
+    },
     showOpenDialogAnyway(){
       ProjectManager.openProjectDialog(true)
+    },
+    showOpenDialogAnywayMission(){
+      MissionManager.openMissionDialog(true)
     },
     goToNewProject(){
        this.$router.push({name:'newProject'})

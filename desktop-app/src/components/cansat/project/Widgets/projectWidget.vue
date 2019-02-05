@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import projectManager from 'services/projectManager'
 const {dialog} = require('electron').remote
 const isValidPath = require('is-valid-path')
 const homedir = require('os').homedir()
@@ -86,16 +87,13 @@ export default {
             properties: ['openDirectory']
         })
         if(files != undefined){
-
             this.$data.projectLocation = files[0]
-            //let json = JSON.stringify(this.$store.getters.axtec.project)
-            //utils.createFile(this.getPath(),json)
         }else{
             this.$data.projectLocation = ''
         }
         },
         isFormPathValid(field){
-            return isValidPath(field) && field != ''
+            return isValidPath(field) && field != '' && projectManager.canCreateFile(this.getPath())
         }
 
     }

@@ -61,13 +61,13 @@
                 </table>
             </div>
 
-            <div class="form-wizard-tab-content" v-if="!enableWizard">         
-                <p class="pt-1 mb-3" style="text-align:center">
+            <div class="col-md-12" v-if="!enableWizard">         
+                <div class="pt-1 mb-3" style="text-align:center">
                     <button v-if="!isCanSatConnect" class="btn btn-success btn-micro" @click="connect()">
                         {{'cansat.link.connect' | translate }}
                         <span class="fa fa-link"></span>
                     </button>
-                </p>
+                </div>
             </div>
         </div>
         <div v-else>
@@ -134,14 +134,16 @@ export default {
             this.$store.commit('setIDCanSat', { 'index': 0, 'id': this.selectedCansat})
             this.$store.commit('setNameCanSat', { 'index': 0, 'name': this.canSatName})
             this.$store.commit('setSignalCanSat', { 'index': 0, 'signal': this.signalLevel})
-            this.resetActuators()
-            this.createSensors()          
+            
+                     
         },
         clearStatusesOnDisconnect(){
             this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': false})
             this.$store.commit('setIDCanSat', { 'index': 0, 'id': ''})
             this.$store.commit('setNameCanSat', { 'index': 0, 'name': ''})
             this.$store.commit('setSignalCanSat', { 'index': 0, 'signal': ''})
+            this.resetSensors()
+            this.resetActuators() 
         },
         connect(){
             if( this.canSatName != '' &&  this.selectedCansat != ''){
@@ -174,7 +176,7 @@ export default {
             this.$store.commit('setActuators', defaultActuators.actuators[defaultActuators.parachute])
             this.$store.commit('setActuators', defaultActuators.actuators[defaultActuators.balloon])
         },
-        createSensors(){
+        resetSensors(){
             for(let s = 0; s < defaultSensors.sensors.length; s++){
                 this.$store.commit('addNewSensor', defaultSensors.sensors[s])
             }     

@@ -3,8 +3,12 @@
     "mission":{
       "new":{
         "title": "Nueva misión",
-        "description": "Selecione un nombre y ubicación para guardar los datos obtenidos en su misión"
+        "description": "Seleccione un nombre para su misión. La misma será guardada en la carpeta donde creó el proyecto.",
+        "create": "Crear"
       },
+      "dashBoard":{
+        "title": "Tablero de acciones"
+      }, 
       "import": "Importar",
       "export": "Exportar",
       "save": "Guardar",
@@ -24,6 +28,7 @@
       "error": "Error detectado: ",
       "subtitle": "Resultados: ",
       "testingLabel":" Test: ",
+      "noTestOk": "Debe correr los test de integridad para acceder a esta funcionalidad",
       "tips": "Si desea agregar un nuevo sensor, puede hacerlo en Recursos > Sensores > Creado por el usuario",
       "table":{
         "test": "Tests",
@@ -141,6 +146,7 @@
       "etConnectedLabel": "Conectada en: ",
       "etDisconnectedLabel": "Estacion terrena no conectada",
       "cansatDisconnectedLabel": "Conéctese a un CanSat",
+      "projectNoCreated": "Debe crear un proyecto antes de acceder a esta funcionalidad",
       "cansatIDLabel": "CanSat ID: ",
       "cansatNameLabel": "CanSat name: ",
       "cansatSignalLabel": "Nivel de señal: ",
@@ -158,7 +164,9 @@
     },
     "dialog": {
       "open": "Selecione un archivo \"cansat_pro\"",
-      "save": "Guardar su proyecto" 
+      "save": "Guardar su proyecto",
+      "openMission": "Selecione un archivo \"cansat_data\"",
+      "saveMission": "Guardar su misión"
     },
     "home":{
       "cards": {
@@ -176,10 +184,10 @@
             "description": "Nombre y ubicación",
             "titleName": "Escriba un nombre para su nuevo proyecto",
             "name": "Nombre",
-            "invalidName": "Nombre invalido",
+            "invalidName": "Nombre inválido o ya utilizado",
             "titleLocation": "Eliga una ubicación donde guardar su proyecto",
             "location": "Ubicación",
-            "invalidLocation": "Directorio invalido"
+            "invalidLocation": "Directorio inválido"
           },
           "stepTwo":{
             "label": "Estación terrena",
@@ -223,7 +231,26 @@
         "cancelBtn": "Cancel",
         "yesBtn": "Si",
         "noBtn": "No",
+        "mission":{
+          "noMissionCreated": "Primero debe crear una misión.",
+          "createdOk": "La misión se creó exitosamente.",
+          "loadedOk": "La misión se cargó correctamente.",
+          "save": "Guardar misión.",
+          "import": "Importar misión.",
+          "saveOk": "Misión guardada correctamente.",
+          "saveError": "Error al guardar misión.",
+          "invalidFormat": "Formato inválido. No se pudo importar.",
+          "invalidContent": "Estructura inválida. No se pudo importar.",
+          "incompleteFormat": "Misión incompleta. No se pudo importar.",
+          "missingSensors": "Sensores faltantes. No se pudo importar la misión.",
+          "duplicateIds": "IDs duplicados no permitidos. No se puede importar la misión.",
+          "wrongID": "ID erróneo. No se puede importar la misión.",
+          "samplesError": "Error en la cantidad de muestras. No se pudo cargar la misión.",
+          "contentOverwriteNew": "Perderá los datos de la misión actual si no la guarda primero."
+        },
         "project":{
+          "noProjectCreated": "Primero debe crear un proyecto",
+          "invalidPath": "Path inválido",
           "loadedOk": "El proyecto se cargó correctamente.",
           "openAnyway": "Abrir de todas formas",
           "wrongID": "ID erróneo. No se puede abrir el projecto.",
@@ -234,6 +261,7 @@
           "incompleteFormat": "Projecto incompleto. No se pudo abrir.",
           "missingSensors": "Sensores faltantes. No se pudo abrir el proyecto.",
           "open": "Cargar proyecto.",
+          "save": "Guardar proyecto",
           "titleNew": "Nuevo proyecto.",
           "contentOverwriteNew": "Perderá los datos del proyecto actual si no los guarda primero.",
           "createdOk": "Proyecto creado correctamente.",
@@ -420,7 +448,9 @@
     "projectConfig": "Configuraciones",
     "mission": "Mision",
     "missionNew": "Nueva",
+    "missionSave": "Guardar",
     "missionOpen": "Importar",
+    "missioDashboard": "Tablero de acciones",
     "sat": "Cansat", 
     "satEnlace": "Enlace",
     "satTest": "Pruebas de integridad",

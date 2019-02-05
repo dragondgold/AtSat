@@ -16,18 +16,20 @@
                     >
             </vuestic-simple-select>
         </div>
-        <div class="form-wizard-tab-content" v-if="!enableWizard" >
-            <p v-if="isConnected">  {{$t('cansat.link.etConnectedLabel') + USBPort.toUpperCase()}}  </p>
-            <p class="pt-1 mb-0" style="text-align:center">
-            <button v-if="!isConnected" class="btn btn-success btn-micro " @click="connect()">
-                {{ $t('cansat.link.connect') }}
-                <span class="fa fa-link"></span>
-            </button>
-            <button v-else class="btn btn-danger btn-micro " @click="disconnect()">
-                {{ $t('cansat.link.disconnect') }}
-                <span class="fa fa-unlink"></span>
-            </button>
-            </p>
+        <div class="col-md-12" v-if="!enableWizard" >
+            <div>
+                <p v-if="isConnected">  {{$t('cansat.link.etConnectedLabel') + USBPort.toUpperCase()}}  </p>
+                <div class="col-md-12 pt-1 mb-3" style="text-align:center">
+                    <button v-if="!isConnected" class="btn btn-success btn-micro " @click="connect()">
+                        {{ $t('cansat.link.connect') }}
+                        <span class="fa fa-link"></span>
+                    </button>
+                    <button v-else class="btn btn-danger btn-micro " @click="disconnect()">
+                        {{ $t('cansat.link.disconnect') }}
+                        <span class="fa fa-unlink"></span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </template>

@@ -25,6 +25,7 @@
 
 <script>
 import ProyectManager from 'services/projectManager'
+import MissionManager from 'services/missionManager'
 import defaultActuators from 'data/Actuators'
 import defaultSensors from 'data/Sensors'
 import utils from 'services/utils'
@@ -43,6 +44,7 @@ export default {
 
   created(){
     if(this.$store.getters.axtec.debug){ // Initialize data structure
+      /*
       console.log("Setting up modules", "Debug: " + this.$store.getters.axtec.debug )   
       this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': true})
 
@@ -53,7 +55,8 @@ export default {
       // Load sensors from data/Sensors
       for(let s = 0; s < defaultSensors.sensors.length; s++){ 
         this.$store.commit('addNewSensor', defaultSensors.sensors[s])
-      } 
+      }
+      */ 
     }
   },
 
@@ -83,7 +86,11 @@ export default {
       }    
     },
     goToOpenMission() {
-      this.$router.push({name:'openProject'})
+      if(this.$store.getters.axtec.project.mission.path == ''){
+        MissionManager.openMissionDialog(false)
+      }else{
+        MissionManager.openMissionDialog(true)
+      } 
     },
     goToNewProject(){
       this.$router.push({name:'newProject'})

@@ -9,103 +9,80 @@ import store from '../store'
 import Vue from 'vue'
 import defaultSensors from 'data/Sensors'
 import codeValues from 'data/codeValues'
+import { DEFAULT_ECDH_CURVE } from 'tls';
 
 export default {
     saveMission(){
-        if(store.getters.axtec.project.path !== ''){
+        if(store.getters.axtec.project.mission.path != ''){
             let jsonToEdit = JSON.parse(JSON.stringify(store.getters.axtec.project))
             let sensors = jsonToEdit.cansat[0].sensors
             for(let s= 0; s< sensors.length; s++){
-                if(sensors[s]._type == 'vector'){
-                    sensors[s].x = 0
-                    sensors[s].y = 0
-                    sensors[s].z = 0
-                }else{ // It's 'scalar' or 'power' or 'user'
-                    sensors[s].lastValue = sensors[s].minValue
-                }
+                
+                delete sensors[s].minValue
+                delete sensors[s].maxValue
+                delete sensors[s].minThreshold
+                delete sensors[s].maxThreshold
                 delete sensors[s].samples
-            }
-            let projectFile =  JSON.stringify({ sensors: sensors})
-            this.saveProjectFile(store.getters.axtec.project.path,projectFile)
-        }else{
-            store.commit('pushNotificationModal',{ 
-                'title': vm.$t('cansat.notifications.modal.project.save'), 
-                'date': utils.getDate(),
-                'code': codeValues.project.invalidPath,
-                'okText': vm.$t('cansat.notifications.modal.okBtn'),
-                'uuid': utils.generateUUID().toString(),
-                'type': vm.$t('cansat.notifications.center.types.error'),
-                'cancelDisabled': true
-            })
-        }
-    },
-    saveProject(){  
-        if(store.getters.axtec.project.path !== ''){
-            let jsonToEdit = JSON.parse(JSON.stringify(store.getters.axtec.project))
-            let sensors = jsonToEdit.cansat[0].sensors
-            for(let s= 0; s< sensors.length; s++){
-                if(sensors[s]._type == 'vector'){
-                    sensors[s].x = 0
-                    sensors[s].y = 0
-                    sensors[s].z = 0
-                }else{ // It's 'scalar' or 'power' or 'user'
-                    sensors[s].lastValue = sensors[s].minValue
+                delete sensors[s].cansatIndex
+                delete sensors[s].unit
+                delete sensors[s].step
+                delete sensors[s].type
+                delete sensors[s].status
+                delete sensors[s].x
+                delete sensors[s].y
+                delete sensors[s].z
+                delete sensors[s].lastValue
+                if(store.getters.axtec.debug){
+                    sensors[s].samples = [{}]
+                    if(sensors[s]._type == 'vector'){
+                        sensors[s].samples[0].x = 0
+                        sensors[s].samples[0].y = 0
+                        sensors[s].samples[0].z = 0
+                    }else{ // It's 'scalar' or 'power' or 'user'
+                        sensors[s].samples[0].lastValue = 0
+                    }
+                    sensors[s].samples[0].timespan = 0
+                }else{
+                    sensors[s].samples = []
                 }
-                delete sensors[s].samples
+                
             }
-            let projectFile =  JSON.stringify({ sensors: sensors})
-            this.saveProjectFile(store.getters.axtec.project.path,projectFile)
-        }else{
-            store.commit('pushNotificationModal',{ 
-                'title': vm.$t('cansat.notifications.modal.project.save'), 
-                'content': vm.$t('cansat.notifications.modal.project.noProjectCreated'), 
-                'date': utils.getDate(),
-                'code': codeValues.project.saveError,
-                'okText': vm.$t('cansat.notifications.modal.okBtn'),
-                'uuid': utils.generateUUID().toString(),
-                'type': vm.$t('cansat.notifications.center.types.error'),
-                'cancelDisabled': true
-            })
-        }
-    },
 
-    openProjectDialog(overwrite) {
-        let path =
-        dialog.showOpenDialog({ 
-            'title': vm.$t('cansat.dialog.open'),
-            properties: [ 
-                'openFile',
-            ],        
-            filters: [
-            {name: 'Custom File Type', extensions: ['cansat_pro']},
-            ]
-        })
-        if(path != null){
-            if(store.getters.axtec.project.path == '' || overwrite){
-                this.loadFile(path[0],this.validateProject)
+            let location = jsonToEdit.cansat[0].location
+            delete location.lat
+            delete location.lng
+
+            if(store.getters.axtec.debug){
+                location.history = [{
+                    lat:0,
+                    lng:0,
+                    timespan:0
+                }]
             }else{
-            
-            }     
-        }
-    },    
-    createFile(path, contents){
-        mkdirp(getDirName(path), (err) => {
-            if (err){
-                alert("An error ocurred creating the folder "+ err.message)
-            }else{
-                fs.writeFile(path, contents, (err) => {
-                    if(err){
-                        log.error('An error ocurred creating the file ' + path + ' error: ' +  err.message);
-                        alert("An error ocurred creating the file "+ err.message)
-                    }else{
-                        log.info('The file ' + path + 'has been succesfully saved');
-                        alert("An error ocurred creating the file "+ err.message)
-                    }  
-                }) 
+                location.history = []
             }
-        })
+
+            let missionFile =  JSON.stringify({ 
+                data: {
+                    sensors: sensors,
+                    location: location
+                } 
+            })
+            this.saveMissionFile(store.getters.axtec.project.mission.path,missionFile)
+        }else{
+            store.commit('pushNotificationModal',{ 
+                'title': vm.$t('cansat.notifications.modal.mission.save'), 
+                'content': vm.$t('cansat.notifications.modal.mission.noMissionCreated'), 
+                'date': utils.getDate(),
+                'code': codeValues.mission.saveError,
+                'okText': vm.$t('cansat.notifications.modal.okBtn'),
+                'uuid': utils.generateUUID().toString(),
+                'type': vm.$t('cansat.notifications.center.types.error'),
+                'cancelDisabled': true
+            })
+        }
     },
-    saveProjectFile(path, contents){
+    saveMissionFile(path, contents){
         mkdirp(getDirName(path), (err) => {
             if (err){
                 alert("An error ocurred creating the folder "+ err.message)
@@ -114,10 +91,10 @@ export default {
                 if(err){
                     log.error('An error ocurred creating the file ' + path + ' error: ' +  err.message);
                     store.commit('pushNotificationModal',{ 
-                        'title': vm.$t('cansat.notifications.modal.project.saveError'), 
+                        'title': vm.$t('cansat.notifications.modal.mission.saveError'), 
                         'content': '',
                         'date': utils.getDate(),
-                        'code': 0,
+                        'code': codeValues.mission.saveError,
                         'okText': vm.$t('cansat.notifications.modal.okBtn'),
                         'uuid': utils.generateUUID().toString(),
                         'type': vm.$t('cansat.notifications.center.types.error'),
@@ -126,14 +103,14 @@ export default {
                 }else{
                     log.info('The file ' + path + 'has been succesfully saved');
                     store.commit('pushNotificationModal',{ 
-                        'title': vm.$t('cansat.notifications.modal.project.saveOk'), 
+                        'title': vm.$t('cansat.notifications.modal.mission.saveOk'), 
                         'date': utils.getDate(),
-                        'code': codeValues.project.ok,
+                        'code': codeValues.mission.ok,
                         'uuid': utils.generateUUID().toString(),
                         'type': vm.$t('cansat.notifications.center.types.info')
                     })
                     store.commit('pushNotificationToast',{ 
-                        'text': vm.$t('cansat.notifications.modal.project.saveOk'), 
+                        'text': vm.$t('cansat.notifications.modal.mission.saveOk'), 
                         'icon': 'fa-check'          
                     })
                 }  
@@ -141,7 +118,26 @@ export default {
             }
         })
     },
-    loadFile(path, callback){   
+    openMissionDialog(overwrite) {
+        let path =
+        dialog.showOpenDialog({ 
+            'title': vm.$t('cansat.dialog.openMission'),
+            properties: [ 
+                'openFile',
+            ],        
+            filters: [
+            {name: 'Custom File Type', extensions: ['cansat_data']},
+            ]
+        })
+        if(path != null){
+            if(store.getters.axtec.project.mission.path == '' || overwrite){
+                this.loadMissionFile(path[0],this.validateMission)
+            }else{
+            
+            }     
+        }
+    }, 
+    loadMissionFile(path, callback){   
         if (fs.existsSync(path)) {
             fs.readFile(path,'utf8', function read(err, data) {
                 if (err) {
@@ -154,7 +150,7 @@ export default {
                     }
                     if(callback){
                         let code = callback(data,path)
-                        console.log('LOAD PROJECT CODE: ' + code)
+                        console.log('LOAD MISSION CODE: ' + code)
                     }         
                     
                 }
@@ -162,69 +158,61 @@ export default {
         }else{
             return '' // File doesn't exist
         }
-    },
-    canCreateFile(path){
-        if (fs.existsSync(path)) {
-            return false
-        }
-        return true
-    },
-    validateProject(data, path){
+    }, 
+    validateMission(data, path){
         try {
             JSON.parse(data)
         } catch (e) {
             store.commit('pushNotificationModal',{ 
-                'title': vm.$t('cansat.notifications.modal.project.open'), 
-                'content': vm.$t('cansat.notifications.modal.project.invalidFormat'),
+                'title': vm.$t('cansat.notifications.modal.mission.import'), 
+                'content': vm.$t('cansat.notifications.modal.mission.invalidFormat'),
                 'date': utils.getDate(),
-                'code': codeValues.project.jsonInvalid,
+                'code': codeValues.mission.jsonInvalid,
                 'okText': vm.$t('cansat.notifications.modal.okBtn'),
                 'uuid': utils.generateUUID().toString(),
                 'type': vm.$t('cansat.notifications.center.types.error'),
                 'cancelDisabled': true
             })
-            return codeValues.project.jsonInvalid
+            return codeValues.mission.jsonInvalid
         }
-        let project = JSON.parse(data)
+        let file = JSON.parse(data)
 
         // Invalid project 
-        if(project.sensors == undefined || project.sensors.length == 0){ 
+        if(file.data == undefined ||file.data.sensors == undefined || file.data.sensors.length == 0 || file.data.location == undefined || file.data.location.length == 0){ 
             store.commit('pushNotificationModal',{ 
-                'title': vm.$t('cansat.notifications.modal.project.open'), 
-                'content': vm.$t('cansat.notifications.modal.project.invalidContent'),
+                'title': vm.$t('cansat.notifications.modal.mission.import'), 
+                'content': vm.$t('cansat.notifications.modal.mission.invalidContent'),
                 'date': utils.getDate(),
-                'code': codeValues.project.projectKeyInvalid,
+                'code': codeValues.mission.keysInvalid,
                 'okText': vm.$t('cansat.notifications.modal.okBtn'),
                 'uuid': utils.generateUUID().toString(),
                 'type': vm.$t('cansat.notifications.center.types.error'),
                 'cancelDisabled': true
             })
-            return codeValues.project.projectKeyInvalid
+            return codeValues.mission.keysInvalid
         }else{
-            let sensors = project.sensors
-            
-            // Incomplete sensors with all _types
-            let missingCommonKeys = sensors.filter(function(s,index) { 
-                return (s._type == undefined || s.id == undefined || s.status == undefined || s.cansatIndex == undefined || 
-                        s.step == undefined || s.unit == undefined || s.type == undefined || s.maxValue == undefined ||
-                        s.minValue == undefined || s.minThreshold == undefined || s.maxThreshold == undefined 
-                )
-            })
-            if(missingCommonKeys.length > 0){ 
 
+            let sensors = file.data.sensors
+
+            // Missing keys
+            let missingKeysSensors = sensors.filter(function(s,index) { 
+                return (s._type == undefined || s.id == undefined || s.samples == undefined)
+            })
+
+            if(missingKeysSensors.length > 0 || file.data.location.history == undefined ){ 
                 store.commit('pushNotificationModal',{ 
-                    'title': vm.$t('cansat.notifications.modal.project.open'), 
-                    'content': vm.$t('cansat.notifications.modal.project.incompleteFormat'),
+                    'title': vm.$t('cansat.notifications.modal.mission.import'), 
+                    'content': vm.$t('cansat.notifications.modal.mission.incompleteFormat'),
                     'date': utils.getDate(),
-                    'code': codeValues.project.missingCommonKeys,
+                    'code': codeValues.mission.missingKeys,
                     'okText': vm.$t('cansat.notifications.modal.okBtn'),
                     'uuid': utils.generateUUID().toString(),
                     'type': vm.$t('cansat.notifications.center.types.error'),
                     'cancelDisabled': true
                 })
-                return codeValues.project.missingCommonKeys
+                return codeValues.mission.missingKeys
             }
-
+            
             // Missing default sensors
             let defaultVectorSensors = defaultSensors.sensors.filter(function(s,index) {   
                 return (s._type == 'vector')
@@ -246,20 +234,17 @@ export default {
             })
             if(defaultVectorSensors.length != vectorSensors.length || defaultScalarSensors.length != scalarSensors.length || defaultPowerSensors.length != powerSensors.length){
                 store.commit('pushNotificationModal',{ 
-                    'title': vm.$t('cansat.notifications.modal.project.open'), 
-                    'content': vm.$t('cansat.notifications.modal.project.missingSensors'),
+                    'title': vm.$t('cansat.notifications.modal.mission.import'), 
+                    'content': vm.$t('cansat.notifications.modal.mission.missingSensors'),
                     'date': utils.getDate(),
-                    'code': codeValues.project.missingSensors,
+                    'code': codeValues.mission.missingSensors,
                     'okText': vm.$t('cansat.notifications.modal.okBtn'),
                     'uuid': utils.generateUUID().toString(),
                     'type': vm.$t('cansat.notifications.center.types.error'),
                     'cancelDisabled': true
                 })
-                return codeValues.project.missingSensors
+                return codeValues.mission.missingSensors
             }
-
-
-
 
             // Find duplicates ids
             let s = sensors.map(function(item){ return item.id });
@@ -268,65 +253,89 @@ export default {
             });
             if(isDuplicate){
                 store.commit('pushNotificationModal',{ 
-                    'title': vm.$t('cansat.notifications.modal.project.open'), 
-                    'content': vm.$t('cansat.notifications.modal.project.duplicateIds'),
+                    'title': vm.$t('cansat.notifications.modal.mission.import'), 
+                    'content': vm.$t('cansat.notifications.modal.mission.duplicateIds'),
                     'date': utils.getDate(),
-                    'code': codeValues.project.duplicateIDs,
+                    'code': codeValues.mission.duplicateIDs,
                     'okText': vm.$t('cansat.notifications.modal.okBtn'),
                     'uuid': utils.generateUUID().toString(),
                     'type': vm.$t('cansat.notifications.center.types.error'),
                     'cancelDisabled': true
                 })
-                return codeValues.project.duplicateIDs
+                return codeValues.mission.duplicateIDs
             }
 
             // Find wrong IDs
             for(let s= 0 ;s < defaultSensors.sensors.length;s++){
                 let matchId = sensors.filter(function(sensor,index) { 
-                    return (sensor.id == defaultSensors.sensors[s].id && sensor._type == defaultSensors.sensors[s]._type) 
+                    return (sensor.id == defaultSensors.sensors[s].id && sensor._type == defaultSensors.sensors[s]._type)
                 })
                 if(matchId.length !=1){
                     store.commit('pushNotificationModal',{ 
-                        'title': vm.$t('cansat.notifications.modal.project.open'), 
-                        'content': vm.$t('cansat.notifications.modal.project.wrongID'),
+                        'title': vm.$t('cansat.notifications.modal.mission.import'), 
+                        'content': vm.$t('cansat.notifications.modal.mission.wrongID'),
                         'date': utils.getDate(),
-                        'code': codeValues.project.wrongIDs,
+                        'code': codeValues.mission.wrongIDs,
                         'okText': vm.$t('cansat.notifications.modal.okBtn'),
                         'uuid': utils.generateUUID().toString(),
                         'type': vm.$t('cansat.notifications.center.types.error'),
                         'cancelDisabled': true
                     })
-                    return codeValues.project.wrongIDs
+                    return codeValues.mission.wrongIDs
                 }
+            }
+
+            // Empty samples or history
+            let lengthSamplesSensors = sensors.filter(function(sensor,index) { 
+                return (sensor.samples.length != sensors[0].samples.length || sensor.samples.length == 0 ) 
+            })
+            if(lengthSamplesSensors.length != 0 || file.data.location.history.length == 0){
+                store.commit('pushNotificationModal',{ 
+                    'title': vm.$t('cansat.notifications.modal.mission.import'), 
+                    'content': vm.$t('cansat.notifications.modal.mission.samplesError'),
+                    'date': utils.getDate(),
+                    'code': codeValues.mission.samplesError,
+                    'okText': vm.$t('cansat.notifications.modal.okBtn'),
+                    'uuid': utils.generateUUID().toString(),
+                    'type': vm.$t('cansat.notifications.center.types.error'),
+                    'cancelDisabled': true
+                })
+                return codeValues.mission.samplesError
             }
 
             // It's a valid project
             store.commit('pushNotificationModal',{ 
-                'title': vm.$t('cansat.notifications.modal.project.loadedOk'), 
+                'title': vm.$t('cansat.notifications.modal.mission.loadedOk'), 
                 'date': utils.getDate(),
                 'code': 0,
                 'uuid': utils.generateUUID().toString(),
                 'type': vm.$t('cansat.notifications.center.types.info')
             })
             store.commit('pushNotificationToast',{ 
-                'text': vm.$t('cansat.notifications.modal.project.loadedOk'), 
+                'text': vm.$t('cansat.notifications.modal.mission.loadedOk'), 
                 'icon': 'fa-check'          
             })
 
             sensors[0].clear = true // To clear sensors list
 
+            /*
             for(let s= 0; s < sensors.length;s++){
                 store.commit('addNewSensor', sensors[s])
             }
-            
-            store.commit('axtecPath', path)
+            */
+            store.commit('setPathMission', path)
 
             store.commit('setTestStatus',{ 
                 cansatIndex: 0, 
                 testOk: false
             })
 
-            vm.$router.push({ name: 'linkSat' })
+            store.commit('setMissionType',{
+                cansatIndex: 0,
+                missionType: 'imported'
+            })
+
+            vm.$router.push({ name: 'dashboardMission' })
             return codeValues.project.ok
         }
     }

@@ -108,6 +108,12 @@ export default {
       console.log("Clear statuses")
       this.$refs.etWidget.clearStatusesOnDisconnect()
       this.$refs.cansatWidget.clearStatusesOnDisconnect()
+      this.$store.commit('axtecPath','')
+      this.$store.commit('setPathMission', '')
+      this.$store.commit('setMissionType',{
+          cansatIndex: 0,
+          missionType: ''
+      })
       this.resetActuators()
     },
     successProject(){
@@ -115,9 +121,13 @@ export default {
       this.$store.commit('setNameCanSat', { 'index': 0, 'name': this.$refs.cansatWidget.getName()})
       this.$refs.etWidget.setStatusesOnConnect()
       this.$refs.cansatWidget.setStatusesOnConnect()
+      this.$store.commit('setTestStatus',{ 
+        cansatIndex: 0, 
+        testOk: false
+      })
       this.$store.commit('pushNotificationToast',{ 
-          'text': 'Creando nuevo proyecto', 
-          'icon': 'fa-commenting'          
+          'text': this.$t('cansat.notifications.modal.project.createdOk'), 
+          'icon': 'fa-check'          
         })
       this.$store.commit('pushNotificationModal',{ 
           'title': this.$t('cansat.notifications.modal.project.createdOk'), 

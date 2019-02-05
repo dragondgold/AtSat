@@ -3,8 +3,12 @@
     "mission":{
       "new":{
         "title": "New mission",
-        "description": "Select a name and location to save your mission data"
+        "description": "Select a name for your mission. The mission will be stored in the folder where You created the project.",
+        "create": "Create"
       },
+      "dashBoard":{
+        "title": "Dashboard"
+      }, 
       "import": "Import",
       "export": "Export",
       "create": "Create",
@@ -25,6 +29,7 @@
       "subtitle": "Output: ",
       "testingLabel":" Test: ",
       "tips": "If you want to add a new sensor, you can do it in Resources > Sensors > Created by user",
+      "noTestOk": "Debe correr los test de integridad para acceder a esta funcionalidad",
       "table":{
         "test": "Tests",
         "progress": "Progress",
@@ -140,6 +145,7 @@
       "etConnectedLabel": "Connected to: ",
       "etDisconnectedLabel": "Please connect an earth station",
       "cansatDisconnectedLabel": "Please connect to a CanSat",
+      "projectNoCreated": "Please create a project to use this functionality",
       "cansatIDLabel": "CanSat ID: ",
       "cansatSignalLabel": "Signal level: ",
       "cansatNameLabel": "CanSat name: ",
@@ -157,7 +163,9 @@
     },
     "dialog": {
       "open": "Open a file \"cansat_pro\"" ,
-      "save": "Save your project" 
+      "save": "Save your project",
+      "openMission": "Open a file \"cansat_data\"",
+      "saveMission": "Save your mission" 
     },
     "home":{
       "cards": {
@@ -175,7 +183,7 @@
             "description": "Name and location",
             "titleName": "Set name for your project",
             "name": "Name",
-            "invalidName": "Invalid Name",
+            "invalidName": "Invalid nme or already used",
             "titleLocation": "Choose a folder",
             "location": "Location",
             "invalidLocation": "Invalid location"
@@ -222,20 +230,40 @@
         "yesBtn": "Yes",
         "noBtn": "No",
         "cancelBtn": "Cancel",
+        "mission":{
+          "noMissionCreated": "No mission created.",
+          "createdOk": "The mission has been succesfully created.",
+          "loadedOk": "The mission has been succesfully imported.",
+          "save": "Save mission.",
+          "import": "Import mission.",
+          "saveOk": "The mission has been succesfully saved.",
+          "saveError": "An error occurred saving the mission.",
+          "invalidFormat": "Invalid format. It can not be opened.",
+          "invalidContent": "Invalid structure. It can not be opened.",
+          "incompleteFormat": "Incomplet mission. It can not be opened.",
+          "missingSensors": "Missing sensors. It can not be opened.",
+          "duplicateIds": "Duplicate IDs not allowed. The mission can not be opened.",
+          "wrongID": "Wrong ID. The mission can not be opened.",
+          "samplesError": "Error in samples length. The mission could not be loaded.",
+          "contentOverwriteNew": "You will lose the data of the current mission if you do not save it first."
+        },
         "project":{
+          "noProjectCreated": "No project created",
+          "invalidPath": "Invalid path",
           "loadedOk": "The project has been succesfully loaded.",
           "openAnyway": "Open anyway",
-          "wrongID": "Wrong ID. Project can not be opened.",
-          "duplicateIds": "Duplicate IDs not allowed. Project can not be opened.",
+          "wrongID": "Wrong ID. The project can not be opened.",
+          "duplicateIds": "Duplicate IDs not allowed. The project can not be opened.",
           "invalid": "Invalid project. It can not be opened.",
           "invalidContent": "Invalid structure. It can not be opened.",
           "invalidFormat": "Invalid format. It can not be opened.",
           "incompleteFormat": "Incomplet project. It can not be opened.",
           "missingSensors": "Missing sensors. It can not be opened.",
           "open": "Open project.",
+          "save": "Save project.",
           "contentOverwriteNew": "You will lose the data of the current project if you do not save it first.",
-          "createdOk": "Project has been succesfully created.",
-          "saveOk": "Project has been succesfully saved.",
+          "createdOk": "The project has been succesfully created.",
+          "saveOk": "The project has been succesfully saved.",
           "saveError": "An error occurred saving the project."
         },
         "test":{
@@ -436,8 +464,10 @@
     "projectOpen": "Open",
     "projectSave": "Save",
     "projectConfig": "Configurations",
+    "missioDashboard": "Dashboard",
     "mission": "Mission",
     "missionNew": "New",
+    "missionSave": "Save",
     "missionOpen": "Open",
     "sat": "Cansat", 
     "satEnlace": "Link",

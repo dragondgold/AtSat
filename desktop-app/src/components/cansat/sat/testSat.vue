@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <vuestic-widget :headerText="$t('cansat.test.title')">
-          <div v-if="isConnected">
+          <div v-if="isConnected && isProjectCreated">
             <div v-if="!isTestRunning" class="col-md-12 mb-3" style="text-align:center;">
               <p>
                 {{$t('cansat.test.description')}}
@@ -64,13 +64,23 @@
 
         </div>
         <div v-else>
-          <p>{{$t('cansat.link.cansatDisconnectedLabel')}}</p>
+          <div v-if="!isProjectCreated" style="text-align:center;">
+            <p>{{$t('cansat.link.projectNoCreated')}}</p>
+            <p class="pt-1 mb-3" style="text-align:center">
+                <button class="btn btn-success btn-micro" @click="goToNewProject()">
+                    {{'cansat.project.new.wizard.title' | translate }}
+                </button>
+            </p>
+          </div>
+          <div v-else style="text-align:center;">
+            <p>{{$t('cansat.link.cansatDisconnectedLabel')}}</p>
             <p class="pt-1 mb-3" style="text-align:center">
                 <button class="btn btn-success btn-micro" @click="goToLink()">
                     {{'cansat.link.title' | translate }}
                     <span class="fa fa-link"></span>
                 </button>
             </p>
+          </div>  
         </div>
         </vuestic-widget>
       </div>
@@ -122,6 +132,9 @@ export default {
     },
     isTestOk(){
       return this.$store.getters.axtec.project.cansat[0].testOk
+    },
+    isProjectCreated(){
+      return this.$store.getters.axtec.project.path != ''        
     }
   },
 
@@ -373,6 +386,9 @@ export default {
     goToLink(){
       this.$router.push({name:'linkSat'})
     },
+    goToNewProject(){
+      this.$router.push({name:'newProject'})
+    }
   } 
 }
 </script>

@@ -47,6 +47,7 @@ const state = {
         testOk: false,        // State of test
         missionActive: false, // If it's false we need create a mission
         projectActive: false, // If it's false we need create a project
+        missionType: '',      // 'created' for new mission or 'imported' when we load a mission
         sensors:[ 
           {
             id: '',           // ID = CMD Sent and received from CanSat
@@ -91,12 +92,12 @@ const state = {
         connected: false  
       },
       mission:{
-        name:'',          // Mission name
-        createdDate: '',  
+        path: '',          // Path
+        startDate: '',  
         endDate:'',
-        data:{    // Data to import or export: 
-                  // when it's imported we need load cansat 
-                  // when it´s exported we take data from cansat
+        data:{            // Data to import or export: 
+                          // when it's imported we need load cansat 
+                          // when it´s exported we take data from cansat
 
         }
       }
@@ -127,8 +128,12 @@ const mutations = {
       ... (data.uuid != undefined ? {uuid: data.uuid} : []),
       ... (data.type != undefined ? {type: data.type} : []),
       ... (data.cancelDisabled != undefined ? {cancelDisabled: data.cancelDisabled} : {cancelDisabled: false}),
-      ... (data.function != undefined ? {function: data.function} : [])
+      ... (data.function != undefined ? {function: data.function} : []),
+      show: false
     })
+  },
+  setShowModal(state,data){
+    state.axtec.notificationsModal[data.index].show = data.show
   },
   pushNotificationToast(state,data){
     state.axtec.notificationsToast.push({
@@ -219,7 +224,13 @@ const mutations = {
   },
   setProjectStatus(state,data){
     state.axtec.project.cansat[data.cansatIndex].projectActive = data.projectActive
-  }
+  },
+  setPathMission(state,data){
+    state.axtec.project.mission.path = data.path
+  },
+  setMissionType(state,data){
+    state.axtec.project.cansat[data.cansatIndex].missionType = data.missionType // 'created' or 'imported'
+  },
 }
 
 const actions = {
@@ -231,6 +242,9 @@ const actions = {
   },
   pushNotificationModal( { commit }, data){
     commit(pushNotificationModal,data)
+  },
+  setShowModal(state,data){
+    commit(setShowModal,data)
   },
   pushNotificationToast( { commit }, data){
     commit(pushNotificationToast,data)
@@ -279,6 +293,12 @@ const actions = {
   },
   setProjectStatus({ commit }, data){
     commit(setProjectStatus,data)
+  },
+  setPathMission({ commit }, data){
+    commit(setPathMission,data)
+  },
+  setMissionType({ commit }, data){
+    commit(setMissionType,data)
   },
 }
 

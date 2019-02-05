@@ -112,6 +112,11 @@ export default new Router({
               component: lazyLoading('cansat/mission/newMission'),
             },
             {
+              name: 'dashboardMission',
+              path: 'dashboardMission',
+              component: lazyLoading('cansat/mission/dashboardMission'),
+            },
+            {
               name: 'openMission',
               path: 'openMission',
               component: lazyLoading('cansat/mission/openMission')

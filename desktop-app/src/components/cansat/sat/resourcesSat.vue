@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <vuestic-widget :headerText="$t('cansat.resources.title')" class="pt-0">
-          <vuestic-accordion v-if="isConnected">
+          <vuestic-accordion v-if="isConnected && isProjectCreated">
             <vuestic-collapse class="collapse-background" ref="collapse">
               <span slot="header"> {{$t('cansat.resources.actuators.title')}} </span>
               <div slot="body">
@@ -54,13 +54,23 @@
             </vuestic-collapse>
           </vuestic-accordion>
           <div v-else>
-            <p>{{$t('cansat.link.cansatDisconnectedLabel')}}</p>
-            <p class="pt-1 mb-3" style="text-align:center">
-                <button class="btn btn-success btn-micro" @click="goToLink()">
-                    {{'cansat.link.title' | translate }}
-                    <span class="fa fa-link"></span>
-                </button>
-            </p>
+            <div v-if="!isProjectCreated" style="text-align:center;">
+              <p>{{$t('cansat.link.projectNoCreated')}}</p>
+              <p class="pt-1 mb-3" style="text-align:center">
+                  <button class="btn btn-success btn-micro" @click="goToNewProject()">
+                      {{'cansat.project.new.wizard.title' | translate }}
+                  </button>
+              </p>
+            </div>
+            <div v-else style="text-align:center;">
+              <p>{{$t('cansat.link.cansatDisconnectedLabel')}}</p>
+              <p class="pt-1 mb-3" style="text-align:center">
+                  <button class="btn btn-success btn-micro" @click="goToLink()">
+                      {{'cansat.link.title' | translate }}
+                      <span class="fa fa-link"></span>
+                  </button>
+              </p>
+            </div>   
           </div>          
         </vuestic-widget>
       </div>
@@ -105,6 +115,9 @@ export default {
       isCanSatConnected(){
             return this.$store.getters.axtec.project.cansat[0].connected
       },
+      isProjectCreated(){
+        return this.$store.getters.axtec.project.path != ''        
+      }
     },
 
     watch:{
@@ -118,6 +131,9 @@ export default {
       },
       goToLocation(){
         this.$router.push({name:'locationSat'})
+      },
+      goToNewProject(){
+        this.$router.push({name:'newProject'})
       }
     }
 }
