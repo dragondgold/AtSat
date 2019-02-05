@@ -48,26 +48,36 @@ static void battery_sample_task(void* args)
             ESP_LOGV(TAG, "Battery health %d %%", battery_data.remaining_capacity);
             ESP_LOGV(TAG, "Battery is %s", battery_data.is_charging ? "charging" : "not charging");
 
+#if BATTERY_MANAGER_OVERRIDE_CURRENT == true
             // When not charging (USB disconnected), set the charging current at minimum
             if(!battery_data.is_charging)
             {
                 gpio_set_direction(CHARGER_ISET_PIN, GPIO_MODE_DEF_INPUT);
                 battery_data.charging_at_max = false;
             }
-            
+
             // Charger detected? Use current defined by the ISET resistor (300 mA)
             if(gpio_get_level(CHARGER_DETECTION_PIN))
             {
                 gpio_set_direction(CHARGER_ISET_PIN, GPIO_MODE_DEF_OUTPUT);
                 gpio_set_level(CHARGER_ISET_PIN, 0);
                 battery_data.charging_at_max = true;
+                ESP_LOGV(TAG, "Charging current 300 mA");
             }
             else
             {
                 // Charge at minimum current (100 mA)
                 gpio_set_direction(CHARGER_ISET_PIN, GPIO_MODE_DEF_INPUT);
                 battery_data.charging_at_max = false;
+                ESP_LOGV(TAG, "Charging current 100 mA");
             }
+#else
+            // Set max charging current
+            gpio_set_direction(CHARGER_ISET_PIN, GPIO_MODE_DEF_OUTPUT);
+            gpio_set_level(CHARGER_ISET_PIN, 0);
+            battery_data.charging_at_max = true;
+            ESP_LOGV(TAG, "Charging current 300 mA");
+#endif
             
             xSemaphoreGive(mutex);
         }
@@ -140,7 +150,7 @@ esp_err_t battery_manager_init(void)
             // Currently we are not using GPOUT pin at all.
             ESP_LOGV(TAG, "Configuring pins");
             gpio_config_t config;
-            config.pin_bit_mask = (1ULL << AUX_PS_ENABLE_PIN) | (1ULL << CHARGING_DETECTION_PIN) | (1ULL << CHARGER_DETECTION_PIN);
+            config.pin_bit_mask = (1ULL << GPOUT_PIN) | (1ULL << CHARGING_DETECTION_PIN) | (1ULL << CHARGER_DETECTION_PIN);
             config.mode = GPIO_MODE_DEF_INPUT;
             config.pull_up_en = GPIO_PULLUP_DISABLE;
             config.pull_down_en = GPIO_PULLDOWN_DISABLE;

@@ -21,6 +21,7 @@ typedef struct
 #define BATTERY_MANAGER_SOC1_CLEAR_THRESHOLD    20      // 20 %
 #define BATTERY_MANAGER_SOCF_SET_THRESHOLD      5       // 5 %
 #define BATTERY_MANAGER_SOCF_CLEAR_THRESHOLD    10      // 10 %
+#define BATTERY_MANAGER_OVERRIDE_CURRENT        true
 
 esp_err_t battery_manager_init(void);
 
