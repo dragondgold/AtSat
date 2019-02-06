@@ -9,64 +9,15 @@ import store from '../store'
 import Vue from 'vue'
 import defaultSensors from 'data/Sensors'
 import codeValues from 'data/codeValues'
-import { DEFAULT_ECDH_CURVE } from 'tls';
 
 export default {
     saveMission(){
         if(store.getters.axtec.project.mission.path != ''){
-            let jsonToEdit = JSON.parse(JSON.stringify(store.getters.axtec.project))
-            let sensors = jsonToEdit.cansat[0].sensors
-            for(let s= 0; s< sensors.length; s++){
-                
-                delete sensors[s].minValue
-                delete sensors[s].maxValue
-                delete sensors[s].minThreshold
-                delete sensors[s].maxThreshold
-                delete sensors[s].samples
-                delete sensors[s].cansatIndex
-                delete sensors[s].unit
-                delete sensors[s].step
-                delete sensors[s].type
-                delete sensors[s].status
-                delete sensors[s].x
-                delete sensors[s].y
-                delete sensors[s].z
-                delete sensors[s].lastValue
-                if(store.getters.axtec.debug){
-                    sensors[s].samples = [{}]
-                    if(sensors[s]._type == 'vector'){
-                        sensors[s].samples[0].x = 0
-                        sensors[s].samples[0].y = 0
-                        sensors[s].samples[0].z = 0
-                    }else{ // It's 'scalar' or 'power' or 'user'
-                        sensors[s].samples[0].lastValue = 0
-                    }
-                    sensors[s].samples[0].timespan = 0
-                }else{
-                    sensors[s].samples = []
-                }
-                
-            }
-
-            let location = jsonToEdit.cansat[0].location
-            delete location.lat
-            delete location.lng
-
-            if(store.getters.axtec.debug){
-                location.history = [{
-                    lat:0,
-                    lng:0,
-                    timespan:0
-                }]
-            }else{
-                location.history = []
-            }
+            
+            let mission = store.getters.axtec.project.mission
 
             let missionFile =  JSON.stringify({ 
-                data: {
-                    sensors: sensors,
-                    location: location
-                } 
+                mission: mission
             })
             this.saveMissionFile(store.getters.axtec.project.mission.path,missionFile)
         }else{
@@ -178,7 +129,7 @@ export default {
         let file = JSON.parse(data)
 
         // Invalid project 
-        if(file.data == undefined ||file.data.sensors == undefined || file.data.sensors.length == 0 || file.data.location == undefined || file.data.location.length == 0){ 
+        if(file.mission == undefined || file.mission.data == undefined || file.mission.data.sensors == undefined || file.mission.data.sensors.length == 0 || file.mission.data.location == undefined){ 
             store.commit('pushNotificationModal',{ 
                 'title': vm.$t('cansat.notifications.modal.mission.import'), 
                 'content': vm.$t('cansat.notifications.modal.mission.invalidContent'),
@@ -192,14 +143,15 @@ export default {
             return codeValues.mission.keysInvalid
         }else{
 
-            let sensors = file.data.sensors
+            let sensors = file.mission.data.sensors
+            let location = file.mission.data.location
 
             // Missing keys
             let missingKeysSensors = sensors.filter(function(s,index) { 
                 return (s._type == undefined || s.id == undefined || s.samples == undefined)
             })
 
-            if(missingKeysSensors.length > 0 || file.data.location.history == undefined ){ 
+            if(missingKeysSensors.length > 0 || location.history == undefined || location.history.length == undefined || location.history.length == 0){ 
                 store.commit('pushNotificationModal',{ 
                     'title': vm.$t('cansat.notifications.modal.mission.import'), 
                     'content': vm.$t('cansat.notifications.modal.mission.incompleteFormat'),
@@ -289,7 +241,7 @@ export default {
             let lengthSamplesSensors = sensors.filter(function(sensor,index) { 
                 return (sensor.samples.length != sensors[0].samples.length || sensor.samples.length == 0 ) 
             })
-            if(lengthSamplesSensors.length != 0 || file.data.location.history.length == 0){
+            if(lengthSamplesSensors.length != 0 || location.history.length == 0){
                 store.commit('pushNotificationModal',{ 
                     'title': vm.$t('cansat.notifications.modal.mission.import'), 
                     'content': vm.$t('cansat.notifications.modal.mission.samplesError'),
@@ -316,14 +268,45 @@ export default {
                 'icon': 'fa-check'          
             })
 
-            sensors[0].clear = true // To clear sensors list
-
-            /*
-            for(let s= 0; s < sensors.length;s++){
-                store.commit('addNewSensor', sensors[s])
+            store.commit('createSensorMission',{
+                clear: true
+            })
+            for(let s= 0; s< sensors.length; s++){
+                store.commit('createSensorMission',{
+                    id: sensors[s].id,
+                    _type: sensors[s]._type
+                })
+                for(let sample = 0; sample < sensors[s].samples.length; sample++){
+                    store.commit('addSensorSample',{
+                        index: s,
+                        timespan: utils.getDate(),
+                        samples: {
+                            ... (sensors[s].samples[sample].lastValue != undefined ? { lastValue: sensors[s].samples[sample].lastValue} : []),
+                            ... (sensors[s].samples[sample].x != undefined ? { x: sensors[s].samples[sample].x} : []),
+                            ... (sensors[s].samples[sample].y != undefined ? { y: sensors[s].samples[sample].y} : []),
+                            ... (sensors[s].samples[sample].z != undefined ? { z: sensors[s].samples[sample].z} : []),
+                            timespan: sensors[s].samples[sample].timespan
+                        }
+                    })
+                }
             }
-            */
-            store.commit('setPathMission', path)
+
+            store.commit('addLocationMission',{
+                clear: true
+            })
+            for(let h= 0; h< location.history.length; h++){
+                store.commit('addLocationMission',
+                    {   
+                        lat: location.history[h].lat,
+                        lng: location.history[h].lng, 
+                        timespan: utils.getDate()
+                    }
+                )
+            }
+
+            store.commit('setPathMission', {
+                path: path
+            })
 
             store.commit('setTestStatus',{ 
                 cansatIndex: 0, 

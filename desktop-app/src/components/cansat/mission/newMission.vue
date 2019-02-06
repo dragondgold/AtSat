@@ -104,15 +104,54 @@ export default {
             }
             return isValidPath(field) && field != '' && projectManager.canCreateFile(this.getPath())
         },
-        createMission(){
-            
+        createMission(){       
             this.$store.commit('setPathMission',{ 
                 path: this.getPath()
             })
-            setMissionStatus('setMissionType',{
+            this.$store.commit('setMissionType',{
                 cansatIndex:0,
                 missionType: 'created'
             })
+
+            let sensors = JSON.parse(JSON.stringify(this.$store.getters.axtec.project.cansat[0].sensors))
+            this.$store.commit('createSensorMission',{
+                clear: true
+            })
+            for(let s= 0; s< sensors.length; s++){
+                let samples = []
+                if(sensors[s]._type == 'vector'){
+                    samples.x = 0
+                    samples.y = 0
+                    samples.z = 0
+                }else{ // It's 'scalar' or 'power' or 'user'
+                    samples.lastValue = sensors[s].minValue
+                }
+                samples.timespan = utils.getDate()
+
+                this.$store.commit('createSensorMission',{
+                    id: sensors[s].id,
+                    _type: sensors[s]._type
+                })
+
+                this.$store.commit('addSensorSample',{
+                    index: s,
+                    timespan: utils.getDate(),
+                    samples: samples
+                })
+            }
+            this.$store.commit('addLocationMission',{
+                clear: true
+            })
+            let lat = this.$store.getters.axtec.project.cansat[0].location.lat
+            let lng = this.$store.getters.axtec.project.cansat[0].location.lng
+            this.$store.commit('addLocationMission',
+                { 
+                    lat: lat,
+                    lng: lng,
+                    timespan: utils.getDate()
+                }
+            )
+
             missionManager.saveMission()
             this.$store.commit('pushNotificationToast',{ 
                 'text': this.$t('cansat.notifications.modal.mission.createdOk'), 

@@ -109,7 +109,7 @@ export default {
       this.$refs.etWidget.clearStatusesOnDisconnect()
       this.$refs.cansatWidget.clearStatusesOnDisconnect()
       this.$store.commit('axtecPath','')
-      this.$store.commit('setPathMission', '')
+      this.$store.commit('setPathMission', {path:''})
       this.$store.commit('setMissionType',{
           cansatIndex: 0,
           missionType: ''

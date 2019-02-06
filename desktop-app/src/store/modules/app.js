@@ -36,11 +36,6 @@ const state = {
         id: '',
         name:'',              // A friendly name for the cansat
         connected:'',         // is the cansat connected?
-        location:{            // GPS data  
-          lat: -31.416930,
-          lng: -62.084470,    
-          history:[]          // Location record
-        },
         signal: 0,            // Signal level '%'    
         battery: 0,           // Battery level '%'
         altitude: 0,          // It´s a copy of altitude on sensor. Is needed for map.'m'
@@ -96,9 +91,15 @@ const state = {
         startDate: '',  
         endDate:'',
         data:{            // Data to import or export: 
-                          // when it's imported we need load cansat 
-                          // when it´s exported we take data from cansat
+          sensors: [],               
+          location: {
+            lat: -31.416930,
+            lng: -62.084470, 
+            timespan: 0,
+            history:[
 
+            ]
+          }                
         }
       }
     }
@@ -203,15 +204,16 @@ const mutations = {
   },
   addNewLocation(state,data){
     if(data.clear){
-      state.axtec.project.cansat[data.cansatIndex].location.history = []
+      state.axtec.project.mission.data.location.history = []
     }
-    state.axtec.project.cansat[data.cansatIndex].location.history.push({
+    state.axtec.project.mission.data.location.history.push({
       lat: data.lat, 
       lng: data.lng,
-      date: data.date,              
+      timespan: data.timespan,              
     }) 
-    state.axtec.project.cansat[data.cansatIndex].location.lat = data.lat
-    state.axtec.project.cansat[data.cansatIndex].location.lng = data.lng
+    state.axtec.project.mission.data.location.lat = data.lat
+    state.axtec.project.mission.data.location.lng = data.lng
+    state.axtec.project.mission.data.location.ln = data.timespan
   },
   removeSensor(state,data){
     state.axtec.project.cansat[data.cansatIndex].sensors.splice(data.id-1, 1)
@@ -231,6 +233,40 @@ const mutations = {
   setMissionType(state,data){
     state.axtec.project.cansat[data.cansatIndex].missionType = data.missionType // 'created' or 'imported'
   },
+  createSensorMission(state,data){
+    if(data.clear){
+      state.axtec.project.mission.data.sensors = []
+    }else{
+      state.axtec.project.mission.data.sensors.push({
+        id: data.id, 
+        _type: data._type ,
+        samples: []     
+      }) 
+    }
+  },
+  addLocationMission(state,data){
+    if(data.clear){
+      state.axtec.project.mission.data.location.history = []
+    }else{
+      state.axtec.project.mission.data.location.history.push({
+        lat: data.lat,   
+        lng: data.lng,
+        timespan: data.timespan   
+      }) 
+      state.axtec.project.mission.data.location.lat = data.lat 
+      state.axtec.project.mission.data.location.lng = data.lng
+      state.axtec.project.mission.data.location.timespan = data.timespan
+    }
+  },
+  addSensorSample(state,data){
+    state.axtec.project.mission.data.sensors[data.index].samples.push({
+      ... (data.samples.lastValue != undefined ? { lastValue: data.samples.lastValue} : []),
+      ... (data.samples.x != undefined ? { x: data.samples.x} : []),
+      ... (data.samples.y != undefined ? { y: data.samples.y} : []),
+      ... (data.samples.z != undefined ? { z: data.samples.z} : []),
+      timespan: data.samples.timespan              
+    }) 
+  }
 }
 
 const actions = {
@@ -300,6 +336,15 @@ const actions = {
   setMissionType({ commit }, data){
     commit(setMissionType,data)
   },
+  createSensorMission({ commit }, data){
+    commit(createSensorMission,data)
+  },
+  addLocationMission({ commit }, data){
+    commit(addLocationMission,data)
+  },
+  addSensorSample({ commit }, data){
+    commit(addSensorSample,data)
+  }  
 }
 
 export default {

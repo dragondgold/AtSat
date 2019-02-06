@@ -36,8 +36,7 @@ export default {
   methods:{
     newCoor(){
       this.$store.commit('addNewLocation',{ 
-          cansatIndex: 0, 
-          date: utils.getDate(),
+          timespan: utils.getDate(),
           lat: Math.random()*10,
           lat: Math.random()*10,
           lng: Math.random()*10  

@@ -31,7 +31,7 @@ export default {
             itemsPerPageLabel: this.$t('cansat.notifications.center.perPageLabel'),
             tableFields: [
                 {
-                name: 'date',
+                name: 'timespan',
                 title: this.$t('cansat.resources.sensors.tabs.location.table.date')
                 },
                 {
@@ -49,13 +49,13 @@ export default {
                 }
             ],
             paginationPath: '',
-            history: { 'data': this.$store.getters.axtec.project.cansat[0].location.history.slice().reverse()}
+            history: { 'data': this.$store.getters.axtec.project.mission.data.location.history.slice().reverse()}
         }
     },
 
     computed: {
         newLocation(){
-            return this.$store.getters.axtec.project.cansat[0].location.history
+            return this.$store.getters.axtec.project.mission.data.location.history
         }
     },
 
