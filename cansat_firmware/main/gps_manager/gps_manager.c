@@ -17,6 +17,7 @@ static const char* TAG = "gps";
 static StaticSemaphore_t mutex_buffer;
 static SemaphoreHandle_t mutex;
 
+// Task
 static StackType_t stack[GPS_MANAGER_STACK_SIZE];
 static StaticTask_t task;
 static TaskHandle_t task_handle;

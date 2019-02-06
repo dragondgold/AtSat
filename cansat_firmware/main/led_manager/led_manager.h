@@ -11,6 +11,7 @@
 esp_err_t led_manager_init(void);
 
 void led_manager_off(void);
+void led_manager_on(void);
 void led_manager_slow_blink(bool faded);
 void led_manager_fast_blink(bool faded);
 

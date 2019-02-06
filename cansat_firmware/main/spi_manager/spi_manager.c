@@ -51,7 +51,7 @@ esp_err_t spi_manager_init(void)
         .sclk_io_num = SCLK_PIN,
         .quadwp_io_num = -1,
         .quadhd_io_num = -1,
-        .max_transfer_sz = 256
+        .max_transfer_sz = 128
     };
     if((err = spi_bus_initialize(HSPI_HOST, &bus_cfg, 1)) != ESP_OK)
     {
@@ -147,6 +147,7 @@ esp_err_t spi_manager_device_transmit(spi_transaction_t* trans, TickType_t timeo
     // Acquire the SPI bus
     if((err = spi_manager_acquire(timeout)) != ESP_OK)
     {
+        ESP_LOGW(TAG, "Error claiming HSPI_HOST");
         return err;
     }
 

@@ -101,6 +101,8 @@ static void sensors_task(void* arg)
                 sensors_data.latitude = gps_data.latitude;
                 sensors_data.longitude = gps_data.longitude;
                 sensors_data.altitude = minmea_tofloat(&gps_data.altitude);
+
+                // TODO: detect falling
             }
             xSemaphoreGive(sample_mutex);
         }

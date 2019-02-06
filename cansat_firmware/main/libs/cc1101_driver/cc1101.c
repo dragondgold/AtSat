@@ -10,12 +10,16 @@
 #include "spi_manager/spi_manager.h"
 #include "esp_timer.h"
 
+#include "esp_log.h"
+
+static const char* TAG = "cc1101";
+
 #define WRITE_BURST         0x40
 #define READ_SINGLE         0x80
 #define READ_BURST          0xC0
 #define BYTES_IN_RXFIFO     0x47
-#define TIMEOUT_PINS        (50*1000)   // In us
-#define TIMEOUT_SPI         100         // In ms
+#define TIMEOUT_PINS        50      // In us
+#define TIMEOUT_SPI         100     // In ms
 
 static int mdcf1 = 0x00;
 static int mdcf0 = 0xF8;
@@ -57,9 +61,10 @@ static inline bool wait_for_low(gpio_num_t pin, unsigned int timeout)
 static void spi_write_reg(uint8_t addr, uint8_t value)
 {
     gpio_set_level(CS_PIN, 0);
-    wait_for_low(MISO_PIN, pdMS_TO_TICKS(TIMEOUT_PINS));
+    wait_for_low(MISO_PIN, TIMEOUT_PINS);
 
-    transaction.length = 2;
+    transaction.length = 2*8;
+    transaction.rxlength = 0;   // Receive same byte quantity as length
     transaction.flags = 0x00000000;
     transaction.tx_buffer = tx_buffer;
     tx_buffer[0] = addr;
@@ -71,7 +76,8 @@ static void spi_write_reg(uint8_t addr, uint8_t value)
 
 static void spi_send_cmd(uint8_t cmd)
 {
-    transaction.length = 1;
+    transaction.length = 1*8;
+    transaction.rxlength = 0;   // Receive same byte quantity as length
     transaction.tx_buffer = tx_buffer;
     tx_buffer[0] = cmd;
     transaction.flags = 0x00000000;
@@ -81,9 +87,10 @@ static void spi_send_cmd(uint8_t cmd)
 static void spi_write_burst_reg(uint8_t addr, uint8_t *buffer, uint8_t num)
 {
     gpio_set_level(CS_PIN, 0);
-    wait_for_low(MISO_PIN, pdMS_TO_TICKS(TIMEOUT_PINS));
+    wait_for_low(MISO_PIN, TIMEOUT_PINS);
 
-    transaction.length = num + 1;
+    transaction.length = (num + 1)*8;
+    transaction.rxlength = 0;   // Receive same byte quantity as length
     transaction.flags = 0x00000000;
     transaction.tx_buffer = tx_buffer;
     tx_buffer[0] = addr | WRITE_BURST;
@@ -97,9 +104,10 @@ static void spi_write_burst_reg(uint8_t addr, uint8_t *buffer, uint8_t num)
 static uint8_t spi_read_reg(uint8_t addr)
 {
     gpio_set_level(CS_PIN, 0);
-    wait_for_low(MISO_PIN, pdMS_TO_TICKS(TIMEOUT_PINS));
+    wait_for_low(MISO_PIN, TIMEOUT_PINS);
 
-    transaction.length = 2;
+    transaction.length = 2*8;
+    transaction.rxlength = 0;   // Receive same byte quantity as length
     transaction.flags = 0x00000000;
     transaction.tx_buffer = tx_buffer;
     transaction.rx_buffer = rx_buffer;
@@ -115,9 +123,10 @@ static uint8_t spi_read_reg(uint8_t addr)
 static void spi_read_burst_reg(uint8_t addr, uint8_t *buffer, uint8_t num)
 {
     gpio_set_level(CS_PIN, 0);
-    wait_for_low(MISO_PIN, pdMS_TO_TICKS(TIMEOUT_PINS));
+    wait_for_low(MISO_PIN, TIMEOUT_PINS);
 
-    transaction.length = num + 1;
+    transaction.length = (num + 1)*8;
+    transaction.rxlength = 0;   // Receive same byte quantity as length
     transaction.flags = 0x00000000;
     transaction.tx_buffer = tx_buffer;
     transaction.rx_buffer = buffer;
@@ -139,13 +148,13 @@ bool cc1101_reset(void)
 	gpio_set_level(CS_PIN, 0);
 
     // Wait for MISO pin to get low
-    wait_for_low(MISO_PIN, pdMS_TO_TICKS(TIMEOUT_PINS));
+    wait_for_low(MISO_PIN, TIMEOUT_PINS);
 
     // Reset the transceiver
     spi_send_cmd(CC1101_SRES);
 
     // Wait for reset
-    wait_for_low(MISO_PIN, pdMS_TO_TICKS(TIMEOUT_PINS));
+    wait_for_low(MISO_PIN, TIMEOUT_PINS);
 
 	gpio_set_level(CS_PIN, 1);
     return true;
@@ -156,7 +165,7 @@ void cc1101_strobe_cmd(uint8_t strobe)
     spi_send_cmd(strobe);
 }
 
-void cc1101_reg_config_settings(cc1101_pa_t pa)
+bool cc1101_reg_config_settings(cc1101_pa_t pa)
 {
     spi_write_reg(CC1101_FSCTRL1, 0x06);
     spi_write_reg(CC1101_FSCTRL0, 0x00);
@@ -217,19 +226,44 @@ void cc1101_reg_config_settings(cc1101_pa_t pa)
     spi_write_reg(CC1101_TEST1,    0x35);   // Value given by TI SmartRF Studio
     spi_write_reg(CC1101_TEST0,    0x09);   // Value given by TI SmartRF Studio
     spi_write_reg(CC1101_IOCFG2,   0x2E);   // Serial clock is synchronous to the data in synchronous serial mode
-    spi_write_reg(CC1101_IOCFG0,   0x06);  	// Asserts when sync word has been sent/received, and de-asserts at the end of the packet 
+    spi_write_reg(CC1101_IOCFG0,   0x06);  	// Asserts GDO0 when sync word has been sent/received, and de-asserts at the end of the packet 
     spi_write_reg(CC1101_PKTCTRL1, 0x04);   // Two status bytes will be appended to the payload of the packet, including RSSI, LQI and CRC OK
 											// No address check
     spi_write_reg(CC1101_PKTCTRL0, 0x05);	// Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
     spi_write_reg(CC1101_ADDR,     0x00);	// Address used for packet filtration (not used here)
     spi_write_reg(CC1101_PKTLEN,   0xFF); 	// 255 bytes max packet length allowed
+
+    // Read some values to check that they were written
+    uint8_t val;
+    if((val = spi_read_reg(CC1101_PKTCTRL0)) != 0x05)
+    {
+        ESP_LOGE(TAG, "Error on CC1101_PKTCTRL0. Read: %d", val);
+        return false;
+    }
+    if((val = spi_read_reg(CC1101_IOCFG0)) != 0x06)
+    {
+        ESP_LOGE(TAG, "Error on CC1101_IOCFG0. Read: %d", val);
+        return false;
+    }
+    if((val = spi_read_reg(CC1101_MDMCFG4)) != rx_bw)
+    {
+        ESP_LOGE(TAG, "Error on CC1101_MDMCFG4. Read: %d", val);
+        return false;
+    }
+    if((val = spi_read_reg(CC1101_FSCTRL1)) != 0x06)
+    {
+        ESP_LOGE(TAG, "Error on CC1101_FSCTRL1. Read: %d", val);
+        return false;
+    }
+
+    return true;
 }
 
-void cc1101_init(void)
+bool cc1101_init(void)
 {
     transaction.tx_buffer = tx_buffer;
     transaction.rx_buffer = rx_buffer;
-    cc1101_reg_config_settings(pa_level);
+    return cc1101_reg_config_settings(pa_level);
 }
 
 void cc1101_set_rx(void)
@@ -242,7 +276,7 @@ void cc1101_set_tx(void)
     cc1101_strobe_cmd(CC1101_STX);
 }
 
-void cc1101_set_mhz(float mhz)
+bool cc1101_set_mhz(float mhz)
 {
     // Calculate F0, F1 and F1 to set the desired frequency
     float MHZ = mhz + 0.01;
@@ -266,18 +300,65 @@ void cc1101_set_mhz(float mhz)
     float s11 = s10/freq0;
     int s12 = s11;
     float s13 = (s11-s12)*(10);
-    int s14;                                 //freq0
+    int s14;                                 // freq0
     if (s13>=5){s14=s12+1;}
     if (s13<5){s14=s12;}
 
     F2 = s2;
     F1 = s9;
     F0 = s14;
+
+    spi_write_reg(CC1101_FREQ2, F2);
+    spi_write_reg(CC1101_FREQ1, F1);
+    spi_write_reg(CC1101_FREQ0, F0);
+
+    if(spi_read_reg(CC1101_FREQ0) != F0 || spi_read_reg(CC1101_FREQ1) != F1 || spi_read_reg(CC1101_FREQ2) != F2)
+    {
+        return false;
+    }
+    return true;
 }
 
-void cc1101_send_data(uint8_t *txBuffer, uint8_t size)
+bool cc1101_send_data(uint8_t *tx_buffer, uint8_t size)
 {
+    if(size > 61)
+    {
+        ESP_LOGW(TAG, "Packet too large: %d", size);
+        return false;
+    }
 
+    spi_write_reg(CC1101_TXFIFO, size);                     // Write packet length
+    spi_write_burst_reg(CC1101_TXFIFO, tx_buffer, size);    // Write data
+
+	cc1101_set_tx();                                        // Enter TX mode to send the data
+    
+    // Wait for GDO0 to be set, indicates sync was transmitted 
+    int64_t start = esp_timer_get_time();
+    while(!cc1101_is_packet_sent_available())
+    {
+        if(esp_timer_get_time() - start > TIMEOUT_SPI)
+        {
+            // Failed to wait for sync
+            ESP_LOGW(TAG, "Failed waiting sync");
+            return false;
+        }
+    }
+
+    // Wait for GDO0 to be cleared, indicates end of packet
+    start = esp_timer_get_time();
+    while(cc1101_is_packet_sent_available())
+    {
+        if(esp_timer_get_time() - start > TIMEOUT_SPI)
+        {
+            // Failed to wait for end of packet
+            ESP_LOGW(TAG, "Failed waiting end of packet");
+            return false;
+        }
+    }			
+
+    // Flush the TX FIFO
+	cc1101_strobe_cmd(CC1101_SFTX);
+    return true;
 }
 
 void cc1101_set_chsp(uint8_t chsp)
@@ -479,9 +560,10 @@ bool cc1101_receive_data(cc1101_packet_t* packet)
 uint8_t cc1101_read_status(uint8_t addr)
 {
     gpio_set_level(CS_PIN, 0);
-    wait_for_low(MISO_PIN, pdMS_TO_TICKS(TIMEOUT_PINS));
+    wait_for_low(MISO_PIN, TIMEOUT_PINS);
 
-    transaction.length = 2;
+    transaction.length = 2*8;
+    transaction.rxlength = 0;   // Receive same byte quantity as length
     transaction.flags = 0x00000000;
     transaction.tx_buffer = tx_buffer;
     transaction.rx_buffer = rx_buffer;

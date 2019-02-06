@@ -126,6 +126,12 @@ typedef struct
 #define CC1101_RX_BUFFER_SIZE   64
 
 /**
+ * @brief Initialize the CC1101 driver. This MUST be called before any other
+ *  function.
+ * @return true if init was successfull
+ */
+bool cc1101_init(void);
+/**
  * @brief Reset the transceiver
  * @return true reset was successfull
  * @return false couldn't reset the transceiver
@@ -140,13 +146,9 @@ void cc1101_strobe_cmd(uint8_t strobe);
  * @brief Set the default configuration used in this driver along with the
  *  user configured carrier frequency, channel, channel spacing and RX bandwidth
  * @param f power amplifier level as stated in the cc1101_pa_t enum
+ * @return true if setup was successfull
  */
-void cc1101_reg_config_settings(cc1101_pa_t pa);
-/**
- * @brief Initialize the CC1101 driver. This MUST be called before any other
- *  function.
- */
-void cc1101_init(void);
+bool cc1101_reg_config_settings(cc1101_pa_t pa);
 /**
  * @brief Set CC1101 in receiver mode
  */
@@ -158,10 +160,16 @@ void cc1101_set_tx(void);
 /**
  * @brief Set carrier frequency.
  * @param mhz carrier frequency in MHz
+ * @return true if frequency was set
  */
-void cc1101_set_mhz(float mhz);
-
-void cc1101_send_data(uint8_t *txBuffer, uint8_t size);
+bool cc1101_set_mhz(float mhz);
+/**
+ * @brief Send data
+ * @param tx_buffer pointer to the array of bytes to send
+ * @param size number of bytes to send (no more than 61)
+ * @return true if data was sent
+ */
+bool cc1101_send_data(uint8_t *tx_buffer, uint8_t size);
 /**
  * @brief Set channel spacing.
  * @param chsp channel spacing level from 1 to 10
