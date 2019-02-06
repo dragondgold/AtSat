@@ -14,7 +14,9 @@ export default {
     saveMission(){
         if(store.getters.axtec.project.mission.path != ''){
             
-            let mission = store.getters.axtec.project.mission
+            let mission = JSON.parse(JSON.stringify(store.getters.axtec.project.mission))
+
+            delete mission.path
 
             let missionFile =  JSON.stringify({ 
                 mission: mission

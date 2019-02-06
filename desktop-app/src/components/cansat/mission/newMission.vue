@@ -142,8 +142,8 @@ export default {
             this.$store.commit('addLocationMission',{
                 clear: true
             })
-            let lat = this.$store.getters.axtec.project.cansat[0].location.lat
-            let lng = this.$store.getters.axtec.project.cansat[0].location.lng
+            let lat = this.$store.getters.axtec.project.mission.data.location.lat
+            let lng = this.$store.getters.axtec.project.mission.data.location.lng
             this.$store.commit('addLocationMission',
                 { 
                     lat: lat,
