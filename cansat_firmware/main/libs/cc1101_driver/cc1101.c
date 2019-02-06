@@ -21,10 +21,8 @@ static const char* TAG = "cc1101";
 #define TIMEOUT_PINS        50      // In us
 #define TIMEOUT_SPI         100     // In ms
 
-static int mdcf1 = 0x00;
-static int mdcf0 = 0xF8;
 static int channel = 1;
-static int rx_bw = 0x07;
+static int rx_bw = 0x08;
 static int F2 = 16;
 static int F1 = 176;
 static int F0 = 113;
@@ -93,6 +91,7 @@ static void spi_write_burst_reg(uint8_t addr, uint8_t *buffer, uint8_t num)
     transaction.rxlength = 0;   // Receive same byte quantity as length
     transaction.flags = 0x00000000;
     transaction.tx_buffer = tx_buffer;
+    transaction.rx_buffer = rx_buffer;
     tx_buffer[0] = addr | WRITE_BURST;
     memcpy(&tx_buffer[1], buffer, num);
 
@@ -148,13 +147,19 @@ bool cc1101_reset(void)
 	gpio_set_level(CS_PIN, 0);
 
     // Wait for MISO pin to get low
-    wait_for_low(MISO_PIN, TIMEOUT_PINS);
+    if(!wait_for_low(MISO_PIN, TIMEOUT_PINS))
+    {
+        return false;
+    }
 
     // Reset the transceiver
     spi_send_cmd(CC1101_SRES);
 
     // Wait for reset
-    wait_for_low(MISO_PIN, TIMEOUT_PINS);
+    if(!wait_for_low(MISO_PIN, TIMEOUT_PINS))
+    {
+        return false;
+    }
 
 	gpio_set_level(CS_PIN, 1);
     return true;
@@ -162,7 +167,17 @@ bool cc1101_reset(void)
 
 void cc1101_strobe_cmd(uint8_t strobe)
 {
+    gpio_set_level(CS_PIN, 0);
+    // Wait for MISO pin to get low
+    if(!wait_for_low(MISO_PIN, TIMEOUT_PINS))
+    {
+        ESP_LOGW(TAG, "Timeout MISO on cc1101_strobe_cmd()");
+        return false;
+    }
+
     spi_send_cmd(strobe);
+
+    gpio_set_level(CS_PIN, 1);
 }
 
 bool cc1101_reg_config_settings(cc1101_pa_t pa)
@@ -202,16 +217,16 @@ bool cc1101_reg_config_settings(cc1101_pa_t pa)
 	}
     pa_level = pa;
  
-    spi_write_reg(CC1101_MDMCFG4,  rx_bw);
-    spi_write_reg(CC1101_MDMCFG3,  0x93);
-    spi_write_reg(CC1101_MDMCFG2,  0x30);
-    spi_write_reg(CC1101_MDMCFG1,  mdcf1);
-    spi_write_reg(CC1101_MDMCFG0,  mdcf0);
-    spi_write_reg(CC1101_CHANNR,   channel);
+    spi_write_reg(CC1101_MDMCFG4,  rx_bw);  // DRATE_E = 8
+    spi_write_reg(CC1101_MDMCFG3,  0x83);   // With DRATE_E on MDMCFG4 = 8 this gives 9600 bauds 
+    spi_write_reg(CC1101_MDMCFG2,  0x13);   // 30/32 sync word, no Manchester encoding, GFSK modulation, DC filter before modulator
+    spi_write_reg(CC1101_MDMCFG1,  0x00);   // 2 preamble bytes, no forward error correction
+    spi_write_reg(CC1101_MDMCFG0,  0xF8);   // 200 kHz channel spacing together with CHANSPC_E bits in MDMCFG1
+    spi_write_reg(CC1101_CHANNR,   channel);// Channel number
     spi_write_reg(CC1101_DEVIATN,  0x15);
     spi_write_reg(CC1101_FREND1,   0x56);
     spi_write_reg(CC1101_FREND0,   0x11);
-    spi_write_reg(CC1101_MCSM0 ,   0x18);
+    spi_write_reg(CC1101_MCSM0,    0x18);
     spi_write_reg(CC1101_FOCCFG,   0x16);
     spi_write_reg(CC1101_BSCFG,    0x1C);
     spi_write_reg(CC1101_AGCCTRL2, 0xC7);
@@ -263,6 +278,12 @@ bool cc1101_init(void)
 {
     transaction.tx_buffer = tx_buffer;
     transaction.rx_buffer = rx_buffer;
+
+    if(!cc1101_reset())
+    {
+        ESP_LOGE(TAG, "Couldn't reset CC1101");
+        return false;
+    }
     return cc1101_reg_config_settings(pa_level);
 }
 
@@ -327,16 +348,25 @@ bool cc1101_send_data(uint8_t *tx_buffer, uint8_t size)
         return false;
     }
 
+    // Flush the TX FIFO (go into IDLE first)
+    cc1101_strobe_cmd(CC1101_SIDLE);
+	cc1101_strobe_cmd(CC1101_SFTX);
+    ESP_LOGV(TAG, "TX FIFO before: %d", cc1101_bytes_in_tx_fifo());
+
     spi_write_reg(CC1101_TXFIFO, size);                     // Write packet length
     spi_write_burst_reg(CC1101_TXFIFO, tx_buffer, size);    // Write data
+    ESP_LOGV(TAG, "TX FIFO after: %d", cc1101_bytes_in_tx_fifo());
 
 	cc1101_set_tx();                                        // Enter TX mode to send the data
+
+    // Internal CC1101 state machine status to check that TX mode has started
+    ESP_LOGV(TAG, "CC1101 FSM: %d", cc1101_read_status(CC1101_MARCSTATE));
     
     // Wait for GDO0 to be set, indicates sync was transmitted 
     int64_t start = esp_timer_get_time();
     while(!cc1101_is_packet_sent_available())
     {
-        if(esp_timer_get_time() - start > TIMEOUT_SPI)
+        if(esp_timer_get_time() - start > (TIMEOUT_SPI*1000))
         {
             // Failed to wait for sync
             ESP_LOGW(TAG, "Failed waiting sync");
@@ -348,7 +378,7 @@ bool cc1101_send_data(uint8_t *tx_buffer, uint8_t size)
     start = esp_timer_get_time();
     while(cc1101_is_packet_sent_available())
     {
-        if(esp_timer_get_time() - start > TIMEOUT_SPI)
+        if(esp_timer_get_time() - start > (TIMEOUT_SPI*1000))
         {
             // Failed to wait for end of packet
             ESP_LOGW(TAG, "Failed waiting end of packet");
@@ -356,67 +386,7 @@ bool cc1101_send_data(uint8_t *tx_buffer, uint8_t size)
         }
     }			
 
-    // Flush the TX FIFO
-	cc1101_strobe_cmd(CC1101_SFTX);
     return true;
-}
-
-void cc1101_set_chsp(uint8_t chsp)
-{
-    switch (chsp)
-    {
-        case 1:
-            mdcf1 = 0x00;
-            mdcf0 = 0x00;
-            break;
-
-        case 2:
-            mdcf1 = 0x00;
-            mdcf0 = 0xF8;
-            break;
-            
-        case 3:
-            mdcf1 = 0x01;
-            mdcf0 = 0x93;
-            break;
-            
-        case 4:
-            mdcf1 = 0x01;
-            mdcf0 = 0xF8;
-            break;
-            
-        case 5:
-            mdcf1 = 0x02;
-            mdcf0 = 0x7A;
-            break;
-
-        case 6:
-            mdcf1 = 0x02;
-            mdcf0 = 0xF8;
-            break;
-            
-        case 7:
-            mdcf1 = 0x03;
-            mdcf0 = 0x3B;
-            break;
-        
-        case 8:
-            mdcf1 = 0x03;
-            mdcf0 = 0x7A;
-            break;
-            
-        case 9:
-            mdcf1 = 0x03;
-            mdcf0 = 0xB9;
-            break;
-            
-        case 10:
-            mdcf1 = 0x03;
-            mdcf0 = 0xFF;
-            break;  
-    }
-    spi_write_reg(CC1101_MDMCFG1, mdcf1);
-    spi_write_reg(CC1101_MDMCFG0, mdcf0);
 }
 
 void cc1101_set_rx_bw(uint8_t bw)
@@ -424,67 +394,67 @@ void cc1101_set_rx_bw(uint8_t bw)
     switch (bw)
     {
         case 1:
-            rx_bw = 0xF7;
+            rx_bw = 0xF8;
             break;
 
         case 2:
-            rx_bw = 0xE7;
+            rx_bw = 0xE8;
             break;
 
         case 3:
-            rx_bw = 0xD7;
+            rx_bw = 0xD8;
             break;
 
         case 4:
-            rx_bw = 0xC7;
+            rx_bw = 0xC8;
             break;
 
         case 5:
-            rx_bw = 0xB7;
+            rx_bw = 0xB8;
             break;
 
         case 6:
-            rx_bw = 0xA7;
+            rx_bw = 0xA8;
             break;
 
         case 7:
-            rx_bw = 0x97;
+            rx_bw = 0x98;
             break;
 
         case 8:
-            rx_bw = 0x87;
+            rx_bw = 0x88;
             break;
 
         case 9:
-            rx_bw = 0x77;
+            rx_bw = 0x78;
             break;
 
         case 10:
-            rx_bw = 0x67;
+            rx_bw = 0x68;
             break;
 
         case 11:
-            rx_bw = 0x57;
+            rx_bw = 0x58;
             break;
 
         case 12:
-            rx_bw = 0x47;
+            rx_bw = 0x48;
             break;
 
         case 13:
-            rx_bw = 0x37;
+            rx_bw = 0x38;
             break;
 
         case 14:
-            rx_bw = 0x27;
+            rx_bw = 0x28;
             break;
 
         case 15:
-            rx_bw = 0x17;
+            rx_bw = 0x18;
             break;
 
         case 16:
-            rx_bw = 0x07;
+            rx_bw = 0x08;
             break;
     }
     spi_write_reg(CC1101_MDMCFG4, rx_bw);
@@ -496,7 +466,7 @@ void cc1101_set_channel(uint8_t chn)
     spi_write_reg(CC1101_CHANNR, channel);
 }
 
-uint8_t cc1101_bytes_in_rx_fifo(void)
+int8_t cc1101_bytes_in_rx_fifo(void)
 {
     // Read until we get the same number of bytes in the RX FIFO. This
     //  is needed as a workaround for an errate of the CC1101.
@@ -515,7 +485,29 @@ uint8_t cc1101_bytes_in_rx_fifo(void)
     }
     
     // FAILED!
-    return 0;
+    return -1;
+}
+
+int8_t cc1101_bytes_in_tx_fifo(void)
+{
+    // Read until we get the same number of bytes in the TX FIFO. This
+    //  is needed as a workaround for an errate of the CC1101.
+    // Read "SPI Read Synchronization Issue SPI read synchronization 
+    //  results in incorrect read values for register fields that are continuously updated"
+    //  at http://www.ti.com/lit/er/swrz020e/swrz020e.pdf
+    unsigned v1, v2;
+    for(unsigned int n = 0; n < 255; ++n)
+    {
+       v1 = cc1101_read_status(CC1101_TXBYTES);
+       v2 = cc1101_read_status(CC1101_TXBYTES);
+       if(v1 == v2)
+       {
+           return v1;
+       }
+    }
+    
+    // FAILED!
+    return -1;
 }
 
 bool cc1101_receive_data(cc1101_packet_t* packet)
@@ -579,7 +571,7 @@ uint8_t cc1101_read_status(uint8_t addr)
 bool cc1101_is_packet_sent_available(void)
 {
     uint8_t status = cc1101_read_status(CC1101_PKTSTATUS);
-    
+
     // If GDO0 is set a packet was sent or received
     if(status & 0x01)
     {
