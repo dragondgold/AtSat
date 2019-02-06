@@ -24,6 +24,7 @@ typedef enum
     SLOW_OFF,
     FAST_ON,
     FAST_OFF,
+    ON,
     OFF
 } state_machine_t;
 static state_machine_t status = OFF;
@@ -108,6 +109,12 @@ static void led_task(void* args)
                 status = FAST_ON;
                 break;
 
+            case ON:
+                ESP_LOGV(TAG, "Run ON");
+                set_led_duty(100, false, 0);
+                timeout = portMAX_DELAY;
+                break;
+
             case OFF:
                 ESP_LOGV(TAG, "Run OFF");
                 set_led_duty(0, false, 0);
@@ -175,6 +182,11 @@ esp_err_t led_manager_init(void)
 void led_manager_off(void)
 {
     xTaskNotify(task_handle, OFF, eSetValueWithOverwrite);
+}
+
+void led_manager_on(void)
+{
+    xTaskNotify(task_handle, ON, eSetValueWithOverwrite);
 }
 
 void led_manager_slow_blink(bool faded)

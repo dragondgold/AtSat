@@ -103,13 +103,15 @@ void app_main()
     // Give some time to circuits to power-up
     vTaskDelay(pdMS_TO_TICKS(500));
 
+    err += led_manager_init();
+    led_manager_fast_blink(true);
+
     err += aux_ps_init();
     err += i2c_manager_init();
     err += spi_manager_init();
-    err += sensor_manager_init();
+    //err += sensor_manager_init();
     err += battery_manager_init();
     err += servo_manager_init();
-    err += led_manager_init();
     err += com_manager_init();
 
     ESP_LOGI(TAG, "RAM left %d bytes", esp_get_free_heap_size());
@@ -117,10 +119,12 @@ void app_main()
     if(err == ESP_OK)
     {
         ESP_LOGI(TAG, "Systems ready!");
+        led_manager_on();
     }
     else
     {
         ESP_LOGE(TAG, "System init failed!");
+        led_manager_fast_blink(false);
     }
 
 // When debug is defined, print the system status after 3 seconds running
