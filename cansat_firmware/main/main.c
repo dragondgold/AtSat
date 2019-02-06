@@ -109,7 +109,7 @@ void app_main()
     err += aux_ps_init();
     err += i2c_manager_init();
     err += spi_manager_init();
-    //err += sensor_manager_init();
+    err += sensor_manager_init();
     err += battery_manager_init();
     err += servo_manager_init();
     err += com_manager_init();
