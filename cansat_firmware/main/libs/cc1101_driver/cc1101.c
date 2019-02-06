@@ -510,7 +510,7 @@ int8_t cc1101_bytes_in_tx_fifo(void)
     return -1;
 }
 
-bool cc1101_receive_data(cc1101_packet_t* packet)
+bool cc1101_read_data(cc1101_packet_t* packet)
 {
     // Read the number of bytes in the RX FIFO
     unsigned int rx_bytes = cc1101_bytes_in_rx_fifo();
@@ -522,8 +522,9 @@ bool cc1101_receive_data(cc1101_packet_t* packet)
         packet->length = spi_read_reg(CC1101_RXFIFO);
 
         // If packet is too long
-        if (packet->length > CC1101_MAX_PACKET_SIZE)
+        if (packet->length > CC1101_MAX_PACKET_SIZE || packet->length == 0)
         {
+            ESP_LOGW(TAG, "Length error: %d", packet->length);
             packet->length = 0;
             return false;
         }
@@ -543,10 +544,11 @@ bool cc1101_receive_data(cc1101_packet_t* packet)
             return true;
         }
     }
-  else
-  {
-      return false;
-  }
+    else
+    {
+        packet->length = 0;
+        return false;
+    }
 }
 
 uint8_t cc1101_read_status(uint8_t addr)

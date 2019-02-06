@@ -192,7 +192,7 @@ int8_t cc1101_bytes_in_tx_fifo(void);
  * @return true if the packet was read
  * @return false if packet couldn't be read
  */
-bool cc1101_receive_data(cc1101_packet_t *packet);
+bool cc1101_read_data(cc1101_packet_t *packet);
 /**
  * @brief 
  * 
