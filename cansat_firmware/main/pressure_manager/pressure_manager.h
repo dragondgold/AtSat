@@ -11,6 +11,8 @@
 #define PRESSURE_MANAGER_ADC_RESULT_CMD         0x00
 #define PRESSURE_MANAGER_TEMP_OSR_512_CMD       0x52
 
+#define PRESSURE_MANAGER_MAX_RETRIES            10
+
 esp_err_t pressure_manager_init(void);
 
 esp_err_t pressure_manager_do_sample(void);
