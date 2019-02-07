@@ -1,13 +1,40 @@
 {
   "cansat":{
     "mission":{
+      "status":{
+        "ready": "Listo para usar",
+        "problems": "No esta listo"
+      },
       "new":{
         "title": "Nueva misión",
         "description": "Seleccione un nombre para su misión. La misma será guardada en la carpeta donde creó el proyecto.",
         "create": "Crear"
       },
-      "dashBoard":{
-        "title": "Tablero de acciones"
+      "dashboard":{
+        "title": "Tablero de trabajo",
+        "charts":{
+          "lastSamples": "Se mostrarán las últimas 5 muestras.",
+          "goToFullChart": "Ver completo",
+          "time": "Tiempo",
+          "samples": "Muestras"
+        },
+        "controls":{
+          "title": "Controles y estados",
+          "startBtn": "Iniciar",
+          "stopBtn": "Terminar",
+          "exportBtn": "Exportar",
+          "saveBtn": "Guardar",
+          "startDateLabel": "Inicio",
+          "endDateLabel": "Finalización",
+          "samplesToShowLabel": "Mostrar últimas muestras",
+          "projectName": "Proyecto",
+          "statusCansat": "Estado",
+          "missionName": "Misión",
+          "cansatName": "CanSat",
+          "battery": "Bateria",
+          "signal": "Señal",
+          "actions": "Acciones"
+        }
       }, 
       "import": "Importar",
       "export": "Exportar",
@@ -233,6 +260,7 @@
         "noBtn": "No",
         "mission":{
           "noMissionCreated": "Primero debe crear una misión.",
+          "noMissionActive": "Debe iniciar la misión para poder guardarla",
           "createdOk": "La misión se creó exitosamente.",
           "loadedOk": "La misión se cargó correctamente.",
           "save": "Guardar misión.",
@@ -450,7 +478,7 @@
     "missionNew": "Nueva",
     "missionSave": "Guardar",
     "missionOpen": "Importar",
-    "missioDashboard": "Tablero de acciones",
+    "missioDashboard": "Tablero de trabajo",
     "sat": "Cansat", 
     "satEnlace": "Enlace",
     "satTest": "Pruebas de integridad",

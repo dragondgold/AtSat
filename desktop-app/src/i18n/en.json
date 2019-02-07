@@ -1,13 +1,40 @@
 {
   "cansat":{
     "mission":{
+      "status":{
+        "ready": "Ready to use.",
+        "problems": "Not ready."
+      },
       "new":{
         "title": "New mission",
         "description": "Select a name for your mission. The mission will be stored in the folder where You created the project.",
         "create": "Create"
       },
-      "dashBoard":{
-        "title": "Dashboard"
+      "dashboard":{
+        "title": "Dashboard",
+        "charts":{
+          "lastSamples": "The last 5 samples will be displayed.",
+          "goToFullChart": "See full",
+          "time": "Time",
+          "samples": "Samples"
+        },
+        "controls":{
+          "title": "Controls and status",
+          "startBtn": "Start",
+          "stopBtn": "End",
+          "exportBtn": "Export",
+          "saveBtn": "Save",
+          "startDateLabel": "Start date",
+          "endDateLabel": "End date",
+          "samplesToShowLabel": "Show last samples",
+          "projectName": "Project",
+          "statusCansat": "Status",
+          "missionName": "Mission",
+          "cansatName": "CanSat",
+          "battery": "Battery",
+          "signal": "Signal",
+          "actions": "Actions"
+        }
       }, 
       "import": "Import",
       "export": "Export",
@@ -232,6 +259,7 @@
         "cancelBtn": "Cancel",
         "mission":{
           "noMissionCreated": "No mission created.",
+          "noMissionActive": "You must start the mission to save it.",
           "createdOk": "The mission has been succesfully created.",
           "loadedOk": "The mission has been succesfully imported.",
           "save": "Save mission.",

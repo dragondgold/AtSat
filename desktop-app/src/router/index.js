@@ -117,19 +117,10 @@ export default new Router({
               component: lazyLoading('cansat/mission/dashboardMission'),
             },
             {
-              name: 'openMission',
-              path: 'openMission',
-              component: lazyLoading('cansat/mission/openMission')
-            },
-            {
-              name: 'configMission',
-              path: 'configMission',
-              component: lazyLoading('cansat/mission/configMission')
-            },
-            {
-              name: 'exporDataMission',
-              path: 'exporDataMission',
-              component: lazyLoading('cansat/mission/exporDataMission')
+              name: 'fullChart',
+              path: 'fullChart',
+              component: lazyLoading('cansat/mission/fullChart'),
+              props: true
             }
           ],
         },

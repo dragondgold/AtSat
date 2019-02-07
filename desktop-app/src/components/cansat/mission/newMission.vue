@@ -130,7 +130,11 @@ export default {
 
                 this.$store.commit('createSensorMission',{
                     id: sensors[s].id,
-                    _type: sensors[s]._type
+                    _type: sensors[s]._type,
+                    type: sensors[s].type,
+                    unit: sensors[s].unit,
+                    ... (sensors[s].minValue != undefined ? { minValue: sensors[s].minValue} : { minValue: 0}),
+                    maxValue: sensors[s].maxValue
                 })
 
                 this.$store.commit('addSensorSample',{
@@ -152,7 +156,15 @@ export default {
                 }
             )
 
-            missionManager.saveMission()
+            this.$store.commit('setDateMission',{
+                startDate: '',
+                endDate: ''
+            })
+
+            this.$store.commit('setFinishMission',{
+                finish:  false
+            })
+
             this.$store.commit('pushNotificationToast',{ 
                 'text': this.$t('cansat.notifications.modal.mission.createdOk'), 
                 'icon': 'fa-check'          

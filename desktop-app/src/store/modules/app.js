@@ -41,7 +41,7 @@ const state = {
         altitude: 0,          // It´s a copy of altitude on sensor. Is needed for map.'m'
         testOk: false,        // State of test
         missionActive: false, // If it's false we need create a mission
-        projectActive: false, // If it's false we need create a project
+        missionFinish: false, // It´s true when finish mission
         missionType: '',      // 'created' for new mission or 'imported' when we load a mission
         sensors:[ 
           {
@@ -88,6 +88,7 @@ const state = {
       },
       mission:{
         path: '',          // Path
+        cansatName: '',
         startDate: '',  
         endDate:'',
         data:{            // Data to import or export: 
@@ -240,6 +241,10 @@ const mutations = {
       state.axtec.project.mission.data.sensors.push({
         id: data.id, 
         _type: data._type ,
+        type: data.type,
+        unit: data.unit,
+        minValue: data.minValue,
+        maxValue: data.maxValue,
         samples: []     
       }) 
     }
@@ -266,7 +271,17 @@ const mutations = {
       ... (data.samples.z != undefined ? { z: data.samples.z} : []),
       timespan: data.samples.timespan              
     }) 
-  }
+  },
+  setDateMission(state,data){
+    if(data.startDate != undefined) state.axtec.project.mission.startDate = data.startDate
+    if(data.endDate != undefined) state.axtec.project.mission.endDate = data.endDate           
+  },
+  setCansatMission(state,data){
+    if(data.name != undefined) state.axtec.project.mission.cansatName = data.name          
+  },
+  setFinishMission(state,data){
+    if(data.finish != undefined) state.axtec.project.cansat[0].missionFinish = data.finish          
+  },
 }
 
 const actions = {
@@ -344,7 +359,16 @@ const actions = {
   },
   addSensorSample({ commit }, data){
     commit(addSensorSample,data)
-  }  
+  },
+  setDateMission({ commit }, data){
+    commit(setDateMission,data)
+  },
+  setCansatMission({ commit }, data){
+    commit(setCansatMission,data)
+  },    
+  setFinishMission({ commit }, data){
+    commit(setFinishMission,data)
+  },    
 }
 
 export default {

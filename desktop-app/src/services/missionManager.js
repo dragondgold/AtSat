@@ -14,14 +14,33 @@ export default {
     saveMission(){
         if(store.getters.axtec.project.mission.path != ''){
             
-            let mission = JSON.parse(JSON.stringify(store.getters.axtec.project.mission))
+            if(store.getters.axtec.project.mission.endDate != '' || store.getters.axtec.project.cansat[0].missionActive){
+                let mission = JSON.parse(JSON.stringify(store.getters.axtec.project.mission))
 
-            delete mission.path
+                delete mission.path
 
-            let missionFile =  JSON.stringify({ 
-                mission: mission
-            })
-            this.saveMissionFile(store.getters.axtec.project.mission.path,missionFile)
+                mission.cansatName = store.getters.axtec.project.cansat[0].name
+
+                if(mission.endDate == ''){
+                    mission.endDate = utils.getDate()
+                }
+
+                let missionFile =  JSON.stringify({ 
+                    mission: mission
+                })
+                this.saveMissionFile(store.getters.axtec.project.mission.path,missionFile)
+            }else{
+                store.commit('pushNotificationModal',{ 
+                    'title': vm.$t('cansat.notifications.modal.mission.save'), 
+                    'content': vm.$t('cansat.notifications.modal.mission.noMissionActive'), 
+                    'date': utils.getDate(),
+                    'code': codeValues.mission.saveError,
+                    'okText': vm.$t('cansat.notifications.modal.okBtn'),
+                    'uuid': utils.generateUUID().toString(),
+                    'type': vm.$t('cansat.notifications.center.types.error'),
+                    'cancelDisabled': true
+                })
+            }       
         }else{
             store.commit('pushNotificationModal',{ 
                 'title': vm.$t('cansat.notifications.modal.mission.save'), 
@@ -70,6 +89,19 @@ export default {
                 }) 
             }
         })
+    },
+    exportToCSV(){
+        let mission = JSON.parse(JSON.stringify(store.getters.axtec.project.mission))
+        var json = mission.data.sensors
+        var fields = Object.keys(json[0])
+        var replacer = function(key, value) { return value === null ? '' : value } 
+        var csv = json.map(function(row){
+        return fields.map(function(fieldName){
+            return JSON.stringify(row[fieldName], replacer)
+        }).join(',')
+        })
+        csv.unshift(fields.join(',')) // add header column
+        debugger
     },
     openMissionDialog(overwrite) {
         let path =
@@ -131,7 +163,10 @@ export default {
         let file = JSON.parse(data)
 
         // Invalid project 
-        if(file.mission == undefined || file.mission.data == undefined || file.mission.data.sensors == undefined || file.mission.data.sensors.length == 0 || file.mission.data.location == undefined){ 
+        if(file.mission == undefined || file.mission.data == undefined || file.mission.data.sensors == undefined 
+            || file.mission.data.sensors.length == 0 || file.mission.data.location == undefined 
+            || file.mission.startDate == undefined || file.mission.startDate == '' || file.mission.endDate == undefined 
+            || file.mission.endDate == '' || file.mission.cansatName == undefined || file.mission.cansatName == '' ){ 
             store.commit('pushNotificationModal',{ 
                 'title': vm.$t('cansat.notifications.modal.mission.import'), 
                 'content': vm.$t('cansat.notifications.modal.mission.invalidContent'),
@@ -241,7 +276,7 @@ export default {
 
             // Empty samples or history
             let lengthSamplesSensors = sensors.filter(function(sensor,index) { 
-                return (sensor.samples.length != sensors[0].samples.length || sensor.samples.length == 0 ) 
+                return ( sensor.samples.length == 0 ) 
             })
             if(lengthSamplesSensors.length != 0 || location.history.length == 0){
                 store.commit('pushNotificationModal',{ 
@@ -276,12 +311,15 @@ export default {
             for(let s= 0; s< sensors.length; s++){
                 store.commit('createSensorMission',{
                     id: sensors[s].id,
-                    _type: sensors[s]._type
+                    _type: sensors[s]._type,
+                    type: sensors[s].type,
+                    unit: sensors[s].unit,
+                    minValue: sensors[s].minValue,
+                    maxValue: sensors[s].maxValue,
                 })
                 for(let sample = 0; sample < sensors[s].samples.length; sample++){
                     store.commit('addSensorSample',{
                         index: s,
-                        timespan: utils.getDate(),
                         samples: {
                             ... (sensors[s].samples[sample].lastValue != undefined ? { lastValue: sensors[s].samples[sample].lastValue} : []),
                             ... (sensors[s].samples[sample].x != undefined ? { x: sensors[s].samples[sample].x} : []),
@@ -318,6 +356,19 @@ export default {
             store.commit('setMissionType',{
                 cansatIndex: 0,
                 missionType: 'imported'
+            })
+
+            store.commit('setDateMission',{
+                startDate:  file.mission.startDate,
+                endDate: file.mission.endDate
+            })
+
+            store.commit('setCansatMission',{
+                name:  file.mission.cansatName
+            })
+
+            store.commit('setFinishMission',{
+                finish:  true
             })
 
             vm.$router.push({ name: 'dashboardMission' })
