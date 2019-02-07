@@ -151,8 +151,9 @@ void cc1101_strobe_cmd(uint8_t strobe);
 bool cc1101_reg_config_settings(cc1101_pa_t pa);
 /**
  * @brief Set CC1101 in receiver mode
+ * @param clear if true the RX fifo will be cleared before entering RX mode
  */
-void cc1101_set_rx(void);
+void cc1101_set_rx(bool clear);
 /**
  * @brief Set CC1101 in transmiter mode
  */

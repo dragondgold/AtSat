@@ -292,8 +292,13 @@ bool cc1101_init(void)
     return cc1101_reg_config_settings(pa_level);
 }
 
-void cc1101_set_rx(void)
+void cc1101_set_rx(bool clear)
 {
+    if(clear)
+    {
+        cc1101_strobe_cmd(CC1101_SIDLE);
+	    cc1101_strobe_cmd(CC1101_SFRX);
+    }
     cc1101_strobe_cmd(CC1101_SRX);
 }
 

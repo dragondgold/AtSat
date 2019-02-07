@@ -35,8 +35,13 @@ static StaticQueue_t tx_static_queue;
 static uint8_t tx_queue_storage[COM_MANAGER_QUEUE_SIZE * COM_MANAGER_QUEUE_ELEMENT_SIZE];
 static QueueHandle_t tx_queue;
 
+// Configs
 static TickType_t report_frequency = pdMS_TO_TICKS(COM_MANAGER_DEFAULT_REPORT_PERIOD);
 static bool reports_enabled = COM_MANAGER_DEFAULT_REPORTS_ENABLED;
+
+// Mutex
+static StaticSemaphore_t cc1101_mutex_buffer;
+static SemaphoreHandle_t cc1101_mutex;
 
 /**
  * @brief Process the axtec_decoded_packet_t packet and take the neccesary actions
@@ -188,12 +193,18 @@ static void rx_task(void* arg)
     {
         vTaskDelay(pdMS_TO_TICKS(100));
 
+        if(!xSemaphoreTake(cc1101_mutex, pdMS_TO_TICKS(100)))
+        {
+            ESP_LOGW(TAG, "rx_task couldn't take mutex");
+        }
+
         // Check if data has been received and is ready to be read
         if(cc1101_bytes_in_rx_fifo() > 0 && cc1101_is_packet_sent_available())
         {
             // Read the packet
             if(cc1101_read_data(&cc1101_packet))
             {
+                xSemaphoreGive(cc1101_mutex);
                 // Check packet integrity
                 if(cc1101_packet.crc_ok)
                 {
@@ -219,10 +230,44 @@ static void rx_task(void* arg)
 
 static void tx_task(void* arg)
 {
+    // Don't put this into the stack
+    static axtec_encoded_packet_t packet;
+    
     while(true)
     {
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        // TODO: send queued data
+        // Wait forever for an item
+        if(xQueueReceive(tx_queue, &packet, portMAX_DELAY))
+        {
+            // Take the mutex to send data
+            if(!xSemaphoreTake(cc1101_mutex, pdMS_TO_TICKS(500)))
+            {
+                ESP_LOGW(TAG, "tx_task couldn't take mutex");
+            }
+
+            // Retry at most 5 times to send the packet
+            bool data_sent = false;
+            for(unsigned int n = 0; n < 5; ++n)
+            {
+                if(cc1101_send_data(packet->raw, packet->length))
+                {
+                    data_sent = true;
+                    break;
+                }
+            }
+
+            if(!data_sent)
+            {
+                ESP_LOGW(TAG, "Failed sending data");
+            }
+
+            // Set RX mode again and release the mutex
+            cc1101_set_rx(true);
+            xSemaphoreGive(cc1101_mutex);
+        }
+        else
+        {
+            ESP_LOGE(TGA, "Shouldn't reach here in tx_task()");
+        }
     }
 }
 
@@ -230,6 +275,8 @@ esp_err_t com_manager_init(void)
 {
     ESP_LOGI(TAG, "Initializing");
     
+    cc1101_mutex = xSemaphoreCreateMutexStatic(&cc1101_mutex_buffer);
+
     if(!cc1101_init())
     {
         ESP_LOGE(TAG, "Error initializing CC1101 driver");
