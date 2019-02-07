@@ -22,6 +22,8 @@ battery_data_t battery_data = {0};
 
 static void battery_sample_task(void* args)
 {
+    battery_data_t temp_data;
+
     while(1)
     {
         // Check battery and charger status every 1 second
@@ -34,31 +36,34 @@ static void battery_sample_task(void* args)
             ESP_LOGI(TAG, "Battery %s", (!gpio_get_level(CHARGING_DETECTION_PIN)) ? "started charging" : "stopped charging");
         }
 
+        // Read all the data from the fuel-gauge
+        temp_data.soc = bq27441_get_soc(FILTERED);
+        temp_data.volts = bq27441_get_voltage();
+        temp_data.avg_current = bq27441_get_current(AVG);
+        temp_data.total_capacity = bq27441_get_capacity(FULL);
+        temp_data.remaining_capacity = bq27441_get_capacity(REMAIN);
+        temp_data.health = bq27441_get_soh(PERCENT);
+        temp_data.is_charging = !gpio_get_level(CHARGING_DETECTION_PIN);
+
+        ESP_LOGV(TAG, "Battery SOC: %d %%", battery_data.soc);
+        ESP_LOGV(TAG, "Battery voltage: %d mV", battery_data.volts);
+        ESP_LOGV(TAG, "Battery avg current: %d mA", battery_data.avg_current);
+        ESP_LOGV(TAG, "Battery total capacity: %d mAh", battery_data.total_capacity);
+        ESP_LOGV(TAG, "Battery remaining capacity: %d mAh", battery_data.remaining_capacity);
+        ESP_LOGV(TAG, "Battery health %d %%", battery_data.remaining_capacity);
+        ESP_LOGV(TAG, "Battery is %s", battery_data.is_charging ? "charging" : "not charging");
+
+        if(temp_data.soc != battery_data.soc)
+        {
+            ESP_LOGI(TAG, "Battery SOC: %d %%", temp_data.soc);
+        }
+
         // Take the mutex so other tasks cannot read the data while it's being
         //  modified
-        if(xSemaphoreTake(mutex, 5000 / portTICK_PERIOD_MS))
+        if(xSemaphoreTake(mutex, 1000 / portTICK_PERIOD_MS))
         {
-            uint16_t soc = bq27441_get_soc(FILTERED);
-            if(battery_data.soc != soc)
-            {
-                ESP_LOGI(TAG, "Battery SOC: %d %%", soc);
-            }
-
-            battery_data.soc = soc;
-            battery_data.volts = bq27441_get_voltage();
-            battery_data.avg_current = bq27441_get_current(AVG);
-            battery_data.total_capacity = bq27441_get_capacity(FULL);
-            battery_data.remaining_capacity = bq27441_get_capacity(REMAIN);
-            battery_data.health = bq27441_get_soh(PERCENT);
-            battery_data.is_charging = !gpio_get_level(CHARGING_DETECTION_PIN);
-
-            ESP_LOGV(TAG, "Battery SOC: %d %%", battery_data.soc);
-            ESP_LOGV(TAG, "Battery voltage: %d mV", battery_data.volts);
-            ESP_LOGV(TAG, "Battery avg current: %d mA", battery_data.avg_current);
-            ESP_LOGV(TAG, "Battery total capacity: %d mAh", battery_data.total_capacity);
-            ESP_LOGV(TAG, "Battery remaining capacity: %d mAh", battery_data.remaining_capacity);
-            ESP_LOGV(TAG, "Battery health %d %%", battery_data.remaining_capacity);
-            ESP_LOGV(TAG, "Battery is %s", battery_data.is_charging ? "charging" : "not charging");
+            // Copy all the data
+            battery_data = temp_data;
 
 #if BATTERY_MANAGER_OVERRIDE_CURRENT == true
             // When not charging (USB disconnected), set the charging current at minimum
