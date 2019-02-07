@@ -54,7 +54,7 @@ esp_err_t i2c_manager_init(void)
     general_i2c_config.sda_pullup_en = GPIO_PULLUP_DISABLE;
     general_i2c_config.scl_io_num = SCL_PIN;
     general_i2c_config.scl_pullup_en = GPIO_PULLUP_DISABLE;
-    general_i2c_config.master.clk_speed = 20000;
+    general_i2c_config.master.clk_speed = 400000;
     if((err = i2c_param_config(GENERAL_I2C_NUMBER, &general_i2c_config)) != ESP_OK)
     {
         return err;
@@ -64,6 +64,9 @@ esp_err_t i2c_manager_init(void)
     {
         return err;
     }
+
+    //gpio_set_drive_capability(SDA_PIN, GPIO_DRIVE_CAP_3);
+    //gpio_set_drive_capability(SCL_PIN, GPIO_DRIVE_CAP_3);
 
     // Set a 10 ms timeout for this I2C bus
     i2c_set_timeout(GENERAL_I2C_NUMBER, ((uint64_t)I2C_APB_CLK_FREQ * (uint64_t)10) / (uint64_t)1000);
