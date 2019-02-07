@@ -25,4 +25,6 @@ typedef struct
 
 esp_err_t battery_manager_init(void);
 
+battery_data_t battery_manager_get(void);
+
 #endif // __BATTERY_MANAGER_H__

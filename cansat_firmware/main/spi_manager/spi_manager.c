@@ -43,6 +43,11 @@ esp_err_t spi_manager_init(void)
         return err;
     }
 
+    // Set maximum drive capability for the output SPI pins
+    gpio_set_drive_capability(MOSI_PIN, GPIO_DRIVE_CAP_3);
+    gpio_set_drive_capability(SCLK_PIN, GPIO_DRIVE_CAP_3);
+    gpio_set_drive_capability(CS_PIN, GPIO_DRIVE_CAP_3);
+
     // Configure SPI module
     spi_bus_config_t bus_cfg =
     {

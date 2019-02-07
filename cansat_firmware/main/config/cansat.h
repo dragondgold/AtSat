@@ -16,7 +16,7 @@
 #define GPS_MANAGER_AFFINITY                    tskNO_AFFINITY
 
 #define SENSOR_MANAGER_FUSION_STACK_SIZE        1500
-#define SENSOR_MANAGER_FUSION_TASK_PRIORITY     4
+#define SENSOR_MANAGER_FUSION_TASK_PRIORITY     3
 #define SENSOR_MANAGER_FUSION_AFFINITY          tskNO_AFFINITY
 
 #define SENSOR_MANAGER_SENSORS_STACK_SIZE       1500
@@ -27,9 +27,13 @@
 #define LED_MANAGER_TASK_PRIORITY               2
 #define LED_MANAGER_AFFINITY                    tskNO_AFFINITY
 
-#define COM_MANAGER_STACK_SIZE                  1500
-#define COM_MANAGER_TASK_PRIORITY               5
-#define COM_MANAGER_AFFINITY                    tskNO_AFFINITY
+#define COM_MANAGER_RX_STACK_SIZE               1500
+#define COM_MANAGER_RX_TASK_PRIORITY            4
+#define COM_MANAGER_RX_AFFINITY                 tskNO_AFFINITY
+
+#define COM_MANAGER_TX_STACK_SIZE               1500
+#define COM_MANAGER_TX_TASK_PRIORITY            5
+#define COM_MANAGER_TX_AFFINITY                 tskNO_AFFINITY
 
 // UART
 #define GPS_UART_NUMBER             UART_NUM_2

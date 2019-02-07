@@ -88,30 +88,37 @@ esp_err_t pressure_manager_init(void)
     // Create mutex for this resource
     mutex = xSemaphoreCreateMutexStatic(&mutex_buffer);
 
-    // Reset the sensor
-    ESP_LOGV(TAG, "Restarting sensor");
-    if((err = send_cmd(PRESSURE_MANAGER_RESET_CMD)) != ESP_OK)
+    for(unsigned int n = 0; n < PRESSURE_MANAGER_MAX_RETRIES; ++n)
     {
-        ESP_LOGE(TAG, "Error restarting sensor in init: %s", esp_err_to_name(err));
-        return err;
-    }
+        ESP_LOGI(TAG, "Initializing %d/%d", n + 1, PRESSURE_MANAGER_MAX_RETRIES);
 
-    // Read coefficients
-    ESP_LOGV(TAG, "Reading coefficients");
-    if((err = read_coefficients()) != ESP_OK)
-    {
-        ESP_LOGE(TAG, "Error reading coefficients: %s", esp_err_to_name(err));
-        return err;
-    }
-    ESP_LOGV(TAG, "Coefficients are: %d,%d,%d,%d,%d,%d", coefficients[0], coefficients[1],
-     coefficients[2], coefficients[3], coefficients[4], coefficients[5]);
+        // Reset the sensor
+        ESP_LOGV(TAG, "Restarting sensor");
+        if((err = send_cmd(PRESSURE_MANAGER_RESET_CMD)) != ESP_OK)
+        {
+            ESP_LOGE(TAG, "Error restarting sensor in init: %s", esp_err_to_name(err));
+            continue;
+        }
 
-    // Do the first sample
-    pressure_manager_do_sample();
+        // Read coefficients
+        ESP_LOGV(TAG, "Reading coefficients");
+        if((err = read_coefficients()) != ESP_OK)
+        {
+            ESP_LOGE(TAG, "Error reading coefficients: %s", esp_err_to_name(err));
+            continue;
+        }
+        ESP_LOGV(TAG, "Coefficients are: %d,%d,%d,%d,%d,%d", coefficients[0], coefficients[1],
+        coefficients[2], coefficients[3], coefficients[4], coefficients[5]);
+
+        // Do the first sample
+        pressure_manager_do_sample();
+
+        ESP_LOGI(TAG, "Ready!");
+        return ESP_OK;
+    }
     
-    ESP_LOGI(TAG, "Ready!");
-
-    return ESP_OK;
+    ESP_LOGE(TAG, "Error initializing!");
+    return ESP_FAIL;
 }
 
 esp_err_t pressure_manager_do_sample(void)

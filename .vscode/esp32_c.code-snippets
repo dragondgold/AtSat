@@ -1,0 +1,21 @@
+{
+	"Add include guard": {
+		"prefix": "ESP32 C File",
+		"description": "Adds commonly used includes and functions",
+		"body": [
+			"#include \"${TM_FILENAME_BASE}.h\"",
+			"#include \"esp_system.h\"",
+			"#include \"freertos/FreeRTOS.h\"",
+			"",
+			"#include \"esp_log.h\"",
+			"",
+			"static const char* TAG = \"tag\";",
+			"",
+			"esp_err_t ${TM_FILENAME_BASE}_init(void)",
+			"{",
+			"	return ESP_OK;",
+			"}",
+			""
+		]
+	}
+}

@@ -151,8 +151,9 @@ void cc1101_strobe_cmd(uint8_t strobe);
 bool cc1101_reg_config_settings(cc1101_pa_t pa);
 /**
  * @brief Set CC1101 in receiver mode
+ * @param clear if true the RX fifo will be cleared before entering RX mode
  */
-void cc1101_set_rx(void);
+void cc1101_set_rx(bool clear);
 /**
  * @brief Set CC1101 in transmiter mode
  */
@@ -171,11 +172,6 @@ bool cc1101_set_mhz(float mhz);
  */
 bool cc1101_send_data(uint8_t *tx_buffer, uint8_t size);
 /**
- * @brief Set channel spacing.
- * @param chsp channel spacing level from 1 to 10
- */
-void cc1101_set_chsp(uint8_t chsp);
-/**
  * @brief Set receiving bandwidth.
  * @param bw bandwidth level from 1 to 16
  */
@@ -189,14 +185,15 @@ void cc1101_set_channel(uint8_t chn);
  * @brief Bytes available in the RX FIFO.
  * @return uint8_t number of bytes available.
  */
-uint8_t cc1101_bytes_in_rx_fifo(void);
+int8_t cc1101_bytes_in_rx_fifo(void);
+int8_t cc1101_bytes_in_tx_fifo(void);
 /**
  * @brief Read data from the RX FIFO
  * @param packet struct to store the packet
  * @return true if the packet was read
  * @return false if packet couldn't be read
  */
-bool cc1101_receive_data(cc1101_packet_t *packet);
+bool cc1101_read_data(cc1101_packet_t *packet);
 /**
  * @brief 
  * 
