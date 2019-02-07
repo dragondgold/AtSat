@@ -3,6 +3,7 @@
 
 #include "esp_err.h"
 #include "driver/ledc.h"
+#include <stdbool.h>
 
 #define SERVO_MANAGER_PARACHUTE_CHANNEL     LEDC_CHANNEL_0
 #define SERVO_MANAGER_BALLOON_CHANNEL       LEDC_CHANNEL_1
@@ -16,5 +17,8 @@ void servo_manager_open_parachute(void);
 void servo_manager_close_parachute(void);
 void servo_manager_open_balloon(void);
 void servo_manager_close_balloon(void);
+
+bool servo_manager_is_parachute_open(void);
+bool servo_manager_is_ballon_open(void);
 
 #endif // __SERVO_MANAGER_H__
