@@ -1,7 +1,6 @@
 #ifndef __AXTEC_PACKET_H__
 #define __AXTEC_PACKET_H__
 
-#include "esp_system.h"
 #include <stdint.h>
 #include <stdbool.h>
 

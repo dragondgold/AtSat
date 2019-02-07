@@ -1,28 +1,228 @@
 #include "com_manager.h"
 
+#include <string.h>
 #include "config/cansat.h"
 #include "esp_system.h"
 #include "freertos/FreeRTOS.h"
 #include "libs/cc1101_driver/cc1101.h"
+#include "libs/axtec_packet/axtec_packet.h"
+#include "libs/cansat_packet/cansat_packet.h"
+#include "libs/minmea/minmea.h"
+
+#include "servo_manager/servo_manager.h"
+#include "battery_manager/battery_manager.h"
 
 #include "driver/spi_common.h"
 #include "driver/spi_master.h"
 #include "spi_manager/spi_manager.h"
+#include "gps_manager/gps_manager.h"
 
 #include "esp_log.h"
 
 static const char* TAG = "com";
 
 // Task
-static StackType_t stack[GPS_MANAGER_STACK_SIZE];
-static StaticTask_t task;
-static TaskHandle_t task_handle;
+static StackType_t stack_rx[COM_MANAGER_RX_STACK_SIZE], stack_tx[COM_MANAGER_TX_STACK_SIZE];
+static StaticTask_t task_rx, task_tx;
+static TaskHandle_t task_handle_rx, task_handle_tx;
 
-static void com_task(void* arg) 
+// Packets
+static cc1101_packet_t cc1101_packet;
+static axtec_decoded_packet_t axtec_decoded_packet;
+
+// Queue
+static StaticQueue_t tx_static_queue;
+static uint8_t tx_queue_storage[COM_MANAGER_QUEUE_SIZE * COM_MANAGER_QUEUE_ELEMENT_SIZE];
+static QueueHandle_t tx_queue;
+
+static TickType_t report_frequency = pdMS_TO_TICKS(COM_MANAGER_DEFAULT_REPORT_PERIOD);
+static bool reports_enabled = COM_MANAGER_DEFAULT_REPORTS_ENABLED;
+
+/**
+ * @brief Process the axtec_decoded_packet_t packet and take the neccesary actions
+ * 
+ * @param packet packet to decode
+ */
+static void process_cansat_packet(axtec_decoded_packet_t* packet)
+{
+    static struct minmea_sentence_gga gps_data;
+    static axtec_encoded_packet_t packet_to_send;
+    static uint8_t buffer[64];
+
+    cansat_packet_type_t type = cansat_packet_get_type(packet->data, packet->length);
+    switch(type)
+    {
+        case CANSAT_GET_ERRORS:
+            // TODO: implement
+            break;
+
+        case CANSAT_PARACHUTE_STATE:
+            // Get the parachute state and add the packet to the TX queue
+            buffer[0] = CANSAT_PARACHUTE_STATE;
+            buffer[1] = servo_manager_is_parachute_open() ? 0x01 : 0x00;
+            axtec_packet_encode(&packet_to_send, buffer, 2);
+            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            break;
+
+        case CANSAT_OPEN_PARACHUTE:
+            // Open parachute and send the state
+            buffer[0] = CANSAT_OPEN_PARACHUTE;
+            buffer[1] = servo_manager_open_parachute() ? 0x01 : 0x00;
+            axtec_packet_encode(&packet_to_send, buffer, 2);
+            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            break;
+
+        case CANSAT_BALLOON_STATE:
+            // Get the balloon state and add the packet to the TX queue
+            buffer[0] = CANSAT_BALLOON_STATE;
+            buffer[1] = servo_manager_is_ballon_open() ? 0x01 : 0x00;
+            axtec_packet_encode(&packet_to_send, buffer, 2);
+            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            break;
+
+        case CANSAT_OPEN_BALLOON:
+            // Open balloon and send the state
+            buffer[0] = CANSAT_OPEN_BALLOON;
+            buffer[1] = servo_manager_open_balloon() ? 0x01 : 0x00;
+            axtec_packet_encode(&packet_to_send, buffer, 2);
+            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            break;
+        
+        case CANSAT_READ_SENSOR:
+            // TODO: implement
+            break;
+
+        case CANSAT_GET_BATTERY:
+            // Get battery level
+            buffer[0] = CANSAT_GET_BATTERY;
+            buffer[1] = battery_manager_get().soc;
+            axtec_packet_encode(&packet_to_send, buffer, 2);
+            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            break;
+        
+        case CANSAT_SET_REPORT_FREQUENCY:
+            {
+                buffer[0] = CANSAT_SET_REPORT_FREQUENCY;
+                buffer[1] = 0x00;
+                
+                uint8_t period;
+                if(cansat_packet_decode_report_frequency(packet->data, &period, packet->length))
+                {
+                    report_frequency = pdMS_TO_TICKS((TickType_t)period);
+                    buffer[1] = 0x01;
+                }
+
+                axtec_packet_encode(&packet_to_send, buffer, 2);
+                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            }
+            break;
+
+        case CANSAT_ENABLE_DISABLE_REPORT:
+            {
+                buffer[0] = CANSAT_ENABLE_DISABLE_REPORT;
+                buffer[1] = 0x00;
+
+                bool enabled;
+                if(cansat_packet_decode_enable_disable_report(packet->data, &enabled, packet->length))
+                {
+                    reports_enabled = enabled;
+                    buffer[1] = 0x01;
+                }
+
+                axtec_packet_encode(&packet_to_send, buffer, 2);
+                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            }
+            break;
+
+        case CANSAT_GET_POSITION:
+            {
+                // Fill with latitude and longitude 0
+                memset(buffer, 0x00, 9);
+                buffer[0] = CANSAT_GET_POSITION;
+
+                if(gps_manager_get_gga(&gps_data))
+                {
+                    // To ensure cross-platform compatibility when sending the latitude and longitude values
+                    //  we convert them to integers instead of sending them in floating point format.
+                    // The equation to convert the angle to integer is:
+                    //      int encodedAngle = (int)(angle * (0x7FFFFFFF / 180.0));
+                    // The equation to convert from integer to angle is:
+                    //      float angle = (encodedAngle / (0x7FFFFFFF / 180.0));
+                    // See: https://stackoverflow.com/questions/7934623/what-is-the-approximate-resolution-of-a-single-precision-floating-point-number-w
+                    float lat = minmea_tocoord(&gps_data.latitude);
+                    float lon = minmea_tocoord(&gps_data.longitude);
+                    uint32_t lat_i = (uint32_t)(lat * (0x7FFFFFFF / 180.0));
+                    uint32_t lon_i = (uint32_t)(lon * (0x7FFFFFFF / 180.0));
+
+                    // Add the integers to the buffer, latitude first, MSB first
+                    buffer[1] = (uint8_t)(lat_i >> 24);
+                    buffer[2] = (uint8_t)(lat_i >> 16);
+                    buffer[3] = (uint8_t)(lat_i >> 8);
+                    buffer[4] = (uint8_t)lat_i;
+
+                    buffer[5] = (uint8_t)(lon_i >> 24);
+                    buffer[6] = (uint8_t)(lon_i >> 16);
+                    buffer[7] = (uint8_t)(lon_i >> 8);
+                    buffer[8] = (uint8_t)lon_i;
+                }
+
+                // Add the packet to the send queue
+                axtec_packet_encode(&packet_to_send, buffer, 9);
+                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            }
+            break;
+
+        case CANSAT_UNKNOWN:
+            ESP_LOGW(TAG, "Unknown packet type %d", type);
+            break;
+
+        default:
+            ESP_LOGE(TAG, "Shouldn't reach default case with type %d", type);
+            break;
+    }
+}
+
+static void rx_task(void* arg) 
+{
+    while(true)
+    {
+        vTaskDelay(pdMS_TO_TICKS(100));
+
+        // Check if data has been received and is ready to be read
+        if(cc1101_bytes_in_rx_fifo() > 0 && cc1101_is_packet_sent_available())
+        {
+            // Read the packet
+            if(cc1101_read_data(&cc1101_packet))
+            {
+                // Check packet integrity
+                if(cc1101_packet.crc_ok)
+                {
+                    // Decode the packet
+                    if(axtec_packet_decode(&axtec_decoded_packet, cc1101_packet.data, cc1101_packet.length))
+                    {
+                        // Check if the packet is valid
+                        if(axtec_decoded_packet.valid)
+                        {
+                            // Process the packet and take the neccesary actions
+                            process_cansat_packet(&axtec_decoded_packet);
+                        }
+                    }
+                }
+                else 
+                {
+                    ESP_LOGW(TAG, "Wrong packet CRC");
+                }
+            }
+        }
+    }
+}
+
+static void tx_task(void* arg)
 {
     while(true)
     {
         vTaskDelay(pdMS_TO_TICKS(1000));
+        // TODO: send queued data
     }
 }
 
@@ -41,10 +241,23 @@ esp_err_t com_manager_init(void)
         return ESP_FAIL;
     }
 
-    // Create task
-    ESP_LOGV(TAG, "Creating task");
-    task_handle = xTaskCreateStaticPinnedToCore(com_task, "com", COM_MANAGER_STACK_SIZE, 
-        NULL, COM_MANAGER_TASK_PRIORITY, stack, &task, COM_MANAGER_AFFINITY);
+    // Create tasks
+    ESP_LOGV(TAG, "Creating tasks");
+    task_handle_rx = xTaskCreateStaticPinnedToCore(rx_task, "com_rx", COM_MANAGER_RX_STACK_SIZE, 
+        NULL, COM_MANAGER_RX_TASK_PRIORITY, stack_rx, &task_rx, COM_MANAGER_RX_AFFINITY);
+    task_handle_tx = xTaskCreateStaticPinnedToCore(tx_task, "com_tx", COM_MANAGER_TX_STACK_SIZE, 
+        NULL, COM_MANAGER_TX_TASK_PRIORITY, stack_tx, &task_tx, COM_MANAGER_TX_AFFINITY);
+
+    // Queue
+    tx_queue = xQueueCreateStatic(COM_MANAGER_QUEUE_SIZE, COM_MANAGER_QUEUE_ELEMENT_SIZE, tx_queue_storage,
+                                &tx_static_queue);
+
+    // By default put the transceiver in receive mode
+    cc1101_set_rx();
+
+    // Packet decoder/encoder
+    axtec_packet_init();
+    cansat_packet_init();
 
     ESP_LOGI(TAG, "Ready!");
 

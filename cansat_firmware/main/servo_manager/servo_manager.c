@@ -80,44 +80,52 @@ esp_err_t servo_manager_init(void)
     return ESP_OK;
 }
 
-void servo_manager_open_parachute(void)
+bool servo_manager_open_parachute(void)
 {
     if(xSemaphoreTake(mutex, 200 / portTICK_PERIOD_MS))
     {
         set_servo_duty(SERVO_MANAGER_PARACHUTE_CHANNEL, SERVO_MANAGER_OPEN_SERVO_DUTY);
         parachute_opened = true;
         xSemaphoreGive(mutex);
+        return true;
     }
+    return false;
 }
 
-void servo_manager_close_parachute(void)
+bool servo_manager_close_parachute(void)
 {
     if(xSemaphoreTake(mutex, 200 / portTICK_PERIOD_MS))
     {
         set_servo_duty(SERVO_MANAGER_PARACHUTE_CHANNEL, SERVO_MANAGER_CLOSE_SERVO_DUTY);
         parachute_opened = false;
         xSemaphoreGive(mutex);
+        return true;
     }
+    return false;
 }
 
-void servo_manager_open_balloon(void)
+bool servo_manager_open_balloon(void)
 {
     if(xSemaphoreTake(mutex, 200 / portTICK_PERIOD_MS))
     {
         set_servo_duty(SERVO_MANAGER_BALLOON_CHANNEL, SERVO_MANAGER_OPEN_SERVO_DUTY);
         balloon_opened = true;
         xSemaphoreGive(mutex);
+        return true;
     }
+    return false;
 }
 
-void servo_manager_close_balloon(void)
+bool servo_manager_close_balloon(void)
 {
     if(xSemaphoreTake(mutex, 200 / portTICK_PERIOD_MS))
     {
         set_servo_duty(SERVO_MANAGER_BALLOON_CHANNEL, SERVO_MANAGER_CLOSE_SERVO_DUTY);
         balloon_opened = false;
         xSemaphoreGive(mutex);
+        return true;
     }
+    return false;
 }
 
 bool servo_manager_is_parachute_open(void)

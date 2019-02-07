@@ -13,10 +13,10 @@
 
 esp_err_t servo_manager_init(void);
 
-void servo_manager_open_parachute(void);
-void servo_manager_close_parachute(void);
-void servo_manager_open_balloon(void);
-void servo_manager_close_balloon(void);
+bool servo_manager_open_parachute(void);
+bool servo_manager_close_parachute(void);
+bool servo_manager_open_balloon(void);
+bool servo_manager_close_balloon(void);
 
 bool servo_manager_is_parachute_open(void);
 bool servo_manager_is_ballon_open(void);

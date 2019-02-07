@@ -279,6 +279,11 @@ bool cc1101_init(void)
     transaction.tx_buffer = tx_buffer;
     transaction.rx_buffer = rx_buffer;
 
+    // Flush the TX and RX FIFOs
+    cc1101_strobe_cmd(CC1101_SIDLE);
+	cc1101_strobe_cmd(CC1101_SFTX);
+    cc1101_strobe_cmd(CC1101_SFRX);
+
     if(!cc1101_reset())
     {
         ESP_LOGE(TAG, "Couldn't reset CC1101");
