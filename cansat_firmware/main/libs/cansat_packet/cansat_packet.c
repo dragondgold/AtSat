@@ -52,4 +52,23 @@ bool cansat_packet_decode_enable_disable_report(uint8_t* data, bool* enabled, un
     return false;
 }
 
+bool cansat_packet_decode_read_sensor(uint8_t* data, cansat_sensor_type_t* sensor_id, unsigned int length)
+{
+    // Check packet type
+    if(cansat_packet_get_type(data, length) == CANSAT_READ_SENSOR && length > 1)
+    {
+        if(data[1] >= UNKNOWN_SENSOR)
+        {
+            *sensor_id = UNKNOWN_SENSOR;
+        }
+        else
+        {
+            *sensor_id = data[1];
+        }
+        return true;
+    }
+
+    return false;
+}
+
 

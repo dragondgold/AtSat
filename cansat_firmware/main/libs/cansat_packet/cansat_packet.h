@@ -19,6 +19,25 @@ typedef enum
     CANSAT_UNKNOWN
 } cansat_packet_type_t;
 
+typedef enum
+{
+    GYROSCOPE = 0x01,
+    MAGNETOMETER = 0x02,
+    ACCELEROMETER = 0x03,
+    ORIENTATION = 0x04,
+    TEMPERATURE = 0x05,
+    HUMIDITY = 0x06,
+    PRESSURE = 0x07,
+    ALTITUDE = 0x08,
+    BATTERY_VOLTAGE = 0x09,
+    BATTERY_CURRENT = 0x0A,
+    3V3_VOLTAGE = 0x0B,
+    3V3_CURRENT = 0x0C,
+    5V_VOLTAGE = 0x0D,
+    5V_CURRENT = 0x0E,
+    UNKNOWN_SENSOR
+} cansat_sensor_type_t;
+
 bool cansat_packet_init(void);
 
 /**
@@ -35,5 +54,7 @@ bool cansat_packet_decode_read_sensor(uint8_t* data);
 bool cansat_packet_decode_report_frequency(uint8_t* data, uint8_t* report_period, unsigned int length);
 
 bool cansat_packet_decode_enable_disable_report(uint8_t* data, bool* enabled, unsigned int length);
+
+bool cansat_packet_decode_read_sensor(uint8_t* data, uint8_t* sensor_id, unsigned int length);
 
 #endif // __CANSAT_PACKET_H__
