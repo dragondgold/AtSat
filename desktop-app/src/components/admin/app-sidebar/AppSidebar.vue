@@ -166,6 +166,12 @@ export default {
       ProjectManager.openProjectDialog(true)
     },
     showOpenDialogAnywayMission(){
+      this.$store.commit('createSensorMission',{
+        clear: true
+      })
+      this.$store.commit('addLocationMission',{
+        clear: true
+      })
       MissionManager.openMissionDialog(true)
     },
     goToNewProject(){

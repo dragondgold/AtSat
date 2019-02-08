@@ -21,8 +21,12 @@ export default {
 
                 delete mission.path
 
-                mission.cansatName = store.getters.axtec.project.cansat[0].name
-
+                if(store.getters.axtec.project.mission.cansatName != ''){
+                    mission.cansatName = store.getters.axtec.project.mission.cansatName
+                }else{
+                    mission.cansatName = store.getters.axtec.project.cansat[0].name
+                }
+ 
                 if(mission.endDate == ''){
                     mission.endDate = utils.getDate()
                 }
@@ -32,6 +36,7 @@ export default {
                 })
                 this.saveMissionFile(store.getters.axtec.project.mission.path,missionFile)
             }else{
+                debugger
                 store.commit('pushNotificationModal',{ 
                     'title': vm.$t('cansat.notifications.modal.mission.save'), 
                     'content': vm.$t('cansat.notifications.modal.mission.noMissionActive'), 
@@ -44,6 +49,7 @@ export default {
                 })
             }       
         }else{
+            debugger
             store.commit('pushNotificationModal',{ 
                 'title': vm.$t('cansat.notifications.modal.mission.save'), 
                 'content': vm.$t('cansat.notifications.modal.mission.noMissionCreated'), 
@@ -97,9 +103,10 @@ export default {
         let sensors =  mission.data.sensors
         let location = mission.data.location
         let csvString = vm.$t('cansat.mission.exportTitles.exportBy') + '\r\n'
-        csvString +=  vm.$t('cansat.mission.exportTitles.startDate') + mission.startDate + " " +
-                        vm.$t('cansat.mission.exportTitles.endDate') + mission.endDate + '\r\n' 
-        csvString += '\r\n'
+
+        csvString +=  vm.$t('cansat.mission.exportTitles.startDate') + mission.startDate + '\r\n' 
+
+        csvString +=  vm.$t('cansat.mission.exportTitles.endDate') + mission.endDate + '\r\n' + '\r\n'
 
         for(let s = 0; s < sensors.length; s++){    
             let column
@@ -156,9 +163,10 @@ export default {
             csvString += row.join(',') + '\r\n'
         }  
 
-        let csvDirectory = mission.path.substring(0, mission.path.lastIndexOf("\\"))
-        let csvName = path.basename(mission.path).split('.').slice(0, -1).join('.')
-        let csvPath = csvDirectory + '\\'+ csvName + ".csv"
+        let missionPath = mission.path.replace(/\\/g, "/")
+        let csvDirectory = missionPath.substring(0, missionPath.lastIndexOf("/"))
+        let csvName = path.basename(missionPath).split('.').slice(0, -1).join('.')
+        let csvPath = csvDirectory + '/'+ csvName + ".csv"
 
         this.createCSVFile(csvPath,csvString)  
     },
@@ -411,6 +419,7 @@ export default {
                     unit: sensors[s].unit,
                     minValue: sensors[s].minValue,
                     maxValue: sensors[s].maxValue,
+                    cansatName: store.getters.axtec.project.cansat[0].name
                 })
                 for(let sample = 0; sample < sensors[s].samples.length; sample++){
                     store.commit('addSensorSample',{
