@@ -97,7 +97,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
         case CANSAT_READ_SENSOR:
             {
                 static sensors_data_t sensors_data;
-                cansat_sensor_type_t sensor_type;
+                static cansat_sensor_type_t sensor_type;
                 if(cansat_packet_decode_read_sensor(packet->data, &sensor_type, packet->length))
                 {
                     // Packet type
@@ -266,19 +266,19 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                             //TODO: implement
                             break;
 
-                        case 3V3_VOLTAGE:
+                        case V3V3_VOLTAGE:
                             //TODO: implement
                             break;
 
-                        case 3V3_CURRENT:
+                        case V3V3_CURRENT:
                             //TODO: implement
                             break;
 
-                        case 5V_VOLTAGE:
+                        case V5V_VOLTAGE:
                             //TODO: implement
                             break;
 
-                        case 5V_CURRENT:
+                        case V5V_CURRENT:
                             //TODO: implement
                             break;
 
@@ -445,7 +445,7 @@ static void tx_task(void* arg)
             bool data_sent = false;
             for(unsigned int n = 0; n < 5; ++n)
             {
-                if(cc1101_send_data(packet->raw, packet->length))
+                if(cc1101_send_data(packet.raw, packet.length))
                 {
                     data_sent = true;
                     break;
@@ -463,7 +463,7 @@ static void tx_task(void* arg)
         }
         else
         {
-            ESP_LOGE(TGA, "Shouldn't reach here in tx_task()");
+            ESP_LOGE(TAG, "Shouldn't reach here in tx_task()");
         }
     }
 }
@@ -485,6 +485,10 @@ esp_err_t com_manager_init(void)
         return ESP_FAIL;
     }
 
+    // Queue
+    tx_queue = xQueueCreateStatic(COM_MANAGER_QUEUE_SIZE, COM_MANAGER_QUEUE_ELEMENT_SIZE, tx_queue_storage,
+                                &tx_static_queue);
+
     // Create tasks
     ESP_LOGV(TAG, "Creating tasks");
     task_handle_rx = xTaskCreateStaticPinnedToCore(rx_task, "com_rx", COM_MANAGER_RX_STACK_SIZE, 
@@ -492,12 +496,8 @@ esp_err_t com_manager_init(void)
     task_handle_tx = xTaskCreateStaticPinnedToCore(tx_task, "com_tx", COM_MANAGER_TX_STACK_SIZE, 
         NULL, COM_MANAGER_TX_TASK_PRIORITY, stack_tx, &task_tx, COM_MANAGER_TX_AFFINITY);
 
-    // Queue
-    tx_queue = xQueueCreateStatic(COM_MANAGER_QUEUE_SIZE, COM_MANAGER_QUEUE_ELEMENT_SIZE, tx_queue_storage,
-                                &tx_static_queue);
-
     // By default put the transceiver in receive mode
-    cc1101_set_rx();
+    cc1101_set_rx(true);
 
     // Packet decoder/encoder
     axtec_packet_init();

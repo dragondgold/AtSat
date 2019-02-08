@@ -31,10 +31,10 @@ typedef enum
     ALTITUDE = 0x08,
     BATTERY_VOLTAGE = 0x09,
     BATTERY_CURRENT = 0x0A,
-    3V3_VOLTAGE = 0x0B,
-    3V3_CURRENT = 0x0C,
-    5V_VOLTAGE = 0x0D,
-    5V_CURRENT = 0x0E,
+    V3V3_VOLTAGE = 0x0B,
+    V3V3_CURRENT = 0x0C,
+    V5V_VOLTAGE = 0x0D,
+    V5V_CURRENT = 0x0E,
     UNKNOWN_SENSOR
 } cansat_sensor_type_t;
 
@@ -49,12 +49,10 @@ bool cansat_packet_init(void);
  */
 cansat_packet_type_t cansat_packet_get_type(uint8_t* data, unsigned int length);
 
-bool cansat_packet_decode_read_sensor(uint8_t* data);
-
 bool cansat_packet_decode_report_frequency(uint8_t* data, uint8_t* report_period, unsigned int length);
 
 bool cansat_packet_decode_enable_disable_report(uint8_t* data, bool* enabled, unsigned int length);
 
-bool cansat_packet_decode_read_sensor(uint8_t* data, uint8_t* sensor_id, unsigned int length);
+bool cansat_packet_decode_read_sensor(uint8_t* data, cansat_sensor_type_t* sensor_id, unsigned int length);
 
 #endif // __CANSAT_PACKET_H__
