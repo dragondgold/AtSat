@@ -1,0 +1,1740 @@
+Disassembly Listing for pic16_firmware
+Generated From:
+C:/msys32/home/tmax4/esp/pic16_firmware.X/dist/default/production/pic16_firmware.X.production.elf
+Feb 8, 2019 2:39:21 AM
+
+---  C:/msys32/home/tmax4/esp/pic16_firmware.X/mcc_generated_files/tmr2.c  ------------------------------
+1:             /**
+2:               TMR2 Generated Driver File
+3:             
+4:               @Company
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name
+8:                 tmr2.c
+9:             
+10:              @Summary
+11:                This is the generated driver implementation file for the TMR2 driver using PIC10 / PIC12 / PIC16 / PIC18 MCUs
+12:            
+13:              @Description
+14:                This source file provides APIs for TMR2.
+15:                Generation Information :
+16:                    Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.65.2
+17:                    Device            :  PIC16LF18325
+18:                    Driver Version    :  2.01
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 1.45
+21:                    MPLAB 	          :  MPLAB X 4.15
+22:            */
+23:            
+24:            /*
+25:                (c) 2018 Microchip Technology Inc. and its subsidiaries. 
+26:                
+27:                Subject to your compliance with these terms, you may use Microchip software and any 
+28:                derivatives exclusively with Microchip products. It is your responsibility to comply with third party 
+29:                license terms applicable to your use of third party software (including open source software) that 
+30:                may accompany Microchip software.
+31:                
+32:                THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
+33:                EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY 
+34:                IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS 
+35:                FOR A PARTICULAR PURPOSE.
+36:                
+37:                IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
+38:                INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
+39:                WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP 
+40:                HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO 
+41:                THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL 
+42:                CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT 
+43:                OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS 
+44:                SOFTWARE.
+45:            */
+46:            
+47:            /**
+48:              Section: Included Files
+49:            */
+50:            
+51:            #include <xc.h>
+52:            #include "tmr2.h"
+53:            
+54:            /**
+55:              Section: Global Variables Definitions
+56:            */
+57:            
+58:            /**
+59:              Section: TMR2 APIs
+60:            */
+61:            
+62:            void TMR2_Initialize(void)
+63:            {
+64:                // Set TMR2 to the options selected in the User Interface
+65:            
+66:                // PR2 47; 
+67:                PR2 = 0x2F;
+0198  302F     MOVLW 0x2F
+0199  0020     MOVLB 0x0
+019A  009E     MOVWF PR2
+68:            
+69:                // TMR2 0; 
+70:                TMR2 = 0x00;
+019B  019D     CLRF TMR2
+71:            
+72:                // Clearing IF flag.
+73:                PIR1bits.TMR2IF = 0;
+019C  1091     BCF PIR1, 0x1
+74:            
+75:                // T2CKPS 1:1; T2OUTPS 1:1; TMR2ON on; 
+76:                T2CON = 0x04;
+019D  3004     MOVLW 0x4
+019E  009F     MOVWF T2CON
+77:            }
+019F  0008     RETURN
+78:            
+79:            void TMR2_StartTimer(void)
+80:            {
+81:                // Start the Timer by writing to TMRxON bit
+82:                T2CONbits.TMR2ON = 1;
+83:            }
+84:            
+85:            void TMR2_StopTimer(void)
+86:            {
+87:                // Stop the Timer by writing to TMRxON bit
+88:                T2CONbits.TMR2ON = 0;
+01D5  111F     BCF T2CON, 0x2
+89:            }
+01D6  0008     RETURN
+90:            
+91:            uint8_t TMR2_ReadTimer(void)
+92:            {
+93:                uint8_t readVal;
+94:            
+95:                readVal = TMR2;
+96:            
+97:                return readVal;
+98:            }
+99:            
+100:           void TMR2_WriteTimer(uint8_t timerVal)
+101:           {
+102:               // Write to the Timer2 register
+103:               TMR2 = timerVal;
+104:           }
+105:           
+106:           void TMR2_LoadPeriodRegister(uint8_t periodVal)
+107:           {
+108:              PR2 = periodVal;
+109:           }
+110:           
+111:           bool TMR2_HasOverflowOccured(void)
+112:           {
+113:               // check if  overflow has occurred by checking the TMRIF bit
+114:               bool status = PIR1bits.TMR2IF;
+115:               if(status)
+116:               {
+117:                   // Clearing IF flag.
+118:                   PIR1bits.TMR2IF = 0;
+119:               }
+120:               return status;
+121:           }
+122:           /**
+123:             End of File
+124:           */
+---  C:/msys32/home/tmax4/esp/pic16_firmware.X/mcc_generated_files/tmr0.c  ------------------------------
+1:             /**
+2:               TMR0 Generated Driver File
+3:             
+4:               @Company
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name
+8:                 tmr0.c
+9:             
+10:              @Summary
+11:                This is the generated driver implementation file for the TMR0 driver using PIC10 / PIC12 / PIC16 / PIC18 MCUs
+12:            
+13:              @Description
+14:                This source file provides APIs for TMR0.
+15:                Generation Information :
+16:                    Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.65.2
+17:                    Device            :  PIC16LF18325
+18:                    Driver Version    :  3.10
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 1.45
+21:                    MPLAB 	          :  MPLAB X 4.15
+22:            */
+23:            
+24:            /*
+25:                (c) 2018 Microchip Technology Inc. and its subsidiaries. 
+26:                
+27:                Subject to your compliance with these terms, you may use Microchip software and any 
+28:                derivatives exclusively with Microchip products. It is your responsibility to comply with third party 
+29:                license terms applicable to your use of third party software (including open source software) that 
+30:                may accompany Microchip software.
+31:                
+32:                THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
+33:                EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY 
+34:                IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS 
+35:                FOR A PARTICULAR PURPOSE.
+36:                
+37:                IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
+38:                INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
+39:                WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP 
+40:                HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO 
+41:                THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL 
+42:                CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT 
+43:                OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS 
+44:                SOFTWARE.
+45:            */
+46:            
+47:            /**
+48:              Section: Included Files
+49:            */
+50:            
+51:            #include <xc.h>
+52:            #include "tmr0.h"
+53:            
+54:            
+55:            /**
+56:              Section: TMR0 APIs
+57:            */
+58:            
+59:            void (*TMR0_InterruptHandler)(void);
+60:            
+61:            void TMR0_Initialize(void)
+62:            {
+63:                // Set TMR0 to the options selected in the User Interface
+64:            
+65:                // T0CS FOSC/4; T0CKPS 1:128; T0ASYNC not_synchronised; 
+66:                T0CON1 = 0x57;
+015F  3057     MOVLW 0x57
+0160  0098     MOVWF T0CON1
+67:            
+68:                // TMR0H 124; 
+69:                TMR0H = 0x7C;
+0161  307C     MOVLW 0x7C
+0162  0096     MOVWF TMR0H
+70:            
+71:                // TMR0L 0; 
+72:                TMR0L = 0x00;
+0163  0195     CLRF TMR0L
+73:            
+74:                // Clear Interrupt flag before enabling the interrupt
+75:                PIR0bits.TMR0IF = 0;
+0164  1290     BCF PIR0, 0x5
+76:            
+77:                // Enabling TMR0 interrupt.
+78:                PIE0bits.TMR0IE = 1;
+0165  0021     MOVLB 0x1
+0166  1690     BSF PIE0, 0x5
+79:            
+80:                // Set Default Interrupt Handler
+81:                TMR0_SetInterruptHandler(TMR0_DefaultInterruptHandler);
+0167  30DA     MOVLW 0xDA
+0168  00F8     MOVWF 0xF8
+0169  3001     MOVLW 0x1
+016A  00F9     MOVWF 0xF9
+016B  3181     MOVLP 0x1
+016C  21BA     CALL 0x1BA
+82:            
+83:                // T0OUTPS 1:1; T0EN enabled; T016BIT 8-bit; 
+84:                T0CON0 = 0x80;
+016D  3080     MOVLW 0x80
+016E  0097     MOVWF WDTCON
+85:            }
+016F  0008     RETURN
+86:            
+87:            void TMR0_StartTimer(void)
+88:            {
+89:                // Start the Timer by writing to TMR0ON bit
+90:                T0CON0bits.T0EN = 1;
+01D7  1797     BSF WDTCON, 0x7
+91:            }
+01D8  0008     RETURN
+92:            
+93:            void TMR0_StopTimer(void)
+94:            {
+95:                // Stop the Timer by writing to TMR0ON bit
+96:                T0CON0bits.T0EN = 0;
+01D2  0020     MOVLB 0x0
+01D3  1397     BCF T0CON0, 0x7
+97:            }
+01D4  0008     RETURN
+98:            
+99:            uint8_t TMR0_ReadTimer(void)
+100:           {
+101:               uint8_t readVal;
+102:           
+103:               // read Timer0, low register only
+104:               readVal = TMR0L;
+105:           
+106:               return readVal;
+107:           }
+108:           
+109:           void TMR0_WriteTimer(uint8_t timerVal)
+110:           {
+111:               // Write to Timer0 registers, low register only
+112:               TMR0L = timerVal;
+113:            }
+114:           
+115:           void TMR0_Reload(uint8_t periodVal)
+116:           {
+117:              // Write to Timer0 registers, high register only
+118:              TMR0H = periodVal;
+119:           }
+120:           
+121:           void TMR0_ISR(void)
+122:           {
+123:               // clear the TMR0 interrupt flag
+124:               PIR0bits.TMR0IF = 0;
+017B  1290     BCF PIR0, 0x5
+125:               if(TMR0_InterruptHandler)
+017C  0838     MOVF TMR0_InterruptHandler, W
+017D  0439     IORWF 0x39, W
+017E  1903     BTFSC STATUS, 0x2
+017F  0008     RETURN
+126:               {
+127:                   TMR0_InterruptHandler();
+0180  0839     MOVF 0x39, W
+0181  008A     MOVWF PCLATH
+0182  0838     MOVF TMR0_InterruptHandler, W
+0183  000A     CALLW
+0184  3181     MOVLP 0x1
+128:               }
+129:           
+130:               // add your TMR0 interrupt custom code
+131:           }
+0185  0008     RETURN
+132:           
+133:           
+134:           void TMR0_SetInterruptHandler(void (* InterruptHandler)(void)){
+135:               TMR0_InterruptHandler = InterruptHandler;
+01BA  0879     MOVF 0x79, W
+01BB  0020     MOVLB 0x0
+01BC  00B9     MOVWF 0x39
+01BD  0878     MOVF addr, W
+01BE  00B8     MOVWF TMR0_InterruptHandler
+136:           }
+01BF  0008     RETURN
+137:           
+138:           void TMR0_DefaultInterruptHandler(void){
+139:               // add your TMR0 interrupt custom code
+140:               // or set custom function using TMR0_SetInterruptHandler()
+141:           }
+01DA  0008     RETURN
+142:           
+143:           /**
+144:             End of File
+145:           */
+---  C:/msys32/home/tmax4/esp/pic16_firmware.X/mcc_generated_files/pin_manager.c  -----------------------
+1:             /**
+2:               Generated Pin Manager File
+3:             
+4:               Company:
+5:                 Microchip Technology Inc.
+6:             
+7:               File Name:
+8:                 pin_manager.c
+9:             
+10:              Summary:
+11:                This is the Pin Manager file generated using PIC10 / PIC12 / PIC16 / PIC18 MCUs
+12:            
+13:              Description:
+14:                This header file provides implementations for pin APIs for all pins selected in the GUI.
+15:                Generation Information :
+16:                    Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.65.2
+17:                    Device            :  PIC16LF18325
+18:                    Driver Version    :  2.11
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 1.45
+21:                    MPLAB             :  MPLAB X 4.15
+22:            
+23:                Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+24:            */
+25:            
+26:            /*
+27:                (c) 2018 Microchip Technology Inc. and its subsidiaries. 
+28:                
+29:                Subject to your compliance with these terms, you may use Microchip software and any 
+30:                derivatives exclusively with Microchip products. It is your responsibility to comply with third party 
+31:                license terms applicable to your use of third party software (including open source software) that 
+32:                may accompany Microchip software.
+33:                
+34:                THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
+35:                EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY 
+36:                IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS 
+37:                FOR A PARTICULAR PURPOSE.
+38:                
+39:                IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
+40:                INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
+41:                WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP 
+42:                HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO 
+43:                THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL 
+44:                CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT 
+45:                OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS 
+46:                SOFTWARE.
+47:            */
+48:            
+49:            #include <xc.h>
+50:            #include "pin_manager.h"
+51:            #include "stdbool.h"
+52:            
+53:            
+54:            
+55:            
+56:            
+57:            void PIN_MANAGER_Initialize(void)
+58:            {
+59:                /**
+60:                LATx registers
+61:                */
+62:                LATA = 0x00;
+010D  0022     MOVLB 0x2
+010E  018C     CLRF LATA
+63:                LATC = 0x00;
+010F  018E     CLRF LATC
+64:            
+65:                /**
+66:                TRISx registers
+67:                */
+68:                TRISA = 0x37;
+0110  3037     MOVLW 0x37
+0111  0021     MOVLB 0x1
+0112  008C     MOVWF TRISA
+69:                TRISC = 0x3F;
+0113  303F     MOVLW 0x3F
+0114  008E     MOVWF TRISC
+70:            
+71:                /**
+72:                ANSELx registers
+73:                */
+74:                ANSELC = 0x3C;
+0115  303C     MOVLW 0x3C
+0116  0023     MOVLB 0x3
+0117  008E     MOVWF ANSELC
+75:                ANSELA = 0x37;
+0118  3037     MOVLW 0x37
+0119  008C     MOVWF ANSELA
+76:            
+77:                /**
+78:                WPUx registers
+79:                */
+80:                WPUA = 0x00;
+011A  0024     MOVLB 0x4
+011B  018C     CLRF WPUA
+81:                WPUC = 0x00;
+011C  018E     CLRF WPUC
+82:            
+83:                /**
+84:                ODx registers
+85:                */
+86:                ODCONA = 0x00;
+011D  0025     MOVLB 0x5
+011E  018C     CLRF ODCONA
+87:                ODCONC = 0x00;
+011F  018E     CLRF ODCONC
+88:            
+89:                /**
+90:                SLRCONx registers
+91:                */
+92:                SLRCONA = 0x37;
+0120  3037     MOVLW 0x37
+0121  0026     MOVLB 0x6
+0122  008C     MOVWF SLRCONA
+93:                SLRCONC = 0x3F;
+0123  303F     MOVLW 0x3F
+0124  008E     MOVWF SLRCONC
+94:            
+95:            
+96:            
+97:            
+98:            
+99:               
+100:               
+101:           	
+102:               RC0PPS = 0x18;   //RC0->MSSP1:SCL1;    
+0125  3018     MOVLW 0x18
+0126  003D     MOVLB 0x1D
+0127  00A0     MOVWF RC0PPS
+103:               SSP1CLKPPS = 0x10;   //RC0->MSSP1:SCL1;    
+0128  3010     MOVLW 0x10
+0129  003C     MOVLB 0x1C
+012A  00A0     MOVWF SSP1CLKPPS
+104:               RC1PPS = 0x19;   //RC1->MSSP1:SDA1;    
+012B  3019     MOVLW 0x19
+012C  003D     MOVLB 0x1D
+012D  00A1     MOVWF RC1PPS
+105:               SSP1DATPPS = 0x11;   //RC1->MSSP1:SDA1;    
+012E  3011     MOVLW 0x11
+012F  003C     MOVLB 0x1C
+0130  00A1     MOVWF SSP1DATPPS
+106:           }
+0131  0008     RETURN
+107:             
+108:           void PIN_MANAGER_IOC(void)
+109:           {   
+110:           }
+111:           
+112:           /**
+113:            End of File
+114:           */
+---  C:/msys32/home/tmax4/esp/pic16_firmware.X/mcc_generated_files/mcc.c  -------------------------------
+1:             /**
+2:               @Generated PIC10 / PIC12 / PIC16 / PIC18 MCUs Source File
+3:             
+4:               @Company:
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name:
+8:                 mcc.c
+9:             
+10:              @Summary:
+11:                This is the mcc.c file generated using PIC10 / PIC12 / PIC16 / PIC18 MCUs
+12:            
+13:              @Description:
+14:                This header file provides implementations for driver APIs for all modules selected in the GUI.
+15:                Generation Information :
+16:                    Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.65.2
+17:                    Device            :  PIC16LF18325
+18:                    Driver Version    :  2.00
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 1.45 or later
+21:                    MPLAB             :  MPLAB X 4.15
+22:            */
+23:            
+24:            /*
+25:                (c) 2018 Microchip Technology Inc. and its subsidiaries. 
+26:                
+27:                Subject to your compliance with these terms, you may use Microchip software and any 
+28:                derivatives exclusively with Microchip products. It is your responsibility to comply with third party 
+29:                license terms applicable to your use of third party software (including open source software) that 
+30:                may accompany Microchip software.
+31:                
+32:                THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
+33:                EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY 
+34:                IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS 
+35:                FOR A PARTICULAR PURPOSE.
+36:                
+37:                IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
+38:                INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
+39:                WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP 
+40:                HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO 
+41:                THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL 
+42:                CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT 
+43:                OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS 
+44:                SOFTWARE.
+45:            */
+46:            
+47:            #include "mcc.h"
+48:            
+49:            
+50:            void SYSTEM_Initialize(void)
+51:            {
+52:            
+53:                PMD_Initialize();
+014A  3181     MOVLP 0x1
+014B  21A0     CALL 0x1A0
+014C  3181     MOVLP 0x1
+54:                PIN_MANAGER_Initialize();
+014D  3181     MOVLP 0x1
+014E  210D     CALL 0x10D
+014F  3181     MOVLP 0x1
+55:                OSCILLATOR_Initialize();
+0150  3181     MOVLP 0x1
+0151  2186     CALL 0x186
+0152  3181     MOVLP 0x1
+56:                WDT_Initialize();
+0153  3181     MOVLP 0x1
+0154  21C5     CALL 0x1C5
+0155  3181     MOVLP 0x1
+57:                ADC_Initialize();
+0156  3181     MOVLP 0x1
+0157  218F     CALL 0x18F
+0158  3181     MOVLP 0x1
+58:                TMR2_Initialize();
+0159  3181     MOVLP 0x1
+015A  2198     CALL 0x198
+015B  3181     MOVLP 0x1
+59:                TMR0_Initialize();
+015C  3181     MOVLP 0x1
+015D  215F     CALL 0x15F
+60:            }
+015E  0008     RETURN
+61:            
+62:            void OSCILLATOR_Initialize(void)
+63:            {
+64:                // NOSC HFINTOSC; NDIV 1; 
+65:                OSCCON1 = 0x60;
+0186  3060     MOVLW 0x60
+0187  0032     MOVLB 0x12
+0188  0099     MOVWF OSCCON1
+66:                // CSWHOLD may proceed; SOSCPWR Low power; SOSCBE crystal oscillator; 
+67:                OSCCON3 = 0x00;
+0189  019B     CLRF OSCCON3
+68:                // LFOEN disabled; ADOEN disabled; SOSCEN disabled; EXTOEN disabled; HFOEN disabled; 
+69:                OSCEN = 0x00;
+018A  019D     CLRF OSCEN
+70:                // HFFRQ 32_MHz; 
+71:                OSCFRQ = 0x07;
+018B  3007     MOVLW 0x7
+018C  009F     MOVWF OSCFRQ
+72:                // HFTUN 0; 
+73:                OSCTUNE = 0x00;
+018D  019E     CLRF OSCTUNE
+74:            }
+018E  0008     RETURN
+75:            
+76:            void WDT_Initialize(void)
+77:            {
+78:                // WDTPS 1:65536; SWDTEN OFF; 
+79:                WDTCON = 0x16;
+01C5  3016     MOVLW 0x16
+01C6  0021     MOVLB 0x1
+01C7  0097     MOVWF WDTCON
+80:            }
+01C8  0008     RETURN
+81:            
+82:            void PMD_Initialize(void)
+83:            {
+84:                // CLKRMD CLKR enabled; SYSCMD SYSCLK enabled; FVRMD FVR enabled; IOCMD IOC enabled; NVMMD NVM enabled; 
+85:                PMD0 = 0x00;
+01A0  0032     MOVLB 0x12
+01A1  0191     CLRF PMD0
+86:                // TMR0MD TMR0 enabled; TMR1MD TMR1 enabled; TMR4MD TMR4 enabled; TMR5MD TMR5 enabled; TMR2MD TMR2 enabled; TMR3MD TMR3 enabled; NCOMD DDS(NCO) enabled; TMR6MD TMR6 enabled; 
+87:                PMD1 = 0x00;
+01A2  0192     CLRF PMD1
+88:                // DACMD DAC enabled; CMP1MD CMP1 enabled; ADCMD ADC enabled; CMP2MD CMP2 enabled; 
+89:                PMD2 = 0x00;
+01A3  0193     CLRF PMD2
+90:                // CCP2MD CCP2 enabled; CCP1MD CCP1 enabled; CCP4MD CCP4 enabled; CCP3MD CCP3 enabled; PWM6MD PWM6 enabled; PWM5MD PWM5 enabled; CWG2MD CWG2 enabled; CWG1MD CWG1 enabled; 
+91:                PMD3 = 0x00;
+01A4  0194     CLRF PMD3
+92:                // MSSP1MD MSSP1 enabled; UART1MD EUSART enabled; MSSP2MD MSSP2 enabled; 
+93:                PMD4 = 0x00;
+01A5  0195     CLRF PMD4
+94:                // DSMMD DSM enabled; CLC3MD CLC3 enabled; CLC4MD CLC4 enabled; CLC1MD CLC1 enabled; CLC2MD CLC2 enabled; 
+95:                PMD5 = 0x00;
+01A6  0196     CLRF PMD5
+96:            }
+01A7  0008     RETURN
+97:            /**
+98:             End of File
+99:            */
+---  C:/msys32/home/tmax4/esp/pic16_firmware.X/mcc_generated_files/interrupt_manager.c  -----------------
+1:             /**
+2:               Generated Interrupt Manager Source File
+3:             
+4:               @Company:
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name:
+8:                 interrupt_manager.c
+9:             
+10:              @Summary:
+11:                This is the Interrupt Manager file generated using PIC10 / PIC12 / PIC16 / PIC18 MCUs
+12:            
+13:              @Description:
+14:                This header file provides implementations for global interrupt handling.
+15:                For individual peripheral handlers please see the peripheral driver for
+16:                all modules selected in the GUI.
+17:                Generation Information :
+18:                    Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.65.2
+19:                    Device            :  PIC16LF18325
+20:                    Driver Version    :  2.03
+21:                The generated drivers are tested against the following:
+22:                    Compiler          :  XC8 1.45 or later
+23:                    MPLAB 	          :  MPLAB X 4.15
+24:            */
+25:            
+26:            /*
+27:                (c) 2018 Microchip Technology Inc. and its subsidiaries. 
+28:                
+29:                Subject to your compliance with these terms, you may use Microchip software and any 
+30:                derivatives exclusively with Microchip products. It is your responsibility to comply with third party 
+31:                license terms applicable to your use of third party software (including open source software) that 
+32:                may accompany Microchip software.
+33:                
+34:                THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
+35:                EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY 
+36:                IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS 
+37:                FOR A PARTICULAR PURPOSE.
+38:                
+39:                IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
+40:                INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
+41:                WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP 
+42:                HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO 
+43:                THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL 
+44:                CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT 
+45:                OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS 
+46:                SOFTWARE.
+47:            */
+48:            
+49:            #include "interrupt_manager.h"
+50:            #include "mcc.h"
+51:            #include "../main.h"
+52:            
+53:            void __interrupt() INTERRUPT_InterruptManager (void)
+0004  147E     BSF 0x97E, 0x0
+0005  3180     MOVLP 0x0
+54:            {
+55:                // interrupt handler
+56:                if(PIE0bits.TMR0IE == 1 && PIR0bits.TMR0IF == 1)
+0006  0021     MOVLB 0x1
+0007  1E90     BTFSS PIE0, 0x5
+0008  2810     GOTO 0x10
+0009  0020     MOVLB 0x0
+000A  1E90     BTFSS PIR0, 0x5
+000B  2810     GOTO 0x10
+57:                {
+58:                    TMR0_ISR();
+000C  3181     MOVLP 0x1
+000D  217B     CALL 0x17B
+000E  3180     MOVLP 0x0
+59:                }
+000F  282D     GOTO 0x2D
+60:                else if(INTCONbits.PEIE == 1)
+0010  1F0B     BTFSS INTCON, 0x6
+0011  282D     GOTO 0x2D
+61:                {
+62:                    if(PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1)
+0012  0021     MOVLB 0x1
+0013  1F11     BTFSS PIE1, 0x6
+0014  281C     GOTO 0x1C
+0015  0020     MOVLB 0x0
+0016  1F11     BTFSS PIR1, 0x6
+0017  281C     GOTO 0x1C
+63:                    {
+64:                        adc_isr();
+0018  3180     MOVLP 0x0
+0019  2054     CALL 0x54
+001A  3180     MOVLP 0x0
+65:                    } 
+001B  282D     GOTO 0x2D
+66:                    else if(PIE1bits.SSP1IE == 1 && PIR1bits.SSP1IF == 1)
+001C  0021     MOVLB 0x1
+001D  1D91     BTFSS PIE1, 0x3
+001E  2828     GOTO 0x28
+001F  0020     MOVLB 0x0
+0020  1D91     BTFSS PIR1, 0x3
+0021  2828     GOTO 0x28
+67:                    {
+68:                        i2c1_driver_i2cISR();
+0022  082F     MOVF 0x2F, W
+0023  008A     MOVWF PCLATH
+0024  082E     MOVF i2c1_driver_i2cISR, W
+0025  000A     CALLW
+0026  3180     MOVLP 0x0
+69:                    } 
+0027  282D     GOTO 0x2D
+70:                    else if(PIE1bits.BCL1IE == 1 && PIR1bits.BCL1IF == 1)
+0028  0021     MOVLB 0x1
+0029  1D11     BTFSS PIE1, 0x2
+002A  282D     GOTO 0x2D
+002B  0020     MOVLB 0x0
+002C  0811     MOVF PIR1, W
+71:                    {
+72:                        i2c1_driver_busCollisionISR();
+73:                    } 
+74:                    else
+75:                    {
+76:                        //Unhandled Interrupt
+77:                    }
+78:                }      
+79:                else
+80:                {
+81:                    //Unhandled Interrupt
+82:                }
+83:            }
+002D  107E     BCF 0x7E, 0x0
+002E  0009     RETFIE
+84:            /**
+85:             End of File
+86:            */
+---  C:/msys32/home/tmax4/esp/pic16_firmware.X/mcc_generated_files/i2c1_driver.c  -----------------------
+1:             /*
+2:                 (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
+3:                 software and any derivatives exclusively with Microchip products.
+4:             
+5:                 THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+6:                 EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+7:                 WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+8:                 PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP PRODUCTS, COMBINATION
+9:                 WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
+10:            
+11:                IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+12:                INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+13:                WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+14:                BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+15:                FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+16:                ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+17:                THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+18:            
+19:                MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE
+20:                TERMS.
+21:            */
+22:            
+23:            
+24:            #include <stdio.h>
+25:            #include <stdint.h>
+26:            #include <stdbool.h>
+27:            #include "mcc.h"
+28:            #include "i2c1_driver.h"
+29:            
+30:            #pragma warning disable 520        
+31:            
+32:            inline void i2c1_driver_close(void)
+33:            {
+34:                SSP1CON1bits.SSPEN = 0;
+01CF  0024     MOVLB 0x4
+01D0  1295     BCF SSP1CON1, 0x5
+35:            }
+01D1  0008     RETURN
+36:            
+37:            /* Interrupt Control */
+38:            inline void mssp1_enableIRQ(void)
+39:            {
+40:                PIE1bits.SSP1IE = 1;
+01C9  0021     MOVLB 0x1
+01CA  1591     BSF PIE1, 0x3
+41:            }
+01CB  0008     RETURN
+42:            
+43:            inline __bit mssp1_IRQisEnabled(void)
+44:            {
+45:                return PIE1bits.SSP1IE;
+46:            }
+47:            
+48:            inline void mssp1_disableIRQ(void)
+49:            {
+50:                PIE1bits.SSP1IE = 0;
+51:            }
+52:            
+53:            inline void mssp1_clearIRQ(void)
+54:            {
+55:                PIR1bits.SSP1IF = 0;
+01CC  0020     MOVLB 0x0
+01CD  1191     BCF PIR1, 0x3
+56:            }
+01CE  0008     RETURN
+57:            
+58:            inline void mssp1_setIRQ(void)
+59:            {
+60:                PIR1bits.SSP1IF = 1;
+61:            }
+62:            
+63:            inline __bit mssp1_IRQisSet(void)
+64:            {
+65:                return PIR1bits.SSP1IF;
+66:            }
+67:            
+68:            inline void mssp1_waitForEvent(uint16_t *timeout)
+69:            {
+70:                //uint16_t to = (timeout!=NULL)?*timeout:100;
+71:                //to <<= 8;
+72:            
+73:                if(PIR1bits.SSP1IF == 0)
+74:                {
+75:                    while(1)// to--)
+76:                    {
+77:                        if(PIR1bits.SSP1IF) break;
+78:                        __delay_us(100);
+79:                    }
+80:                }
+81:            }
+82:            
+83:            __bit i2c1_driver_open(void)
+84:            {
+85:                if(!SSP1CON1bits.SSPEN)
+86:                {
+87:                    SSP1STAT = 0x00;
+88:                    SSP1CON1 = 0x28;
+89:                    SSP1CON2 = 0x00;
+90:                    SSP1ADD = 0x7;
+91:                    return true;
+92:                }
+93:                else
+94:                    return false;
+95:            }
+96:            
+97:            __bit i2c1_driver_initSlaveHardware(void)
+98:            {
+99:                if(!SSP1CON1bits.SSPEN)
+0170  0024     MOVLB 0x4
+0171  1A95     BTFSC SSP1CON1, 0x5
+0172  0008     RETURN
+100:               {
+101:           /* NOTE on AHEN:
+102:            * If multiple slaves are to be emulated, then AHEN must be set.  It must be set
+103:            * because the driver needs to selectively ACK/NACK the address depending on its
+104:            * ability to handle the address.
+105:           */
+106:           
+107:           /* NOTE on DHEN:
+108:            * DHEN must be set so that the data is not automatically NACK'ed if it is not read
+109:            * from the SSPBUF.  This driver will ALWAYS read the SSPBUF so that it can pass
+110:            * the value to the appropriate slave handler.  Because the data is ALWAYS read
+111:            * the data will always be ACK'd if DHEN is cleared.  If the slave does not want
+112:            * the data byte from the master then it will return false and a NACK will be returned.
+113:            */
+114:           
+115:           /* NOTE on SEN:
+116:            * SEN will be set enabling clock stretching.  This is because we don't know how
+117:            * long the user will take to process data bytes in their callbacks.  If they are fast,
+118:            * we may not need to stretch the clock.  If they are slow, we need to stretch the clock.
+119:            * If we ALWAYS stretch the clock, we will release the clock when the ISR is complete.
+120:            */
+121:           
+122:           /* NOTE on PCIE:
+123:            * PCIE will be set to enable interrupts on STOP.  This will allow us know when
+124:            * the master is finished
+125:            */
+126:                   
+127:           /* NOTE on SCIE:
+128:            * SCIE will be set to enable interrupts on START.  This will allow us to detect
+129:            * both a START and a RESTART event and prepare to restart communications.
+130:            */
+131:                   SSP1CON1 |= 0x06; //setup I2C Slave (7-bit Addressing)
+0173  3006     MOVLW 0x6
+0174  00F8     MOVWF 0x278
+0175  0878     MOVF 0x278, W
+0176  0495     IORWF SSP1CON1, F
+132:                   SSP1STAT = 0x00;
+0177  0194     CLRF SSP1STAT
+133:                   SSP1CON2 = 0x00;
+0178  0196     CLRF SSP1CON2
+134:                   
+135:                   SSP1CON1bits.SSPEN = 1;
+0179  1695     BSF SSP1CON1, 0x5
+136:                   return true;
+137:               }
+138:               return false;
+139:           }
+017A  0008     RETURN
+140:           
+141:           inline void i2c1_driver_resetBus(void)
+142:           {
+143:               
+144:           }
+145:           
+146:           inline void i2c1_driver_start(void)
+147:           {
+148:               SSP1CON2bits.SEN = 1;
+149:           }
+150:           
+151:           inline void i2c1_driver_restart(void)
+152:           {
+153:               SSP1CON2bits.RSEN = 1;
+154:           }
+155:           
+156:           inline void i2c1_driver_stop(void)
+157:           {
+158:               SSP1CON2bits.PEN = 1;
+159:           }
+160:           
+161:           inline __bit i2c1_driver_isNACK(void)
+162:           {
+163:               return SSP1CON2bits.ACKSTAT;
+164:           }
+165:           
+166:           inline void i2c1_driver_startRX(void)
+167:           {
+168:               SSP1CON2bits.RCEN = 1;
+169:           }
+170:           
+171:           inline char i2c1_driver_getRXData(void)
+172:           {
+173:               return SSP1BUF;
+174:           }
+175:           
+176:           inline void i2c1_driver_setAddr(char addr)
+01C0  00F8     MOVWF 0x278
+177:           {
+178:               SSP1ADD = addr;
+01C1  0878     MOVF 0x278, W
+01C2  0024     MOVLB 0x4
+01C3  0092     MOVWF SSP1ADD
+179:           }
+01C4  0008     RETURN
+180:           
+181:           inline void i2c1_driver_setMask(char mask)
+182:           {
+183:               SSP1MSK = mask;
+184:           }
+185:           
+186:           inline void i2c1_driver_TXData(char d)
+187:           {
+188:               SSP1BUF = d;
+189:           }
+190:           
+191:           inline char i2c1_driver_getAddr(void)
+192:           {
+193:               return SSP1ADD;
+194:           }
+195:           
+196:           inline void i2c1_driver_sendACK(void)
+197:           {
+198:               SSP1CON2bits.ACKDT = 0;
+199:               SSP1CON2bits.ACKEN = 1; // start the ACK/NACK
+200:           }
+201:           
+202:           inline void i2c1_driver_sendNACK(void)
+203:           {
+204:               SSP1CON2bits.ACKDT = 1;
+205:               SSP1CON2bits.ACKEN = 1; // start the ACK/NACK
+206:           }
+207:           
+208:           inline void i2c1_driver_releaseClock(void)
+209:           {
+210:               SSP1CON1bits.CKP = 1;
+211:           }
+212:           
+213:           inline __bit i2c1_driver_isBufferFull(void)
+214:           {
+215:               return SSP1STATbits.BF;
+216:           }
+217:           
+218:           inline __bit i2c1_driver_isStart(void)
+219:           {
+220:               return SSP1STATbits.S;
+221:           }
+222:           
+223:           inline __bit i2c1_driver_isAddress(void)
+224:           {
+225:               return !SSP1STATbits.D_nA;
+226:           }
+227:           
+228:           inline __bit i2c1_driver_isStop(void)
+229:           {
+230:               return SSP1STATbits.P;
+231:           }
+232:           
+233:           inline __bit i2c1_driver_isData(void)
+234:           {
+235:               return SSP1STATbits.D_nA;
+236:           }
+237:           
+238:           inline __bit i2c1_driver_isRead(void)
+239:           {
+240:               return SSP1STATbits.R_nW;
+241:           }
+242:           
+243:           inline __bit i2c1_driver_isWriteCollision(void)
+244:           {
+245:               return SSP1CON1bits.WCOL;
+246:           }
+247:           
+248:           inline __bit i2c1_driver_isReceiveOverflow(void)
+249:           {
+250:               return SSP1CON1bits.SSPOV;
+251:           }
+252:           
+253:           inline void i2c1_driver_clearBusCollision(void)
+254:           {
+255:               PIR1bits.BCL1IF = 0; // clear the bus collision.
+256:           }
+257:           
+258:           inline void i2c1_driver_setBusCollisionISR(interruptHandler handler){
+259:               i2c1_driver_busCollisionISR = handler;
+260:           }
+261:           
+262:           inline void i2c1_driver_setI2cISR(interruptHandler handler){
+263:               i2c1_driver_i2cISR = handler;
+01B4  0879     MOVF 0x279, W
+01B5  0020     MOVLB 0x0
+01B6  00AF     MOVWF 0x2F
+01B7  0878     MOVF addr, W
+01B8  00AE     MOVWF i2c1_driver_i2cISR
+264:           }
+01B9  0008     RETURN
+---  C:/msys32/home/tmax4/esp/pic16_firmware.X/mcc_generated_files/adc.c  -------------------------------
+1:             /**
+2:               ADC Generated Driver File
+3:             
+4:               @Company
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name
+8:                 adc.c
+9:             
+10:              @Summary
+11:                This is the generated driver implementation file for the ADC driver using Foundation Services Library
+12:            
+13:              @Description
+14:                This source file provides implementations for driver APIs for ADC.
+15:                Generation Information :
+16:                    Product Revision  :  Foundation Services Library - 0.1.29
+17:                    Device            :  PIC16LF18325
+18:                    Driver Version    :  2.00
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 1.35
+21:                    MPLAB             :  MPLAB X 3.40
+22:            */
+23:            
+24:            /*
+25:                (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
+26:                software and any derivatives exclusively with Microchip products.
+27:            
+28:                THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+29:                EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+30:                WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+31:                PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP PRODUCTS, COMBINATION
+32:                WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
+33:            
+34:                IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+35:                INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+36:                WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+37:                BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+38:                FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+39:                ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+40:                THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+41:            
+42:                MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE
+43:                TERMS.
+44:            */
+45:            
+46:            /**
+47:              Section: Included Files
+48:            */
+49:            
+50:            #include <xc.h>
+51:            #include "adc.h"
+52:            #include "mcc.h"
+53:            
+54:            /**
+55:              Section: Macro Declarations
+56:            */
+57:            
+58:            #define ACQ_US_DELAY 5
+59:            
+60:            /**
+61:              Section: ADC Module APIs
+62:            */
+63:            
+64:            void ADC_Initialize(void)
+65:            {
+66:                // set the ADC to the options selected in the User Interface
+67:                
+68:                // ADGO stop; ADON enabled; CHS ANA0; 
+69:                ADCON0 = 0x01;
+018F  3001     MOVLW 0x1
+0190  009D     MOVWF TMR2
+70:                
+71:                // ADFM left; ADNREF VSS; ADPREF VDD; ADCS FOSC/64; 
+72:                ADCON1 = 0x60;
+0191  3060     MOVLW 0x60
+0192  009E     MOVWF PR2
+73:                
+74:                // ADACT no_auto_trigger; 
+75:                ADACT = 0x00;
+0193  019F     CLRF T2CON
+76:                
+77:                // ADRESL 0; 
+78:                ADRESL = 0x00;
+0194  019B     CLRF T1CON
+79:                
+80:                // ADRESH 0; 
+81:                ADRESH = 0x00;
+0195  019C     CLRF T1GCON
+82:                
+83:                // Enabling ADC interrupt.
+84:                PIE1bits.ADIE = 1;
+0196  1711     BSF PIR1, 0x6
+85:            }
+0197  0008     RETURN
+86:            
+87:            void ADC_SelectChannel(adc_channel_t channel)
+88:            {
+89:                // select the A/D channel
+90:                ADCON0bits.CHS = channel;    
+91:                // Turn on the ADC module
+92:                ADCON0bits.ADON = 1;  
+93:            }
+94:            
+95:            void ADC_StartConversion()
+96:            {
+97:                // Start the conversion
+98:                ADCON0bits.ADGO = 1;
+99:            }
+100:           
+101:           
+102:           bool ADC_IsConversionDone()
+103:           {
+104:               // Start the conversion
+105:               return (!ADCON0bits.ADGO);
+106:           }
+107:           
+108:           adc_result_t ADC_GetConversionResult(void)
+109:           {
+110:               // Conversion finished, return the result
+111:               return ((ADRESH << 8) + ADRESL);
+112:           }
+113:           
+114:           adc_result_t ADC_GetConversion(adc_channel_t channel)
+115:           {
+116:               // select the A/D channel
+117:               ADCON0bits.CHS = channel;    
+118:           
+119:               // Turn on the ADC module
+120:               ADCON0bits.ADON = 1;
+121:               // Acquisition time delay
+122:               __delay_us(ACQ_US_DELAY);
+123:           
+124:               // Start the conversion
+125:               ADCON0bits.ADGO = 1;
+126:           
+127:               // Wait for the conversion to finish
+128:               while (ADCON0bits.ADGO)
+129:               {
+130:               }
+131:               // Conversion finished, return the result
+132:               return ((ADRESH << 8) + ADRESL);
+133:           
+134:           }
+135:           
+136:           /**
+137:            End of File
+138:           */
+---  C:/msys32/home/tmax4/esp/pic16_firmware.X/main.c  --------------------------------------------------
+1:             /**
+2:              * This program samples all 5 channels to measure voltages and currents in
+3:              *  the AXTEC CanSat platform. As we are very CPU constrained we have to do
+4:              *  some tradeoffs in order to make this work, maybe a real ADC chip will do
+5:              *  better in the future.
+6:              * 
+7:              * The firmware samples 13 times all the channels. Every channel and conversion
+8:              *  takes about 29us (plus code and interrupt overhead, the XC8 compiler and
+9:              *  PIC16 architecture aren't the most efficient) so the 5 channels are sampled
+10:             *  every 29*5=145us. After sampling this 13 times, 145*13=1885us were spent
+11:             *  sampling and the accumulated results are stored in the results[]. The ESP32
+12:             *  has then to take the accumulated values and divide them by 13, it's fast for
+13:             *  him, very slow for us that's we don't do it here.
+14:             * 
+15:             * After taking the 13 samples the sampling is stopped and the SDA and SCL lines
+16:             *  are taken from high to low to indicate the ESP32 that data is ready (this is
+17:             *  possible because we are the only device in the I2C bus), also the TMR0 is
+18:             *  started to fire an interrupt after 2ms. This is all the time the ESP32 has
+19:             *  to read the data from the PIC16 before it starts a new sampling process
+20:             *  disabling the I2C again.
+21:             * 
+22:             * We have to disable the I2C because the sampling takes 100% of the CPU time so
+23:             *  we can't process the I2C events at the same time.
+24:             */
+25:            
+26:            #include "mcc_generated_files/mcc.h"
+27:            #include "i2c_slave_manager.h"
+28:            #include "main.h"
+29:            
+30:            static adc_channel_t channels[] = {I3V3,I5V,IBAT,V3V3,V5V};
+31:            static uint8_t* p = channels;
+32:            static uint8_t channel_index = 0;
+33:            static uint8_t sample_counter = 0;
+34:            
+35:            // They results are in the same order as in channels_all[] array
+36:            static uint16_t results[] = {0, 0, 0, 0, 0};
+37:            
+38:            static __bit data_ready = 0;
+39:            
+40:            // The timer interrupt is fired 2 ms after being started
+41:            void tmr0_isr(void) 
+42:            {
+43:                // Stop the timer
+44:                T0CON0bits.T0EN = 0;
+00DF  1397     BCF T0CON0, 0x7
+45:                // Disable I2C
+46:                SSP1CON1bits.SSPEN = 0;
+00E0  0024     MOVLB 0x4
+00E1  1295     BCF SSP1CON1, 0x5
+47:                PIE1bits.SSP1IE = 0;
+00E2  0021     MOVLB 0x1
+00E3  1191     BCF PIE1, 0x3
+48:                SCL1_SetDigitalInput();
+00E4  140E     BSF TRISC, 0x0
+49:                SDA1_SetDigitalInput();
+00E5  148E     BSF TRISC, 0x1
+50:                
+51:                CLRWDT();
+00E6  0064     CLRWDT
+52:                
+53:                // Restart the ADC sampling process. Select the channel.
+54:                ADCON0bits.CHS = channels[channel_index];
+00E7  0876     MOVF 0xF6, W
+00E8  3E33     ADDLW 0x33
+00E9  0086     MOVWF 0x86
+00EA  0187     CLRF 0x87
+00EB  0801     MOVF 0x81, W
+00EC  00F7     MOVWF 0xF7
+00ED  0DF7     RLF 0xF7, F
+00EE  0DF7     RLF 0xF7, F
+00EF  0021     MOVLB 0x1
+00F0  081D     MOVF ADCON0, W
+00F1  0677     XORWF 0xF7, W
+00F2  3903     ANDLW 0x3
+00F3  0677     XORWF 0xF7, W
+00F4  009D     MOVWF ADCON0
+55:                ADCON0bits.CHS = *p;
+00F5  0020     MOVLB 0x0
+00F6  0832     MOVF p, W
+00F7  0086     MOVWF FSR1
+00F8  0187     CLRF FSR1H
+00F9  0801     MOVF INDF1, W
+00FA  00F7     MOVWF __pcstackCOMMON
+00FB  0DF7     RLF __pcstackCOMMON, F
+00FC  0DF7     RLF __pcstackCOMMON, F
+00FD  0021     MOVLB 0x1
+00FE  081D     MOVF ADCON0, W
+00FF  0677     XORWF 0xF7, W
+0100  3903     ANDLW 0x3
+0101  0677     XORWF 0xF7, W
+0102  009D     MOVWF ADCON0
+56:                
+57:                // Load the time to wait for 6 us for the sampling time.
+58:                PIR1bits.TMR2IF = 0;
+0103  0020     MOVLB 0x0
+0104  1091     BCF PIR1, 0x1
+59:                PR2 = 0x2F;
+0105  302F     MOVLW 0x2F
+0106  009E     MOVWF PR2
+60:                T2CONbits.TMR2ON = 1;
+0107  151F     BSF T2CON, 0x2
+61:                while(!PIR1bits.TMR2IF);
+0108  1C91     BTFSS PIR1, 0x1
+0109  2908     GOTO 0x108
+62:                
+63:                // Start the conversion
+64:                ADCON0bits.ADGO = 1;
+010A  0021     MOVLB 0x1
+010B  149D     BSF ADCON0, 0x1
+65:            }
+010C  0008     RETURN
+66:            
+67:            void adc_isr(void)
+68:            {
+69:                // Clear the ADC interrupt flag
+70:                PIR1bits.ADIF = 0;
+0054  1311     BCF PIE1, 0x6
+71:                CLRWDT();
+0055  0064     CLRWDT
+72:            
+73:                // This is the last channel to sample
+74:                if(channel_index >= sizeof(results))
+0056  300A     MOVLW 0xA
+0057  0276     SUBWF 0xF6, W
+0058  1C03     BTFSS 0x83, 0x0
+0059  2883     GOTO 0x83
+75:                {
+76:                    if(++sample_counter >= SAMPLES_PER_BATCH)
+005A  3001     MOVLW 0x1
+005B  00F7     MOVWF 0xF7
+005C  0877     MOVF 0xF7, W
+005D  07F5     ADDWF 0xF5, F
+005E  300D     MOVLW 0xD
+005F  0275     SUBWF 0xF5, W
+0060  1C03     BTFSS 0x83, 0x0
+0061  2882     GOTO 0x82
+77:                    {
+78:                        // Store the result
+79:                        results[channel_index++] = ((ADRESH << 8) + ADRESL);
+0062  3576     LSLF 0xF6, W
+0063  3E20     ADDLW 0x20
+0064  0086     MOVWF 0x86
+0065  0187     CLRF 0x87
+0066  0021     MOVLB 0x1
+0067  081B     MOVF ADRES, W
+0068  3FC0     MOVWI [0]FSR1
+0069  081C     MOVF ADRESH, W
+006A  3FC1     MOVWI [1]FSR1
+006B  3001     MOVLW 0x1
+006C  00F7     MOVWF 0xF7
+006D  0877     MOVF 0xF7, W
+006E  07F6     ADDWF 0xF6, F
+80:                        sample_counter = 0;
+006F  01F5     CLRF 0xF5
+81:                        channel_index = 0;
+0070  01F6     CLRF 0xF6
+82:                        
+83:                        // Start the timer to start the sampling process later
+84:                        TMR0H = 0x7C;
+0071  307C     MOVLW 0x7C
+0072  0020     MOVLB 0x0
+0073  0096     MOVWF TMR0H
+85:                        TMR0L = 0x00;
+0074  0195     CLRF TMR0L
+86:                        T0CON0bits.T0EN = 1;
+0075  1797     BSF T0CON0, 0x7
+87:                        
+88:                        // Clear the results
+89:                        results[0] = 0;
+0076  01A0     CLRF results
+0077  01A1     CLRF 0x21
+90:                        results[1] = 0;
+0078  01A2     CLRF 0x22
+0079  01A3     CLRF 0x23
+91:                        results[2] = 0;
+007A  01A4     CLRF 0x24
+007B  01A5     CLRF 0x25
+92:                        results[3] = 0;
+007C  01A6     CLRF 0x26
+007D  01A7     CLRF 0x27
+93:                        results[4] = 0;
+007E  01A8     CLRF 0x28
+007F  01A9     CLRF 0x29
+94:                        
+95:                        // Mark as data ready
+96:                        data_ready = 1;
+0080  14FA     BSF data_ready, 0x1
+0081  0008     RETURN
+97:                        return;
+98:                    }
+99:                    
+100:                   // Keep going!
+101:                   channel_index = 0;
+0082  01F6     CLRF channel_index
+102:               }
+103:               
+104:               // Select the next channel. This takes 14 instructions!!! The free XC8 compiler
+105:               //  is as bad as me writing assembler code.
+106:               ADCON0bits.CHS = channels[channel_index];
+0083  0876     MOVF channel_index, W
+0084  3E33     ADDLW 0x33
+0085  0086     MOVWF FSR1
+0086  0187     CLRF FSR1H
+0087  0801     MOVF INDF1, W
+0088  00F7     MOVWF __pcstackCOMMON
+0089  0DF7     RLF __pcstackCOMMON, F
+008A  0DF7     RLF __pcstackCOMMON, F
+008B  0021     MOVLB 0x1
+008C  081D     MOVF ADCON0, W
+008D  0677     XORWF 0xF7, W
+008E  3903     ANDLW 0x3
+008F  0677     XORWF 0xF7, W
+0090  009D     MOVWF ADCON0
+107:               
+108:               // Load the time to wait for 6 us for the sampling time. We use the timer
+109:               //  so we can execute other operation while waiting the sampling time.
+110:               PIR1bits.TMR2IF = 0;
+0091  0020     MOVLB 0x0
+0092  1091     BCF PIR1, 0x1
+111:               PR2 = 0x2F;
+0093  302F     MOVLW 0x2F
+0094  009E     MOVWF PR2
+112:               T2CONbits.TMR2ON = 1;
+0095  151F     BSF T2CON, 0x2
+113:               
+114:               // Store the result, add all the result. The reader must then do an average.
+115:               // We don't do that here because we don't have TIME. This CPU is slow for
+116:               //  the job.
+117:               results[channel_index++] += ((ADRESH << 8) + ADRESL);
+0096  3576     LSLF channel_index, W
+0097  3E20     ADDLW 0x20
+0098  0086     MOVWF FSR1
+0099  0187     CLRF FSR1H
+009A  0021     MOVLB 0x1
+009B  081B     MOVF ADRES, W
+009C  0781     ADDWF 0x81, F
+009D  3141     ADDFSR 1, 1
+009E  081C     MOVF ADRESH, W
+009F  3D81     ADDWFC 0x81, F
+00A0  317F     ADDFSR 1, -1
+00A1  3001     MOVLW 0x1
+00A2  00F7     MOVWF 0xF7
+00A3  0877     MOVF 0xF7, W
+00A4  07F6     ADDWF 0xF6, F
+118:               
+119:               // Wait for timer to fire
+120:               while(!PIR1bits.TMR2IF);
+00A5  0020     MOVLB 0x0
+00A6  1C91     BTFSS PIR1, 0x1
+00A7  28A5     GOTO 0xA5
+121:               
+122:               // Start sampling the new channel
+123:               ADCON0bits.ADGO = 1;
+00A8  0021     MOVLB 0x1
+00A9  149D     BSF ADCON0, 0x1
+124:           }
+00AA  0008     RETURN
+125:           
+126:           void main(void)
+127:           {
+128:               // Initialize the device
+129:               SYSTEM_Initialize();
+00AB  3181     MOVLP 0x1
+00AC  214A     CALL 0x14A
+00AD  3180     MOVLP 0x0
+130:               i2c_slave_manager_init();
+00AE  3181     MOVLP 0x1
+00AF  2132     CALL 0x132
+00B0  3180     MOVLP 0x0
+131:               
+132:               CLRWDT();
+00B1  0064     CLRWDT
+133:           
+134:               // Enable the Global Interrupts
+135:               INTERRUPT_GlobalInterruptEnable();
+00B2  178B     BSF 0x8B, 0x7
+136:               // Enable the Peripheral Interrupts
+137:               INTERRUPT_PeripheralInterruptEnable();
+00B3  170B     BSF 0x8B, 0x6
+138:               
+139:               // Stop the timer and set the interrupt handler
+140:               TMR0_StopTimer();
+00B4  3181     MOVLP 0x1
+00B5  21D2     CALL 0x1D2
+00B6  3180     MOVLP 0x0
+141:               TMR0_SetInterruptHandler(tmr0_isr);
+00B7  30DF     MOVLW 0xDF
+00B8  00F8     MOVWF 0xF8
+00B9  3000     MOVLW 0x0
+00BA  00F9     MOVWF 0xF9
+00BB  3181     MOVLP 0x1
+00BC  21BA     CALL 0x1BA
+00BD  3180     MOVLP 0x0
+142:               TMR2_StopTimer();
+00BE  3181     MOVLP 0x1
+00BF  21D5     CALL 0x1D5
+00C0  3180     MOVLP 0x0
+143:               
+144:               // Fire the timer, after the timer elapses the ADC will start working 
+145:               TMR0H = 0x7C;
+00C1  307C     MOVLW 0x7C
+00C2  0096     MOVWF 0x96
+146:               TMR0L = 0x00;
+00C3  0195     CLRF 0x95
+147:               TMR0_StartTimer();
+00C4  3181     MOVLP 0x1
+00C5  21D7     CALL 0x1D7
+00C6  3180     MOVLP 0x0
+148:               
+149:               // Start with I2C module off
+150:               i2c1_driver_close();
+00C7  3181     MOVLP 0x1
+00C8  21CF     CALL 0x1CF
+00C9  3180     MOVLP 0x0
+151:               PIE1bits.SSP1IE = 0;
+00CA  0021     MOVLB 0x1
+00CB  1191     BCF PIE1, 0x3
+152:               SCL1_SetDigitalInput();
+00CC  140E     BSF TRISC, 0x0
+153:               SDA1_SetDigitalInput();
+00CD  148E     BSF TRISC, 0x1
+154:               
+155:               while(1)
+156:               {
+157:                   // Data ready, toggle the SDA and SCL lines from high to low
+158:                   //  as an indication that the ESP32 can now read from I2C
+159:                   if(data_ready)
+00CE  1CFA     BTFSS 0xFA, 0x1
+00CF  28CE     GOTO 0xCE
+160:                   {
+161:                       // Set SCL and SDA low for 10 us
+162:                       SCL1_SetLow();
+00D0  0022     MOVLB 0x2
+00D1  100E     BCF LATC, 0x0
+163:                       SDA1_SetLow();
+00D2  108E     BCF LATC, 0x1
+164:                       SCL1_SetDigitalOutput();
+00D3  0021     MOVLB 0x1
+00D4  100E     BCF TRISC, 0x0
+165:                       SCL1_SetDigitalOutput();
+00D5  100E     BCF TRISC, 0x0
+166:                       __delay_us(10);
+00D6  301A     MOVLW 0x1A
+00D7  0B89     DECFSZ 0x89, F
+00D8  28D7     GOTO 0xD7
+00D9  3200     BRA 0xDA
+167:                       
+168:                       // Enable I2C again and wait!
+169:                       data_ready = 0;
+00DA  10FA     BCF 0xFA, 0x1
+170:                       i2c_slave_manager_init();
+00DB  3181     MOVLP 0x1
+00DC  2132     CALL 0x132
+00DD  3180     MOVLP 0x0
+00DE  28CE     GOTO 0xCE
+171:                   }
+172:               }
+173:           }
+---  C:/msys32/home/tmax4/esp/pic16_firmware.X/i2c_slave_manager.c  -------------------------------------
+1:             #include "i2c_slave_manager.h"
+2:             #include "mcc_generated_files/mcc.h"
+3:             #include <stdbool.h>
+4:             
+5:             static volatile __bit is_read_mode;
+6:             static volatile uint8_t state_machine_status;
+7:             
+8:             static volatile uint8_t current_command;
+9:             static volatile uint8_t current_command_value;
+10:            static volatile uint8_t current_read_address;
+11:            
+12:            static volatile uint8_t weight_calibrate_buffer[4];
+13:            static volatile uint8_t weight_calibrate_index;
+14:            
+15:            static void _i2c_slave_manager_i2c1_interrupt(void) {/*
+16:                PIR1bits.SSP1IF = 0;
+17:                
+18:                // Address received!
+19:                if(i2c1_driver_isAddress()) {
+20:                    current_read_address = i2c1_driver_getRXData();
+21:                    is_read_mode = i2c1_driver_isRead();
+22:                    
+23:                    // Write mode
+24:                    if(!is_read_mode) {
+25:                        state_machine_status = I2C_SLAVE_MANAGER_WAITING_COMMAND;
+26:                    }
+27:                    // Read mode
+28:                    else {
+29:                        state_machine_status = I2C_SLAVE_MANAGER_SEND_DATA;
+30:                    }
+31:                }
+32:                
+33:                // If the buffer is full, clear it by reading it
+34:                if(SSP1STATbits.BF) {
+35:                    // Dummy read
+36:                    volatile uint8_t d = i2c1_driver_getRXData();
+37:                }
+38:                
+39:                switch(state_machine_status) {
+40:                    case I2C_SLAVE_MANAGER_WAITING_COMMAND:
+41:                        if(i2c1_driver_isData()) {
+42:                            current_command = i2c1_driver_getRXData();
+43:                            
+44:                            // If we receive another byte, it should be the command value (optional)
+45:                            state_machine_status = I2C_SLAVE_MANAGER_WAITING_COMMAND_VALUE;
+46:                            
+47:                            if(current_command == I2C_SLAVE_MANAGER_CALIBRATE) {
+48:                                weight_calibrate_index = 0;
+49:                            }
+50:                        }
+51:                        break;
+52:                        
+53:                    case I2C_SLAVE_MANAGER_WAITING_COMMAND_VALUE:
+54:                        if(i2c1_driver_isData()) {
+55:                            current_command_value = i2c1_driver_getRXData();
+56:            
+57:                            // Set the value for the proper register
+58:                            switch(current_command) {
+59:                                case I2C_SLAVE_MANAGER_SAMPLE_START_REGISTER:
+60:                                    if(current_command_value) {
+61:                                        //ads1231_start_read_weight();
+62:                                    }
+63:                                    break;
+64:                                    
+65:                                case I2C_SLAVE_MANAGER_WEIGHT_REGISTER:
+66:                                    break;
+67:                                    
+68:                                case I2C_SLAVE_MANAGER_WEIGHT_REGISTER+1:
+69:                                    break;
+70:                                    
+71:                                case I2C_SLAVE_MANAGER_WEIGHT_REGISTER+2:
+72:                                    break;
+73:                                    
+74:                                case I2C_SLAVE_MANAGER_WEIGHT_REGISTER+3:
+75:                                    break;
+76:                                    
+77:                                case I2C_SLAVE_MANAGER_CALIBRATE:
+78:                                    // Receive the 4 bytes from the current weight to calibrate the system
+79:                                    if(weight_calibrate_index < 4) {
+80:                                        // MSB is received first
+81:                                        weight_calibrate_buffer[weight_calibrate_index++] = current_command_value;
+82:                                        
+83:                                        // Received all the bytes? Start calibration
+84:                                        if(weight_calibrate_index == 4) {
+85:                                            uint32_t weight = 0;
+86:                                            weight = ((uint32_t)weight_calibrate_buffer[0] << 24) | ((uint32_t)weight_calibrate_buffer[1] << 16) |
+87:                                                    ((uint32_t)weight_calibrate_buffer[2] << 8) | weight_calibrate_buffer[3];
+88:                                            
+89:                                            //ads1231_start_calibration(weight);
+90:                                        }
+91:                                    }
+92:                                    break;
+93:                            }
+94:                        }
+95:                        
+96:                        state_machine_status = I2C_SLAVE_MANAGER_NO_STATE;
+97:                        break;
+98:                        
+99:                    case I2C_SLAVE_MANAGER_SEND_DATA:
+100:                       // Don't send more data if the master sent an NACK
+101:                       if(i2c1_driver_isNACK()) {
+102:                           state_machine_status = I2C_SLAVE_MANAGER_NO_STATE;
+103:                           break;
+104:                       }
+105:                       
+106:                       switch(current_command) {
+107:                           case I2C_SLAVE_MANAGER_STATUS_REGISTER:
+108:                               // Send the weight status
+109:                               //i2c1_driver_TXData(ads1231_weight_ready());
+110:                               break;
+111:                               
+112:                           // Start with the LSB
+113:                           case I2C_SLAVE_MANAGER_WEIGHT_REGISTER:
+114:                               //i2c1_driver_TXData(ads1231_get_weight());
+115:                               ++current_command;
+116:                               break;
+117:           
+118:                           case I2C_SLAVE_MANAGER_WEIGHT_REGISTER+1:
+119:                               //i2c1_driver_TXData(ads1231_get_weight() >> 8);
+120:                               ++current_command;
+121:                               break;
+122:           
+123:                           case I2C_SLAVE_MANAGER_WEIGHT_REGISTER+2:
+124:                               //i2c1_driver_TXData(ads1231_get_weight() >> 16);
+125:                               ++current_command;
+126:                               break;
+127:           
+128:                           case I2C_SLAVE_MANAGER_WEIGHT_REGISTER+3:
+129:                               //i2c1_driver_TXData(ads1231_get_weight() >> 24);
+130:                               break;
+131:                       }
+132:                       break;
+133:               }
+134:               
+135:               // Ensure SCL is released
+136:               SSP1CON1bits.CKP = 1;
+137:               
+138:               // Clear if an overrun occurred
+139:               if(SSP1CON1bits.SSPOV) {
+140:                   SSP1CON1bits.SSPOV = 0;
+141:               }*/
+142:           }
+01D9  0008     RETURN
+143:           
+144:           void i2c_slave_manager_init(void) {
+145:               i2c1_driver_initSlaveHardware();
+0132  3181     MOVLP 0x1
+0133  2170     CALL 0x170
+0134  3181     MOVLP 0x1
+146:               
+147:               // Send ACK when being addressed
+148:               SSP1CON2bits.ACKDT = 0;
+0135  1296     BCF 0x96, 0x5
+149:               // Enable bus collision detection
+150:               SSP1CON3bits.SBCDE = 1;
+0136  1517     BSF WDTCON, 0x2
+151:               
+152:               mssp1_clearIRQ();
+0137  3181     MOVLP 0x1
+0138  21CC     CALL 0x1CC
+0139  3181     MOVLP 0x1
+153:               mssp1_enableIRQ();
+013A  3181     MOVLP 0x1
+013B  21C9     CALL 0x1C9
+013C  3181     MOVLP 0x1
+154:               
+155:               i2c1_driver_setAddr(I2C_SLAVE_MANAGER_ADDRESS);
+013D  3002     MOVLW 0x2
+013E  3181     MOVLP 0x1
+013F  21C0     CALL 0x1C0
+0140  3181     MOVLP 0x1
+156:               SSP1CON3bits.BOEN = 1; // Enable buffer overwrite
+0141  1617     BSF WDTCON, 0x4
+157:               
+158:               state_machine_status = I2C_SLAVE_MANAGER_NO_STATE;
+0142  01F4     CLRF 0xF4
+159:               
+160:               i2c1_driver_setI2cISR(_i2c_slave_manager_i2c1_interrupt);
+0143  30D9     MOVLW 0xD9
+0144  00F8     MOVWF 0xF8
+0145  3001     MOVLW 0x1
+0146  00F9     MOVWF 0xF9
+0147  3181     MOVLP 0x1
+0148  21B4     CALL 0x1B4
+161:           }
+0149  0008     RETURN
