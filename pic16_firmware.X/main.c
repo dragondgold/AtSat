@@ -27,13 +27,12 @@
 #include "i2c_slave_manager.h"
 #include "main.h"
 
-static adc_channel_t channels[] = {I3V3,I5V,IBAT,V3V3,V5V};
+static adc_channel_t channels[] = {V3V3,V5V,I3V3,I5V,IBAT};
 static uint8_t channel_index = 0;
 static uint8_t sample_counter = 0;
 
 // They results are in the same order as in channels_all[] array
-static uint16_t results[] = {0, 0, 0, 0, 0};
-
+uint16_t results[] = {0, 0, 0, 0, 0};
 static __bit data_ready = 0;
 
 // The timer interrupt is fired 2 ms after being started
@@ -166,6 +165,6 @@ void main(void)
             // Enable I2C again and wait!
             data_ready = 0;
             i2c_slave_manager_init();
-        }
+        }   
     }
 }
