@@ -2,7 +2,7 @@
     <div class="form-elements chart-widget">
         <div class="col-md-12" style="text-align:center;">
             <h4 v-if="!showAllSamples" class="mb-0">{{ $t(sensor.type)}}</h4>
-            <div v-if="!showAllSamples && finished" class="col-md-12">
+            <div class="col-md-12">
                 <small>{{$t('cansat.mission.dashboard.charts.lastSamples')}} 
                     <a href @click.prevent="goToFullChart">
                         {{$t('cansat.mission.dashboard.charts.goToFullChart')}}
