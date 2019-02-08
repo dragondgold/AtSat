@@ -3,12 +3,14 @@ const fs = require('fs')
 const mkdirp = require('mkdirp')
 const getDirName = require('path').dirname
 const {dialog} = require('electron').remote
+var path = require("path")
 
 import utils from '../services/utils'
 import store from '../store'
 import Vue from 'vue'
 import defaultSensors from 'data/Sensors'
 import codeValues from 'data/codeValues'
+import { Debugger } from 'electron';
 
 export default {
     saveMission(){
@@ -60,49 +62,142 @@ export default {
                 alert("An error ocurred creating the folder "+ err.message)
             }else{
                 fs.writeFile(path, contents, (err) => {
-                if(err){
-                    log.error('An error ocurred creating the file ' + path + ' error: ' +  err.message);
-                    store.commit('pushNotificationModal',{ 
-                        'title': vm.$t('cansat.notifications.modal.mission.saveError'), 
-                        'content': '',
-                        'date': utils.getDate(),
-                        'code': codeValues.mission.saveError,
-                        'okText': vm.$t('cansat.notifications.modal.okBtn'),
-                        'uuid': utils.generateUUID().toString(),
-                        'type': vm.$t('cansat.notifications.center.types.error'),
-                        'cancelDisabled': true
-                    })
-                }else{
-                    log.info('The file ' + path + 'has been succesfully saved');
-                    store.commit('pushNotificationModal',{ 
-                        'title': vm.$t('cansat.notifications.modal.mission.saveOk'), 
-                        'date': utils.getDate(),
-                        'code': codeValues.mission.ok,
-                        'uuid': utils.generateUUID().toString(),
-                        'type': vm.$t('cansat.notifications.center.types.info')
-                    })
-                    store.commit('pushNotificationToast',{ 
-                        'text': vm.$t('cansat.notifications.modal.mission.saveOk'), 
-                        'icon': 'fa-check'          
-                    })
-                }  
+                    if(err){
+                        log.error('An error ocurred creating the file ' + path + ' error: ' +  err.message);
+                        store.commit('pushNotificationModal',{ 
+                            'title': vm.$t('cansat.notifications.modal.mission.saveError'), 
+                            'content': '',
+                            'date': utils.getDate(),
+                            'code': codeValues.mission.saveError,
+                            'okText': vm.$t('cansat.notifications.modal.okBtn'),
+                            'uuid': utils.generateUUID().toString(),
+                            'type': vm.$t('cansat.notifications.center.types.error'),
+                            'cancelDisabled': true
+                        })
+                    }else{
+                        log.info('The file ' + path + 'has been succesfully saved');
+                        store.commit('pushNotificationModal',{ 
+                            'title': vm.$t('cansat.notifications.modal.mission.saveOk'), 
+                            'date': utils.getDate(),
+                            'code': codeValues.mission.ok,
+                            'uuid': utils.generateUUID().toString(),
+                            'type': vm.$t('cansat.notifications.center.types.info')
+                        })
+                        store.commit('pushNotificationToast',{ 
+                            'text': vm.$t('cansat.notifications.modal.mission.saveOk'), 
+                            'icon': 'fa-check'          
+                        })
+                    }  
                 }) 
             }
         })
     },
     exportToCSV(){
         let mission = JSON.parse(JSON.stringify(store.getters.axtec.project.mission))
-        var json = mission.data.sensors
-        var fields = Object.keys(json[0])
-        var replacer = function(key, value) { return value === null ? '' : value } 
-        var csv = json.map(function(row){
-        return fields.map(function(fieldName){
-            return JSON.stringify(row[fieldName], replacer)
-        }).join(',')
-        })
-        csv.unshift(fields.join(',')) // add header column
-        debugger
+        let sensors =  mission.data.sensors
+        let location = mission.data.location
+        let csvString = vm.$t('cansat.mission.exportTitles.exportBy') + '\r\n'
+        csvString +=  vm.$t('cansat.mission.exportTitles.startDate') + mission.startDate + " " +
+                        vm.$t('cansat.mission.exportTitles.endDate') + mission.endDate + '\r\n' 
+        csvString += '\r\n'
+
+        for(let s = 0; s < sensors.length; s++){    
+            let column
+            let isVectorType
+            if( sensors[s]._type != "vector"){
+                isVectorType = false
+                csvString += [
+                    vm.$t(sensors[s].type),
+                    vm.$t('cansat.mission.exportTitles.value'),
+                    vm.$t('cansat.mission.exportTitles.unit')
+                ].join(',') + '\r\n'
+            }else{
+                isVectorType = true
+                csvString += [
+                    vm.$t(sensors[s].type),
+                    vm.$t('cansat.mission.exportTitles.x'),
+                    vm.$t('cansat.mission.exportTitles.y'),
+                    vm.$t('cansat.mission.exportTitles.z'),
+                    vm.$t('cansat.mission.exportTitles.unit')
+                ].join(',') + '\r\n'
+            }
+
+
+            for(let sample = 0; sample < sensors[s].samples.length; sample++){
+                let row = []
+                row.push(sensors[s].samples[sample].timespan)
+
+                if(!isVectorType){
+                    row.push(sensors[s].samples[sample].lastValue)
+                }else{
+                    row.push(sensors[s].samples[sample].x)
+                    row.push(sensors[s].samples[sample].y)
+                    row.push(sensors[s].samples[sample].z)
+                }
+                row.push(sensors[s].unit)
+
+                csvString += row.join(',') + '\r\n'
+
+            }  
+            csvString += '\r\n'      // To separate sensors    
+        }
+        
+        csvString += [
+            vm.$t('cansat.mission.exportTitles.gps'),
+            vm.$t('cansat.mission.exportTitles.lat'),
+            vm.$t('cansat.mission.exportTitles.lng')
+        ].join(',') + '\r\n'
+
+        for(let sample = 0; sample < location.history.length; sample++){
+            let row = []
+            row.push(location.history[sample].timespan)
+            row.push(location.history[sample].lat)
+            row.push(location.history[sample].lng)
+            csvString += row.join(',') + '\r\n'
+        }  
+
+        let csvDirectory = mission.path.substring(0, mission.path.lastIndexOf("\\"))
+        let csvName = path.basename(mission.path).split('.').slice(0, -1).join('.')
+        let csvPath = csvDirectory + '\\'+ csvName + ".csv"
+
+        this.createCSVFile(csvPath,csvString)  
     },
+    createCSVFile(path, contents){
+        mkdirp(getDirName(path), (err) => {
+            if (err){
+                alert("An error ocurred creating the folder "+ err.message)
+            }else{
+                fs.writeFile(path, contents, (err) => {
+                    if(err){
+                        log.error('An error ocurred creating the file ' + path + ' error: ' +  err.message);
+                        store.commit('pushNotificationModal',{ 
+                            'title': vm.$t('cansat.notifications.modal.mission.saveError'), 
+                            'content': '',
+                            'date': utils.getDate(),
+                            'code': codeValues.mission.saveError,
+                            'okText': vm.$t('cansat.notifications.modal.okBtn'),
+                            'uuid': utils.generateUUID().toString(),
+                            'type': vm.$t('cansat.notifications.center.types.error'),
+                            'cancelDisabled': true
+                        })
+                    }else{
+                        log.info('The file ' + path + ' has been succesfully saved');
+                        store.commit('pushNotificationModal',{ 
+                            'title': vm.$t('cansat.notifications.modal.mission.exportOK'), 
+                            'date': utils.getDate(),
+                            'code': codeValues.mission.ok,
+                            'uuid': utils.generateUUID().toString(),
+                            'type': vm.$t('cansat.notifications.center.types.info')
+                        })
+                        store.commit('pushNotificationToast',{ 
+                            'text': vm.$t('cansat.notifications.modal.mission.exportOK'), 
+                            'icon': 'fa-check'          
+                        })                        
+                    } 
+                }) 
+            }
+        })
+    }, 
     openMissionDialog(overwrite) {
         let path =
         dialog.showOpenDialog({ 
@@ -111,7 +206,7 @@ export default {
                 'openFile',
             ],        
             filters: [
-            {name: 'Custom File Type', extensions: ['cansat_data']},
+                {name: 'Custom File Type', extensions: ['cansat_data']},
             ]
         })
         if(path != null){
@@ -143,7 +238,7 @@ export default {
         }else{
             return '' // File doesn't exist
         }
-    }, 
+    },
     validateMission(data, path){
         try {
             JSON.parse(data)
@@ -296,7 +391,7 @@ export default {
             store.commit('pushNotificationModal',{ 
                 'title': vm.$t('cansat.notifications.modal.mission.loadedOk'), 
                 'date': utils.getDate(),
-                'code': 0,
+                'code': codeValues.mission.ok,
                 'uuid': utils.generateUUID().toString(),
                 'type': vm.$t('cansat.notifications.center.types.info')
             })

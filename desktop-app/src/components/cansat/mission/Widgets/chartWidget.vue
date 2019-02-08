@@ -63,8 +63,7 @@ export default {
                     {
                         label: '',
                         data: [],
-                        borderWidth: 2,
-                        
+                        borderWidth: 2, 
                         ... (this.sensor._type != 'vector' ? { fill:true} : { fill:false}),
                         backgroundColor: 'rgba(0, 255, 0, 0.1)',
                         borderColor: 'rgba(0, 255, 0, 1)',

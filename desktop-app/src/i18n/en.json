@@ -1,6 +1,22 @@
 {
   "cansat":{
     "mission":{
+      "exportTitles":{
+        "exportBy": "Plataforma educativa CanSat - AXTEC",
+        "startDate": "Start date: ",
+        "endDate": "End date: ",
+        "timespan": "Tiempo",
+        "sensor": "Sensor",
+        "value": "Valor",
+        "x": "X",
+        "y": "Y",
+        "z": "Z",
+        "unit": "Unidad",
+        "id": "ID",
+        "gps": "GPS",
+        "lat": "Latitude",
+        "lng": "Longitude"
+      },
       "status":{
         "ready": "Ready to use.",
         "problems": "Not ready."
@@ -264,6 +280,9 @@
           "loadedOk": "The mission has been succesfully imported.",
           "save": "Save mission.",
           "import": "Import mission.",
+          "exportError": "An error occurred exporting the mission.",
+          "exportTip": "The exported csv file will be saved in the same directory as the mission",
+          "exportOK": "The mission has been succesfully exported.",
           "saveOk": "The mission has been succesfully saved.",
           "saveError": "An error occurred saving the mission.",
           "invalidFormat": "Invalid format. It can not be opened.",

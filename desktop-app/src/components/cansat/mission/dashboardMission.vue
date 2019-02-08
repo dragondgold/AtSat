@@ -17,12 +17,9 @@
                                             <h4> {{ $t('cansat.resources.sensors.gps.title')}}</h4>
                                         </div>
                                         <location-sat> </location-sat>
-                                    </div>
-                                    
-                                </div>
-                                
-                            </div>
-                            
+                                    </div>                                  
+                                </div>                  
+                            </div>                           
                         </div>
                     </div>
                     <div v-else>

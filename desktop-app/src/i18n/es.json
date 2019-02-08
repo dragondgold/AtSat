@@ -1,6 +1,22 @@
 {
   "cansat":{
     "mission":{
+      "exportTitles":{
+        "exportBy": "Plataforma educativa CanSat - AXTEC",
+        "startDate": "Inicio: ",
+        "endDate": "Fin: ",
+        "timespan": "Tiempo",
+        "sensor": "Sensor",
+        "value": "Valor",
+        "x": "X",
+        "y": "Y",
+        "z": "Z",
+        "unit": "Unidad",
+        "id": "ID",
+        "gps": "GPS",
+        "lat": "Latitud",
+        "lng": "Longitud"
+      },
       "status":{
         "ready": "Listo para usar",
         "problems": "No esta listo"
@@ -261,11 +277,14 @@
         "mission":{
           "noMissionCreated": "Primero debe crear una misión.",
           "noMissionActive": "Debe iniciar la misión para poder guardarla",
-          "createdOk": "La misión se creó exitosamente.",
-          "loadedOk": "La misión se cargó correctamente.",
+          "createdOk": "Misión creada exitosamente.",
+          "loadedOk": "Misión cargada exitosamente.",
           "save": "Guardar misión.",
           "import": "Importar misión.",
-          "saveOk": "Misión guardada correctamente.",
+          "exportError": "Error al exportar mision.",
+          "exportTip": "El archivo CSV exportado será guardado en el mismo directorio que la misión.",
+          "exportOK": "Misión exportada exitosamente.",
+          "saveOk": "Misión guardada exitosamente.",
           "saveError": "Error al guardar misión.",
           "invalidFormat": "Formato inválido. No se pudo importar.",
           "invalidContent": "Estructura inválida. No se pudo importar.",

@@ -65,6 +65,7 @@
                                 </tr>
                             </tbody> 
                         </table>
+                        <small v-if="finished">{{$t('cansat.notifications.modal.mission.exportTip')}}</small>
                     </div>
                 </div>     
             </div>

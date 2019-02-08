@@ -98,8 +98,8 @@ export default {
                         log.error('An error ocurred creating the file ' + path + ' error: ' +  err.message);
                         alert("An error ocurred creating the file "+ err.message)
                     }else{
-                        log.info('The file ' + path + 'has been succesfully saved');
-                        alert("An error ocurred creating the file "+ err.message)
+                        log.info('The file ' + path + ' has been succesfully saved');
+                        alert('The file ' + path + ' has been succesfully saved')
                     }  
                 }) 
             }
