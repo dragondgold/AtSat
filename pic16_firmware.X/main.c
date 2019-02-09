@@ -15,7 +15,7 @@
  * After taking the 13 samples the sampling is stopped and the SDA and SCL lines
  *  are taken from high to low to indicate the ESP32 that data is ready (this is
  *  possible because we are the only device in the I2C bus), also the TMR0 is
- *  started to fire an interrupt after 2ms. This is all the time the ESP32 has
+ *  started to fire an interrupt after 4ms. This is all the time the ESP32 has
  *  to read the data from the PIC16 before it starts a new sampling process
  *  disabling the I2C again.
  * 
@@ -27,15 +27,16 @@
 #include "i2c_slave_manager.h"
 #include "main.h"
 
+// The last index is NOT used, it's to avoid an additional check in the ISR
 static adc_channel_t channels[] = {V3V3,V5V,I3V3,I5V,IBAT};
-static uint8_t channel_index = 0;
+static int8_t channel_index = 0;
 static uint8_t sample_counter = 0;
 
 // They results are in the same order as in channels_all[] array
 uint16_t results[] = {0, 0, 0, 0, 0};
 static __bit data_ready = 0;
 
-// The timer interrupt is fired 2 ms after being started
+// The timer interrupt is fired 4ms after being started
 void tmr0_isr(void) 
 {
     // Stop the timer
@@ -46,7 +47,12 @@ void tmr0_isr(void)
     SCL1_SetDigitalInput();
     SDA1_SetDigitalInput();
     
-    CLRWDT();
+    // Clear the results
+    results[0] = 0;
+    results[1] = 0;
+    results[2] = 0;
+    results[3] = 0;
+    results[4] = 0;
     
     // Restart the ADC sampling process. Select the channel.
     ADCON0bits.CHS = channels[channel_index];
@@ -65,42 +71,58 @@ void adc_isr(void)
 {
     // Clear the ADC interrupt flag
     PIR1bits.ADIF = 0;
-    CLRWDT();
 
-    // This is the last channel to sample
-    if(channel_index >= sizeof(results))
+    // All the channels haven been sampled
+    if(channel_index == (sizeof(results)/sizeof(uint16_t))-1)
     {
-        if(++sample_counter >= SAMPLES_PER_BATCH)
+        /**
+         * Yes, this code duplication is ugly, but is much faster than additional
+         *  checks
+         */
+        // Keep going!
+        channel_index = 0;
+        
+        // Select the next channel. This takes 14 instructions!!! The free XC8 compiler
+        //  is as bad as me writing assembler code.
+        ADCON0bits.CHS = channels[0];
+
+        // Load the time to wait for 6 us for the sampling time. We use the timer
+        //  so we can execute other operation while waiting the sampling time.
+        PIR1bits.TMR2IF = 0;
+        PR2 = 0x2F;
+        T2CONbits.TMR2ON = 1;
+
+        // Store the result of the last channel sampled
+        results[(sizeof(results)/sizeof(uint16_t))-1] += ((ADRESH << 8) + ADRESL);
+        
+        if(++sample_counter == SAMPLES_PER_BATCH)
         {
             // Store the result
-            results[channel_index++] = ((ADRESH << 8) + ADRESL);
+            CLRWDT();
             sample_counter = 0;
             channel_index = 0;
             
             // Start the timer to start the sampling process later
-            TMR0H = 0x7C;
+            TMR0H = 0x3E;
             TMR0L = 0x00;
             T0CON0bits.T0EN = 1;
-            
-            // Clear the results
-            results[0] = 0;
-            results[1] = 0;
-            results[2] = 0;
-            results[3] = 0;
-            results[4] = 0;
             
             // Mark as data ready
             data_ready = 1;
             return;
         }
         
-        // Keep going!
-        channel_index = 0;
+        // Wait for timer to fire
+        while(!PIR1bits.TMR2IF);
+        
+        // Start sampling the new channel
+        ADCON0bits.ADGO = 1;
+        return;
     }
     
     // Select the next channel. This takes 14 instructions!!! The free XC8 compiler
     //  is as bad as me writing assembler code.
-    ADCON0bits.CHS = channels[channel_index];
+    ADCON0bits.CHS = channels[channel_index+1];
     
     // Load the time to wait for 6 us for the sampling time. We use the timer
     //  so we can execute other operation while waiting the sampling time.
@@ -139,7 +161,7 @@ void main(void)
     TMR2_StopTimer();
     
     // Fire the timer, after the timer elapses the ADC will start working 
-    TMR0H = 0x7C;
+    TMR0H = 0x3E;
     TMR0L = 0x00;
     TMR0_StartTimer();
     
@@ -159,8 +181,10 @@ void main(void)
             SCL1_SetLow();
             SDA1_SetLow();
             SCL1_SetDigitalOutput();
-            SCL1_SetDigitalOutput();
-            __delay_us(10);
+            SDA1_SetDigitalOutput();
+            __delay_us(50);
+            SCL1_SetDigitalInput();
+            SDA1_SetDigitalInput();
             
             // Enable I2C again and wait!
             data_ready = 0;

@@ -71,27 +71,6 @@ esp_err_t i2c_manager_init(void)
     // Set a 10 ms timeout for this I2C bus
     i2c_set_timeout(GENERAL_I2C_NUMBER, ((uint64_t)I2C_APB_CLK_FREQ * (uint64_t)10) / (uint64_t)1000);
 
-    /******************************************************************/
-    /*                    SET I2C BUS FOR PIC16                       */
-    /******************************************************************/
-    // Set I2C bus for sensors and external modules
-    i2c_config_t pic16_i2c_config;
-    pic16_i2c_config.mode = I2C_MODE_MASTER;
-    pic16_i2c_config.sda_io_num = SDA_PIC16_PIN;
-    pic16_i2c_config.sda_pullup_en = GPIO_PULLUP_DISABLE;
-    pic16_i2c_config.scl_io_num = SCL_PIC16_PIN;
-    pic16_i2c_config.scl_pullup_en = GPIO_PULLUP_DISABLE;
-    pic16_i2c_config.master.clk_speed = 1000000;
-    if((err = i2c_param_config(PIC16_I2C_NUMBER, &pic16_i2c_config)) != ESP_OK)
-    {
-        return err;
-    }
-    // Install I2C driver
-    if((err = i2c_driver_install(PIC16_I2C_NUMBER, pic16_i2c_config.mode, 0, 0, 0)) != ESP_OK)
-    {
-        return err;
-    }
-
     return err;
 }
 

@@ -23,6 +23,7 @@
 #include "servo_manager/servo_manager.h"
 #include "led_manager/led_manager.h"
 #include "com_manager/com_manager.h"
+#include "power_monitor/power_monitor.h"
 
 #ifdef DEBUG
     #define LOG_LOCAL_LEVEL ESP_LOG_DEBUG
@@ -98,7 +99,7 @@ void app_main()
     ESP_LOGI(TAG, "Initializing systems");
 
     // Install gpio isr service
-    gpio_install_isr_service(0);
+    gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
 
     // Give some time to circuits to power-up
     vTaskDelay(pdMS_TO_TICKS(500));
@@ -113,6 +114,7 @@ void app_main()
     err += battery_manager_init();
     err += servo_manager_init();
     err += com_manager_init();
+    err += power_monitor_init();
 
     ESP_LOGI(TAG, "RAM left %d bytes", esp_get_free_heap_size());
 

@@ -7,7 +7,7 @@ static volatile __bit is_read_mode;
 static volatile uint8_t state_machine_status;
 static volatile uint8_t current_address;
 
-extern uint16_t results[] = {0, 0, 0, 0, 0};
+extern uint16_t results[];
 
 static void _i2c_slave_manager_i2c1_interrupt(void) {
     // Clear flag
@@ -126,6 +126,7 @@ void i2c_slave_manager_init(void) {
     SSP1CON3bits.BOEN = 1; // Enable buffer overwrite
     
     state_machine_status = I2C_SLAVE_MANAGER_NO_STATE;
+    current_address = I2C_SLAVE_MANAGER_GET_VOLTAGE_3V3_MSB;
     
     i2c1_driver_setI2cISR(_i2c_slave_manager_i2c1_interrupt);
 }
