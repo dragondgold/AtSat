@@ -5,6 +5,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "driver/gpio.h"
+#include "power_monitor/power_monitor.h"
 
 static StaticSemaphore_t mutex_buffer;
 static SemaphoreHandle_t mutex;
@@ -39,6 +40,7 @@ void aux_ps_enable(void)
 {
     if(xSemaphoreTake(mutex, 500 / portTICK_PERIOD_MS))
     {
+        power_monitor_clear_errors();
         enabled = true;
         gpio_set_level(AUX_PS_ENABLE_PIN, 1);
         xSemaphoreGive(mutex);

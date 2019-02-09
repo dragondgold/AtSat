@@ -101,9 +101,6 @@ void app_main()
     // Install gpio isr service
     gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
 
-    // Give some time to circuits to power-up
-    vTaskDelay(pdMS_TO_TICKS(500));
-
     err += led_manager_init();
     led_manager_fast_blink(true);
 
@@ -122,6 +119,9 @@ void app_main()
     {
         ESP_LOGI(TAG, "Systems ready!");
         led_manager_on();
+
+        // Enable PSU now that the protections are enabled
+        aux_ps_enable();
     }
     else
     {
