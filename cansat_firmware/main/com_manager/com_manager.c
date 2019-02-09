@@ -401,7 +401,6 @@ static void rx_task(void* arg)
             // Read the packet
             if(cc1101_read_data(&cc1101_packet))
             {
-                xSemaphoreGive(cc1101_mutex);
                 // Check packet integrity
                 if(cc1101_packet.crc_ok)
                 {
@@ -422,6 +421,8 @@ static void rx_task(void* arg)
                 }
             }
         }
+
+        xSemaphoreGive(cc1101_mutex);
     }
 }
 
@@ -435,6 +436,7 @@ static void tx_task(void* arg)
         // Wait forever for an item
         if(xQueueReceive(tx_queue, &packet, portMAX_DELAY))
         {
+            ESP_LOGI(TAG, "Sending data");
             // Take the mutex to send data
             if(!xSemaphoreTake(cc1101_mutex, pdMS_TO_TICKS(500)))
             {
