@@ -3,6 +3,7 @@
 #include "freertos/FreeRTOS.h"
 #include "i2c_manager/i2c_manager.h"
 #include "aux_ps/aux_ps.h"
+#include "battery_manager/battery_manager.h"
 #include "driver/i2c.h"
 #include "config/cansat.h"
 #include "esp_timer.h"
@@ -121,6 +122,7 @@ static void power_monitor_task(void* args)
                     power_status.rail_3v3.avg_current = apply_filter(&power_status.rail_3v3._filter_current,  power_status.rail_3v3.current);
                     power_status.rail_5v.avg_voltage = apply_filter(&power_status.rail_5v._filter_voltage, power_status.rail_5v.voltage);
                     power_status.rail_5v.avg_current = apply_filter(&power_status.rail_5v._filter_current, power_status.rail_5v.current);
+                    power_status.rail_bat.avg_voltage = battery_manager_get().volts;
                     power_status.rail_bat.avg_current = apply_filter(&power_status.rail_bat._filter_current, power_status.rail_bat.current);
 
                     ESP_LOGV(TAG, "3.3 V: %d", power_status.rail_3v3.avg_voltage);
@@ -275,4 +277,29 @@ void power_monitor_clear_errors(void)
     power_status.rail_5v.overvoltage = false;
     power_status.rail_bat.overcurrent = false;
     power_status.rail_bat.overvoltage = false;
+}
+
+uint16_t power_monitor_get_battery_current(void)
+{
+    return power_status.rail_bat.avg_current;
+}
+uint16_t power_monitor_get_battery_voltage(void)
+{
+    return power_status.rail_bat.avg_voltage;
+}
+uint16_t power_monitor_get_3v3_current(void)
+{
+    return power_status.rail_3v3.avg_current;
+}
+uint16_t power_monitor_get_3v3_voltage(void)
+{
+    return power_status.rail_3v3.avg_voltage;
+}
+uint16_t power_monitor_get_5v_current(void)
+{
+    return power_status.rail_5v.avg_current;
+}
+uint16_t power_monitor_get_5v_voltage(void)
+{
+    return power_status.rail_5v.avg_voltage;
 }

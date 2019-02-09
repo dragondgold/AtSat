@@ -252,10 +252,10 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                 buffer[2] = 0;
                                 buffer[3] = 0;
 
-                                battery_data_t battery = battery_manager_get();
+                                uint16_t voltage = power_monitor_get_battery_voltage();
 
-                                buffer[2] = (uint8_t)(battery.volts >> 8);
-                                buffer[3] = (uint8_t)battery.volts;
+                                buffer[2] = (uint8_t)(voltage >> 8);
+                                buffer[3] = (uint8_t)voltage;
 
                                 axtec_packet_encode(&packet_to_send, buffer, 4);
                                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
@@ -263,23 +263,88 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                             break;
 
                         case BATTERY_CURRENT:
-                            //TODO: implement
+                            {
+                                // Sensor ID
+                                buffer[1] = BATTERY_CURRENT;
+                                buffer[2] = 0;
+                                buffer[3] = 0;
+
+                                uint16_t current = power_monitor_get_battery_current();
+
+                                buffer[2] = (uint8_t)(current >> 8);
+                                buffer[3] = (uint8_t)current;
+
+                                axtec_packet_encode(&packet_to_send, buffer, 4);
+                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            }
                             break;
 
                         case V3V3_VOLTAGE:
-                            //TODO: implement
+                            {
+                                // Sensor ID
+                                buffer[1] = V3V3_VOLTAGE;
+                                buffer[2] = 0;
+                                buffer[3] = 0;
+
+                                uint16_t voltage = power_monitor_get_3v3_voltage();
+
+                                buffer[2] = (uint8_t)(voltage >> 8);
+                                buffer[3] = (uint8_t)voltage;
+
+                                axtec_packet_encode(&packet_to_send, buffer, 4);
+                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            }
                             break;
 
                         case V3V3_CURRENT:
-                            //TODO: implement
+                            {
+                                // Sensor ID
+                                buffer[1] = V3V3_CURRENT;
+                                buffer[2] = 0;
+                                buffer[3] = 0;
+
+                                uint16_t current = power_monitor_get_3v3_current();
+
+                                buffer[2] = (uint8_t)(current >> 8);
+                                buffer[3] = (uint8_t)current;
+
+                                axtec_packet_encode(&packet_to_send, buffer, 4);
+                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            }
                             break;
 
                         case V5V_VOLTAGE:
-                            //TODO: implement
+                            {
+                                // Sensor ID
+                                buffer[1] = V5V_VOLTAGE;
+                                buffer[2] = 0;
+                                buffer[3] = 0;
+
+                                uint16_t voltage = power_monitor_get_5v_voltage();
+
+                                buffer[2] = (uint8_t)(voltage >> 8);
+                                buffer[3] = (uint8_t)voltage;
+
+                                axtec_packet_encode(&packet_to_send, buffer, 4);
+                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            }
                             break;
 
                         case V5V_CURRENT:
-                            //TODO: implement
+                            {
+                                // Sensor ID
+                                buffer[1] = V5V_CURRENT;
+                                buffer[2] = 0;
+                                buffer[3] = 0;
+
+                                uint16_t current = power_monitor_get_5v_current();
+
+                                buffer[2] = (uint8_t)(current >> 8);
+                                buffer[3] = (uint8_t)current;
+
+                                axtec_packet_encode(&packet_to_send, buffer, 4);
+                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            }
                             break;
 
                         case UNKNOWN_SENSOR:

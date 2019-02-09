@@ -48,4 +48,11 @@ esp_err_t power_monitor_init(void);
 
 void power_monitor_clear_errors(void);
 
+uint16_t power_monitor_get_battery_current(void);
+uint16_t power_monitor_get_battery_voltage(void);
+uint16_t power_monitor_get_3v3_current(void);
+uint16_t power_monitor_get_3v3_voltage(void);
+uint16_t power_monitor_get_5v_current(void);
+uint16_t power_monitor_get_5v_voltage(void);
+
 #endif // __POWER_MONITOR_H__
