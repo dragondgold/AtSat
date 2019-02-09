@@ -6,6 +6,8 @@
 #include "esp_log.h"
 #include "libs/sensor_fusion/sensor_fusion.h"
 #include "libs/minmea/minmea.h"
+#include "float.h"
+#include "servo_manager/servo_manager.h"
 
 #include "gps_manager/gps_manager.h"
 #include "imu_manager/imu_manager.h"
@@ -16,7 +18,10 @@
 
 static const char* TAG = "sensor";
 
-sensors_data_t sensors_data;
+static sensors_data_t sensors_data;
+static float last_altitude = 0;
+static bool got_first_altitude = false;
+static float altitude_change = 0;
 
 // Sensor fusion
 static SensorFusionGlobals sfg;                 // Sensor fusion instance
@@ -101,8 +106,35 @@ static void sensors_task(void* arg)
                 sensors_data.latitude = gps_data.latitude;
                 sensors_data.longitude = gps_data.longitude;
                 sensors_data.altitude = minmea_tofloat(&gps_data.altitude);
+                sensors_data.gps_fix = (gps_data.fix_quality == 1 || gps_data.fix_quality == 6) ? true : false;
 
-                // TODO: detect falling
+                // Altitude doesn't have a value yet? 
+                if(!got_first_altitude && sensors_data.gps_fix)
+                {
+                    last_altitude = sensors_data.altitude;
+                    altitude_change = 0;
+                }
+                else if(sensors_data.gps_fix)
+                {
+                    // Are we lower than the last sample?
+                    if(sensors_data.altitude < last_altitude)
+                    {
+                        altitude_change += sensors_data.altitude - last_altitude;
+                    }
+                    last_altitude = sensors_data.altitude;
+
+                    // Are we falling?
+                    if(fabs(altitude_change) > SENSOR_MANAGER_FALLING_THRESHOLD)
+                    {
+                        // Open the parachute!
+                        servo_manager_open_balloon();
+                        servo_manager_open_parachute();
+                        ESP_LOGI(TAG, "Fall detection, opening parachute");
+                    }
+                }
+
+                // TODO: if we don't have a GPS fix we can estimate the height with the pressure sensor
+                
             }
             xSemaphoreGive(sample_mutex);
         }

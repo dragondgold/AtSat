@@ -8,6 +8,7 @@
 #include "libs/axtec_packet/axtec_packet.h"
 #include "libs/cansat_packet/cansat_packet.h"
 #include "libs/minmea/minmea.h"
+#include "power_monitor/power_monitor.h"
 
 #include "servo_manager/servo_manager.h"
 #include "battery_manager/battery_manager.h"

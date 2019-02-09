@@ -5,6 +5,8 @@
 #include "imu_manager/imu_manager.h"
 #include "minmea/minmea.h"
 
+#define SENSOR_MANAGER_FALLING_THRESHOLD    50  // meters
+
 typedef struct
 {
     // Gyroscope, accelerometer and magnetometer data
@@ -20,6 +22,7 @@ typedef struct
     struct minmea_float latitude;
     struct minmea_float longitude;
     float altitude;                 // Altitude in meters
+    bool gps_fix;
 } sensors_data_t;
 
 esp_err_t sensor_manager_init(void);
