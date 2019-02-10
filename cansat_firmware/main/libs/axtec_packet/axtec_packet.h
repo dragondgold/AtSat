@@ -23,6 +23,14 @@ typedef struct
     uint8_t raw[AXTEC_PACKET_MAX_DATA_LENGTH];      // Packet raw bytes
 } axtec_encoded_packet_t;
 
+typedef enum
+{
+    PACKET_OK,
+    LENGTH_ERROR,
+    CRC_ERROR,
+    MALFORMED_ERROR
+} axtec_packet_error_t;
+
 /**
  * @brief Initialize the packet encoder/decoder
  * 
@@ -40,7 +48,7 @@ bool axtec_packet_init(void);
  * @return true bytes were decoded
  * @return false failed to decode bytes
  */
-bool axtec_packet_decode(axtec_decoded_packet_t* packet, uint8_t* data, unsigned int length);
+axtec_packet_error_t axtec_packet_decode(axtec_decoded_packet_t* packet, uint8_t* data, unsigned int length);
 
 /**
  * @brief Encode a packet

@@ -55,4 +55,11 @@ uint16_t power_monitor_get_3v3_voltage(void);
 uint16_t power_monitor_get_5v_current(void);
 uint16_t power_monitor_get_5v_voltage(void);
 
+bool power_monitor_is_3v3_overcurrent(void);
+bool power_monitor_is_5v_overcurrent(void);
+bool power_monitor_is_battery_overcurrent(void);
+bool power_monitor_is_3v3_overvoltage(void);
+bool power_monitor_is_5v_overvoltage(void);
+bool power_monitor_is_battery_overvoltage(void);
+
 #endif // __POWER_MONITOR_H__

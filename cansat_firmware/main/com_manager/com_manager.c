@@ -31,6 +31,7 @@ static TaskHandle_t task_handle_rx, task_handle_tx;
 // Packets
 static cc1101_packet_t cc1101_packet;
 static axtec_decoded_packet_t axtec_decoded_packet;
+static cansat_errors_t errors;
 
 // Queue
 static StaticQueue_t tx_static_queue;
@@ -60,7 +61,52 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
     switch(type)
     {
         case CANSAT_GET_ERRORS:
-            // TODO: implement
+            {
+                buffer[0] = CANSAT_GET_ERRORS;
+                unsigned int length = 1;
+
+                if(errors.invalid_command)
+                {
+                    buffer[length++] = 1;
+                    errors.invalid_command = false;
+                }
+                if(errors.wrong_command_length)
+                {
+                    buffer[length++] = 2;
+                    errors.wrong_command_length = false;
+                }
+                if(errors.wrong_checksum)
+                {
+                    buffer[length++] = 3;
+                    errors.wrong_checksum = false;
+                }
+                if(power_monitor_is_battery_overcurrent())
+                {
+                    buffer[length++] = 10;
+                }
+                if(power_monitor_is_3v3_overvoltage())
+                {
+                    buffer[length++] = 11;
+                }
+                if(power_monitor_is_3v3_overcurrent())
+                {
+                    buffer[length++] = 12;
+                }
+                if(power_monitor_is_5v_overvoltage())
+                {
+                    buffer[length++] = 13;
+                }
+                if(power_monitor_is_5v_overcurrent())
+                {
+                    buffer[length++] = 14;
+                }
+                if(!gps_manager_is_valid_location())
+                {
+                    buffer[length++] = 21;
+                }
+                axtec_packet_encode(&packet_to_send, buffer, length);
+                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            }
             break;
 
         case CANSAT_PARACHUTE_STATE:
@@ -349,10 +395,12 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                             break;
 
                         case UNKNOWN_SENSOR:
+                            errors.invalid_command = true;
                             ESP_LOGW(TAG, "Unknown sensor type %d", sensor_type);
                             break;
 
                         default:
+                            errors.invalid_command = true;
                             ESP_LOGE(TAG, "Shouldn't reach default case with sensor type %d", sensor_type);
                             break;
                     }
@@ -441,6 +489,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             break;
 
         case CANSAT_UNKNOWN:
+
             ESP_LOGW(TAG, "Unknown packet type %d", type);
             break;
 
@@ -470,8 +519,9 @@ static void rx_task(void* arg)
                 // Check packet integrity
                 if(cc1101_packet.crc_ok)
                 {
+                    axtec_packet_error_t code;
                     // Decode the packet
-                    if(axtec_packet_decode(&axtec_decoded_packet, cc1101_packet.data, cc1101_packet.length))
+                    if((code = axtec_packet_decode(&axtec_decoded_packet, cc1101_packet.data, cc1101_packet.length)) == PACKET_OK)
                     {
                         // Check if the packet is valid
                         if(axtec_decoded_packet.valid)
@@ -479,6 +529,14 @@ static void rx_task(void* arg)
                             // Process the packet and take the neccesary actions
                             process_cansat_packet(&axtec_decoded_packet);
                         }
+                        else
+                        {
+                            errors.wrong_checksum = true;
+                        }
+                    }
+                    else if(code == LENGTH_ERROR)
+                    {
+                        errors.wrong_command_length = true;
                     }
                 }
                 else 

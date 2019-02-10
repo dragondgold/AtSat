@@ -303,3 +303,28 @@ uint16_t power_monitor_get_5v_voltage(void)
 {
     return power_status.rail_5v.avg_voltage;
 }
+
+bool power_monitor_is_3v3_overcurrent(void)
+{
+    return power_status.rail_3v3.overcurrent;
+}
+bool power_monitor_is_5v_overcurrent(void)
+{
+    return power_status.rail_5v.overcurrent;
+}
+bool power_monitor_is_battery_overcurrent(void)
+{
+    return power_status.rail_bat.overcurrent;
+}
+bool power_monitor_is_3v3_overvoltage(void)
+{
+    return power_status.rail_3v3.overvoltage;
+}
+bool power_monitor_is_5v_overvoltage(void)
+{
+    return power_status.rail_5v.overvoltage;
+}
+bool power_monitor_is_battery_overvoltage(void)
+{
+    return power_status.rail_bat.overvoltage;
+}

@@ -4,7 +4,7 @@
 
 #include "esp_log.h"
 
-static const char* TAG = "tag";
+static const char* TAG = "can_pack";
 
 bool cansat_packet_init(void)
 {

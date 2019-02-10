@@ -23,12 +23,12 @@ bool axtec_packet_init(void)
     return true;
 }
 
-bool axtec_packet_decode(axtec_decoded_packet_t* packet, uint8_t* data, unsigned int length)
+axtec_packet_error_t axtec_packet_decode(axtec_decoded_packet_t* packet, uint8_t* data, unsigned int length)
 {
     // We need at least 4 bytes (1 start + 2 length + 1 checksum)
     if(length < 4)
     {
-        return false;
+        return LENGTH_ERROR;
     }
 
     unsigned int index = 0;
@@ -46,7 +46,7 @@ bool axtec_packet_decode(axtec_decoded_packet_t* packet, uint8_t* data, unsigned
     // Couldn't find the start byte
     if(index == length)
     {
-        return false;
+        return MALFORMED_ERROR;
     }
     ++index;
 
@@ -81,7 +81,7 @@ bool axtec_packet_decode(axtec_decoded_packet_t* packet, uint8_t* data, unsigned
     if(index >= length)
     {
         // Fail, we still needed bytes for the checksum at the very least
-        return false;
+        return LENGTH_ERROR;
     }
 
     // Data available?
@@ -113,7 +113,7 @@ bool axtec_packet_decode(axtec_decoded_packet_t* packet, uint8_t* data, unsigned
     // Compute checksum
     if(index >= length)
     {
-        return false;
+        return LENGTH_ERROR;
     }
     else
     {
@@ -130,7 +130,7 @@ bool axtec_packet_decode(axtec_decoded_packet_t* packet, uint8_t* data, unsigned
             packet->valid = false;
         }
         
-        return true;
+        return PACKET_OK;
     }
 }
 
