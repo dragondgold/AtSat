@@ -1,5 +1,7 @@
 function cc1101_driver()
 {
+    const execSync = require('child_process').execSync;
+
     //***************************************CC1101 DEFINES**************************************************//
     // CC1101 CONFIG register
     const CC1101_IOCFG2       = 0x00;        // GDO2 output pin configuration
@@ -92,9 +94,6 @@ function cc1101_driver()
     const CC1101_TXFIFO       = 0x3F;
     const CC1101_RXFIFO       = 0x3F;
 
-    const CC1101_TX_BUFFER_SIZE = 64;
-    const CC1101_RX_BUFFER_SIZE = 64;
-
     const WRITE_BURST     = 0x40;
     const READ_SINGLE     = 0x80;
     const READ_BURST      = 0xC0;
@@ -106,6 +105,7 @@ function cc1101_driver()
     const CC1101_MAX_PACKET_SIZE = (64-3);
     const CS_WAIT_TIME = 2;             // Wait 2 ms when setting CS low
 
+    let MCP2210CLI_PATH = "";
     let channel = 1;
     let rx_bw = 0x08;
     let F2 = 16;
@@ -136,6 +136,54 @@ function cc1101_driver()
         else
         {
             // Set to 0
+        }
+    }
+
+    /**
+     * Transfer data to the SPI
+     * @param {Array} data data to send
+     * @returns {Object} object with the parameters .data that contains the read data and
+     *  .error that is true if an error ocurred.
+     */
+    function mcp2210_transfer_data(data)
+    {
+        let output = execSync(MCP2210CLI_PATH + "-spitxfer=0B,06 -bd=4000000 -cs=gp0 -idle=ffff -actv0000 -csdly=1000 -actv=0000");
+        let lines = output.split(">");
+
+        var obj = 
+        {
+            error = true,
+            data: []
+        }
+
+        // Invalid response
+        if(lines.length == 0)
+        {
+            return obj;
+        }
+
+        for(let n = 0; n < lines.length; ++n)
+        {
+            // This line contains the RxData?
+            if(lines[n].indexOf("RxData:") > 0)
+            {
+                // Get the chunk of the string where the received bytes are
+                let data_lines = line.substring(line.indexOf(" ") + 1).split(",");
+
+                // Invalid
+                if(data_lines.length == 0)
+                {
+                    return obj;
+                }
+
+                for(let line = 0; line < data_lines.length; ++line)
+                {
+                    obj.data.push(parseInt(line, 16));
+                }
+
+                obj.error = false;
+                return obj;
+            }
         }
     }
 
@@ -181,20 +229,14 @@ function cc1101_driver()
      */
     function spi_write_reg(addr, value)
     {
-        // TODO: implement
-        /*
-        gpio_set_level(CS_PIN, 0);
-        wait_for_low(MISO_PIN, TIMEOUT_PINS);
+        let obj = mcp2210_transfer_data([addr, value]);
 
-        transaction.length = 2*8;
-        transaction.rxlength = 0;   // Receive same byte quantity as length
-        transaction.flags = 0x00000000;
-        transaction.tx_buffer = tx_buffer;
-        tx_buffer[0] = addr;
-        tx_buffer[1] = value;
-
-        spi_manager_device_transmit(&transaction, pdMS_TO_TICKS(TIMEOUT_SPI));
-        gpio_set_level(CS_PIN, 1);*/
+        if(!obj.error)
+        {
+            return obj.data[1];
+        }
+        
+        return [0, 0];
     }
 
     /**
@@ -203,14 +245,7 @@ function cc1101_driver()
      */
     function spi_send_cmd(cmd)
     {
-        // TODO: implement
-        /*
-        transaction.length = 1*8;
-        transaction.rxlength = 0;   // Receive same byte quantity as length
-        transaction.tx_buffer = tx_buffer;
-        tx_buffer[0] = cmd;
-        transaction.flags = 0x00000000;
-        spi_manager_device_transmit(&transaction, pdMS_TO_TICKS(TIMEOUT_SPI));*/
+        mcp2210_transfer_data([cmd]);
     }
 
     /**
@@ -220,22 +255,16 @@ function cc1101_driver()
      */
     function spi_write_burst_reg(addr, buffer)
     {
-        // TODO: implement
-        /*
-        gpio_set_level(CS_PIN, 0);
-        wait_for_low(MISO_PIN, TIMEOUT_PINS);
+        var obj = mcp2210_transfer_data([addr | WRITE_BURST].concat(buffer));
 
-        transaction.length = (num + 1)*8;
-        transaction.rxlength = 0;   // Receive same byte quantity as length
-        transaction.flags = 0x00000000;
-        transaction.tx_buffer = tx_buffer;
-        transaction.rx_buffer = rx_buffer;
-        tx_buffer[0] = addr | WRITE_BURST;
-        memcpy(&tx_buffer[1], buffer, num);
-
-        // Send the register and all the data now
-        spi_manager_device_transmit(&transaction, pdMS_TO_TICKS(TIMEOUT_SPI));
-        gpio_set_level(CS_PIN, 1);*/
+        if(!obj.error)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -245,23 +274,14 @@ function cc1101_driver()
      */
     function spi_read_reg(addr)
     {
-        // TODO: implement
-        /*
-        gpio_set_level(CS_PIN, 0);
-        wait_for_low(MISO_PIN, TIMEOUT_PINS);
+        let obj = mcp2210_transfer_data([addr | READ_SINGLE, 0x00]);
+        if(!obj.error)
+        {
+            return obj.data[1];
+        }
 
-        transaction.length = 2*8;
-        transaction.rxlength = 0;   // Receive same byte quantity as length
-        transaction.flags = 0x00000000;
-        transaction.tx_buffer = tx_buffer;
-        transaction.rx_buffer = rx_buffer;
-        tx_buffer[0] = addr | READ_SINGLE;
-        tx_buffer[1] = 0x00;    // Dummy byte to request a read
-
-        spi_manager_device_transmit(&transaction, pdMS_TO_TICKS(TIMEOUT_SPI));
-        gpio_set_level(CS_PIN, 1);
-
-        return rx_buffer[1];*/
+        // ERROR!
+        return 0;
     }
 
     /**
@@ -272,23 +292,23 @@ function cc1101_driver()
      */
     function spi_read_burst_reg(addr, length)
     {
-        // TODO: implement
-        /*
-        gpio_set_level(CS_PIN, 0);
-        wait_for_low(MISO_PIN, TIMEOUT_PINS);
+        let data = [addr | READ_BURST];
+        for(let n = 0; n < length; ++n)
+        {
+            // Add dummy bytes to read
+            data.push(0x00);
+        }
 
-        transaction.length = (num + 1)*8;
-        transaction.rxlength = 0;   // Receive same byte quantity as length
-        transaction.flags = 0x00000000;
-        transaction.tx_buffer = tx_buffer;
-        transaction.rx_buffer = buffer;
-        tx_buffer[0] = addr | READ_BURST;
+        let obj = mcp2210_transfer_data([data]);
 
-        // Send 0x00 for every byte we want to read
-        memset(&tx_buffer[1], 0x00, num);
-
-        spi_manager_device_transmit(&transaction, pdMS_TO_TICKS(TIMEOUT_SPI));
-        gpio_set_level(CS_PIN, 1);*/
+        if(!obj.error)
+        {
+            return obj.data;
+        }
+        else
+        {
+            return [];
+        }
     }
 
     /**
@@ -433,12 +453,12 @@ function cc1101_driver()
 
     /**
      * Init the CC1101 transceiver
+     * @param path path to the MCP2210CLI.exe executable
      * @returns true if init was successful
      */
-    function cc1101_init()
+    function cc1101_init(path)
     {
-        transaction.tx_buffer = tx_buffer;
-        transaction.rx_buffer = rx_buffer;
+        MCP2210CLI_PATH = path;
 
         // Flush the TX and RX FIFOs
         cc1101_strobe_cmd(CC1101_SIDLE);
