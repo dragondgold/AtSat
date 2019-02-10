@@ -99,12 +99,12 @@ function cc1101_driver()
     const READ_SINGLE     = 0x80;
     const READ_BURST      = 0xC0;
     const BYTES_IN_RXFIFO = 0x47;
-    const TIMEOUT_PINS    = 50;         // In us
-    const TIMEOUT_SPI     = 100;        // In ms
+    const TIMEOUT_SPI     = 50;         // In ms
 
     // The maximum supported data packet by this driver is 64 bytes. In order to receive/send more bytes
     //  than the size of the FIFO of the CC1101 some rework is needed.
     const CC1101_MAX_PACKET_SIZE = (64-3);
+    const CS_WAIT_TIME = 2;             // Wait 2 ms when setting CS low
 
     let channel = 1;
     let rx_bw = 0x08;
@@ -123,31 +123,61 @@ function cc1101_driver()
     const PA_TABLE_30 = [0x00,0x12,0x00,0x00,0x00,0x00,0x00,0x00];
 
     /**
-     * Wait for a pin from the SPI interface to get low
-     * @param {*} pin Pin to use
-     * @param {*} timeout Timeout
+     * Set CS pin level
+     * @param {*} level true or false
      */
-    function wait_for_low(pin, timeout)
+    function set_cs_level(level)
     {
-        // TODO: implement
-        /*
-        // Wait for pin to get low
-        while(gpio_get_level(pin))
+        // Set CS to 1 or 0
+        if(true)
         {
-            let start = esp_timer_get_time();
-            if(esp_timer_get_time() - start > timeout)
-            {
-                return false;
-            }
+            // Set to 1
         }
-        
-        return true;*/
+        else
+        {
+            // Set to 0
+        }
+    }
+
+    /**
+     * Wait for a function to return the passed value
+     * @param {Function} func function from which to evaluate the return value
+     * @param {*} value value that must be satisfied
+     * @param {*} timeout timeout in ms
+     * @returns {Promise} promise that is resolve or rejected
+     */
+    function wait_for_condition(func, value, timeout)
+    {
+        return new Promise(function(resolve, reject)
+        {
+            let count = 0;
+
+            // Execute every 1 ms
+            let interval = setInterval(function()
+            {
+                ++count;
+                // Wait for function to return the desired value
+                if(func() === value)
+                {
+                    clearInterval(interval);
+                    resolve();
+                    return;
+                }
+                else if(count > timeout)
+                {
+                    clearInterval(interval);
+                    reject();
+                    return;
+                }
+            }, 1);
+        });
     }
 
     /**
      * Write a register
      * @param {*} addr Address of the register
      * @param {*} value Value to write in the register
+     * @returns read-back value
      */
     function spi_write_reg(addr, value)
     {
@@ -267,31 +297,28 @@ function cc1101_driver()
      */
     function cc1101_reset()
     {
-        // TODO: implement
-        /*
-        gpio_set_level(CS_PIN, 0);
-        vTaskDelay(pdMS_TO_TICKS(10));
-        gpio_set_level(CS_PIN, 1);
-        vTaskDelay(pdMS_TO_TICKS(10));
-        gpio_set_level(CS_PIN, 0);
-
-        // Wait for MISO pin to get low
-        if(!wait_for_low(MISO_PIN, TIMEOUT_PINS))
-        {
-            return false;
+        // This will block the thread but that's ok, this code should run
+        //  on a worker thread
+        function sleep(delay) {
+            var start = new Date().getTime();
+            while (new Date().getTime() < start + delay);
         }
+
+        set_cs_level(false);
+        sleep(10);
+        set_cs_level(true);
+        sleep(10);
+        set_cs_level(false);
+        sleep(10);
 
         // Reset the transceiver
         spi_send_cmd(CC1101_SRES);
 
         // Wait for reset
-        if(!wait_for_low(MISO_PIN, TIMEOUT_PINS))
-        {
-            return false;
-        }
+        sleep(10);
 
-        gpio_set_level(CS_PIN, 1);
-        return true;*/
+        set_cs_level(true);
+        return true;
     }
 
     /**
@@ -300,19 +327,9 @@ function cc1101_driver()
      */
     function cc1101_strobe_cmd(strobe)
     {
-        // TODO: implement
-        /*
-        gpio_set_level(CS_PIN, 0);
-        // Wait for MISO pin to get low
-        if(!wait_for_low(MISO_PIN, TIMEOUT_PINS))
-        {
-            ESP_LOGW(TAG, "Timeout MISO on cc1101_strobe_cmd()");
-            return false;
-        }
-
+        set_cs_level(false);
         spi_send_cmd(strobe);
-
-        gpio_set_level(CS_PIN, 1);*/
+        set_cs_level(1);
     }
 
     /**
@@ -392,22 +409,22 @@ function cc1101_driver()
         let val = 0;
         if((val = spi_read_reg(CC1101_PKTCTRL0)) != 0x05)
         {
-            ESP_LOGE(TAG, "Error on CC1101_PKTCTRL0. Read: %d", val);
+            console.error(TAG + ":" + "Error on CC1101_PKTCTRL0. Read: %d", val);
             return false;
         }
         if((val = spi_read_reg(CC1101_IOCFG0)) != 0x06)
         {
-            ESP_LOGE(TAG, "Error on CC1101_IOCFG0. Read: %d", val);
+            console.error(TAG + ":" + "Error on CC1101_IOCFG0. Read: %d", val);
             return false;
         }
         if((val = spi_read_reg(CC1101_MDMCFG4)) != rx_bw)
         {
-            ESP_LOGE(TAG, "Error on CC1101_MDMCFG4. Read: %d", val);
+            console.error(TAG + ":" + "Error on CC1101_MDMCFG4. Read: %d", val);
             return false;
         }
         if((val = spi_read_reg(CC1101_FSCTRL1)) != 0x06)
         {
-            ESP_LOGE(TAG, "Error on CC1101_FSCTRL1. Read: %d", val);
+            console.error(TAG + ":" + "Error on CC1101_FSCTRL1. Read: %d", val);
             return false;
         }
 
@@ -430,7 +447,7 @@ function cc1101_driver()
 
         if(!cc1101_reset())
         {
-            ESP_LOGE(TAG, "Couldn't reset CC1101");
+            console.error(TAG + ":" + "Couldn't reset CC1101");
             return false;
         }
         return cc1101_reg_config_settings(pa_level);
@@ -508,56 +525,58 @@ function cc1101_driver()
 
     /**
      * Send data
-     * @param {*} tx_buffer array of bytes to send
+     * @param {Array} tx_buffer array of bytes to send
+     * @returns {Promise} that is resolved when the packet is sent successfully
      */
     function cc1101_send_data(tx_buffer)
     {
         if(tx_buffer.length > 61)
         {
-            ESP_LOGW(TAG, "Packet too large: %d", tx_buffer.length);
-            return false;
+            console.warn(TAG + ":" + "Packet too large: %d", tx_buffer.length);
+            return new Promise(function(resolve, reject)
+            {
+                reject();
+            });
         }
 
         // Flush the TX FIFO (go into IDLE first)
         cc1101_strobe_cmd(CC1101_SIDLE);
         cc1101_strobe_cmd(CC1101_SFTX);
-        ESP_LOGV(TAG, "TX FIFO before: %d", cc1101_bytes_in_tx_fifo());
+        console.log(TAG + ":" + "TX FIFO before: %d", cc1101_bytes_in_tx_fifo());
 
         spi_write_reg(CC1101_TXFIFO, size);                     // Write packet length
         spi_write_burst_reg(CC1101_TXFIFO, tx_buffer);          // Write data
-        ESP_LOGV(TAG, "TX FIFO after: %d", cc1101_bytes_in_tx_fifo());
+        console.log(TAG + ":" + "TX FIFO after: %d", cc1101_bytes_in_tx_fifo());
 
         cc1101_set_tx();                                        // Enter TX mode to send the data
 
         // Internal CC1101 state machine status to check that TX mode has started
-        ESP_LOGV(TAG, "CC1101 FSM: %d", cc1101_read_status(CC1101_MARCSTATE));
+        console.log(TAG + ":" + "CC1101 FSM: %d", cc1101_read_status(CC1101_MARCSTATE));
         
-        // TODO: implement timeout mechanism
-        // Wait for GDO0 to be set, indicates sync was transmitted 
-        let start = esp_timer_get_time();
-        while(!cc1101_is_packet_sent_available())
+        return new Promise(function(resolve, reject)
         {
-            if(esp_timer_get_time() - start > (TIMEOUT_SPI*1000))
+            // Wait for GDO0 to be set, indicates sync was transmitted
+            wait_for_condition(cc1101_is_packet_sent_available, true, TIMEOUT_SPI).then(function()
             {
-                // Failed to wait for sync
-                ESP_LOGW(TAG, "Failed waiting sync");
-                return false;
-            }
-        }
-
-        // Wait for GDO0 to be cleared, indicates end of packet
-        start = esp_timer_get_time();
-        while(cc1101_is_packet_sent_available())
-        {
-            if(esp_timer_get_time() - start > (TIMEOUT_SPI*1000))
+                // Wait for GDO0 to be cleared, indicates end of packet
+                wait_for_condition(cc1101_is_packet_sent_available, false, TIMEOUT_SPI).then(function()
+                {
+                    // Packet sent correctly
+                    resolve();
+                })
+                .catch(function()
+                {
+                    // Failed to wait for end of packet
+                    console.warn(TAG + ":" + "Failed waiting end of packet");
+                    reject();
+                });
+            })
+            .catch(function()
             {
-                // Failed to wait for end of packet
-                ESP_LOGW(TAG, "Failed waiting end of packet");
-                return false;
-            }
-        }			
-
-        return true;
+                console.warn(TAG + ":" + "Failed waiting sync");
+                reject();
+            });
+        });
     }
 
     /**
@@ -726,7 +745,7 @@ function cc1101_driver()
             // If packet is too long
             if (packet.length > CC1101_MAX_PACKET_SIZE || packet.length == 0)
             {
-                ESP_LOGW(TAG, "Length error: %d", packet.length);
+                console.warn(TAG + ":" + "Length error: %d", packet.length);
                 packet.length = 0;
                 return packet;
             }
@@ -760,22 +779,8 @@ function cc1101_driver()
      */
     function cc1101_read_status(addr)
     {
-        /*
-        gpio_set_level(CS_PIN, 0);
-        wait_for_low(MISO_PIN, TIMEOUT_PINS);
-
-        transaction.length = 2*8;
-        transaction.rxlength = 0;   // Receive same byte quantity as length
-        transaction.flags = 0x00000000;
-        transaction.tx_buffer = tx_buffer;
-        transaction.rx_buffer = rx_buffer;
-        tx_buffer[0] = addr | READ_BURST;
-        tx_buffer[1] = 0x00;    // Dummy byte to request a read
-
-        spi_manager_device_transmit(&transaction, pdMS_TO_TICKS(TIMEOUT_SPI));
-        gpio_set_level(CS_PIN, 1);
-
-        return rx_buffer[1];*/
+        // Write 0x00 as a dummy byte, we are interested in the read value
+        return spi_write_reg(addr | READ_BURST, 0x00);
     }
 
     /**
@@ -788,7 +793,7 @@ function cc1101_driver()
         let status = cc1101_read_status(CC1101_PKTSTATUS);
 
         // If GDO0 is set a packet was sent or received
-        if(status & 0x01)
+        if(status & 0x01 == 1)
         {
             return true;
         }
