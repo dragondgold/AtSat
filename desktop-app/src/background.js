@@ -16,7 +16,9 @@ let win
 protocol.registerStandardSchemes(['app'], { secure: true })
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({show: false})
+  win = new BrowserWindow({show: false, webPreferences: {
+    nodeIntegrationInWorker: true
+  }})
   win.maximize()
   win.show()
 

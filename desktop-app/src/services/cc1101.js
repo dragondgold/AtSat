@@ -120,6 +120,8 @@ const PA_TABLE_15 = [0x00,0x1D,0x00,0x00,0x00,0x00,0x00,0x00];
 const PA_TABLE_20 = [0x00,0x0E,0x00,0x00,0x00,0x00,0x00,0x00];
 const PA_TABLE_30 = [0x00,0x12,0x00,0x00,0x00,0x00,0x00,0x00];
 
+const TAG = "CC1101";
+
 module.exports =
 {
     /**
@@ -147,8 +149,9 @@ module.exports =
      */
     mcp2210_transfer_data: function(data)
     {
-        let output = execSync(MCP2210CLI_PATH + "-spitxfer=0B,06 -bd=4000000 -cs=gp0 -idle=ffff -actv0000 -csdly=1000 -actv=0000");
-        let lines = output.split(">");
+        let output = execSync(MCP2210CLI_PATH + " -spitxfer=0B,06 -bd=4000000 -cs=gp0 -idle=ffff -actv0000 -csdly=1000 -actv=0000");
+
+        let lines = output.toString().split(">");
 
         let obj = 
         {
@@ -185,6 +188,8 @@ module.exports =
                 return obj;
             }
         }
+
+        return obj;
     },
 
     /**

@@ -57,7 +57,7 @@ export default {
     cansatWidget
   },
   created(){
-    mcp2210.getConnectedDevCount()
+    //mcp2210.getConnectedDevCount()
   },
   mounted(){
     this.clearStatuses() 

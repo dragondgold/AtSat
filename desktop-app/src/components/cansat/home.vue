@@ -29,6 +29,7 @@ import MissionManager from 'services/missionManager'
 import defaultActuators from 'data/Actuators'
 import defaultSensors from 'data/Sensors'
 import utils from 'services/utils'
+import mcp2210 from 'services/mcp2210'
 
 export default {
   name: 'home-axtec',
@@ -43,20 +44,9 @@ export default {
   },
 
   created(){
-    if(this.$store.getters.axtec.debug){ // Initialize data structure
-      /*
-      console.log("Setting up modules", "Debug: " + this.$store.getters.axtec.debug )   
-      this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': true})
 
-      // Load actuators from data/Actuators
-      this.$store.commit('setActuators', defaultActuators.actuators[defaultActuators.parachute])
-      this.$store.commit('setActuators', defaultActuators.actuators[defaultActuators.balloon])
-
-      // Load sensors from data/Sensors
-      for(let s = 0; s < defaultSensors.sensors.length; s++){ 
-        this.$store.commit('addNewSensor', defaultSensors.sensors[s])
-      }
-      */ 
+    if(this.$store.getters.axtec.debug){ 
+       
     }
   },
 
