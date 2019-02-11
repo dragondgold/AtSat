@@ -1,132 +1,132 @@
-function cc1101_driver()
+const execSync = require('child_process').execSync;
+
+//***************************************CC1101 DEFINES**************************************************//
+// CC1101 CONFIG register
+const CC1101_IOCFG2       = 0x00;        // GDO2 output pin configuration
+const CC1101_IOCFG1       = 0x01;        // GDO1 output pin configuration
+const CC1101_IOCFG0       = 0x02;        // GDO0 output pin configuration
+const CC1101_FIFOTHR      = 0x03;        // RX FIFO and TX FIFO thresholds
+const CC1101_SYNC1        = 0x04;        // Sync word, high INT8U
+const CC1101_SYNC0        = 0x05;        // Sync word, low INT8U
+const CC1101_PKTLEN       = 0x06;        // Packet length
+const CC1101_PKTCTRL1     = 0x07;        // Packet automation control
+const CC1101_PKTCTRL0     = 0x08;        // Packet automation control
+const CC1101_ADDR         = 0x09;        // Device address
+const CC1101_CHANNR       = 0x0A;        // Channel number
+const CC1101_FSCTRL1      = 0x0B;        // Frequency synthesizer control
+const CC1101_FSCTRL0      = 0x0C;        // Frequency synthesizer control
+const CC1101_FREQ2        = 0x0D;        // Frequency control word, high INT8U
+const CC1101_FREQ1        = 0x0E;        // Frequency control word, middle INT8U
+const CC1101_FREQ0        = 0x0F;        // Frequency control word, low INT8U
+const CC1101_MDMCFG4      = 0x10;        // Modem configuration
+const CC1101_MDMCFG3      = 0x11;        // Modem configuration
+const CC1101_MDMCFG2      = 0x12;        // Modem configuration
+const CC1101_MDMCFG1      = 0x13;        // Modem configuration
+const CC1101_MDMCFG0      = 0x14;        // Modem configuration
+const CC1101_DEVIATN      = 0x15;        // Modem deviation setting
+const CC1101_MCSM2        = 0x16;        // Main Radio Control State Machine configuration
+const CC1101_MCSM1        = 0x17;        // Main Radio Control State Machine configuration
+const CC1101_MCSM0        = 0x18;        // Main Radio Control State Machine configuration
+const CC1101_FOCCFG       = 0x19;        // Frequency Offset Compensation configuration
+const CC1101_BSCFG        = 0x1A;        // Bit Synchronization configuration
+const CC1101_AGCCTRL2     = 0x1B;        // AGC control
+const CC1101_AGCCTRL1     = 0x1C;        // AGC control
+const CC1101_AGCCTRL0     = 0x1D;        // AGC control
+const CC1101_WOREVT1      = 0x1E;        // High INT8U Event 0 timeout
+const CC1101_WOREVT0      = 0x1F;        // Low INT8U Event 0 timeout
+const CC1101_WORCTRL      = 0x20;        // Wake On Radio control
+const CC1101_FREND1       = 0x21;        // Front end RX configuration
+const CC1101_FREND0       = 0x22;        // Front end TX configuration
+const CC1101_FSCAL3       = 0x23;        // Frequency synthesizer calibration
+const CC1101_FSCAL2       = 0x24;        // Frequency synthesizer calibration
+const CC1101_FSCAL1       = 0x25;        // Frequency synthesizer calibration
+const CC1101_FSCAL0       = 0x26;        // Frequency synthesizer calibration
+const CC1101_RCCTRL1      = 0x27;        // RC oscillator configuration
+const CC1101_RCCTRL0      = 0x28;        // RC oscillator configuration
+const CC1101_FSTEST       = 0x29;        // Frequency synthesizer calibration control
+const CC1101_PTEST        = 0x2A;        // Production test
+const CC1101_AGCTEST      = 0x2B;        // AGC test
+const CC1101_TEST2        = 0x2C;        // Various test settings
+const CC1101_TEST1        = 0x2D;        // Various test settings
+const CC1101_TEST0        = 0x2E;        // Various test settings
+
+// CC1101 strobe commands
+const CC1101_SRES         = 0x30;        // Reset chip.
+const CC1101_SFSTXON      = 0x31;        // Enable and calibrate frequency synthesizer (if MCSM0.FS_AUTOCAL=1).
+                                            // If in RX/TX: Go to a wait state where only the synthesizer is
+                                            // running (for quick RX / TX turnaround).
+const CC1101_SXOFF        = 0x32;        // Turn off crystal oscillator.
+const CC1101_SCAL         = 0x33;        // Calibrate frequency synthesizer and turn it off
+                                            // (enables quick start).
+const CC1101_SRX          = 0x34;        // Enable RX. Perform calibration first if coming from IDLE and
+                                            // MCSM0.FS_AUTOCAL=1.
+const CC1101_STX          = 0x35;        // In IDLE state: Enable TX. Perform calibration first if
+                                            // MCSM0.FS_AUTOCAL=1. If in RX state and CCA is enabled:
+                                            // Only go to TX if channel is clear.
+const CC1101_SIDLE        = 0x36;        // Exit RX / TX, turn off frequency synthesizer and exit
+                                            // Wake-On-Radio mode if applicable.
+const CC1101_SAFC         = 0x37;        // Perform AFC adjustment of the frequency synthesizer
+const CC1101_SWOR         = 0x38;        // Start automatic RX polling sequence (Wake-on-Radio)
+const CC1101_SPWD         = 0x39;        // Enter power down mode when CSn goes high.
+const CC1101_SFRX         = 0x3A;        // Flush the RX FIFO buffer.
+const CC1101_SFTX         = 0x3B;        // Flush the TX FIFO buffer.
+const CC1101_SWORRST      = 0x3C;        // Reset real time clock.
+const CC1101_SNOP         = 0x3D;        // No operation. May be used to pad strobe commands to two
+                                            // INT8Us for simpler software.
+// CC1101 STATUS register
+const CC1101_PARTNUM      = 0x30;
+const CC1101_VERSION      = 0x31;
+const CC1101_FREQEST      = 0x32;
+const CC1101_LQI          = 0x33;
+const CC1101_RSSI         = 0x34;
+const CC1101_MARCSTATE    = 0x35;
+const CC1101_WORTIME1     = 0x36;
+const CC1101_WORTIME0     = 0x37;
+const CC1101_PKTSTATUS    = 0x38;
+const CC1101_VCO_VC_DAC   = 0x39;
+const CC1101_TXBYTES      = 0x3A;
+const CC1101_RXBYTES      = 0x3B;
+
+// CC1101 PATABLE, TXFIFO, RXFIFO
+const CC1101_PATABLE      = 0x3E;
+const CC1101_TXFIFO       = 0x3F;
+const CC1101_RXFIFO       = 0x3F;
+
+const WRITE_BURST     = 0x40;
+const READ_SINGLE     = 0x80;
+const READ_BURST      = 0xC0;
+const BYTES_IN_RXFIFO = 0x47;
+const TIMEOUT_SPI     = 50;         // In ms
+
+// The maximum supported data packet by this driver is 64 bytes. In order to receive/send more bytes
+//  than the size of the FIFO of the CC1101 some rework is needed.
+const CC1101_MAX_PACKET_SIZE = (64-3);
+const CS_WAIT_TIME = 2;             // Wait 2 ms when setting CS low
+
+let MCP2210CLI_PATH = "";
+let channel = 1;
+let rx_bw = 0x08;
+let F2 = 16;
+let F1 = 176;
+let F0 = 113;
+let pa_level = 10;
+
+const PA_TABLE10  = [0x00,0xC0,0x00,0x00,0x00,0x00,0x00,0x00];
+const PA_TABLE7   = [0x00,0xC8,0x00,0x00,0x00,0x00,0x00,0x00];
+const PA_TABLE5   = [0x00,0x84,0x00,0x00,0x00,0x00,0x00,0x00];
+const PA_TABLE0   = [0x00,0x60,0x00,0x00,0x00,0x00,0x00,0x00];
+const PA_TABLE_10 = [0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x00];
+const PA_TABLE_15 = [0x00,0x1D,0x00,0x00,0x00,0x00,0x00,0x00];
+const PA_TABLE_20 = [0x00,0x0E,0x00,0x00,0x00,0x00,0x00,0x00];
+const PA_TABLE_30 = [0x00,0x12,0x00,0x00,0x00,0x00,0x00,0x00];
+
+module.exports =
 {
-    const execSync = require('child_process').execSync;
-
-    //***************************************CC1101 DEFINES**************************************************//
-    // CC1101 CONFIG register
-    const CC1101_IOCFG2       = 0x00;        // GDO2 output pin configuration
-    const CC1101_IOCFG1       = 0x01;        // GDO1 output pin configuration
-    const CC1101_IOCFG0       = 0x02;        // GDO0 output pin configuration
-    const CC1101_FIFOTHR      = 0x03;        // RX FIFO and TX FIFO thresholds
-    const CC1101_SYNC1        = 0x04;        // Sync word, high INT8U
-    const CC1101_SYNC0        = 0x05;        // Sync word, low INT8U
-    const CC1101_PKTLEN       = 0x06;        // Packet length
-    const CC1101_PKTCTRL1     = 0x07;        // Packet automation control
-    const CC1101_PKTCTRL0     = 0x08;        // Packet automation control
-    const CC1101_ADDR         = 0x09;        // Device address
-    const CC1101_CHANNR       = 0x0A;        // Channel number
-    const CC1101_FSCTRL1      = 0x0B;        // Frequency synthesizer control
-    const CC1101_FSCTRL0      = 0x0C;        // Frequency synthesizer control
-    const CC1101_FREQ2        = 0x0D;        // Frequency control word, high INT8U
-    const CC1101_FREQ1        = 0x0E;        // Frequency control word, middle INT8U
-    const CC1101_FREQ0        = 0x0F;        // Frequency control word, low INT8U
-    const CC1101_MDMCFG4      = 0x10;        // Modem configuration
-    const CC1101_MDMCFG3      = 0x11;        // Modem configuration
-    const CC1101_MDMCFG2      = 0x12;        // Modem configuration
-    const CC1101_MDMCFG1      = 0x13;        // Modem configuration
-    const CC1101_MDMCFG0      = 0x14;        // Modem configuration
-    const CC1101_DEVIATN      = 0x15;        // Modem deviation setting
-    const CC1101_MCSM2        = 0x16;        // Main Radio Control State Machine configuration
-    const CC1101_MCSM1        = 0x17;        // Main Radio Control State Machine configuration
-    const CC1101_MCSM0        = 0x18;        // Main Radio Control State Machine configuration
-    const CC1101_FOCCFG       = 0x19;        // Frequency Offset Compensation configuration
-    const CC1101_BSCFG        = 0x1A;        // Bit Synchronization configuration
-    const CC1101_AGCCTRL2     = 0x1B;        // AGC control
-    const CC1101_AGCCTRL1     = 0x1C;        // AGC control
-    const CC1101_AGCCTRL0     = 0x1D;        // AGC control
-    const CC1101_WOREVT1      = 0x1E;        // High INT8U Event 0 timeout
-    const CC1101_WOREVT0      = 0x1F;        // Low INT8U Event 0 timeout
-    const CC1101_WORCTRL      = 0x20;        // Wake On Radio control
-    const CC1101_FREND1       = 0x21;        // Front end RX configuration
-    const CC1101_FREND0       = 0x22;        // Front end TX configuration
-    const CC1101_FSCAL3       = 0x23;        // Frequency synthesizer calibration
-    const CC1101_FSCAL2       = 0x24;        // Frequency synthesizer calibration
-    const CC1101_FSCAL1       = 0x25;        // Frequency synthesizer calibration
-    const CC1101_FSCAL0       = 0x26;        // Frequency synthesizer calibration
-    const CC1101_RCCTRL1      = 0x27;        // RC oscillator configuration
-    const CC1101_RCCTRL0      = 0x28;        // RC oscillator configuration
-    const CC1101_FSTEST       = 0x29;        // Frequency synthesizer calibration control
-    const CC1101_PTEST        = 0x2A;        // Production test
-    const CC1101_AGCTEST      = 0x2B;        // AGC test
-    const CC1101_TEST2        = 0x2C;        // Various test settings
-    const CC1101_TEST1        = 0x2D;        // Various test settings
-    const CC1101_TEST0        = 0x2E;        // Various test settings
-
-    // CC1101 strobe commands
-    const CC1101_SRES         = 0x30;        // Reset chip.
-    const CC1101_SFSTXON      = 0x31;        // Enable and calibrate frequency synthesizer (if MCSM0.FS_AUTOCAL=1).
-                                             // If in RX/TX: Go to a wait state where only the synthesizer is
-                                             // running (for quick RX / TX turnaround).
-    const CC1101_SXOFF        = 0x32;        // Turn off crystal oscillator.
-    const CC1101_SCAL         = 0x33;        // Calibrate frequency synthesizer and turn it off
-                                             // (enables quick start).
-    const CC1101_SRX          = 0x34;        // Enable RX. Perform calibration first if coming from IDLE and
-                                             // MCSM0.FS_AUTOCAL=1.
-    const CC1101_STX          = 0x35;        // In IDLE state: Enable TX. Perform calibration first if
-                                             // MCSM0.FS_AUTOCAL=1. If in RX state and CCA is enabled:
-                                             // Only go to TX if channel is clear.
-    const CC1101_SIDLE        = 0x36;        // Exit RX / TX, turn off frequency synthesizer and exit
-                                             // Wake-On-Radio mode if applicable.
-    const CC1101_SAFC         = 0x37;        // Perform AFC adjustment of the frequency synthesizer
-    const CC1101_SWOR         = 0x38;        // Start automatic RX polling sequence (Wake-on-Radio)
-    const CC1101_SPWD         = 0x39;        // Enter power down mode when CSn goes high.
-    const CC1101_SFRX         = 0x3A;        // Flush the RX FIFO buffer.
-    const CC1101_SFTX         = 0x3B;        // Flush the TX FIFO buffer.
-    const CC1101_SWORRST      = 0x3C;        // Reset real time clock.
-    const CC1101_SNOP         = 0x3D;        // No operation. May be used to pad strobe commands to two
-                                             // INT8Us for simpler software.
-    // CC1101 STATUS register
-    const CC1101_PARTNUM      = 0x30;
-    const CC1101_VERSION      = 0x31;
-    const CC1101_FREQEST      = 0x32;
-    const CC1101_LQI          = 0x33;
-    const CC1101_RSSI         = 0x34;
-    const CC1101_MARCSTATE    = 0x35;
-    const CC1101_WORTIME1     = 0x36;
-    const CC1101_WORTIME0     = 0x37;
-    const CC1101_PKTSTATUS    = 0x38;
-    const CC1101_VCO_VC_DAC   = 0x39;
-    const CC1101_TXBYTES      = 0x3A;
-    const CC1101_RXBYTES      = 0x3B;
-
-    // CC1101 PATABLE, TXFIFO, RXFIFO
-    const CC1101_PATABLE      = 0x3E;
-    const CC1101_TXFIFO       = 0x3F;
-    const CC1101_RXFIFO       = 0x3F;
-
-    const WRITE_BURST     = 0x40;
-    const READ_SINGLE     = 0x80;
-    const READ_BURST      = 0xC0;
-    const BYTES_IN_RXFIFO = 0x47;
-    const TIMEOUT_SPI     = 50;         // In ms
-
-    // The maximum supported data packet by this driver is 64 bytes. In order to receive/send more bytes
-    //  than the size of the FIFO of the CC1101 some rework is needed.
-    const CC1101_MAX_PACKET_SIZE = (64-3);
-    const CS_WAIT_TIME = 2;             // Wait 2 ms when setting CS low
-
-    let MCP2210CLI_PATH = "";
-    let channel = 1;
-    let rx_bw = 0x08;
-    let F2 = 16;
-    let F1 = 176;
-    let F0 = 113;
-    let pa_level = PA10;
-
-    const PA_TABLE10  = [0x00,0xC0,0x00,0x00,0x00,0x00,0x00,0x00];
-    const PA_TABLE7   = [0x00,0xC8,0x00,0x00,0x00,0x00,0x00,0x00];
-    const PA_TABLE5   = [0x00,0x84,0x00,0x00,0x00,0x00,0x00,0x00];
-    const PA_TABLE0   = [0x00,0x60,0x00,0x00,0x00,0x00,0x00,0x00];
-    const PA_TABLE_10 = [0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x00];
-    const PA_TABLE_15 = [0x00,0x1D,0x00,0x00,0x00,0x00,0x00,0x00];
-    const PA_TABLE_20 = [0x00,0x0E,0x00,0x00,0x00,0x00,0x00,0x00];
-    const PA_TABLE_30 = [0x00,0x12,0x00,0x00,0x00,0x00,0x00,0x00];
-
     /**
      * Set CS pin level
      * @param {*} level true or false
      */
-    function set_cs_level(level)
+    set_cs_level: function(level)
     {
         // Set CS to 1 or 0
         if(true)
@@ -137,7 +137,7 @@ function cc1101_driver()
         {
             // Set to 0
         }
-    }
+    },
 
     /**
      * Transfer data to the SPI
@@ -145,14 +145,14 @@ function cc1101_driver()
      * @returns {Object} object with the parameters .data that contains the read data and
      *  .error that is true if an error ocurred.
      */
-    function mcp2210_transfer_data(data)
+    mcp2210_transfer_data: function(data)
     {
         let output = execSync(MCP2210CLI_PATH + "-spitxfer=0B,06 -bd=4000000 -cs=gp0 -idle=ffff -actv0000 -csdly=1000 -actv=0000");
         let lines = output.split(">");
 
-        var obj = 
+        let obj = 
         {
-            error = true,
+            error: true,
             data: []
         }
 
@@ -185,16 +185,16 @@ function cc1101_driver()
                 return obj;
             }
         }
-    }
+    },
 
     /**
-     * Wait for a function to return the passed value
-     * @param {Function} func function from which to evaluate the return value
+     * Wait for a to return the passed value
+     * @param {Function} func from which to evaluate the return value
      * @param {*} value value that must be satisfied
      * @param {*} timeout timeout in ms
      * @returns {Promise} promise that is resolve or rejected
      */
-    function wait_for_condition(func, value, timeout)
+    wait_for_condition: function(func, value, timeout)
     {
         return new Promise(function(resolve, reject)
         {
@@ -204,7 +204,7 @@ function cc1101_driver()
             let interval = setInterval(function()
             {
                 ++count;
-                // Wait for function to return the desired value
+                // Wait for to return the desired value
                 if(func() === value)
                 {
                     clearInterval(interval);
@@ -219,7 +219,7 @@ function cc1101_driver()
                 }
             }, 1);
         });
-    }
+    },
 
     /**
      * Write a register
@@ -227,7 +227,7 @@ function cc1101_driver()
      * @param {*} value Value to write in the register
      * @returns read-back value
      */
-    function spi_write_reg(addr, value)
+    spi_write_reg: function(addr, value)
     {
         let obj = mcp2210_transfer_data([addr, value]);
 
@@ -237,23 +237,23 @@ function cc1101_driver()
         }
         
         return [0, 0];
-    }
+    },
 
     /**
      * Send a command
      * @param {*} cmd command to send
      */
-    function spi_send_cmd(cmd)
+    spi_send_cmd: function(cmd)
     {
         mcp2210_transfer_data([cmd]);
-    }
+    },
 
     /**
      * Write a register in burst mode
      * @param {*} addr Address of the register
      * @param {*} buffer Array of bytes to send
      */
-    function spi_write_burst_reg(addr, buffer)
+    spi_write_burst_reg: function(addr, buffer)
     {
         var obj = mcp2210_transfer_data([addr | WRITE_BURST].concat(buffer));
 
@@ -265,14 +265,14 @@ function cc1101_driver()
         {
             return false;
         }
-    }
+    },
 
     /**
      * Read a register
      * @param {*} addr Address of the register
      * @returns byte read
      */
-    function spi_read_reg(addr)
+    spi_read_reg: function(addr)
     {
         let obj = mcp2210_transfer_data([addr | READ_SINGLE, 0x00]);
         if(!obj.error)
@@ -282,7 +282,7 @@ function cc1101_driver()
 
         // ERROR!
         return 0;
-    }
+    },
 
     /**
      * Read a register in burst mode
@@ -290,7 +290,7 @@ function cc1101_driver()
      * @param {*} length Number of bytes to read
      * @returns array of bytes read
      */
-    function spi_read_burst_reg(addr, length)
+    spi_read_burst_reg: function(addr, length)
     {
         let data = [addr | READ_BURST];
         for(let n = 0; n < length; ++n)
@@ -309,13 +309,13 @@ function cc1101_driver()
         {
             return [];
         }
-    }
+    },
 
     /**
      * Reset the CC1101.
      * @returns true if reset was successful
      */
-    function cc1101_reset()
+    cc1101_reset: function()
     {
         // This will block the thread but that's ok, this code should run
         //  on a worker thread
@@ -339,25 +339,25 @@ function cc1101_driver()
 
         set_cs_level(true);
         return true;
-    }
+    },
 
     /**
      * Send a strobe command
      * @param {*} strobe strobe command to send
      */
-    function cc1101_strobe_cmd(strobe)
+    cc1101_strobe_cmd: function(strobe)
     {
         set_cs_level(false);
         spi_send_cmd(strobe);
         set_cs_level(1);
-    }
+    },
 
     /**
      * Set the default configuration for this driver
      * @param {*} pa PA level. The valid values are 10, 7, 5, 0, -10, -15, -20 and -30
      * @returns true if configuration was successful
      */
-    function cc1101_reg_config_settings(pa)
+    cc1101_reg_config_settings: function(pa)
     {
         spi_write_reg(CC1101_FSCTRL1, 0x06);
         spi_write_reg(CC1101_FSCTRL0, 0x00);
@@ -449,14 +449,14 @@ function cc1101_driver()
         }
 
         return true;
-    }
+    },
 
     /**
      * Init the CC1101 transceiver
      * @param path path to the MCP2210CLI.exe executable
      * @returns true if init was successful
      */
-    function cc1101_init(path)
+    cc1101_init: function(path)
     {
         MCP2210CLI_PATH = path;
 
@@ -471,13 +471,13 @@ function cc1101_driver()
             return false;
         }
         return cc1101_reg_config_settings(pa_level);
-    }
+    },
 
     /**
      * Set RX mode
      * @param {*} clear true to clear the RX FIFO
      */
-    function cc1101_set_rx(clear)
+    cc1101_set_rx: function(clear)
     {
         if(clear)
         {
@@ -485,22 +485,22 @@ function cc1101_driver()
             cc1101_strobe_cmd(CC1101_SFRX);
         }
         cc1101_strobe_cmd(CC1101_SRX);
-    }
+    },
 
     /**
      * Set TX mode
      */
-    function cc1101_set_tx()
+    cc1101_set_tx: function()
     {
         cc1101_strobe_cmd(CC1101_STX);
-    }
+    },
 
     /**
      * Set carrier frequency
      * @param {*} mhz frequency in MHz
      * @returns true if successful
      */
-    function cc1101_set_mhz(mhz)
+    cc1101_set_mhz: function(mhz)
     {
         // Calculate F0, F1 and F1 to set the desired frequency
         let MHZ = mhz + 0.01;
@@ -541,14 +541,14 @@ function cc1101_driver()
             return false;
         }
         return true;
-    }
+    },
 
     /**
      * Send data
      * @param {Array} tx_buffer array of bytes to send
      * @returns {Promise} that is resolved when the packet is sent successfully
      */
-    function cc1101_send_data(tx_buffer)
+    cc1101_send_data: function(tx_buffer)
     {
         if(tx_buffer.length > 61)
         {
@@ -597,13 +597,13 @@ function cc1101_driver()
                 reject();
             });
         });
-    }
+    },
 
     /**
      * Set receiving bandwidth
      * @param {*} bw bandwidth level from 1 to 16
      */
-    function cc1101_set_rx_bw(bw)
+    cc1101_set_rx_bw: function(bw)
     {
         switch (bw)
         {
@@ -672,23 +672,23 @@ function cc1101_driver()
                 break;
         }
         spi_write_reg(CC1101_MDMCFG4, rx_bw);
-    }
+    },
 
     /**
      * Set operating channel
      * @param {*} chn channel
      */
-    function cc1101_set_channel(chn)
+    cc1101_set_channel: function(chn)
     {
         channel = chn;
         spi_write_reg(CC1101_CHANNR, channel);
-    }
+    },
 
     /**
      * Checks the bytes available in the RX FIFO
      * @returns bytes available in the RX FIFO
      */
-    function cc1101_bytes_in_rx_fifo()
+    cc1101_bytes_in_rx_fifo: function()
     {
         // Read until we get the same number of bytes in the RX FIFO. This
         //  is needed as a workaround for an errate of the CC1101.
@@ -708,13 +708,13 @@ function cc1101_driver()
         
         // FAILED!
         return -1;
-    }
+    },
 
     /**
      * Checks the bytes available in the TX FIFO
      * @returns bytes available in the TX FIFO
      */
-    function cc1101_bytes_in_tx_fifo()
+    cc1101_bytes_in_tx_fifo: function()
     {
         // Read until we get the same number of bytes in the TX FIFO. This
         //  is needed as a workaround for an errate of the CC1101.
@@ -734,13 +734,13 @@ function cc1101_driver()
         
         // FAILED!
         return -1;
-    }
+    },
 
     /**
      * Read data from the RX FIFO
      * @returns packet read
      */
-    function cc1101_read_data()
+    cc1101_read_data: function()
     {
         // Create packet here
         let packet = 
@@ -790,25 +790,25 @@ function cc1101_driver()
         {
             return packet;
         }
-    }
+    },
 
     /**
      * Read status register
      * @param {*} addr address of register
      * @returns status register
      */
-    function cc1101_read_status(addr)
+    cc1101_read_status: function(addr)
     {
         // Write 0x00 as a dummy byte, we are interested in the read value
         return spi_write_reg(addr | READ_BURST, 0x00);
-    }
+    },
 
     /**
      * Check if a packet was sent (when sending packet) or received
      *  (when expecting a packet).
      * @returns true packet was sent or a packet was received
      */
-    function cc1101_is_packet_sent_available()
+    cc1101_is_packet_sent_available: function()
     {
         let status = cc1101_read_status(CC1101_PKTSTATUS);
 
@@ -821,6 +821,7 @@ function cc1101_driver()
         return false;
     }
 
+    /*
     return
     {
         cc1101_init: cc1101_init,
@@ -837,5 +838,5 @@ function cc1101_driver()
         cc1101_read_data: cc1101_read_data,
         cc1101_read_status: cc1101_read_status,
         cc1101_is_packet_sent_available: cc1101_is_packet_sent_available
-    }
+    }*/
 }
