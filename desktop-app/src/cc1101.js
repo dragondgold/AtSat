@@ -229,7 +229,7 @@ module.exports =
      */
     spi_write_reg: function(addr, value)
     {
-        let obj = mcp2210_transfer_data([addr, value]);
+        let obj = this.mcp2210_transfer_data([addr, value]);
 
         if(!obj.error)
         {
@@ -245,7 +245,7 @@ module.exports =
      */
     spi_send_cmd: function(cmd)
     {
-        mcp2210_transfer_data([cmd]);
+        this.mcp2210_transfer_data([cmd]);
     },
 
     /**
@@ -255,7 +255,7 @@ module.exports =
      */
     spi_write_burst_reg: function(addr, buffer)
     {
-        var obj = mcp2210_transfer_data([addr | WRITE_BURST].concat(buffer));
+        var obj = this.mcp2210_transfer_data([addr | WRITE_BURST].concat(buffer));
 
         if(!obj.error)
         {
@@ -274,7 +274,7 @@ module.exports =
      */
     spi_read_reg: function(addr)
     {
-        let obj = mcp2210_transfer_data([addr | READ_SINGLE, 0x00]);
+        let obj = this.mcp2210_transfer_data([addr | READ_SINGLE, 0x00]);
         if(!obj.error)
         {
             return obj.data[1];
@@ -299,7 +299,7 @@ module.exports =
             data.push(0x00);
         }
 
-        let obj = mcp2210_transfer_data([data]);
+        let obj = this.mcp2210_transfer_data([data]);
 
         if(!obj.error)
         {
@@ -324,20 +324,20 @@ module.exports =
             while (new Date().getTime() < start + delay);
         }
 
-        set_cs_level(false);
+        this.set_cs_level(false);
         sleep(10);
-        set_cs_level(true);
+        this.set_cs_level(true);
         sleep(10);
-        set_cs_level(false);
+        this.set_cs_level(false);
         sleep(10);
 
         // Reset the transceiver
-        spi_send_cmd(CC1101_SRES);
+        this.spi_send_cmd(CC1101_SRES);
 
         // Wait for reset
         sleep(10);
 
-        set_cs_level(true);
+        this.set_cs_level(true);
         return true;
     },
 
@@ -347,9 +347,9 @@ module.exports =
      */
     cc1101_strobe_cmd: function(strobe)
     {
-        set_cs_level(false);
-        spi_send_cmd(strobe);
-        set_cs_level(1);
+        this.set_cs_level(false);
+        this.spi_send_cmd(strobe);
+        this.set_cs_level(1);
     },
 
     /**
@@ -359,90 +359,90 @@ module.exports =
      */
     cc1101_reg_config_settings: function(pa)
     {
-        spi_write_reg(CC1101_FSCTRL1, 0x06);
-        spi_write_reg(CC1101_FSCTRL0, 0x00);
-        spi_write_reg(CC1101_FREQ2, F2);
-        spi_write_reg(CC1101_FREQ1, F1);
-        spi_write_reg(CC1101_FREQ0, F0);
+        this.spi_write_reg(CC1101_FSCTRL1, 0x06);
+        this.spi_write_reg(CC1101_FSCTRL0, 0x00);
+        this.spi_write_reg(CC1101_FREQ2, F2);
+        this.spi_write_reg(CC1101_FREQ1, F1);
+        this.spi_write_reg(CC1101_FREQ0, F0);
         
         switch(pa)
         {
             case 10:
-                spi_write_burst_reg(CC1101_PATABLE, PA_TABLE10);
+                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE10);
                 break;
             case 7:
-                spi_write_burst_reg(CC1101_PATABLE, PA_TABLE7);
+                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE7);
                 break;
             case 5:
-                spi_write_burst_reg(CC1101_PATABLE, PA_TABLE5);
+                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE5);
                 break;        
             case 0:
-                spi_write_burst_reg(CC1101_PATABLE, PA_TABLE0);
+                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE0);
                 break;
             case -10:
-                spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_10);
+                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_10);
                 break;
             case -15:
-                spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_15);
+                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_15);
                 break;
             case -20:
-                spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_20);
+                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_20);
                 break;
             case -30:
-                spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_30);
+                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_30);
                 break;
         }
         pa_level = pa;
     
-        spi_write_reg(CC1101_MDMCFG4,  rx_bw);  // DRATE_E = 8
-        spi_write_reg(CC1101_MDMCFG3,  0x83);   // With DRATE_E on MDMCFG4 = 8 this gives 9600 bauds 
-        spi_write_reg(CC1101_MDMCFG2,  0x13);   // 30/32 sync word, no Manchester encoding, GFSK modulation, DC filter before modulator
-        spi_write_reg(CC1101_MDMCFG1,  0x00);   // 2 preamble bytes, no forward error correction
-        spi_write_reg(CC1101_MDMCFG0,  0xF8);   // 200 kHz channel spacing together with CHANSPC_E bits in MDMCFG1
-        spi_write_reg(CC1101_CHANNR,   channel);// Channel number
-        spi_write_reg(CC1101_DEVIATN,  0x15);
-        spi_write_reg(CC1101_FREND1,   0x56);
-        spi_write_reg(CC1101_FREND0,   0x11);
-        spi_write_reg(CC1101_MCSM0,    0x18);
-        spi_write_reg(CC1101_FOCCFG,   0x16);
-        spi_write_reg(CC1101_BSCFG,    0x1C);
-        spi_write_reg(CC1101_AGCCTRL2, 0xC7);
-        spi_write_reg(CC1101_AGCCTRL1, 0x00);
-        spi_write_reg(CC1101_AGCCTRL0, 0xB2);
-        spi_write_reg(CC1101_FSCAL3,   0xE9);   // Value given by TI SmartRF Studio
-        spi_write_reg(CC1101_FSCAL2,   0x2A);   // Value given by TI SmartRF Studio
-        spi_write_reg(CC1101_FSCAL1,   0x00);   // Value given by TI SmartRF Studio
-        spi_write_reg(CC1101_FSCAL0,   0x1F);   // Value given by TI SmartRF Studio
-        spi_write_reg(CC1101_FSTEST,   0x59);   
-        spi_write_reg(CC1101_TEST2,    0x81);   // Value given by TI SmartRF Studio
-        spi_write_reg(CC1101_TEST1,    0x35);   // Value given by TI SmartRF Studio
-        spi_write_reg(CC1101_TEST0,    0x09);   // Value given by TI SmartRF Studio
-        spi_write_reg(CC1101_IOCFG2,   0x2E);   // Serial clock is synchronous to the data in synchronous serial mode
-        spi_write_reg(CC1101_IOCFG0,   0x06);  	// Asserts GDO0 when sync word has been sent/received, and de-asserts at the end of the packet 
-        spi_write_reg(CC1101_PKTCTRL1, 0x04);   // Two status bytes will be appended to the payload of the packet, including RSSI, LQI and CRC OK
+        this.spi_write_reg(CC1101_MDMCFG4,  rx_bw);  // DRATE_E = 8
+        this.spi_write_reg(CC1101_MDMCFG3,  0x83);   // With DRATE_E on MDMCFG4 = 8 this gives 9600 bauds 
+        this.spi_write_reg(CC1101_MDMCFG2,  0x13);   // 30/32 sync word, no Manchester encoding, GFSK modulation, DC filter before modulator
+        this.spi_write_reg(CC1101_MDMCFG1,  0x00);   // 2 preamble bytes, no forward error correction
+        this.spi_write_reg(CC1101_MDMCFG0,  0xF8);   // 200 kHz channel spacing together with CHANSPC_E bits in MDMCFG1
+        this.spi_write_reg(CC1101_CHANNR,   channel);// Channel number
+        this.spi_write_reg(CC1101_DEVIATN,  0x15);
+        this.spi_write_reg(CC1101_FREND1,   0x56);
+        this.spi_write_reg(CC1101_FREND0,   0x11);
+        this.spi_write_reg(CC1101_MCSM0,    0x18);
+        this.spi_write_reg(CC1101_FOCCFG,   0x16);
+        this.spi_write_reg(CC1101_BSCFG,    0x1C);
+        this.spi_write_reg(CC1101_AGCCTRL2, 0xC7);
+        this.spi_write_reg(CC1101_AGCCTRL1, 0x00);
+        this.spi_write_reg(CC1101_AGCCTRL0, 0xB2);
+        this.spi_write_reg(CC1101_FSCAL3,   0xE9);   // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_FSCAL2,   0x2A);   // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_FSCAL1,   0x00);   // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_FSCAL0,   0x1F);   // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_FSTEST,   0x59);   
+        this.spi_write_reg(CC1101_TEST2,    0x81);   // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_TEST1,    0x35);   // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_TEST0,    0x09);   // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_IOCFG2,   0x2E);   // Serial clock is synchronous to the data in synchronous serial mode
+        this.spi_write_reg(CC1101_IOCFG0,   0x06);  	// Asserts GDO0 when sync word has been sent/received, and de-asserts at the end of the packet 
+        this.spi_write_reg(CC1101_PKTCTRL1, 0x04);   // Two status bytes will be appended to the payload of the packet, including RSSI, LQI and CRC OK
                                                 // No address check
-        spi_write_reg(CC1101_PKTCTRL0, 0x05);	// Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
-        spi_write_reg(CC1101_ADDR,     0x00);	// Address used for packet filtration (not used here)
-        spi_write_reg(CC1101_PKTLEN,   0xFF); 	// 255 bytes max packet length allowed
+        this.spi_write_reg(CC1101_PKTCTRL0, 0x05);	// Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
+        this.spi_write_reg(CC1101_ADDR,     0x00);	// Address used for packet filtration (not used here)
+        this.spi_write_reg(CC1101_PKTLEN,   0xFF); 	// 255 bytes max packet length allowed
 
         // Read some values to check that they were written
         let val = 0;
-        if((val = spi_read_reg(CC1101_PKTCTRL0)) != 0x05)
+        if((val = this.spi_read_reg(CC1101_PKTCTRL0)) != 0x05)
         {
             console.error(TAG + ":" + "Error on CC1101_PKTCTRL0. Read: %d", val);
             return false;
         }
-        if((val = spi_read_reg(CC1101_IOCFG0)) != 0x06)
+        if((val = this.spi_read_reg(CC1101_IOCFG0)) != 0x06)
         {
             console.error(TAG + ":" + "Error on CC1101_IOCFG0. Read: %d", val);
             return false;
         }
-        if((val = spi_read_reg(CC1101_MDMCFG4)) != rx_bw)
+        if((val = this.spi_read_reg(CC1101_MDMCFG4)) != rx_bw)
         {
             console.error(TAG + ":" + "Error on CC1101_MDMCFG4. Read: %d", val);
             return false;
         }
-        if((val = spi_read_reg(CC1101_FSCTRL1)) != 0x06)
+        if((val = this.spi_read_reg(CC1101_FSCTRL1)) != 0x06)
         {
             console.error(TAG + ":" + "Error on CC1101_FSCTRL1. Read: %d", val);
             return false;
@@ -461,16 +461,16 @@ module.exports =
         MCP2210CLI_PATH = path;
 
         // Flush the TX and RX FIFOs
-        cc1101_strobe_cmd(CC1101_SIDLE);
-        cc1101_strobe_cmd(CC1101_SFTX);
-        cc1101_strobe_cmd(CC1101_SFRX);
+        this.cc1101_strobe_cmd(CC1101_SIDLE);
+        this.cc1101_strobe_cmd(CC1101_SFTX);
+        this.cc1101_strobe_cmd(CC1101_SFRX);
 
-        if(!cc1101_reset())
+        if(!this.cc1101_reset())
         {
             console.error(TAG + ":" + "Couldn't reset CC1101");
             return false;
         }
-        return cc1101_reg_config_settings(pa_level);
+        return this.cc1101_reg_config_settings(pa_level);
     },
 
     /**
@@ -481,10 +481,10 @@ module.exports =
     {
         if(clear)
         {
-            cc1101_strobe_cmd(CC1101_SIDLE);
-            cc1101_strobe_cmd(CC1101_SFRX);
+            this.cc1101_strobe_cmd(CC1101_SIDLE);
+            this.cc1101_strobe_cmd(CC1101_SFRX);
         }
-        cc1101_strobe_cmd(CC1101_SRX);
+        this.cc1101_strobe_cmd(CC1101_SRX);
     },
 
     /**
@@ -492,7 +492,7 @@ module.exports =
      */
     cc1101_set_tx: function()
     {
-        cc1101_strobe_cmd(CC1101_STX);
+        this.cc1101_strobe_cmd(CC1101_STX);
     },
 
     /**
@@ -532,11 +532,11 @@ module.exports =
         F1 = s9;
         F0 = s14;
 
-        spi_write_reg(CC1101_FREQ2, F2);
-        spi_write_reg(CC1101_FREQ1, F1);
-        spi_write_reg(CC1101_FREQ0, F0);
+        this.spi_write_reg(CC1101_FREQ2, F2);
+        this.spi_write_reg(CC1101_FREQ1, F1);
+        this.spi_write_reg(CC1101_FREQ0, F0);
 
-        if(spi_read_reg(CC1101_FREQ0) != F0 || spi_read_reg(CC1101_FREQ1) != F1 || spi_read_reg(CC1101_FREQ2) != F2)
+        if(this.spi_read_reg(CC1101_FREQ0) != F0 || this.spi_read_reg(CC1101_FREQ1) != F1 || this.spi_read_reg(CC1101_FREQ2) != F2)
         {
             return false;
         }
@@ -560,26 +560,26 @@ module.exports =
         }
 
         // Flush the TX FIFO (go into IDLE first)
-        cc1101_strobe_cmd(CC1101_SIDLE);
-        cc1101_strobe_cmd(CC1101_SFTX);
-        console.log(TAG + ":" + "TX FIFO before: %d", cc1101_bytes_in_tx_fifo());
+        this.cc1101_strobe_cmd(CC1101_SIDLE);
+        this.cc1101_strobe_cmd(CC1101_SFTX);
+        console.log(TAG + ":" + "TX FIFO before: %d", this.cc1101_bytes_in_tx_fifo());
 
-        spi_write_reg(CC1101_TXFIFO, size);                     // Write packet length
-        spi_write_burst_reg(CC1101_TXFIFO, tx_buffer);          // Write data
-        console.log(TAG + ":" + "TX FIFO after: %d", cc1101_bytes_in_tx_fifo());
+        this.spi_write_reg(CC1101_TXFIFO, size);                     // Write packet length
+        this.spi_write_burst_reg(CC1101_TXFIFO, tx_buffer);          // Write data
+        console.log(TAG + ":" + "TX FIFO after: %d", this.cc1101_bytes_in_tx_fifo());
 
-        cc1101_set_tx();                                        // Enter TX mode to send the data
+        this.cc1101_set_tx();                                        // Enter TX mode to send the data
 
         // Internal CC1101 state machine status to check that TX mode has started
-        console.log(TAG + ":" + "CC1101 FSM: %d", cc1101_read_status(CC1101_MARCSTATE));
+        console.log(TAG + ":" + "CC1101 FSM: %d", this.cc1101_read_status(CC1101_MARCSTATE));
         
         return new Promise(function(resolve, reject)
         {
             // Wait for GDO0 to be set, indicates sync was transmitted
-            wait_for_condition(cc1101_is_packet_sent_available, true, TIMEOUT_SPI).then(function()
+            this.wait_for_condition(this.cc1101_is_packet_sent_available, true, TIMEOUT_SPI).then(function()
             {
                 // Wait for GDO0 to be cleared, indicates end of packet
-                wait_for_condition(cc1101_is_packet_sent_available, false, TIMEOUT_SPI).then(function()
+                this.wait_for_condition(this.cc1101_is_packet_sent_available, false, TIMEOUT_SPI).then(function()
                 {
                     // Packet sent correctly
                     resolve();
@@ -671,7 +671,7 @@ module.exports =
                 rx_bw = 0x08;
                 break;
         }
-        spi_write_reg(CC1101_MDMCFG4, rx_bw);
+        this.spi_write_reg(CC1101_MDMCFG4, rx_bw);
     },
 
     /**
@@ -681,7 +681,7 @@ module.exports =
     cc1101_set_channel: function(chn)
     {
         channel = chn;
-        spi_write_reg(CC1101_CHANNR, channel);
+        this.spi_write_reg(CC1101_CHANNR, channel);
     },
 
     /**
@@ -698,8 +698,8 @@ module.exports =
         let v1 = 0, v2 = 0;
         for(let n = 0; n < 255; ++n)
         {
-            v1 = cc1101_read_status(CC1101_RXBYTES);
-            v2 = cc1101_read_status(CC1101_RXBYTES);
+            v1 = this.cc1101_read_status(CC1101_RXBYTES);
+            v2 = this.cc1101_read_status(CC1101_RXBYTES);
             if(v1 == v2)
             {
                 return v1;
@@ -724,8 +724,8 @@ module.exports =
         let v1 = 0, v2 = 0;
         for(let n = 0; n < 255; ++n)
         {
-            v1 = cc1101_read_status(CC1101_TXBYTES);
-            v2 = cc1101_read_status(CC1101_TXBYTES);
+            v1 = this.cc1101_read_status(CC1101_TXBYTES);
+            v2 = this.cc1101_read_status(CC1101_TXBYTES);
             if(v1 == v2)
             {
                 return v1;
@@ -754,13 +754,13 @@ module.exports =
         }
 
         // Read the number of bytes in the RX FIFO
-        let rx_bytes = cc1101_bytes_in_rx_fifo();
+        let rx_bytes = this.cc1101_bytes_in_rx_fifo();
 
         // Any byte waiting to be read and no overflow?
         if (rx_bytes & 0x7F && !(rx_bytes & 0x80))
         {
             // Read data length. The first byte in the FIFO is the length.
-            packet.length = spi_read_reg(CC1101_RXFIFO);
+            packet.length = this.spi_read_reg(CC1101_RXFIFO);
 
             // If packet is too long
             if (packet.length > CC1101_MAX_PACKET_SIZE || packet.length == 0)
@@ -774,9 +774,9 @@ module.exports =
                 let status = [];
 
                 // Read data packet
-                packet.data = spi_read_burst_reg(CC1101_RXFIFO, packet.length);
+                packet.data = this.spi_read_burst_reg(CC1101_RXFIFO, packet.length);
                 // Read RSSI, LQI and CRC_OK
-                status = spi_read_burst_reg(CC1101_RXFIFO, status, 2);
+                status = this.spi_read_burst_reg(CC1101_RXFIFO, status, 2);
 
                 packet.rssi = status[0];
                 packet.lqi = status[1] & 0x7F;
@@ -800,7 +800,7 @@ module.exports =
     cc1101_read_status: function(addr)
     {
         // Write 0x00 as a dummy byte, we are interested in the read value
-        return spi_write_reg(addr | READ_BURST, 0x00);
+        return this.spi_write_reg(addr | READ_BURST, 0x00);
     },
 
     /**
@@ -810,7 +810,7 @@ module.exports =
      */
     cc1101_is_packet_sent_available: function()
     {
-        let status = cc1101_read_status(CC1101_PKTSTATUS);
+        let status = this.cc1101_read_status(CC1101_PKTSTATUS);
 
         // If GDO0 is set a packet was sent or received
         if(status & 0x01 == 1)
@@ -820,23 +820,4 @@ module.exports =
 
         return false;
     }
-
-    /*
-    return
-    {
-        cc1101_init: cc1101_init,
-        cc1101_strobe_cmd: cc1101_strobe_cmd,
-        cc1101_reg_config_settings: cc1101_reg_config_settings,
-        cc1101_set_rx: cc1101_set_rx,
-        cc1101_set_tx: cc1101_set_tx,
-        cc1101_set_mhz: cc1101_set_mhz,
-        cc1101_send_data: cc1101_send_data,
-        cc1101_set_rx_bw: cc1101_set_rx_bw,
-        cc1101_set_channel: cc1101_set_channel,
-        cc1101_bytes_in_rx_fifo: cc1101_bytes_in_rx_fifo,
-        cc1101_bytes_in_tx_fifo: cc1101_bytes_in_tx_fifo,
-        cc1101_read_data: cc1101_read_data,
-        cc1101_read_status: cc1101_read_status,
-        cc1101_is_packet_sent_available: cc1101_is_packet_sent_available
-    }*/
 }
