@@ -202,7 +202,7 @@ bool cc1101_reg_config_settings(void)
     spi_write_reg(CC1101_IOCFG0,   0x06);  	// Asserts GDO0 when sync word has been sent/received, and de-asserts at the end of the packet 
     spi_write_reg(CC1101_PKTCTRL1, 0x04);   // Two status bytes will be appended to the payload of the packet, including RSSI, LQI and CRC OK
 											// No address check
-    spi_write_reg(CC1101_PKTCTRL0, 0x05);	// Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
+    spi_write_reg(CC1101_PKTCTRL0, 0x01);	// Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
     spi_write_reg(CC1101_ADDR,     0x00);	// Address used for packet filtration (not used here)
     spi_write_reg(CC1101_PKTLEN,   0xFF); 	// 255 bytes max packet length allowed
 	spi_write_reg(CC1101_MCSM1,    0x3F);	// After TX go to RX, after RX stay in RX, CCA_MODE If RSSI below threshold unless currently receiving a packet
@@ -215,7 +215,7 @@ bool cc1101_reg_config_settings(void)
 
     // Read some values to check that they were written
     uint8_t val;
-    if((val = spi_read_reg(CC1101_PKTCTRL0)) != 0x05)
+    if((val = spi_read_reg(CC1101_PKTCTRL0)) != 0x01)
     {
         ESP_LOGE(TAG, "Error on CC1101_PKTCTRL0. Read: %d", val);
         return false;
@@ -296,7 +296,7 @@ bool cc1101_send_data(uint8_t *tx_buffer, uint8_t size)
     
     // Wait for GDO0 to be set, indicates sync was transmitted 
     int64_t start = esp_timer_get_time();
-    while(!cc1101_is_packet_sent_available())
+    while(cc1101_is_packet_sent_available())
     {
         if(esp_timer_get_time() - start > (TIMEOUT_SPI*1000))
         {
@@ -308,7 +308,7 @@ bool cc1101_send_data(uint8_t *tx_buffer, uint8_t size)
 
     // Wait for GDO0 to be cleared, indicates end of packet
     start = esp_timer_get_time();
-    while(cc1101_is_packet_sent_available())
+    while(!cc1101_is_packet_sent_available())
     {
         if(esp_timer_get_time() - start > (TIMEOUT_SPI*1000))
         {
@@ -371,13 +371,27 @@ int8_t cc1101_bytes_in_tx_fifo(void)
     return -1;
 }
 
+bool cc1101_is_rx_overflow(void)
+{
+    if(cc1101_bytes_in_rx_fifo() & 0x80)
+    {
+        return true;
+    }
+    return false;
+}
+
+void cc1101_flush_rx_fifo(void)
+{
+    cc1101_strobe_cmd(CC1101_SFRX);
+}
+
 bool cc1101_read_data(cc1101_packet_t* packet)
 {
     // Read the number of bytes in the RX FIFO
     unsigned int rx_bytes = cc1101_bytes_in_rx_fifo();
 
-    // Any byte waiting to be read and no overflow?
-    if (rx_bytes & 0x7F && !(rx_bytes & 0x80))
+    // Any byte waiting to be read?
+    if (rx_bytes & 0x7F)
     {
         // Read data length. The first byte in the FIFO is the length.
         packet->length = spi_read_reg(CC1101_RXFIFO);
@@ -387,6 +401,12 @@ bool cc1101_read_data(cc1101_packet_t* packet)
         {
             ESP_LOGW(TAG, "Length error: %d", packet->length);
             packet->length = 0;
+
+            // Overflow? Clear the buffer
+            if(rx_bytes & 0x80)
+            {
+                cc1101_set_rx(true);
+            }
             return false;
         }
         else
@@ -395,18 +415,34 @@ bool cc1101_read_data(cc1101_packet_t* packet)
 
             // Read data packet
             spi_read_burst_reg(CC1101_RXFIFO, packet->data, packet->length);
-            // Read RSSI, LQI and CRC_OK
+            // Read RSSI and LQI
             spi_read_burst_reg(CC1101_RXFIFO, status, 2);
 
             packet->rssi = status[0];
             packet->lqi = status[1] & 0x7F;
-            packet->crc_ok = status[1] & 0x80;
+
+            // The packet->data contains the data but the data[0] has the status bytes that
+            //  is received when the spi_read_burst_reg() addresses the RX FIFO so we have to
+            //  shift everything one place to the left
+            memmove(packet->data, packet->data + 1, packet->length);
+
+            // Overflow? Clear the buffer
+            if(rx_bytes & 0x80)
+            {
+                cc1101_set_rx(true);
+            }
 
             return true;
         }
     }
     else
     {
+        // Overflow? Clear the buffer
+        if(rx_bytes & 0x80)
+        {
+            cc1101_set_rx(true);
+        }
+
         packet->length = 0;
         return false;
     }
@@ -438,8 +474,8 @@ bool cc1101_is_packet_sent_available(void)
     // If GDO0 is set a packet was sent or received
     if(status & 0x01)
     {
-        return true;
+        return false;
     }
 
-    return false;
+    return true;
 }

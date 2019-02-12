@@ -118,7 +118,7 @@ axtec_packet_error_t axtec_packet_decode(axtec_decoded_packet_t* packet, uint8_t
     else
     {
         // Compute the checksum with the data bytes
-        uint8_t checksum = compute_checksum(packet->data, packet->length);
+        uint8_t checksum = compute_checksum(packet->data, packet->length) + data[index + 1];
 
         // Valid checksum?
         if(checksum == 0xFF)

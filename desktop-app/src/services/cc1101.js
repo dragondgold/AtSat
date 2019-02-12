@@ -370,7 +370,7 @@ module.exports =
         this.spi_write_reg(CC1101_IOCFG0,   0x06);      // Asserts GDO0 when sync word has been sent/received, and de-asserts at the end of the packet 
         this.spi_write_reg(CC1101_PKTCTRL1, 0x04);      // Two status bytes will be appended to the payload of the packet, including RSSI, LQI and CRC OK
                                                         // No address check
-        this.spi_write_reg(CC1101_PKTCTRL0, 0x05);	    // Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
+        this.spi_write_reg(CC1101_PKTCTRL0, 0x01);	    // Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
         this.spi_write_reg(CC1101_ADDR,     0x00);	    // Address used for packet filtration (not used here)
         this.spi_write_reg(CC1101_PKTLEN,   0xFF); 	    // 255 bytes max packet length allowed
         this.spi_write_reg(CC1101_MCSM1,    0x3F);
@@ -409,7 +409,7 @@ module.exports =
                             CC1101_IOCFG2, 0x2E,
                             CC1101_IOCFG0, 0x06,
                             CC1101_PKTCTRL1, 0x04,
-                            CC1101_PKTCTRL0, 0x05,
+                            CC1101_PKTCTRL0, 0x01,
                             CC1101_ADDR, 0x00,
                             CC1101_PKTLEN, 0xFF,
                             CC1101_FREQ2, 0x23,
@@ -510,8 +510,8 @@ module.exports =
         //console.log(TAG + ": " + "CC1101 FSM: %d", this.cc1101_read_status(CC1101_MARCSTATE));
         //console.log(TAG + ": " + "TX FIFO after: %d", this.cc1101_bytes_in_tx_fifo());
         
-        //while(!this.cc1101_is_packet_sent_available());
         //while(this.cc1101_is_packet_sent_available());
+        //while(!this.cc1101_is_packet_sent_available());
 
         return true;
     },
@@ -654,6 +654,24 @@ module.exports =
     },
 
     /**
+     * Check if the RX FIFO has overflowed
+     * @returns true if overflow occurred
+     */
+    cc1101_is_rx_overflow: function()
+    {
+        if(this.cc1101_bytes_in_rx_fifo() & 0x80)
+        {
+            return true;
+        }
+        return false;
+    },
+
+    cc1101_flush_rx_fifo: function()
+    {
+        this.cc1101_strobe_cmd(CC1101_SFRX);
+    },
+
+    /**
      * Read data from the RX FIFO
      * @returns packet read
      */
@@ -666,15 +684,14 @@ module.exports =
             data: [],
             rssi: 0,
             lqi: 0,
-            crc_ok: false,
             valid: false,
         }
 
         // Read the number of bytes in the RX FIFO
         let rx_bytes = this.cc1101_bytes_in_rx_fifo();
 
-        // Any byte waiting to be read and no overflow?
-        if (rx_bytes & 0x7F && !(rx_bytes & 0x80))
+        // Any byte waiting to be read?
+        if (rx_bytes & 0x7F)
         {
             // Read data length. The first byte in the FIFO is the length.
             packet.length = this.spi_read_reg(CC1101_RXFIFO);
@@ -684,6 +701,12 @@ module.exports =
             {
                 console.warn(TAG + ":" + "Length error: %d", packet.length);
                 packet.length = 0;
+
+                // Overflow? Clear the buffer
+                if(rx_bytes & 0x80)
+                {
+                    this.cc1101_set_rx(true);
+                }
                 return packet;
             }
             else
@@ -692,19 +715,35 @@ module.exports =
 
                 // Read data packet
                 packet.data = this.spi_read_burst_reg(CC1101_RXFIFO, packet.length);
-                // Read RSSI, LQI and CRC_OK
+                // Read RSSI and LQI
                 status = this.spi_read_burst_reg(CC1101_RXFIFO, status, 2);
 
                 packet.rssi = status[0];
                 packet.lqi = status[1] & 0x7F;
-                packet.crc_ok = status[1] & 0x80;
                 packet.valid = true;
+
+                // The packet->data contains the data but the data[0] has the status bytes that
+                //  is received when the spi_read_burst_reg() addresses the RX FIFO so we have to
+                //  shift everything one place to the left
+                packet.data = packet.data.splice(1);
+
+                // Overflow? Clear the buffer
+                if(rx_bytes & 0x80)
+                {
+                    this.cc1101_set_rx(true);
+                }
 
                 return packet;
             }
         }
         else
         {
+            // Overflow? Clear the buffer
+            if(rx_bytes & 0x80)
+            {
+                this.cc1101_set_rx(true);
+            }
+
             return packet;
         }
     },
@@ -732,9 +771,9 @@ module.exports =
         // If GDO0 is set a packet was sent or received
         if(status & 0x01 == 1)
         {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 }
