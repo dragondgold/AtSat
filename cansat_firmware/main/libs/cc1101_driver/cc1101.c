@@ -172,18 +172,18 @@ bool cc1101_reg_config_settings(void)
     spi_write_reg(CC1101_FSCTRL0, 0x00);
 
     // PA Table for 915 MHz in the order -30, -20, -15, -10, 0, 5, 7, and 10 dbm
-    uint8_t pa_table_915[] = {0x03,0x0E,0x1E,0x27,0x8E,0x84,0xCC,0xC3};
+    uint8_t pa_table_915[] = {0x8E,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
     spi_write_burst_reg(CC1101_PATABLE, pa_table_915, sizeof(pa_table_915));
  
     spi_write_reg(CC1101_MDMCFG4,  0xF8);   // DRATE_E = 8
     spi_write_reg(CC1101_MDMCFG3,  0x83);   // With DRATE_E on MDMCFG4 = 8 this gives 9600 bauds 
     spi_write_reg(CC1101_MDMCFG2,  0x13);   // 30/32 sync word, no Manchester encoding, GFSK modulation, DC filter before modulator
-    spi_write_reg(CC1101_MDMCFG1,  0x00);   // 2 preamble bytes, no forward error correction
+    spi_write_reg(CC1101_MDMCFG1,  0x22);   // 4 preamble bytes, no forward error correction
     spi_write_reg(CC1101_MDMCFG0,  0xF8);   // 200 kHz channel spacing together with CHANSPC_E bits in MDMCFG1
     spi_write_reg(CC1101_CHANNR,   channel);// Channel number
     spi_write_reg(CC1101_DEVIATN,  0x15);
     spi_write_reg(CC1101_FREND1,   0x56);
-    spi_write_reg(CC1101_FREND0,   0x14);
+    spi_write_reg(CC1101_FREND0,   0x10);   
     spi_write_reg(CC1101_MCSM0,    0x18);
     spi_write_reg(CC1101_FOCCFG,   0x16);
     spi_write_reg(CC1101_BSCFG,    0x6C);
@@ -205,6 +205,8 @@ bool cc1101_reg_config_settings(void)
     spi_write_reg(CC1101_PKTCTRL0, 0x05);	// Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
     spi_write_reg(CC1101_ADDR,     0x00);	// Address used for packet filtration (not used here)
     spi_write_reg(CC1101_PKTLEN,   0xFF); 	// 255 bytes max packet length allowed
+	spi_write_reg(CC1101_MCSM1,    0x3F);	// After TX go to RX, after RX stay in RX, CCA_MODE If RSSI below threshold unless currently receiving a packet
+
 
     // Set frequency to 915 MHz (values taken from SmartRF Studio)
     spi_write_reg(CC1101_FREQ2, 0x23);

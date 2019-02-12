@@ -201,40 +201,6 @@ module.exports =
     },
 
     /**
-     * Wait for a to return the passed value
-     * @param {Function} func from which to evaluate the return value
-     * @param {*} value value that must be satisfied
-     * @param {*} timeout timeout in ms
-     * @returns {Promise} promise that is resolve or rejected
-     */
-    wait_for_condition: function(func, value, timeout)
-    {
-        return new Promise(function(resolve, reject)
-        {
-            let count = 0;
-
-            // Execute every 1 ms
-            let interval = setInterval(function()
-            {
-                ++count;
-                // Wait for to return the desired value
-                if(func() === value)
-                {
-                    clearInterval(interval);
-                    resolve();
-                    return;
-                }
-                else if(count > timeout)
-                {
-                    clearInterval(interval);
-                    reject();
-                    return;
-                }
-            }, 1);
-        });
-    },
-
-    /**
      * Write a register
      * @param {*} addr Address of the register
      * @param {*} value Value to write in the register
@@ -375,17 +341,17 @@ module.exports =
         this.spi_write_reg(CC1101_FSCTRL0, 0x00);
         
         // PA Table for 915 MHz in the order -30, -20, -15, -10, 0, 5, 7, and 10 dbm
-        this.spi_write_burst_reg(CC1101_PATABLE, [0x03,0x0E,0x1E,0x27,0x8E,0x84,0xCC,0xC3]);
+        this.spi_write_burst_reg(CC1101_PATABLE, [0x8E,0x00,0x00,0x00,0x00,0x00,0x00,0x00]);
 
         this.spi_write_reg(CC1101_MDMCFG4,  0xF8);   // DRATE_E = 8
         this.spi_write_reg(CC1101_MDMCFG3,  0x83);   // With DRATE_E on MDMCFG4 = 8 this gives 9600 bauds 
         this.spi_write_reg(CC1101_MDMCFG2,  0x13);   // 30/32 sync word, no Manchester encoding, GFSK modulation, DC filter before modulator
-        this.spi_write_reg(CC1101_MDMCFG1,  0x00);   // 2 preamble bytes, no forward error correction
+        this.spi_write_reg(CC1101_MDMCFG1,  0x22);   // 4 preamble bytes, no forward error correction
         this.spi_write_reg(CC1101_MDMCFG0,  0xF8);   // 200 kHz channel spacing together with CHANSPC_E bits in MDMCFG1
         this.spi_write_reg(CC1101_CHANNR,   channel);// Channel number
         this.spi_write_reg(CC1101_DEVIATN,  0x15);
         this.spi_write_reg(CC1101_FREND1,   0x56);
-        this.spi_write_reg(CC1101_FREND0,   0x14);      // Set PA_TABLE to index 4 for 0 dbm output power
+        this.spi_write_reg(CC1101_FREND0,   0x10);
         this.spi_write_reg(CC1101_MCSM0,    0x18);
         this.spi_write_reg(CC1101_FOCCFG,   0x16);
         this.spi_write_reg(CC1101_BSCFG,    0x6C);
@@ -407,6 +373,7 @@ module.exports =
         this.spi_write_reg(CC1101_PKTCTRL0, 0x05);	    // Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
         this.spi_write_reg(CC1101_ADDR,     0x00);	    // Address used for packet filtration (not used here)
         this.spi_write_reg(CC1101_PKTLEN,   0xFF); 	    // 255 bytes max packet length allowed
+        this.spi_write_reg(CC1101_MCSM1,    0x3F);
 
         // Set frequency to 915 MHz (values taken from SmartRF Studio)
         this.spi_write_reg(CC1101_FREQ2, 0x23);
@@ -419,12 +386,12 @@ module.exports =
                             CC1101_MDMCFG4, 0xF8,
                             CC1101_MDMCFG3, 0x83,
                             CC1101_MDMCFG2, 0x13,
-                            CC1101_MDMCFG1, 0x00,
+                            CC1101_MDMCFG1, 0x22,
                             CC1101_MDMCFG0, 0xF8,
                             CC1101_CHANNR, channel,
                             CC1101_DEVIATN, 0x15,
                             CC1101_FREND1, 0x56,
-                            CC1101_FREND0, 0x14,
+                            CC1101_FREND0, 0x10,
                             CC1101_MCSM0, 0x18,
                             CC1101_FOCCFG, 0x16,
                             CC1101_BSCFG, 0x6C,
@@ -447,7 +414,8 @@ module.exports =
                             CC1101_PKTLEN, 0xFF,
                             CC1101_FREQ2, 0x23,
                             CC1101_FREQ1, 0x31,
-                            CC1101_FREQ0, 0x3B
+                            CC1101_FREQ0, 0x3B,
+                            CC1101_MCSM1, 0x3F
                         ];
 
         for(let n = 0; n < registers.length - 1; n += 2)
@@ -520,56 +488,32 @@ module.exports =
      */
     cc1101_send_data: function(tx_buffer)
     {
-        console.log("Packet size: " + tx_buffer.length);
+        //console.log("Packet size: " + tx_buffer.length);
         if(tx_buffer.length > 61)
         {
             console.warn(TAG + ":" + "Packet too large: %d", tx_buffer.length);
-            return new Promise(function(resolve, reject)
-            {
-                reject();
-            });
+            return false;
         }
 
         // Flush the TX FIFO (go into IDLE first)
         this.cc1101_strobe_cmd(CC1101_SIDLE);
         this.cc1101_strobe_cmd(CC1101_SFTX);
-        console.log(TAG + ": " + "TX FIFO before: %d", this.cc1101_bytes_in_tx_fifo());
+        //console.log(TAG + ": " + "TX FIFO before: %d", this.cc1101_bytes_in_tx_fifo());
 
         this.spi_write_reg(CC1101_TXFIFO, tx_buffer.length);         // Write packet length
         this.spi_write_burst_reg(CC1101_TXFIFO, tx_buffer);          // Write data
-        console.log(TAG + ": " + "TX FIFO after: %d", this.cc1101_bytes_in_tx_fifo());
+        //console.log(TAG + ": " + "TX FIFO after: %d", this.cc1101_bytes_in_tx_fifo());
 
         this.cc1101_set_tx();                                        // Enter TX mode to send the data
 
         // Internal CC1101 state machine status to check that TX mode has started
-        console.log(TAG + ": " + "CC1101 FSM: %d", this.cc1101_read_status(CC1101_MARCSTATE));
-        console.log(TAG + ": " + "TX FIFO after: %d", this.cc1101_bytes_in_tx_fifo());
+        //console.log(TAG + ": " + "CC1101 FSM: %d", this.cc1101_read_status(CC1101_MARCSTATE));
+        //console.log(TAG + ": " + "TX FIFO after: %d", this.cc1101_bytes_in_tx_fifo());
         
-        let self = this;
-        return new Promise(function(resolve, reject)
-        {
-            // Wait for GDO0 to be set, indicates sync was transmitted
-            self.wait_for_condition(self.cc1101_is_packet_sent_available.bind(self), true, TIMEOUT_SPI).then(function()
-            {
-                // Wait for GDO0 to be cleared, indicates end of packet
-                self.wait_for_condition(self.cc1101_is_packet_sent_available.bind(self), false, TIMEOUT_SPI).then(function()
-                {
-                    // Packet sent correctly
-                    resolve();
-                })
-                .catch(function()
-                {
-                    // Failed to wait for end of packet
-                    console.error(TAG + ": " + "Failed waiting end of packet");
-                    reject();
-                });
-            })
-            .catch(function()
-            {
-                console.error(TAG + ": " + "Failed waiting sync");
-                reject();
-            });
-        });
+        //while(!this.cc1101_is_packet_sent_available());
+        //while(this.cc1101_is_packet_sent_available());
+
+        return true;
     },
 
     /**
