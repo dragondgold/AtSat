@@ -131,13 +131,16 @@ module.exports =
     set_cs_level: function(level)
     {
         // Set CS to 1 or 0
-        if(true)
+        if(level)
         {
-            // Set to 1
+            let cmd_string = " -gpioW=gp0high";
+            let output = execSync(MCP2210CLI_PATH + cmd_string);
         }
         else
         {
             // Set to 0
+            let cmd_string = " -gpioW=gp0low";
+            let output = execSync(MCP2210CLI_PATH + cmd_string);
         }
     },
 
@@ -149,8 +152,20 @@ module.exports =
      */
     mcp2210_transfer_data: function(data)
     {
-        let output = execSync(MCP2210CLI_PATH + " -spitxfer=0B,06 -bd=4000000 -cs=gp0 -idle=ffff -actv0000 -csdly=1000 -actv=0000");
+        let data_string = "";
+        for(let n = 0; n < data.length; ++n)
+        {
+            data_string += data[n].toString(16) + ",";
+        }
+        data_string = data_string.substring(0, data_string.lastIndexOf(","));
+        //console.log("data_string: " + data_string);
 
+        let cmd_string = " -spitxfer=" + data_string + " -bd=4000000 -cs=gp0 -idle=ffff -actv=0000 -csdly=1";
+        //console.log("Data: " + data);
+        //console.log("CMD:" + cmd_string);
+        let output = execSync(MCP2210CLI_PATH + cmd_string);
+
+        //console.log(output.toString());
         let lines = output.toString().split(">");
 
         let obj = 
@@ -164,14 +179,15 @@ module.exports =
         {
             return obj;
         }
+        //console.log("Lines: " + lines);
 
         for(let n = 0; n < lines.length; ++n)
         {
             // This line contains the RxData?
-            if(lines[n].indexOf("RxData:") > 0)
+            if(lines[n].indexOf("RxData:") >= 0)
             {
                 // Get the chunk of the string where the received bytes are
-                let data_lines = line.substring(line.indexOf(" ") + 1).split(",");
+                let data_lines = lines[n].substring(lines[n].indexOf(" ") + 1).split(",");
 
                 // Invalid
                 if(data_lines.length == 0)
@@ -181,11 +197,16 @@ module.exports =
 
                 for(let line = 0; line < data_lines.length; ++line)
                 {
-                    obj.data.push(parseInt(line, 16));
+                    //console.log("Data line: " + data_lines[line]);
+                    obj.data.push(parseInt(data_lines[line], 16));
                 }
 
                 obj.error = false;
                 return obj;
+            }
+            else
+            {
+                //console.error("Couldn't find RxData:");
             }
         }
 
@@ -354,7 +375,7 @@ module.exports =
     {
         this.set_cs_level(false);
         this.spi_send_cmd(strobe);
-        this.set_cs_level(1);
+        this.set_cs_level(true);
     },
 
     /**
@@ -414,21 +435,21 @@ module.exports =
         this.spi_write_reg(CC1101_AGCCTRL2, 0xC7);
         this.spi_write_reg(CC1101_AGCCTRL1, 0x00);
         this.spi_write_reg(CC1101_AGCCTRL0, 0xB2);
-        this.spi_write_reg(CC1101_FSCAL3,   0xE9);   // Value given by TI SmartRF Studio
-        this.spi_write_reg(CC1101_FSCAL2,   0x2A);   // Value given by TI SmartRF Studio
-        this.spi_write_reg(CC1101_FSCAL1,   0x00);   // Value given by TI SmartRF Studio
-        this.spi_write_reg(CC1101_FSCAL0,   0x1F);   // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_FSCAL3,   0xE9);      // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_FSCAL2,   0x2A);      // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_FSCAL1,   0x00);      // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_FSCAL0,   0x1F);      // Value given by TI SmartRF Studio
         this.spi_write_reg(CC1101_FSTEST,   0x59);   
-        this.spi_write_reg(CC1101_TEST2,    0x81);   // Value given by TI SmartRF Studio
-        this.spi_write_reg(CC1101_TEST1,    0x35);   // Value given by TI SmartRF Studio
-        this.spi_write_reg(CC1101_TEST0,    0x09);   // Value given by TI SmartRF Studio
-        this.spi_write_reg(CC1101_IOCFG2,   0x2E);   // Serial clock is synchronous to the data in synchronous serial mode
-        this.spi_write_reg(CC1101_IOCFG0,   0x06);  	// Asserts GDO0 when sync word has been sent/received, and de-asserts at the end of the packet 
-        this.spi_write_reg(CC1101_PKTCTRL1, 0x04);   // Two status bytes will be appended to the payload of the packet, including RSSI, LQI and CRC OK
-                                                // No address check
-        this.spi_write_reg(CC1101_PKTCTRL0, 0x05);	// Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
-        this.spi_write_reg(CC1101_ADDR,     0x00);	// Address used for packet filtration (not used here)
-        this.spi_write_reg(CC1101_PKTLEN,   0xFF); 	// 255 bytes max packet length allowed
+        this.spi_write_reg(CC1101_TEST2,    0x81);      // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_TEST1,    0x35);      // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_TEST0,    0x09);      // Value given by TI SmartRF Studio
+        this.spi_write_reg(CC1101_IOCFG2,   0x2E);      // Serial clock is synchronous to the data in synchronous serial mode
+        this.spi_write_reg(CC1101_IOCFG0,   0x06);      // Asserts GDO0 when sync word has been sent/received, and de-asserts at the end of the packet 
+        this.spi_write_reg(CC1101_PKTCTRL1, 0x04);      // Two status bytes will be appended to the payload of the packet, including RSSI, LQI and CRC OK
+                                                        // No address check
+        this.spi_write_reg(CC1101_PKTCTRL0, 0x05);	    // Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
+        this.spi_write_reg(CC1101_ADDR,     0x00);	    // Address used for packet filtration (not used here)
+        this.spi_write_reg(CC1101_PKTLEN,   0xFF); 	    // 255 bytes max packet length allowed
 
         // Read some values to check that they were written
         let val = 0;
@@ -475,7 +496,13 @@ module.exports =
             console.error(TAG + ":" + "Couldn't reset CC1101");
             return false;
         }
+
         return this.cc1101_reg_config_settings(pa_level);
+    },
+
+    cc1101_set_cli_path(path)
+    {
+        MCP2210CLI_PATH = path;
     },
 
     /**
@@ -555,6 +582,7 @@ module.exports =
      */
     cc1101_send_data: function(tx_buffer)
     {
+        console.log("Packet size: " + tx_buffer.length);
         if(tx_buffer.length > 61)
         {
             console.warn(TAG + ":" + "Packet too large: %d", tx_buffer.length);
@@ -567,24 +595,26 @@ module.exports =
         // Flush the TX FIFO (go into IDLE first)
         this.cc1101_strobe_cmd(CC1101_SIDLE);
         this.cc1101_strobe_cmd(CC1101_SFTX);
-        console.log(TAG + ":" + "TX FIFO before: %d", this.cc1101_bytes_in_tx_fifo());
+        console.log(TAG + ": " + "TX FIFO before: %d", this.cc1101_bytes_in_tx_fifo());
 
-        this.spi_write_reg(CC1101_TXFIFO, size);                     // Write packet length
+        this.spi_write_reg(CC1101_TXFIFO, tx_buffer.length);         // Write packet length
         this.spi_write_burst_reg(CC1101_TXFIFO, tx_buffer);          // Write data
-        console.log(TAG + ":" + "TX FIFO after: %d", this.cc1101_bytes_in_tx_fifo());
+        console.log(TAG + ": " + "TX FIFO after: %d", this.cc1101_bytes_in_tx_fifo());
 
         this.cc1101_set_tx();                                        // Enter TX mode to send the data
 
         // Internal CC1101 state machine status to check that TX mode has started
-        console.log(TAG + ":" + "CC1101 FSM: %d", this.cc1101_read_status(CC1101_MARCSTATE));
+        console.log(TAG + ": " + "CC1101 FSM: %d", this.cc1101_read_status(CC1101_MARCSTATE));
+        console.log(TAG + ": " + "TX FIFO after: %d", this.cc1101_bytes_in_tx_fifo());
         
+        let self = this;
         return new Promise(function(resolve, reject)
         {
             // Wait for GDO0 to be set, indicates sync was transmitted
-            this.wait_for_condition(this.cc1101_is_packet_sent_available, true, TIMEOUT_SPI).then(function()
+            self.wait_for_condition(self.cc1101_is_packet_sent_available.bind(self), true, TIMEOUT_SPI).then(function()
             {
                 // Wait for GDO0 to be cleared, indicates end of packet
-                this.wait_for_condition(this.cc1101_is_packet_sent_available, false, TIMEOUT_SPI).then(function()
+                self.wait_for_condition(self.cc1101_is_packet_sent_available.bind(self), false, TIMEOUT_SPI).then(function()
                 {
                     // Packet sent correctly
                     resolve();
@@ -592,13 +622,13 @@ module.exports =
                 .catch(function()
                 {
                     // Failed to wait for end of packet
-                    console.warn(TAG + ":" + "Failed waiting end of packet");
+                    console.error(TAG + ":" + "Failed waiting end of packet");
                     reject();
                 });
             })
             .catch(function()
             {
-                console.warn(TAG + ":" + "Failed waiting sync");
+                console.error(TAG + ":" + "Failed waiting sync");
                 reject();
             });
         });
