@@ -106,19 +106,6 @@ const CS_WAIT_TIME = 2;             // Wait 2 ms when setting CS low
 let MCP2210CLI_PATH = "";
 let channel = 1;
 let rx_bw = 0x08;
-let F2 = 16;
-let F1 = 176;
-let F0 = 113;
-let pa_level = 10;
-
-const PA_TABLE10  = [0x00,0xC0,0x00,0x00,0x00,0x00,0x00,0x00];
-const PA_TABLE7   = [0x00,0xC8,0x00,0x00,0x00,0x00,0x00,0x00];
-const PA_TABLE5   = [0x00,0x84,0x00,0x00,0x00,0x00,0x00,0x00];
-const PA_TABLE0   = [0x00,0x60,0x00,0x00,0x00,0x00,0x00,0x00];
-const PA_TABLE_10 = [0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x00];
-const PA_TABLE_15 = [0x00,0x1D,0x00,0x00,0x00,0x00,0x00,0x00];
-const PA_TABLE_20 = [0x00,0x0E,0x00,0x00,0x00,0x00,0x00,0x00];
-const PA_TABLE_30 = [0x00,0x12,0x00,0x00,0x00,0x00,0x00,0x00];
 
 const TAG = "CC1101";
 
@@ -380,47 +367,17 @@ module.exports =
 
     /**
      * Set the default configuration for this driver
-     * @param {*} pa PA level. The valid values are 10, 7, 5, 0, -10, -15, -20 and -30
      * @returns true if configuration was successful
      */
-    cc1101_reg_config_settings: function(pa)
+    cc1101_reg_config_settings: function()
     {
         this.spi_write_reg(CC1101_FSCTRL1, 0x06);
         this.spi_write_reg(CC1101_FSCTRL0, 0x00);
-        this.spi_write_reg(CC1101_FREQ2, F2);
-        this.spi_write_reg(CC1101_FREQ1, F1);
-        this.spi_write_reg(CC1101_FREQ0, F0);
         
-        switch(pa)
-        {
-            case 10:
-                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE10);
-                break;
-            case 7:
-                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE7);
-                break;
-            case 5:
-                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE5);
-                break;        
-            case 0:
-                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE0);
-                break;
-            case -10:
-                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_10);
-                break;
-            case -15:
-                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_15);
-                break;
-            case -20:
-                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_20);
-                break;
-            case -30:
-                this.spi_write_burst_reg(CC1101_PATABLE, PA_TABLE_30);
-                break;
-        }
-        pa_level = pa;
-    
-        this.spi_write_reg(CC1101_MDMCFG4,  rx_bw);  // DRATE_E = 8
+        // PA Table for 915 MHz in the order -30, -20, -15, -10, 0, 5, 7, and 10 dbm
+        this.spi_write_burst_reg(CC1101_PATABLE, [0x03,0x0E,0x1E,0x27,0x8E,0x84,0xCC,0xC3]);
+
+        this.spi_write_reg(CC1101_MDMCFG4,  0xF8);   // DRATE_E = 8
         this.spi_write_reg(CC1101_MDMCFG3,  0x83);   // With DRATE_E on MDMCFG4 = 8 this gives 9600 bauds 
         this.spi_write_reg(CC1101_MDMCFG2,  0x13);   // 30/32 sync word, no Manchester encoding, GFSK modulation, DC filter before modulator
         this.spi_write_reg(CC1101_MDMCFG1,  0x00);   // 2 preamble bytes, no forward error correction
@@ -428,13 +385,13 @@ module.exports =
         this.spi_write_reg(CC1101_CHANNR,   channel);// Channel number
         this.spi_write_reg(CC1101_DEVIATN,  0x15);
         this.spi_write_reg(CC1101_FREND1,   0x56);
-        this.spi_write_reg(CC1101_FREND0,   0x11);
+        this.spi_write_reg(CC1101_FREND0,   0x14);      // Set PA_TABLE to index 4 for 0 dbm output power
         this.spi_write_reg(CC1101_MCSM0,    0x18);
         this.spi_write_reg(CC1101_FOCCFG,   0x16);
-        this.spi_write_reg(CC1101_BSCFG,    0x1C);
-        this.spi_write_reg(CC1101_AGCCTRL2, 0xC7);
-        this.spi_write_reg(CC1101_AGCCTRL1, 0x00);
-        this.spi_write_reg(CC1101_AGCCTRL0, 0xB2);
+        this.spi_write_reg(CC1101_BSCFG,    0x6C);
+        this.spi_write_reg(CC1101_AGCCTRL2, 0x03);
+        this.spi_write_reg(CC1101_AGCCTRL1, 0x40);
+        this.spi_write_reg(CC1101_AGCCTRL0, 0x91);
         this.spi_write_reg(CC1101_FSCAL3,   0xE9);      // Value given by TI SmartRF Studio
         this.spi_write_reg(CC1101_FSCAL2,   0x2A);      // Value given by TI SmartRF Studio
         this.spi_write_reg(CC1101_FSCAL1,   0x00);      // Value given by TI SmartRF Studio
@@ -451,27 +408,56 @@ module.exports =
         this.spi_write_reg(CC1101_ADDR,     0x00);	    // Address used for packet filtration (not used here)
         this.spi_write_reg(CC1101_PKTLEN,   0xFF); 	    // 255 bytes max packet length allowed
 
-        // Read some values to check that they were written
-        let val = 0;
-        if((val = this.spi_read_reg(CC1101_PKTCTRL0)) != 0x05)
+        // Set frequency to 915 MHz (values taken from SmartRF Studio)
+        this.spi_write_reg(CC1101_FREQ2, 0x23);
+        this.spi_write_reg(CC1101_FREQ1, 0x31);
+        this.spi_write_reg(CC1101_FREQ0, 0x3B);
+
+        // Check the registers values
+        let registers = [   CC1101_FSCTRL1, 0x06,
+                            CC1101_FSCTRL0, 0x00,
+                            CC1101_MDMCFG4, 0xF8,
+                            CC1101_MDMCFG3, 0x83,
+                            CC1101_MDMCFG2, 0x13,
+                            CC1101_MDMCFG1, 0x00,
+                            CC1101_MDMCFG0, 0xF8,
+                            CC1101_CHANNR, channel,
+                            CC1101_DEVIATN, 0x15,
+                            CC1101_FREND1, 0x56,
+                            CC1101_FREND0, 0x14,
+                            CC1101_MCSM0, 0x18,
+                            CC1101_FOCCFG, 0x16,
+                            CC1101_BSCFG, 0x6C,
+                            CC1101_AGCCTRL2, 0x03,
+                            CC1101_AGCCTRL1, 0x40,
+                            CC1101_AGCCTRL0, 0x91,
+                            CC1101_FSCAL3, 0xE9,
+                            CC1101_FSCAL2, 0x2A,
+                            CC1101_FSCAL1, 0x00,
+                            CC1101_FSCAL0, 0x1F,
+                            CC1101_FSTEST, 0x59,
+                            CC1101_TEST2, 0x81,
+                            CC1101_TEST1, 0x35,
+                            CC1101_TEST0, 0x09,
+                            CC1101_IOCFG2, 0x2E,
+                            CC1101_IOCFG0, 0x06,
+                            CC1101_PKTCTRL1, 0x04,
+                            CC1101_PKTCTRL0, 0x05,
+                            CC1101_ADDR, 0x00,
+                            CC1101_PKTLEN, 0xFF,
+                            CC1101_FREQ2, 0x23,
+                            CC1101_FREQ1, 0x31,
+                            CC1101_FREQ0, 0x3B
+                        ];
+
+        for(let n = 0; n < registers.length - 1; n += 2)
         {
-            console.error(TAG + ":" + "Error on CC1101_PKTCTRL0. Read: %d", val);
-            return false;
-        }
-        if((val = this.spi_read_reg(CC1101_IOCFG0)) != 0x06)
-        {
-            console.error(TAG + ":" + "Error on CC1101_IOCFG0. Read: %d", val);
-            return false;
-        }
-        if((val = this.spi_read_reg(CC1101_MDMCFG4)) != rx_bw)
-        {
-            console.error(TAG + ":" + "Error on CC1101_MDMCFG4. Read: %d", val);
-            return false;
-        }
-        if((val = this.spi_read_reg(CC1101_FSCTRL1)) != 0x06)
-        {
-            console.error(TAG + ":" + "Error on CC1101_FSCTRL1. Read: %d", val);
-            return false;
+            let val = 0;
+            if((val = this.spi_read_reg(registers[n])) != registers[n + 1])
+            {
+                console.error("Error on register " + registers[n] + ".Read: " + val + " instead of " + registers[n + 1]);
+                return false;
+            }
         }
 
         return true;
@@ -497,7 +483,7 @@ module.exports =
             return false;
         }
 
-        return this.cc1101_reg_config_settings(pa_level);
+        return this.cc1101_reg_config_settings();
     },
 
     cc1101_set_cli_path(path)
@@ -525,54 +511,6 @@ module.exports =
     cc1101_set_tx: function()
     {
         this.cc1101_strobe_cmd(CC1101_STX);
-    },
-
-    /**
-     * Set carrier frequency
-     * @param {*} mhz frequency in MHz
-     * @returns true if successful
-     */
-    cc1101_set_mhz: function(mhz)
-    {
-        // Calculate F0, F1 and F1 to set the desired frequency
-        let MHZ = mhz + 0.01;
-
-        let freq2 = 26;
-        let freq1 = 0.1015625;
-        let freq0 = 0.00039675;
-
-        let s1 = MHZ/freq2; 
-        let s2 = s1;                             // freq2
-        let s3 = s1-s2;
-        let s4 = s3*100000000;
-        let s5 = 255.0/100000000*s4;
-        let s6 = s5;
-        let s7 = (s5-s6);
-        let s8 = s7*10;
-        let s9;                                  // freq1
-        if (s8>=5){ s9=s6+1; }
-        if (s8<5){ s9=s6; }
-        let s10 = MHZ - (freq2*s2+freq1*s9);
-        let s11 = s10/freq0;
-        let s12 = s11;
-        let s13 = (s11-s12)*(10);
-        let s14;                                 // freq0
-        if (s13>=5){s14=s12+1;}
-        if (s13<5){s14=s12;}
-
-        F2 = s2;
-        F1 = s9;
-        F0 = s14;
-
-        this.spi_write_reg(CC1101_FREQ2, F2);
-        this.spi_write_reg(CC1101_FREQ1, F1);
-        this.spi_write_reg(CC1101_FREQ0, F0);
-
-        if(this.spi_read_reg(CC1101_FREQ0) != F0 || this.spi_read_reg(CC1101_FREQ1) != F1 || this.spi_read_reg(CC1101_FREQ2) != F2)
-        {
-            return false;
-        }
-        return true;
     },
 
     /**
@@ -622,13 +560,13 @@ module.exports =
                 .catch(function()
                 {
                     // Failed to wait for end of packet
-                    console.error(TAG + ":" + "Failed waiting end of packet");
+                    console.error(TAG + ": " + "Failed waiting end of packet");
                     reject();
                 });
             })
             .catch(function()
             {
-                console.error(TAG + ":" + "Failed waiting sync");
+                console.error(TAG + ": " + "Failed waiting sync");
                 reject();
             });
         });

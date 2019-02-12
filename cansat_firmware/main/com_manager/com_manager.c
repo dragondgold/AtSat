@@ -57,7 +57,10 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
     static axtec_encoded_packet_t packet_to_send;
     static uint8_t buffer[64];
 
+    ESP_LOGV(TAG, "Received %d bytes", packet->length);
+
     cansat_packet_type_t type = cansat_packet_get_type(packet->data, packet->length);
+    ESP_LOGV(TAG, "Packet type: %d", type);
     switch(type)
     {
         case CANSAT_GET_ERRORS:
@@ -489,7 +492,6 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             break;
 
         case CANSAT_UNKNOWN:
-
             ESP_LOGW(TAG, "Unknown packet type %d", type);
             break;
 
@@ -513,6 +515,8 @@ static void rx_task(void* arg)
         // Check if data has been received and is ready to be read
         if(cc1101_bytes_in_rx_fifo() > 0 && cc1101_is_packet_sent_available())
         {
+            ESP_LOGV(TAG, "Packet available");
+
             // Read the packet
             if(cc1101_read_data(&cc1101_packet))
             {
@@ -531,12 +535,14 @@ static void rx_task(void* arg)
                         }
                         else
                         {
+                            ESP_LOGW(TAG, "Wrong packet checksum");
                             errors.wrong_checksum = true;
                         }
                     }
                     else if(code == LENGTH_ERROR)
                     {
                         errors.wrong_command_length = true;
+                        ESP_LOGW(TAG, "Wrong packet length");
                     }
                 }
                 else 
@@ -544,6 +550,11 @@ static void rx_task(void* arg)
                     ESP_LOGW(TAG, "Wrong packet CRC");
                 }
             }
+            else
+            {
+                ESP_LOGW(TAG, "Error reading packet");
+            }
+            
         }
 
         xSemaphoreGive(cc1101_mutex);
@@ -557,6 +568,24 @@ static void tx_task(void* arg)
     
     while(true)
     {
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        ESP_LOGI(TAG, "Sending...");
+
+        packet.length = 3;
+        packet.raw[0] = 22;
+        packet.raw[1] = 50;
+        packet.raw[2] = 70;
+        if(cc1101_send_data(packet.raw, packet.length))
+        {
+            ESP_LOGI(TAG, "Packet sent");
+        }
+        else
+        {
+            ESP_LOGE(TAG, "Sent error");
+        }
+        
+
+        /*
         // Wait forever for an item
         if(xQueueReceive(tx_queue, &packet, portMAX_DELAY))
         {
@@ -590,7 +619,7 @@ static void tx_task(void* arg)
         else
         {
             ESP_LOGE(TAG, "Shouldn't reach here in tx_task()");
-        }
+        }*/
     }
 }
 
@@ -600,15 +629,18 @@ esp_err_t com_manager_init(void)
     
     cc1101_mutex = xSemaphoreCreateMutexStatic(&cc1101_mutex_buffer);
 
-    if(!cc1101_init())
+    for(unsigned int n = 0; n < 10; ++n)
     {
-        ESP_LOGE(TAG, "Error initializing CC1101 driver");
-        return ESP_FAIL;
-    }
-    if(!cc1101_set_mhz(COM_MANAGER_CARRIER_FREQUENCY))
-    {
-        ESP_LOGE(TAG, "Error setting CC1101 carrier frequency");
-        return ESP_FAIL;
+        ESP_LOGI(TAG, "Initializing %d/10", n + 1);
+
+        if(!cc1101_init())
+        {
+            ESP_LOGE(TAG, "Error initializing CC1101 driver");
+            continue;
+        }
+
+        // Init successful
+        break;
     }
 
     // Queue

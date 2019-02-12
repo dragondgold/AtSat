@@ -8,19 +8,6 @@
 //  than the size of the FIFO of the CC1101 some rework is needed.
 #define CC1101_MAX_PACKET_SIZE  (64-3)
 
-// Init constants
-typedef enum
-{
-  PA10,
-  PA7,
-  PA5,
-  PA0,
-  PA_10,
-  PA_15,
-  PA_20,
-  PA_30
-} cc1101_pa_t;
-
 typedef struct 
 {
     uint8_t length;
@@ -145,10 +132,9 @@ void cc1101_strobe_cmd(uint8_t strobe);
 /**
  * @brief Set the default configuration used in this driver along with the
  *  user configured carrier frequency, channel, channel spacing and RX bandwidth
- * @param f power amplifier level as stated in the cc1101_pa_t enum
  * @return true if setup was successfull
  */
-bool cc1101_reg_config_settings(cc1101_pa_t pa);
+bool cc1101_reg_config_settings(void);
 /**
  * @brief Set CC1101 in receiver mode
  * @param clear if true the RX fifo will be cleared before entering RX mode
@@ -171,11 +157,6 @@ bool cc1101_set_mhz(float mhz);
  * @return true if data was sent
  */
 bool cc1101_send_data(uint8_t *tx_buffer, uint8_t size);
-/**
- * @brief Set receiving bandwidth.
- * @param bw bandwidth level from 1 to 16
- */
-void cc1101_set_rx_bw(uint8_t bw);
 /**
  * @brief Set operating channel.
  * @param chn channel
