@@ -19,6 +19,8 @@ const pid = 0xDE
 const ok = 0
 const error = -1
 
+let forked = undefined
+
 export default {
     connectByIndex (index) {
         exec(pathMCP2210CLI , ['-ConnectI=' + index], function(err, data) {  
@@ -39,7 +41,7 @@ export default {
     },
     test(){
  
-        const forked = fork(require.resolve('./worker.js'));
+        forked =  fork(require.resolve('./worker.js'));
 
         forked.on('message', (msg) => {
           console.log('Message from child', msg);
@@ -49,8 +51,15 @@ export default {
             console.log("\n\t\tERROR: spawn failed! (" + err + ")");
           });
 
+          forked.on('exit', (e) => {
+            console.log("Exit fork: " + e);
+          });
+
         forked.send({ hello: 'world' });
-
-
+    },
+    closeWorker(){
+        if(forked != undefined){
+            forked.kill()
+        }
     }
 }

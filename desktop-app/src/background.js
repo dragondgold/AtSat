@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, remote, dialog } from 'electron'
+import { app, protocol, BrowserWindow, remote, dialog, ipcMain } from 'electron'
 import {
   createProtocol,
   installVueDevtools
@@ -11,6 +11,8 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+
+let quitFlag = false
 
 // Standard scheme must be registered before the app is ready
 protocol.registerStandardSchemes(['app'], { secure: true })
@@ -42,6 +44,13 @@ function createWindow () {
   win.webContents.on('will-navigate', ev => {
     ev.preventDefault()   
   })
+
+  win.on('close', function(e,args){
+    win.webContents.send('close',true)
+    if(!quitFlag){
+      e.preventDefault()
+    }
+  });
 }
 
 // Quit when all windows are closed.
@@ -87,3 +96,8 @@ if (isDevelopment) {
     })
   }
 }
+
+ipcMain.on('quit', (event, arg) => {
+  quitFlag = true
+  app.quit()
+})

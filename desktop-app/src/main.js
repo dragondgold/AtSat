@@ -14,6 +14,14 @@ import './i18n'
 import YmapPlugin from 'vue-yandex-maps'
 import MCP2210 from './services/mcp2210'
 
+const { ipcRenderer  } = require('electron')
+
+ipcRenderer.on('close', (event) => {
+  MCP2210.closeWorker()
+  debugger
+  ipcRenderer.send('quit')
+})
+
 Vue.use(VuesticPlugin)
 Vue.use(YmapPlugin)
 
