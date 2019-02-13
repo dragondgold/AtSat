@@ -12,7 +12,6 @@ typedef struct
 {
     uint8_t length;
     uint8_t data[CC1101_MAX_PACKET_SIZE];   
-    bool crc_ok;
     uint8_t rssi;
     uint8_t lqi;
 } cc1101_packet_t;
@@ -168,6 +167,18 @@ void cc1101_set_channel(uint8_t chn);
  */
 int8_t cc1101_bytes_in_rx_fifo(void);
 int8_t cc1101_bytes_in_tx_fifo(void);
+/**
+ * @brief Check if the RX FIFO has overflowed
+ * 
+ * @return true if overflow occurred
+ * @return false no overflow
+ */
+bool cc1101_is_rx_overflow(void);
+/**
+ * @brief Flushes the RX FIFO. After the FIFO is flushed the transceiver is
+ *  put into IDLE mode so RX or TX mode MUST be set again
+ */
+void cc1101_flush_rx_fifo(void);
 /**
  * @brief Read data from the RX FIFO
  * @param packet struct to store the packet

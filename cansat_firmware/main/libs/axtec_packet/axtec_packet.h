@@ -25,9 +25,8 @@ typedef struct
 
 typedef enum
 {
-    PACKET_OK,
+    PACKET_OK = 0,
     LENGTH_ERROR,
-    CRC_ERROR,
     MALFORMED_ERROR
 } axtec_packet_error_t;
 

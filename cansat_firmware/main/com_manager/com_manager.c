@@ -19,6 +19,7 @@
 #include "spi_manager/spi_manager.h"
 #include "gps_manager/gps_manager.h"
 
+#define LOG_LOCAL_LEVEL     ESP_LOG_VERBOSE
 #include "esp_log.h"
 
 static const char* TAG = "com";
@@ -56,8 +57,6 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
     static struct minmea_sentence_gga gps_data;
     static axtec_encoded_packet_t packet_to_send;
     static uint8_t buffer[64];
-
-    ESP_LOGV(TAG, "Received %d bytes", packet->length);
 
     cansat_packet_type_t type = cansat_packet_get_type(packet->data, packet->length);
     ESP_LOGV(TAG, "Packet type: %d", type);
@@ -107,6 +106,8 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                 {
                     buffer[length++] = 21;
                 }
+
+                ESP_LOGV(TAG, "Sending CANSAT_GET_ERRORS packet");
                 axtec_packet_encode(&packet_to_send, buffer, length);
                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             }
@@ -116,6 +117,8 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             // Get the parachute state and add the packet to the TX queue
             buffer[0] = CANSAT_PARACHUTE_STATE;
             buffer[1] = servo_manager_is_parachute_open() ? 0x01 : 0x00;
+
+            ESP_LOGV(TAG, "Sending CANSAT_PARACHUTE_STATE packet");
             axtec_packet_encode(&packet_to_send, buffer, 2);
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
@@ -124,6 +127,8 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             // Open parachute and send the state
             buffer[0] = CANSAT_OPEN_PARACHUTE;
             buffer[1] = servo_manager_open_parachute() ? 0x01 : 0x00;
+
+            ESP_LOGV(TAG, "Sending CANSAT_OPEN_PARACHUTE packet");
             axtec_packet_encode(&packet_to_send, buffer, 2);
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
@@ -132,6 +137,8 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             // Get the balloon state and add the packet to the TX queue
             buffer[0] = CANSAT_BALLOON_STATE;
             buffer[1] = servo_manager_is_ballon_open() ? 0x01 : 0x00;
+
+            ESP_LOGV(TAG, "Sending CANSAT_BALLOON_STATE packet");
             axtec_packet_encode(&packet_to_send, buffer, 2);
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
@@ -140,6 +147,8 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             // Open balloon and send the state
             buffer[0] = CANSAT_OPEN_BALLOON;
             buffer[1] = servo_manager_open_balloon() ? 0x01 : 0x00;
+
+            ESP_LOGV(TAG, "Sending CANSAT_OPEN_BALLOON packet");
             axtec_packet_encode(&packet_to_send, buffer, 2);
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
@@ -150,6 +159,8 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                 static cansat_sensor_type_t sensor_type;
                 if(cansat_packet_decode_read_sensor(packet->data, &sensor_type, packet->length))
                 {
+                    ESP_LOGV(TAG, "Sensor ID: %d", sensor_type);
+
                     // Packet type
                     buffer[0] = CANSAT_READ_SENSOR;
 
@@ -408,6 +419,10 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                             break;
                     }
                 }
+                else
+                {
+                    ESP_LOGW(TAG, "Error decoding sensor ID");
+                }
             }
             break;
 
@@ -415,6 +430,8 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             // Get battery level
             buffer[0] = CANSAT_GET_BATTERY;
             buffer[1] = battery_manager_get().soc;
+
+            ESP_LOGV(TAG, "Sending CANSAT_GET_BATTERY packet");
             axtec_packet_encode(&packet_to_send, buffer, 2);
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
@@ -431,6 +448,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                     buffer[1] = 0x01;
                 }
 
+                ESP_LOGV(TAG, "Sending CANSAT_SET_REPORT_FREQUENCY packet");
                 axtec_packet_encode(&packet_to_send, buffer, 2);
                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             }
@@ -448,6 +466,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                     buffer[1] = 0x01;
                 }
 
+                ESP_LOGV(TAG, "Sending CANSAT_ENABLE_DISABLE_REPORT packet");
                 axtec_packet_encode(&packet_to_send, buffer, 2);
                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             }
@@ -486,6 +505,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                 }
 
                 // Add the packet to the send queue
+                ESP_LOGV(TAG, "Sending CANSAT_GET_POSITION packet");
                 axtec_packet_encode(&packet_to_send, buffer, 9);
                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             }
@@ -505,56 +525,64 @@ static void rx_task(void* arg)
 {
     while(true)
     {
-        vTaskDelay(pdMS_TO_TICKS(100));
+        vTaskDelay(pdMS_TO_TICKS(50));
 
         if(!xSemaphoreTake(cc1101_mutex, pdMS_TO_TICKS(100)))
         {
             ESP_LOGW(TAG, "rx_task couldn't take mutex");
         }
 
+        uint8_t length = cc1101_bytes_in_rx_fifo();
+        ESP_LOGV(TAG, "Bytes: %d", length);
+
         // Check if data has been received and is ready to be read
-        if(cc1101_bytes_in_rx_fifo() > 0 && cc1101_is_packet_sent_available())
+        if(length > 0 && cc1101_is_packet_sent_available())
         {
             ESP_LOGV(TAG, "Packet available");
 
             // Read the packet
             if(cc1101_read_data(&cc1101_packet))
             {
-                // Check packet integrity
-                if(cc1101_packet.crc_ok)
+                axtec_packet_error_t code;
+
+                // Decode the packet
+                if((code = axtec_packet_decode(&axtec_decoded_packet, cc1101_packet.data, cc1101_packet.length)) == PACKET_OK)
                 {
-                    axtec_packet_error_t code;
-                    // Decode the packet
-                    if((code = axtec_packet_decode(&axtec_decoded_packet, cc1101_packet.data, cc1101_packet.length)) == PACKET_OK)
+                    ESP_LOGV(TAG, "Packet decoded");
+                    // Check if the packet is valid
+                    if(axtec_decoded_packet.valid)
                     {
-                        // Check if the packet is valid
-                        if(axtec_decoded_packet.valid)
-                        {
-                            // Process the packet and take the neccesary actions
-                            process_cansat_packet(&axtec_decoded_packet);
-                        }
-                        else
-                        {
-                            ESP_LOGW(TAG, "Wrong packet checksum");
-                            errors.wrong_checksum = true;
-                        }
+                        // Process the packet and take the neccesary actions
+                        ESP_LOGV(TAG, "Packet valid");
+                        process_cansat_packet(&axtec_decoded_packet);
                     }
-                    else if(code == LENGTH_ERROR)
+                    else
                     {
-                        errors.wrong_command_length = true;
-                        ESP_LOGW(TAG, "Wrong packet length");
+                        ESP_LOGW(TAG, "Wrong packet checksum");
+                        errors.wrong_checksum = true;
                     }
                 }
-                else 
+                else if(code == LENGTH_ERROR)
                 {
-                    ESP_LOGW(TAG, "Wrong packet CRC");
+                    errors.wrong_command_length = true;
+                    ESP_LOGW(TAG, "Wrong packet length");
+                }
+                else
+                {
+                    ESP_LOGW(TAG, "Error on decode: %d", code);
                 }
             }
             else
             {
                 ESP_LOGW(TAG, "Error reading packet");
             }
-            
+        }
+
+        // Flush the RX FIFO if needed
+        if(cc1101_is_rx_overflow())
+        {
+            ESP_LOGW(TAG, "RX FLUSH");
+            cc1101_set_rx(true);
         }
 
         xSemaphoreGive(cc1101_mutex);
@@ -567,25 +595,7 @@ static void tx_task(void* arg)
     static axtec_encoded_packet_t packet;
     
     while(true)
-    {
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        ESP_LOGI(TAG, "Sending...");
-
-        packet.length = 3;
-        packet.raw[0] = 22;
-        packet.raw[1] = 50;
-        packet.raw[2] = 70;
-        if(cc1101_send_data(packet.raw, packet.length))
-        {
-            ESP_LOGI(TAG, "Packet sent");
-        }
-        else
-        {
-            ESP_LOGE(TAG, "Sent error");
-        }
-        
-
-        /*
+    {   
         // Wait forever for an item
         if(xQueueReceive(tx_queue, &packet, portMAX_DELAY))
         {
@@ -619,7 +629,7 @@ static void tx_task(void* arg)
         else
         {
             ESP_LOGE(TAG, "Shouldn't reach here in tx_task()");
-        }*/
+        }
     }
 }
 
@@ -636,32 +646,34 @@ esp_err_t com_manager_init(void)
         if(!cc1101_init())
         {
             ESP_LOGE(TAG, "Error initializing CC1101 driver");
-            continue;
+            vTaskDelay(pdMS_TO_TICKS(100));
         }
+        else
+        {
+            // Queue
+            tx_queue = xQueueCreateStatic(COM_MANAGER_QUEUE_SIZE, COM_MANAGER_QUEUE_ELEMENT_SIZE, tx_queue_storage,
+                                        &tx_static_queue);
 
-        // Init successful
-        break;
+            // Create tasks
+            ESP_LOGV(TAG, "Creating tasks");
+            task_handle_rx = xTaskCreateStaticPinnedToCore(rx_task, "com_rx", COM_MANAGER_RX_STACK_SIZE, 
+                NULL, COM_MANAGER_RX_TASK_PRIORITY, stack_rx, &task_rx, COM_MANAGER_RX_AFFINITY);
+            task_handle_tx = xTaskCreateStaticPinnedToCore(tx_task, "com_tx", COM_MANAGER_TX_STACK_SIZE, 
+                NULL, COM_MANAGER_TX_TASK_PRIORITY, stack_tx, &task_tx, COM_MANAGER_TX_AFFINITY);
+
+            // By default put the transceiver in receive mode
+            cc1101_set_rx(true);
+
+            // Packet decoder/encoder
+            axtec_packet_init();
+            cansat_packet_init();
+
+            ESP_LOGI(TAG, "Ready!");
+
+            return ESP_OK;
+        }
     }
 
-    // Queue
-    tx_queue = xQueueCreateStatic(COM_MANAGER_QUEUE_SIZE, COM_MANAGER_QUEUE_ELEMENT_SIZE, tx_queue_storage,
-                                &tx_static_queue);
-
-    // Create tasks
-    ESP_LOGV(TAG, "Creating tasks");
-    task_handle_rx = xTaskCreateStaticPinnedToCore(rx_task, "com_rx", COM_MANAGER_RX_STACK_SIZE, 
-        NULL, COM_MANAGER_RX_TASK_PRIORITY, stack_rx, &task_rx, COM_MANAGER_RX_AFFINITY);
-    task_handle_tx = xTaskCreateStaticPinnedToCore(tx_task, "com_tx", COM_MANAGER_TX_STACK_SIZE, 
-        NULL, COM_MANAGER_TX_TASK_PRIORITY, stack_tx, &task_tx, COM_MANAGER_TX_AFFINITY);
-
-    // By default put the transceiver in receive mode
-    cc1101_set_rx(true);
-
-    // Packet decoder/encoder
-    axtec_packet_init();
-    cansat_packet_init();
-
-    ESP_LOGI(TAG, "Ready!");
-
-    return ESP_OK;
+    ESP_LOGE(TAG, "Error initializing!");
+    return ESP_FAIL;
 }
