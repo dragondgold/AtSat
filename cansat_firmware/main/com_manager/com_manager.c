@@ -19,7 +19,7 @@
 #include "spi_manager/spi_manager.h"
 #include "gps_manager/gps_manager.h"
 
-#define LOG_LOCAL_LEVEL     ESP_LOG_VERBOSE
+//#define LOG_LOCAL_LEVEL     ESP_LOG_VERBOSE
 #include "esp_log.h"
 
 static const char* TAG = "com";
@@ -595,7 +595,7 @@ static void tx_task(void* arg)
     static axtec_encoded_packet_t packet;
     
     while(true)
-    {   
+    {           
         // Wait forever for an item
         if(xQueueReceive(tx_queue, &packet, portMAX_DELAY))
         {

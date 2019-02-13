@@ -204,7 +204,7 @@ bool cc1101_reg_config_settings(void)
 											// No address check
     spi_write_reg(CC1101_PKTCTRL0, 0x01);	// Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
     spi_write_reg(CC1101_ADDR,     0x00);	// Address used for packet filtration (not used here)
-    spi_write_reg(CC1101_PKTLEN,   0xFF); 	// 255 bytes max packet length allowed
+    spi_write_reg(CC1101_PKTLEN,   0x3D); 	// 61 bytes max packet length allowed
 	spi_write_reg(CC1101_MCSM1,    0x3F);	// After TX go to RX, after RX stay in RX, CCA_MODE If RSSI below threshold unless currently receiving a packet
 
 
