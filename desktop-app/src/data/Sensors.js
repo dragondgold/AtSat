@@ -83,6 +83,22 @@ export default {
         { 
             cansatIndex: 0,
             id: 4, 
+            type: 'cansat.resources.sensors.orientation',
+            x: 0,
+            y: 0,  
+            z: 0,
+            minValue: 0,
+            minThreshold: 0, 
+            maxValue: 16,
+            maxThreshold: 16,  
+            unit: '°', 
+            step: 0.1,          
+            status: 'danger',
+            _type: 'vector',
+        },
+        { 
+            cansatIndex: 0,
+            id: 5, 
             type: 'cansat.resources.sensors.temperature',
             lastValue: -10,
             minValue: -10,
@@ -96,7 +112,7 @@ export default {
         },
         { 
             cansatIndex: 0,
-            id: 5, 
+            id: 6, 
             type: 'cansat.resources.sensors.humidity',
             lastValue: 0,
             minValue: 0,
@@ -110,7 +126,7 @@ export default {
         },
         { 
             cansatIndex: 0, 
-            id: 6, 
+            id: 7, 
             type: 'cansat.resources.sensors.pressure',
             lastValue: 300,
             minValue: 300,
@@ -124,7 +140,7 @@ export default {
         },
         { 
             cansatIndex: 0, 
-            id: 7, 
+            id: 8, 
             type: 'cansat.resources.sensors.altitude',
             lastValue: 0,
             minValue: 0,
@@ -138,7 +154,7 @@ export default {
         },
         { 
             cansatIndex: 0, 
-            id: 8, 
+            id: 9, 
             type: 'cansat.resources.sensors.vBatt',
             lastValue: 0,
             minValue: 3.6,
@@ -152,7 +168,7 @@ export default {
         },
         { 
             cansatIndex: 0, 
-            id: 9, 
+            id: 10, 
             type: 'cansat.resources.sensors.iBatt',
             lastValue: 0,
             minValue: 0,
@@ -166,7 +182,7 @@ export default {
         },
         { 
             cansatIndex: 0, 
-            id: 10, 
+            id: 11, 
             type: 'cansat.resources.sensors.v3v3',
             lastValue: 0,
             minValue: 3.0,
@@ -180,7 +196,7 @@ export default {
         },
         { 
             cansatIndex: 0, 
-            id: 11, 
+            id: 12, 
             type: 'cansat.resources.sensors.i3v3',
             lastValue: 0,
             minValue: 0,
@@ -194,7 +210,7 @@ export default {
         },
         { 
             cansatIndex: 0, 
-            id: 12, 
+            id: 13, 
             type: 'cansat.resources.sensors.v5v',
             lastValue: 0,
             minValue: 4.5,
@@ -208,7 +224,7 @@ export default {
         },
         { 
             cansatIndex: 0, 
-            id: 13, 
+            id: 14, 
             type: 'cansat.resources.sensors.i5v',
             lastValue: 0,
             minValue: 0,

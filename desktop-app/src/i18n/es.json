@@ -93,6 +93,7 @@
         "humidity": "Humedad",
         "pressure": "Presión",
         "altitude": "Altitud",
+        "orientation": "Orientación",
         "vBatt": "V Batería",
         "iBatt": "I Batería",
         "v3v3": "Voltaje 3.3 V",
