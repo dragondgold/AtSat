@@ -1,3 +1,4 @@
 *.bak
 *.bck
 
+pic16_firmware.X/nbproject/private/

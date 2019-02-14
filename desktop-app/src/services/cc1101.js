@@ -105,7 +105,6 @@ const CS_WAIT_TIME = 2;             // Wait 2 ms when setting CS low
 
 let MCP2210CLI_PATH = "";
 let channel = 1;
-let rx_bw = 0x08;
 
 const TAG = "CC1101";
 
@@ -147,7 +146,8 @@ module.exports =
         data_string = data_string.substring(0, data_string.lastIndexOf(","));
         //console.log("data_string: " + data_string);
 
-        let cmd_string = " -spitxfer=" + data_string + " -bd=4000000 -cs=gp0 -idle=ffff -actv=0000 -csdly=1";
+        //let cmd_string = " -spitxfer=" + data_string + " -bd=4000000 -cs=gp0 -idle=ffff -actv=0000 -csdly=1";
+        let cmd_string = " -d " + data_string + " -b=4000000 -cs 0 -csToDataDly 1";
         //console.log("Data: " + data);
         //console.log("CMD:" + cmd_string);
         let output = execSync(MCP2210CLI_PATH + cmd_string);
@@ -278,7 +278,7 @@ module.exports =
             data.push(0x00);
         }
 
-        let obj = this.mcp2210_transfer_data([data]);
+        let obj = this.mcp2210_transfer_data(data);
 
         if(!obj.error)
         {
@@ -372,7 +372,7 @@ module.exports =
                                                         // No address check
         this.spi_write_reg(CC1101_PKTCTRL0, 0x01);	    // Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
         this.spi_write_reg(CC1101_ADDR,     0x00);	    // Address used for packet filtration (not used here)
-        this.spi_write_reg(CC1101_PKTLEN,   0xFF); 	    // 255 bytes max packet length allowed
+        this.spi_write_reg(CC1101_PKTLEN,   0x3D); 	    // 61 bytes max packet length allowed
         this.spi_write_reg(CC1101_MCSM1,    0x3F);
 
         // Set frequency to 915 MHz (values taken from SmartRF Studio)
@@ -411,7 +411,7 @@ module.exports =
                             CC1101_PKTCTRL1, 0x04,
                             CC1101_PKTCTRL0, 0x01,
                             CC1101_ADDR, 0x00,
-                            CC1101_PKTLEN, 0xFF,
+                            CC1101_PKTLEN, 0x3D,
                             CC1101_FREQ2, 0x23,
                             CC1101_FREQ1, 0x31,
                             CC1101_FREQ0, 0x3B,
@@ -510,85 +510,11 @@ module.exports =
         //console.log(TAG + ": " + "CC1101 FSM: %d", this.cc1101_read_status(CC1101_MARCSTATE));
         //console.log(TAG + ": " + "TX FIFO after: %d", this.cc1101_bytes_in_tx_fifo());
         
+        // This doesn't work, we should find a way to detect when the packet has been sent
         //while(this.cc1101_is_packet_sent_available());
         //while(!this.cc1101_is_packet_sent_available());
 
         return true;
-    },
-
-    /**
-     * Set receiving bandwidth
-     * @param {*} bw bandwidth level from 1 to 16
-     */
-    cc1101_set_rx_bw: function(bw)
-    {
-        switch (bw)
-        {
-            case 1:
-                rx_bw = 0xF8;
-                break;
-
-            case 2:
-                rx_bw = 0xE8;
-                break;
-
-            case 3:
-                rx_bw = 0xD8;
-                break;
-
-            case 4:
-                rx_bw = 0xC8;
-                break;
-
-            case 5:
-                rx_bw = 0xB8;
-                break;
-
-            case 6:
-                rx_bw = 0xA8;
-                break;
-
-            case 7:
-                rx_bw = 0x98;
-                break;
-
-            case 8:
-                rx_bw = 0x88;
-                break;
-
-            case 9:
-                rx_bw = 0x78;
-                break;
-
-            case 10:
-                rx_bw = 0x68;
-                break;
-
-            case 11:
-                rx_bw = 0x58;
-                break;
-
-            case 12:
-                rx_bw = 0x48;
-                break;
-
-            case 13:
-                rx_bw = 0x38;
-                break;
-
-            case 14:
-                rx_bw = 0x28;
-                break;
-
-            case 15:
-                rx_bw = 0x18;
-                break;
-
-            case 16:
-                rx_bw = 0x08;
-                break;
-        }
-        this.spi_write_reg(CC1101_MDMCFG4, rx_bw);
     },
 
     /**
@@ -699,7 +625,7 @@ module.exports =
             // If packet is too long
             if (packet.length > CC1101_MAX_PACKET_SIZE || packet.length == 0)
             {
-                console.warn(TAG + ":" + "Length error: %d", packet.length);
+                console.warn(TAG + ": " + "Length error: %d", packet.length);
                 packet.length = 0;
 
                 // Overflow? Clear the buffer
@@ -716,7 +642,7 @@ module.exports =
                 // Read data packet
                 packet.data = this.spi_read_burst_reg(CC1101_RXFIFO, packet.length);
                 // Read RSSI and LQI
-                status = this.spi_read_burst_reg(CC1101_RXFIFO, status, 2);
+                status = this.spi_read_burst_reg(CC1101_RXFIFO, 2);
 
                 packet.rssi = status[0];
                 packet.lqi = status[1] & 0x7F;
