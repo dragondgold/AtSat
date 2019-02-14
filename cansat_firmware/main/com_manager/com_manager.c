@@ -19,7 +19,7 @@
 #include "spi_manager/spi_manager.h"
 #include "gps_manager/gps_manager.h"
 
-//#define LOG_LOCAL_LEVEL     ESP_LOG_VERBOSE
+#define LOG_LOCAL_LEVEL     ESP_LOG_DEBUG
 #include "esp_log.h"
 
 static const char* TAG = "com";
@@ -59,7 +59,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
     static uint8_t buffer[64];
 
     cansat_packet_type_t type = cansat_packet_get_type(packet->data, packet->length);
-    ESP_LOGV(TAG, "Packet type: %d", type);
+    ESP_LOGD(TAG, "Packet type: %d", type);
     switch(type)
     {
         case CANSAT_GET_ERRORS:
@@ -107,7 +107,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                     buffer[length++] = 21;
                 }
 
-                ESP_LOGV(TAG, "Sending CANSAT_GET_ERRORS packet");
+                ESP_LOGD(TAG, "Sending CANSAT_GET_ERRORS packet");
                 axtec_packet_encode(&packet_to_send, buffer, length);
                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             }
@@ -118,7 +118,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             buffer[0] = CANSAT_PARACHUTE_STATE;
             buffer[1] = servo_manager_is_parachute_open() ? 0x01 : 0x00;
 
-            ESP_LOGV(TAG, "Sending CANSAT_PARACHUTE_STATE packet");
+            ESP_LOGD(TAG, "Sending CANSAT_PARACHUTE_STATE packet");
             axtec_packet_encode(&packet_to_send, buffer, 2);
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
@@ -128,7 +128,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             buffer[0] = CANSAT_OPEN_PARACHUTE;
             buffer[1] = servo_manager_open_parachute() ? 0x01 : 0x00;
 
-            ESP_LOGV(TAG, "Sending CANSAT_OPEN_PARACHUTE packet");
+            ESP_LOGD(TAG, "Sending CANSAT_OPEN_PARACHUTE packet");
             axtec_packet_encode(&packet_to_send, buffer, 2);
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
@@ -138,7 +138,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             buffer[0] = CANSAT_BALLOON_STATE;
             buffer[1] = servo_manager_is_ballon_open() ? 0x01 : 0x00;
 
-            ESP_LOGV(TAG, "Sending CANSAT_BALLOON_STATE packet");
+            ESP_LOGD(TAG, "Sending CANSAT_BALLOON_STATE packet");
             axtec_packet_encode(&packet_to_send, buffer, 2);
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
@@ -148,7 +148,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             buffer[0] = CANSAT_OPEN_BALLOON;
             buffer[1] = servo_manager_open_balloon() ? 0x01 : 0x00;
 
-            ESP_LOGV(TAG, "Sending CANSAT_OPEN_BALLOON packet");
+            ESP_LOGD(TAG, "Sending CANSAT_OPEN_BALLOON packet");
             axtec_packet_encode(&packet_to_send, buffer, 2);
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
@@ -159,7 +159,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                 static cansat_sensor_type_t sensor_type;
                 if(cansat_packet_decode_read_sensor(packet->data, &sensor_type, packet->length))
                 {
-                    ESP_LOGV(TAG, "Sensor ID: %d", sensor_type);
+                    ESP_LOGD(TAG, "Sensor ID: %d", sensor_type);
 
                     // Packet type
                     buffer[0] = CANSAT_READ_SENSOR;
@@ -174,14 +174,19 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                             if(sensor_manager_get_data(&sensors_data))
                             {
                                 // Put the 3 axis in the X, Y, Z order with MSB first
-                                buffer[2] = (uint8_t)((uint16_t)sensors_data.gyro.x >> 8);
-                                buffer[3] = (uint8_t)((uint16_t)sensors_data.gyro.x);
-                                buffer[4] = (uint8_t)((uint16_t)sensors_data.gyro.y >> 8);
-                                buffer[5] = (uint8_t)((uint16_t)sensors_data.gyro.y);
-                                buffer[6] = (uint8_t)((uint16_t)sensors_data.gyro.z >> 8);
-                                buffer[7] = (uint8_t)((uint16_t)sensors_data.gyro.z);
+                                buffer[2] = (uint8_t)((int16_t)sensors_data.gyro.x >> 8);
+                                buffer[3] = (uint8_t)((int16_t)sensors_data.gyro.x);
+                                buffer[4] = (uint8_t)((int16_t)sensors_data.gyro.y >> 8);
+                                buffer[5] = (uint8_t)((int16_t)sensors_data.gyro.y);
+                                buffer[6] = (uint8_t)((int16_t)sensors_data.gyro.z >> 8);
+                                buffer[7] = (uint8_t)((int16_t)sensors_data.gyro.z);
+                            }
+                            else
+                            {
+                                ESP_LOGW(TAG, "Failed getting gyro data");
                             }
 
+                            ESP_LOGD(TAG, "Sending GYROSCOPE packet");
                             axtec_packet_encode(&packet_to_send, buffer, 8);
                             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                             break;
@@ -202,6 +207,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                 buffer[7] = (uint8_t)((uint16_t)sensors_data.mag.z);
                             }
 
+                            ESP_LOGD(TAG, "Sending MAGNETOMETER packet");
                             axtec_packet_encode(&packet_to_send, buffer, 8);
                             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                             break;
@@ -222,6 +228,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                 buffer[7] = (uint8_t)((uint16_t)sensors_data.acc.z);
                             }
 
+                            ESP_LOGD(TAG, "Sending ACCELEROMETER packet");
                             axtec_packet_encode(&packet_to_send, buffer, 8);
                             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                             break;
@@ -241,7 +248,12 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                 buffer[6] = (uint8_t)((uint16_t)sensors_data.orientation.z >> 8);
                                 buffer[7] = (uint8_t)((uint16_t)sensors_data.orientation.z);
                             }
+                            else
+                            {
+                                ESP_LOGW(TAG, "Failed getting orientation data");
+                            }
 
+                            ESP_LOGD(TAG, "Sending ORIENTATION packet");
                             axtec_packet_encode(&packet_to_send, buffer, 8);
                             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                             break;
@@ -256,6 +268,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                 buffer[2] = (uint8_t)((int8_t)sensors_data.temperature);
                             }
 
+                            ESP_LOGD(TAG, "Sending TEMPERATURE packet");
                             axtec_packet_encode(&packet_to_send, buffer, 3);
                             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                             break;
@@ -270,6 +283,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                 buffer[2] = sensors_data.humidity;
                             }
 
+                            ESP_LOGD(TAG, "Sending HUMIDITY packet");
                             axtec_packet_encode(&packet_to_send, buffer, 3);
                             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                             break;
@@ -286,6 +300,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                 buffer[3] = (uint8_t)sensors_data.pressure;
                             }
 
+                            ESP_LOGD(TAG, "Sending PRESSURE packet");
                             axtec_packet_encode(&packet_to_send, buffer, 4);
                             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                             break;
@@ -302,6 +317,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                 buffer[3] = (uint8_t)sensors_data.altitude;
                             }
 
+                            ESP_LOGD(TAG, "Sending ALTITUDE packet");
                             axtec_packet_encode(&packet_to_send, buffer, 4);
                             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                             break;
@@ -318,6 +334,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                 buffer[2] = (uint8_t)(voltage >> 8);
                                 buffer[3] = (uint8_t)voltage;
 
+                                ESP_LOGD(TAG, "Sending BATTERY_VOLTAGE packet");
                                 axtec_packet_encode(&packet_to_send, buffer, 4);
                                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                             }
@@ -335,6 +352,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                 buffer[2] = (uint8_t)(current >> 8);
                                 buffer[3] = (uint8_t)current;
 
+                                ESP_LOGD(TAG, "Sending BATTERY_CURRENT packet");
                                 axtec_packet_encode(&packet_to_send, buffer, 4);
                                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                             }
@@ -431,7 +449,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             buffer[0] = CANSAT_GET_BATTERY;
             buffer[1] = battery_manager_get().soc;
 
-            ESP_LOGV(TAG, "Sending CANSAT_GET_BATTERY packet");
+            ESP_LOGD(TAG, "Sending CANSAT_GET_BATTERY packet");
             axtec_packet_encode(&packet_to_send, buffer, 2);
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
@@ -448,7 +466,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                     buffer[1] = 0x01;
                 }
 
-                ESP_LOGV(TAG, "Sending CANSAT_SET_REPORT_FREQUENCY packet");
+                ESP_LOGD(TAG, "Sending CANSAT_SET_REPORT_FREQUENCY packet");
                 axtec_packet_encode(&packet_to_send, buffer, 2);
                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             }
@@ -466,7 +484,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                     buffer[1] = 0x01;
                 }
 
-                ESP_LOGV(TAG, "Sending CANSAT_ENABLE_DISABLE_REPORT packet");
+                ESP_LOGD(TAG, "Sending CANSAT_ENABLE_DISABLE_REPORT packet");
                 axtec_packet_encode(&packet_to_send, buffer, 2);
                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             }
@@ -505,7 +523,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                 }
 
                 // Add the packet to the send queue
-                ESP_LOGV(TAG, "Sending CANSAT_GET_POSITION packet");
+                ESP_LOGD(TAG, "Sending CANSAT_GET_POSITION packet");
                 axtec_packet_encode(&packet_to_send, buffer, 9);
                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             }
@@ -599,7 +617,7 @@ static void tx_task(void* arg)
         // Wait forever for an item
         if(xQueueReceive(tx_queue, &packet, portMAX_DELAY))
         {
-            ESP_LOGI(TAG, "Sending data");
+            ESP_LOGV(TAG, "Sending data");
             // Take the mutex to send data
             if(!xSemaphoreTake(cc1101_mutex, pdMS_TO_TICKS(500)))
             {
