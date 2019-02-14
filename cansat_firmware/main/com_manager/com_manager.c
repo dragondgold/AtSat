@@ -229,12 +229,16 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                             if(sensor_manager_get_data(&sensors_data))
                             {
                                 // Put the 3 axis in the X, Y, Z order with MSB first
-                                buffer[2] = (uint8_t)((uint16_t)sensors_data.mag.x >> 8);
-                                buffer[3] = (uint8_t)((uint16_t)sensors_data.mag.x);
-                                buffer[4] = (uint8_t)((uint16_t)sensors_data.mag.y >> 8);
-                                buffer[5] = (uint8_t)((uint16_t)sensors_data.mag.y);
-                                buffer[6] = (uint8_t)((uint16_t)sensors_data.mag.z >> 8);
-                                buffer[7] = (uint8_t)((uint16_t)sensors_data.mag.z);
+                                buffer[2] = (uint8_t)((int16_t)sensors_data.mag.x >> 8);
+                                buffer[3] = (uint8_t)((int16_t)sensors_data.mag.x);
+                                buffer[4] = (uint8_t)((int16_t)sensors_data.mag.y >> 8);
+                                buffer[5] = (uint8_t)((int16_t)sensors_data.mag.y);
+                                buffer[6] = (uint8_t)((int16_t)sensors_data.mag.z >> 8);
+                                buffer[7] = (uint8_t)((int16_t)sensors_data.mag.z);
+                            }
+                            else
+                            {
+                                ESP_LOGW(TAG, "Failed getting mag data");
                             }
 
                             ESP_LOGD(TAG, "Sending MAGNETOMETER packet");
@@ -250,12 +254,16 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                             if(sensor_manager_get_data(&sensors_data))
                             {
                                 // Put the 3 axis in the X, Y, Z order with MSB first
-                                buffer[2] = (uint8_t)((uint16_t)sensors_data.acc.x >> 8);
-                                buffer[3] = (uint8_t)((uint16_t)sensors_data.acc.x);
-                                buffer[4] = (uint8_t)((uint16_t)sensors_data.acc.y >> 8);
-                                buffer[5] = (uint8_t)((uint16_t)sensors_data.acc.y);
-                                buffer[6] = (uint8_t)((uint16_t)sensors_data.acc.z >> 8);
-                                buffer[7] = (uint8_t)((uint16_t)sensors_data.acc.z);
+                                buffer[2] = (uint8_t)((int16_t)sensors_data.acc.x >> 8);
+                                buffer[3] = (uint8_t)((int16_t)sensors_data.acc.x);
+                                buffer[4] = (uint8_t)((int16_t)sensors_data.acc.y >> 8);
+                                buffer[5] = (uint8_t)((int16_t)sensors_data.acc.y);
+                                buffer[6] = (uint8_t)((int16_t)sensors_data.acc.z >> 8);
+                                buffer[7] = (uint8_t)((int16_t)sensors_data.acc.z);
+                            }
+                            else
+                            {
+                                ESP_LOGW(TAG, "Failed getting acc data");
                             }
 
                             ESP_LOGD(TAG, "Sending ACCELEROMETER packet");
@@ -271,12 +279,12 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                             if(sensor_manager_get_data(&sensors_data))
                             {
                                 // Put the 3 axis in the X, Y, Z order with MSB first
-                                buffer[2] = (uint8_t)((uint16_t)sensors_data.orientation.x >> 8);
-                                buffer[3] = (uint8_t)((uint16_t)sensors_data.orientation.x);
-                                buffer[4] = (uint8_t)((uint16_t)sensors_data.orientation.y >> 8);
-                                buffer[5] = (uint8_t)((uint16_t)sensors_data.orientation.y);
-                                buffer[6] = (uint8_t)((uint16_t)sensors_data.orientation.z >> 8);
-                                buffer[7] = (uint8_t)((uint16_t)sensors_data.orientation.z);
+                                buffer[2] = (uint8_t)((int16_t)sensors_data.orientation.x >> 8);
+                                buffer[3] = (uint8_t)((int16_t)sensors_data.orientation.x);
+                                buffer[4] = (uint8_t)((int16_t)sensors_data.orientation.y >> 8);
+                                buffer[5] = (uint8_t)((int16_t)sensors_data.orientation.y);
+                                buffer[6] = (uint8_t)((int16_t)sensors_data.orientation.z >> 8);
+                                buffer[7] = (uint8_t)((int16_t)sensors_data.orientation.z);
                             }
                             else
                             {
