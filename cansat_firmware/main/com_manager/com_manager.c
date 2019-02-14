@@ -489,8 +489,8 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                     // See: https://stackoverflow.com/questions/7934623/what-is-the-approximate-resolution-of-a-single-precision-floating-point-number-w
                     float lat = minmea_tocoord(&gps_data.latitude);
                     float lon = minmea_tocoord(&gps_data.longitude);
-                    uint32_t lat_i = (uint32_t)(lat * (0x7FFFFFFF / 180.0));
-                    uint32_t lon_i = (uint32_t)(lon * (0x7FFFFFFF / 180.0));
+                    int32_t lat_i = (int32_t)(lat * (0x7FFFFFFF / 180.0));
+                    int32_t lon_i = (int32_t)(lon * (0x7FFFFFFF / 180.0));
 
                     // Add the integers to the buffer, latitude first, MSB first
                     buffer[1] = (uint8_t)(lat_i >> 24);
