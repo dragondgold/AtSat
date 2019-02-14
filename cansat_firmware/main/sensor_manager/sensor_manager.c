@@ -31,10 +31,10 @@ static registerDeviceInfo_t i2cBusInfo = {      // It doesn't matter, this is no
     .functionParam      = NULL,
     .idleFunction       = NULL
 };
-static int16_t accCountsPerG = 512;                 // 512 counts per g as the accelerometer is in the 4g range (12-bit)
-static int16_t gyroCountsPerDegPerSec = 16;         // 16 counts per degree/s as the gyro is in the 2000 degree/s range (16-bit)
-static int16_t magCountsPeruT = 3;                  // 3 counts per uT using the 1300 uT range from the XY axis (13-bit)
-static const float mag_z_scale_factor = 1.92307;    // 2500 uT / 1300 uT. Scaling to make the 2500 uT axis behave as 1300 uT range
+static int16_t accCountsPerG = 512;                 // 512 counts per g as the accelerometer is in the +-4g range (12-bit)
+static int16_t gyroCountsPerDegPerSec = 16;         // 16 counts per degree/s as the gyro is in the +-2000 degree/s range (16-bit)
+static int16_t magCountsPeruT = 3;                  // 3 counts per uT using the +-1300 uT range from the XY axis (13-bit)
+static const float mag_z_scale_factor = 4;          // 2^14 / 2^12. Scaling to make the 2500 uT axis behave as +-1300 uT range
 
 // Mutex
 static StaticSemaphore_t sample_mutex_buffer;
@@ -231,13 +231,13 @@ static int8_t read_mag(struct PhysicalSensor *sensor, SensorFusionGlobals *sfg)
     raw.z = (float)raw.z * mag_z_scale_factor;
 
     // Clip the output
-    if(raw.z > 8192)
+    if(raw.z > 4095)
     {
-        raw.z = 8192;
+        raw.z = 4095;
     }
-    else if(raw.z < -8192)
+    else if(raw.z < -409)
     {
-        raw.z = -8192;
+        raw.z = -4095;
     }
 
     int16_t data[3] = { raw.x, raw.y, raw.z };

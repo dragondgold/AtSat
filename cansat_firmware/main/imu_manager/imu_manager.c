@@ -8,6 +8,7 @@
 #include "freertos/FreeRTOS.h"
 #include "esp_log.h"
 
+//#define LOG_LOCAL_LEVEL     ESP_LOG_DEBUG
 static const char* TAG = "imu";
 
 static StaticSemaphore_t sample_mutex_buffer;
@@ -15,14 +16,14 @@ static SemaphoreHandle_t sample_mutex;
 
 // Data
 static imu_axis_data_t acc_data, gyro_data, mag_data;
-static unsigned int acc_range = 4;          // g
-static unsigned int gyro_range = 250;       // degree/s
+static float counts_per_g = 512;                        // 512 counts per g as the accelerometer is in the +-4g range (12-bit)
+static float gyro_countsper_deg_per_sec = 16.384;       // 16.384 counts per degree/s as the gyro is in the +-2000 degree/s range (16-bit)
 
 // Constants
 // The magnetometer has a range in the XY axis of 1300 uT and
 //  2500 uT in the Z axis.
-const float mag_factor_xy = 1300.0 / 8192.0;
-const float mag_factor_z = 2500.0 / 8192.0;
+const float mag_counts_per_ut_xy = 3.1507;              // 3.1507 counts per uT using the +-1300 uT range from the XY axis (13-bit)
+const float mag_counts_per_ut_z = 6.5536;               // 6.5536 counts per uT using the +-2500 uT range from the XY axis (15-bit)
 
 esp_err_t imu_manager_init(void)
 {
@@ -217,15 +218,14 @@ esp_err_t imu_manager_sample_all(void)
 imu_axis_data_f_t imu_manager_get_acceleration(void)
 {
     // Calculate the acceleration in mg
-    float factor = (float)(acc_range * 1000) / 4096.0;
     imu_axis_data_f_t data = 
     {
-        .x = (float)acc_data.x * factor,
-        .y = (float)acc_data.y * factor,
-        .z = (float)acc_data.z * factor
+        .x = ((float)acc_data.x / counts_per_g) * 1000.0,
+        .y = ((float)acc_data.y / counts_per_g) * 1000.0,
+        .z = ((float)acc_data.z / counts_per_g) * 1000.0
     };
 
-    ESP_LOGV(TAG, "Accelerometer mg (x,y,z): %.2f,%.2f,%.2f", data.x, data.y, data.z);
+    ESP_LOGD(TAG, "Accelerometer mg (x,y,z): %.2f,%.2f,%.2f", data.x, data.y, data.z);
 
     return data;
 }
@@ -241,15 +241,14 @@ imu_axis_data_t imu_manager_get_acceleration_raw(void)
 imu_axis_data_f_t imu_manager_get_gyro(void)
 {
     // Calculate angular velocity in degrees/s
-    float factor = (float)gyro_range / 32768.0;
     imu_axis_data_f_t data = 
     {
-        .x = (float)gyro_data.x * factor,
-        .y = (float)gyro_data.y * factor,
-        .z = (float)gyro_data.z * factor
+        .x = (float)gyro_data.x / gyro_countsper_deg_per_sec,
+        .y = (float)gyro_data.y / gyro_countsper_deg_per_sec,
+        .z = (float)gyro_data.z / gyro_countsper_deg_per_sec
     };
 
-    ESP_LOGV(TAG, "Gyroscope degrees (x,y,z): %.2f,%.2f,%.2f", data.x, data.y, data.z);
+    ESP_LOGD(TAG, "Gyroscope degrees (x,y,z): %.2f,%.2f,%.2f", data.x, data.y, data.z);
 
     return data;
 }
@@ -267,12 +266,12 @@ imu_axis_data_f_t imu_manager_get_magnetometer(void)
     // Calculate magnetic field in uT
     imu_axis_data_f_t data = 
     {
-        .x = (float)mag_data.x * mag_factor_xy,
-        .y = (float)mag_data.y * mag_factor_xy,
-        .z = (float)mag_data.z * mag_factor_z
+        .x = (float)mag_data.x / mag_counts_per_ut_xy,
+        .y = (float)mag_data.y / mag_counts_per_ut_xy,
+        .z = (float)mag_data.x / mag_counts_per_ut_z,
     };
 
-    ESP_LOGV(TAG, "Magnetometer uT (x,y,z): %.2f,%.2f,%.2f", data.x, data.y, data.z);
+    ESP_LOGD(TAG, "Magnetometer uT (x,y,z): %.2f,%.2f,%.2f", data.x, data.y, data.z);
 
     return data;
 }
