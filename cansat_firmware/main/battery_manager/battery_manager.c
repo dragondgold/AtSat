@@ -30,12 +30,6 @@ static void battery_sample_task(void* args)
         vTaskDelay(1000 / portTICK_PERIOD_MS);
         ESP_LOGV(TAG, "Checking battery");
 
-        // Inform on charger connect/disconnect
-        if(battery_data.is_charging != !gpio_get_level(CHARGING_DETECTION_PIN))
-        {
-            ESP_LOGI(TAG, "Battery %s", (!gpio_get_level(CHARGING_DETECTION_PIN)) ? "started charging" : "stopped charging");
-        }
-
         // Read all the data from the fuel-gauge
         temp_data.soc = bq27441_get_soc(FILTERED);
         temp_data.volts = bq27441_get_voltage();
@@ -45,17 +39,29 @@ static void battery_sample_task(void* args)
         temp_data.health = bq27441_get_soh(PERCENT);
         temp_data.is_charging = !gpio_get_level(CHARGING_DETECTION_PIN);
 
-        ESP_LOGV(TAG, "Battery SOC: %d %%", battery_data.soc);
-        ESP_LOGV(TAG, "Battery voltage: %d mV", battery_data.volts);
-        ESP_LOGV(TAG, "Battery avg current: %d mA", battery_data.avg_current);
-        ESP_LOGV(TAG, "Battery total capacity: %d mAh", battery_data.total_capacity);
-        ESP_LOGV(TAG, "Battery remaining capacity: %d mAh", battery_data.remaining_capacity);
-        ESP_LOGV(TAG, "Battery health %d %%", battery_data.remaining_capacity);
-        ESP_LOGV(TAG, "Battery is %s", battery_data.is_charging ? "charging" : "not charging");
+        // Inform on charger connect/disconnect
+        if(battery_data.is_charging != temp_data.is_charging)
+        {
+            ESP_LOGI(TAG, "Battery %s", temp_data.is_charging ? "started charging" : "stopped charging");
+            ESP_LOGI(TAG, "Battery avg current: %d mA", temp_data.avg_current);
+            ESP_LOGI(TAG, "Battery voltage: %d mV", temp_data.volts);
+            ESP_LOGI(TAG, "Battery temperature: %.2f", bq27441_get_temperature(INTERNAL_TEMP) / 100.0);
+        }
+
+        ESP_LOGV(TAG, "Battery SOC: %d %%", temp_data.soc);
+        ESP_LOGV(TAG, "Battery voltage: %d mV", temp_data.volts);
+        ESP_LOGV(TAG, "Battery avg current: %d mA", temp_data.avg_current);
+        ESP_LOGV(TAG, "Battery total capacity: %d mAh", temp_data.total_capacity);
+        ESP_LOGV(TAG, "Battery remaining capacity: %d mAh", temp_data.remaining_capacity);
+        ESP_LOGV(TAG, "Battery health %d %%", temp_data.remaining_capacity);
+        ESP_LOGV(TAG, "Battery is %s", temp_data.is_charging ? "charging" : "not charging");
 
         if(temp_data.soc != battery_data.soc)
         {
             ESP_LOGI(TAG, "Battery SOC: %d %%", temp_data.soc);
+            ESP_LOGI(TAG, "Battery avg current: %d mA", temp_data.avg_current);
+            ESP_LOGI(TAG, "Battery voltage: %d mV", temp_data.volts);
+            ESP_LOGI(TAG, "Battery temperature: %.2f", bq27441_get_temperature(INTERNAL_TEMP) / 100.0);
         }
 
         // Take the mutex so other tasks cannot read the data while it's being
@@ -65,7 +71,7 @@ static void battery_sample_task(void* args)
             // Copy all the data
             battery_data = temp_data;
 
-#if BATTERY_MANAGER_OVERRIDE_CURRENT == true
+#if BATTERY_MANAGER_OVERRIDE_CURRENT == false
             // When not charging (USB disconnected), set the charging current at minimum
             if(!battery_data.is_charging)
             {
