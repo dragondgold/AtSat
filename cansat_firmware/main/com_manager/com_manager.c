@@ -19,7 +19,7 @@
 #include "spi_manager/spi_manager.h"
 #include "gps_manager/gps_manager.h"
 
-#define LOG_LOCAL_LEVEL     ESP_LOG_DEBUG
+//#define LOG_LOCAL_LEVEL     ESP_LOG_DEBUG
 #include "esp_log.h"
 
 static const char* TAG = "com";
@@ -123,14 +123,29 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
 
-        case CANSAT_OPEN_PARACHUTE:
-            // Open parachute and send the state
-            buffer[0] = CANSAT_OPEN_PARACHUTE;
-            buffer[1] = servo_manager_open_parachute() ? 0x01 : 0x00;
+        case CANSAT_PARACHUTE:
+            {
+                // Open parachute and send the state
+                buffer[0] = CANSAT_PARACHUTE;
+                buffer[1] = 0x00;
 
-            ESP_LOGD(TAG, "Sending CANSAT_OPEN_PARACHUTE packet");
-            axtec_packet_encode(&packet_to_send, buffer, 2);
-            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                bool open = false;
+                if(cansat_packet_decode_parachute(packet->data, &open, packet->length))
+                {
+                    if(open)
+                    {
+                        buffer[1] = servo_manager_open_parachute() ? 0x01 : 0x00;
+                    }
+                    else
+                    {
+                        buffer[1] = servo_manager_close_parachute() ? 0x01 : 0x00;
+                    }
+                }
+
+                ESP_LOGD(TAG, "Sending CANSAT_PARACHUTE packet ");
+                axtec_packet_encode(&packet_to_send, buffer, 2);
+                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            }
             break;
 
         case CANSAT_BALLOON_STATE:
@@ -143,14 +158,29 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             break;
 
-        case CANSAT_OPEN_BALLOON:
-            // Open balloon and send the state
-            buffer[0] = CANSAT_OPEN_BALLOON;
-            buffer[1] = servo_manager_open_balloon() ? 0x01 : 0x00;
+        case CANSAT_BALLOON:
+            {
+                // Open balloon and send the state
+                buffer[0] = CANSAT_BALLOON;
+                buffer[1] = 0x00;
 
-            ESP_LOGD(TAG, "Sending CANSAT_OPEN_BALLOON packet");
-            axtec_packet_encode(&packet_to_send, buffer, 2);
-            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                bool open = false;
+                if(cansat_packet_decode_balloon(packet->data, &open, packet->length))
+                {
+                    if(open)
+                    {
+                        buffer[1] = servo_manager_open_balloon() ? 0x01 : 0x00;
+                    }
+                    else
+                    {
+                        buffer[1] = servo_manager_close_balloon() ? 0x01 : 0x00;
+                    }
+                }
+
+                ESP_LOGD(TAG, "Sending CANSAT_BALLOON packet");
+                axtec_packet_encode(&packet_to_send, buffer, 2);
+                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            }
             break;
         
         case CANSAT_READ_SENSOR:
