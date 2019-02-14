@@ -118,8 +118,8 @@ static void power_monitor_task(void* args)
                     power_status.rail_5v.current = raw_to_measurement(power_status.rail_5v.raw_i, i5v_factor);
                     power_status.rail_bat.current = raw_to_measurement(power_status.rail_bat.raw_i, ibat_factor);
 
-                    power_status.rail_3v3.avg_voltage = apply_filter(&power_status.rail_3v3._filter_voltage,  power_status.rail_3v3.voltage);
-                    power_status.rail_3v3.avg_current = apply_filter(&power_status.rail_3v3._filter_current,  power_status.rail_3v3.current);
+                    power_status.rail_3v3.avg_voltage = apply_filter(&power_status.rail_3v3._filter_voltage, power_status.rail_3v3.voltage);
+                    power_status.rail_3v3.avg_current = apply_filter(&power_status.rail_3v3._filter_current, power_status.rail_3v3.current);
                     power_status.rail_5v.avg_voltage = apply_filter(&power_status.rail_5v._filter_voltage, power_status.rail_5v.voltage);
                     power_status.rail_5v.avg_current = apply_filter(&power_status.rail_5v._filter_current, power_status.rail_5v.current);
                     power_status.rail_bat.avg_voltage = battery_manager_get().volts;
@@ -198,12 +198,12 @@ esp_err_t power_monitor_init(void)
     power_status.rail_3v3._filter_voltage.constant = 0.5;
     power_status.rail_3v3._filter_voltage.last_filtered_value = 0;
     // 5V
-    power_status.rail_5v._filter_current.constant = 0;
+    power_status.rail_5v._filter_current.constant = 0.5;
     power_status.rail_5v._filter_current.last_filtered_value = 0;
-    power_status.rail_5v._filter_voltage.constant = 0;
+    power_status.rail_5v._filter_voltage.constant = 0.5;
     power_status.rail_5v._filter_voltage.last_filtered_value = 0;
     // Bat
-    power_status.rail_bat._filter_current.constant = 0;
+    power_status.rail_bat._filter_current.constant = 0.5;
     power_status.rail_bat._filter_current.last_filtered_value = 0;
 
     // Set I2C bus for the PIC16 at 400 kHz. At startup start with I2C disabled
