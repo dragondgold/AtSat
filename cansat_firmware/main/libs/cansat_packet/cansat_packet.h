@@ -15,7 +15,6 @@ typedef enum
     CANSAT_GET_BATTERY = 0x06,
     CANSAT_SET_REPORT_FREQUENCY = 0x07,
     CANSAT_ENABLE_DISABLE_REPORT = 0x08,
-    CANSAT_GET_POSITION = 0x09,
     CANSAT_UNKNOWN
 } cansat_packet_type_t;
 
@@ -29,12 +28,13 @@ typedef enum
     HUMIDITY = 0x06,
     PRESSURE = 0x07,
     ALTITUDE = 0x08,
-    BATTERY_VOLTAGE = 0x09,
-    BATTERY_CURRENT = 0x0A,
-    V3V3_VOLTAGE = 0x0B,
-    V3V3_CURRENT = 0x0C,
-    V5V_VOLTAGE = 0x0D,
-    V5V_CURRENT = 0x0E,
+    POSITION = 0x09,
+    BATTERY_VOLTAGE = 0x0A,
+    BATTERY_CURRENT = 0x0B,
+    V3V3_VOLTAGE = 0x0C,
+    V3V3_CURRENT = 0x0D,
+    V5V_VOLTAGE = 0x0E,
+    V5V_CURRENT = 0x0F,
     UNKNOWN_SENSOR
 } cansat_sensor_type_t;
 

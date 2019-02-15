@@ -25,9 +25,9 @@
 static const char* TAG = "com";
 
 // Task
-static StackType_t stack_rx[COM_MANAGER_RX_STACK_SIZE], stack_tx[COM_MANAGER_TX_STACK_SIZE];
-static StaticTask_t task_rx, task_tx;
-static TaskHandle_t task_handle_rx, task_handle_tx;
+static StackType_t stack_rx[COM_MANAGER_RX_STACK_SIZE], stack_tx[COM_MANAGER_TX_STACK_SIZE], stack_report[COM_MANAGER_REPORT_STACK_SIZE];
+static StaticTask_t task_rx, task_tx, task_report;
+static TaskHandle_t task_handle_rx, task_handle_tx, task_handle_report;
 
 // Packets
 static cc1101_packet_t cc1101_packet;
@@ -360,6 +360,45 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                             break;
 
+                        case POSITION:
+                            {
+                                // Fill with latitude and longitude 0
+                                buffer[1] = POSITION;
+                                memset(buffer + 2, 0x00, 9);
+
+                                if(gps_manager_get_gga(&gps_data))
+                                {
+                                    // To ensure cross-platform compatibility when sending the latitude and longitude values
+                                    //  we convert them to integers instead of sending them in floating point format.
+                                    // The equation to convert the angle to integer is:
+                                    //      int encodedAngle = (int)(angle * (0x7FFFFFFF / 180.0));
+                                    // The equation to convert from integer to angle is:
+                                    //      float angle = (encodedAngle / (0x7FFFFFFF / 180.0));
+                                    // See: https://stackoverflow.com/questions/7934623/what-is-the-approximate-resolution-of-a-single-precision-floating-point-number-w
+                                    float lat = minmea_tocoord(&gps_data.latitude);
+                                    float lon = minmea_tocoord(&gps_data.longitude);
+                                    int32_t lat_i = (int32_t)(lat * (0x7FFFFFFF / 180.0));
+                                    int32_t lon_i = (int32_t)(lon * (0x7FFFFFFF / 180.0));
+
+                                    // Add the integers to the buffer, latitude first, MSB first
+                                    buffer[2] = (uint8_t)(lat_i >> 24);
+                                    buffer[3] = (uint8_t)(lat_i >> 16);
+                                    buffer[4] = (uint8_t)(lat_i >> 8);
+                                    buffer[5] = (uint8_t)lat_i;
+
+                                    buffer[6] = (uint8_t)(lon_i >> 24);
+                                    buffer[7] = (uint8_t)(lon_i >> 16);
+                                    buffer[8] = (uint8_t)(lon_i >> 8);
+                                    buffer[9] = (uint8_t)lon_i;
+                                }
+
+                                // Add the packet to the send queue
+                                ESP_LOGD(TAG, "Sending POSITION packet");
+                                axtec_packet_encode(&packet_to_send, buffer, 10);
+                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            }
+                            break;
+
                         case BATTERY_VOLTAGE:
                             {
                                 // Sensor ID
@@ -528,45 +567,6 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             }
             break;
 
-        case CANSAT_GET_POSITION:
-            {
-                // Fill with latitude and longitude 0
-                memset(buffer, 0x00, 9);
-                buffer[0] = CANSAT_GET_POSITION;
-
-                if(gps_manager_get_gga(&gps_data))
-                {
-                    // To ensure cross-platform compatibility when sending the latitude and longitude values
-                    //  we convert them to integers instead of sending them in floating point format.
-                    // The equation to convert the angle to integer is:
-                    //      int encodedAngle = (int)(angle * (0x7FFFFFFF / 180.0));
-                    // The equation to convert from integer to angle is:
-                    //      float angle = (encodedAngle / (0x7FFFFFFF / 180.0));
-                    // See: https://stackoverflow.com/questions/7934623/what-is-the-approximate-resolution-of-a-single-precision-floating-point-number-w
-                    float lat = minmea_tocoord(&gps_data.latitude);
-                    float lon = minmea_tocoord(&gps_data.longitude);
-                    int32_t lat_i = (int32_t)(lat * (0x7FFFFFFF / 180.0));
-                    int32_t lon_i = (int32_t)(lon * (0x7FFFFFFF / 180.0));
-
-                    // Add the integers to the buffer, latitude first, MSB first
-                    buffer[1] = (uint8_t)(lat_i >> 24);
-                    buffer[2] = (uint8_t)(lat_i >> 16);
-                    buffer[3] = (uint8_t)(lat_i >> 8);
-                    buffer[4] = (uint8_t)lat_i;
-
-                    buffer[5] = (uint8_t)(lon_i >> 24);
-                    buffer[6] = (uint8_t)(lon_i >> 16);
-                    buffer[7] = (uint8_t)(lon_i >> 8);
-                    buffer[8] = (uint8_t)lon_i;
-                }
-
-                // Add the packet to the send queue
-                ESP_LOGD(TAG, "Sending CANSAT_GET_POSITION packet");
-                axtec_packet_encode(&packet_to_send, buffer, 9);
-                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
-            }
-            break;
-
         case CANSAT_UNKNOWN:
             ESP_LOGW(TAG, "Unknown packet type %d", type);
             break;
@@ -689,6 +689,20 @@ static void tx_task(void* arg)
     }
 }
 
+static void report_task(void* arg)
+{
+    while(true)
+    {
+        // Send the data automatically every 'report_frequency'
+        vTaskDelay(report_frequency);
+
+        if(reports_enabled)
+        {
+
+        }
+    }
+}
+
 esp_err_t com_manager_init(void)
 {
     ESP_LOGI(TAG, "Initializing");
@@ -716,6 +730,8 @@ esp_err_t com_manager_init(void)
                 NULL, COM_MANAGER_RX_TASK_PRIORITY, stack_rx, &task_rx, COM_MANAGER_RX_AFFINITY);
             task_handle_tx = xTaskCreateStaticPinnedToCore(tx_task, "com_tx", COM_MANAGER_TX_STACK_SIZE, 
                 NULL, COM_MANAGER_TX_TASK_PRIORITY, stack_tx, &task_tx, COM_MANAGER_TX_AFFINITY);
+            task_handle_report = xTaskCreateStaticPinnedToCore(report_task, "report", COM_MANAGER_REPORT_STACK_SIZE, 
+                NULL, COM_MANAGER_REPORT_TASK_PRIORITY, stack_report, &task_report, COM_MANAGER_REPORT_AFFINITY);
 
             // By default put the transceiver in receive mode
             cc1101_set_rx(true);

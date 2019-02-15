@@ -35,6 +35,10 @@
 #define COM_MANAGER_TX_TASK_PRIORITY            5
 #define COM_MANAGER_TX_AFFINITY                 tskNO_AFFINITY
 
+#define COM_MANAGER_REPORT_STACK_SIZE           1500
+#define COM_MANAGER_REPORT_TASK_PRIORITY        5
+#define COM_MANAGER_REPORT_AFFINITY             tskNO_AFFINITY
+
 #define POWER_MONITOR_STACK_SIZE                1500
 #define POWER_MONITOR_TASK_PRIORITY             6   // Make sure this has a high priority
 #define POWER_MONITOR_AFFINITY                  tskNO_AFFINITY
