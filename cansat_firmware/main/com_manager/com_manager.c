@@ -700,6 +700,31 @@ static void tx_task(void* arg)
 
 static void report_task(void* arg)
 {
+    static axtec_decoded_packet_t packet_sensors, packet_power;
+
+    // Emulate a packet requesting all the sensors
+    packet_sensors.data[0] = CANSAT_READ_SENSOR;
+    packet_sensors.data[1] = POSITION;
+    packet_sensors.data[2] = GYROSCOPE;
+    packet_sensors.data[3] = MAGNETOMETER;
+    packet_sensors.data[4] = ACCELEROMETER;
+    packet_sensors.data[5] = TEMPERATURE;
+    packet_sensors.data[6] = HUMIDITY;
+    packet_sensors.data[7] = PRESSURE;
+    packet_sensors.data[8] = ALTITUDE;
+    packet_sensors.length = 9;
+    packet_sensors.valid = true;
+
+    packet_power.data[0] = CANSAT_READ_SENSOR;
+    packet_power.data[1] = BATTERY_VOLTAGE;
+    packet_power.data[2] = BATTERY_CURRENT;
+    packet_power.data[3] = V3V3_VOLTAGE;
+    packet_power.data[4] = V3V3_CURRENT;
+    packet_power.data[5] = V5V_VOLTAGE;
+    packet_power.data[6] = V5V_CURRENT;
+    packet_power.length = 7;
+    packet_power.valid = true;
+
     while(true)
     {
         // Send the data automatically every 'report_frequency'
@@ -707,7 +732,11 @@ static void report_task(void* arg)
 
         if(reports_enabled)
         {
+            // Send all the sensors data in one packet
+            process_cansat_packet(&packet_sensors);
 
+            // Send all the voltages and currents now
+            process_cansat_packet(&packet_power);
         }
     }
 }
