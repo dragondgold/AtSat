@@ -171,8 +171,7 @@ bool cc1101_reg_config_settings(void)
     spi_write_reg(CC1101_FSCTRL1, 0x06);
     spi_write_reg(CC1101_FSCTRL0, 0x00);
 
-    // PA Table for 915 MHz in the order -30, -20, -15, -10, 0, 5, 7, and 10 dbm
-    uint8_t pa_table_915[] = {0x8E,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+    uint8_t pa_table_915[] = {0xC3,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
     spi_write_burst_reg(CC1101_PATABLE, pa_table_915, sizeof(pa_table_915));
  
     spi_write_reg(CC1101_MDMCFG4,  0xF8);   // DRATE_E = 8
