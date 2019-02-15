@@ -417,7 +417,7 @@ bool cc1101_read_data(cc1101_packet_t* packet)
             // Read RSSI and LQI
             spi_read_burst_reg(CC1101_RXFIFO, status, 2);
 
-            packet->rssi = status[0];
+            packet->rssi = status[0] >= 128 ? (int8_t)(((int)status[0] - 256) / 2 - 74) : (int8_t)((int)status[0] / 2 - 74);
             packet->lqi = status[1] & 0x7F;
 
             // The packet->data contains the data but the data[0] has the status bytes that
