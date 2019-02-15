@@ -38,7 +38,6 @@
 import CountriesList from 'data/CountriesList'
 import utils from 'services/utils'
 import projectManager from 'services/projectManager'
-import mcp2210 from 'services/mcp2210'
 import { mapGetters } from 'vuex'
 import projectWidget from './Widgets/projectWidget'
 import etWidget from './Widgets/etWidget'

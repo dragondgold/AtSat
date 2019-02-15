@@ -12,13 +12,12 @@ import router from './router'
 import VuesticPlugin from '@/vuestic-theme/vuestic-plugin'
 import './i18n'
 import YmapPlugin from 'vue-yandex-maps'
-import MCP2210 from './services/mcp2210'
+import CanSatAPI from './services/CanSatAPI'
 
 const { ipcRenderer  } = require('electron')
 
 ipcRenderer.on('close', (event) => {
-  MCP2210.closeWorker()
-  debugger
+  CanSatAPI.killWorker()
   ipcRenderer.send('quit')
 })
 
@@ -55,4 +54,4 @@ let vm = new Vue({
 
 global.vm = vm
 
-MCP2210.test()
+CanSatAPI.initWorker()

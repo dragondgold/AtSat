@@ -120,13 +120,13 @@ module.exports =
         if(level)
         {
             let cmd_string = " -gpioW=gp0high";
-            let output = execSync(MCP2210CLI_PATH + cmd_string);
+            //let output = execSync(MCP2210CLI_PATH + cmd_string);
         }
         else
         {
             // Set to 0
             let cmd_string = " -gpioW=gp0low";
-            let output = execSync(MCP2210CLI_PATH + cmd_string);
+            //let output = execSync(MCP2210CLI_PATH + cmd_string);
         }
     },
 
@@ -341,7 +341,7 @@ module.exports =
         this.spi_write_reg(CC1101_FSCTRL0, 0x00);
         
         // PA Table for 915 MHz in the order -30, -20, -15, -10, 0, 5, 7, and 10 dbm
-        this.spi_write_burst_reg(CC1101_PATABLE, [0x8E,0x00,0x00,0x00,0x00,0x00,0x00,0x00]);
+        this.spi_write_burst_reg(CC1101_PATABLE, [0xCE,0x00,0x00,0x00,0x00,0x00,0x00,0x00]);
 
         this.spi_write_reg(CC1101_MDMCFG4,  0xF8);   // DRATE_E = 8
         this.spi_write_reg(CC1101_MDMCFG3,  0x83);   // With DRATE_E on MDMCFG4 = 8 this gives 9600 bauds 

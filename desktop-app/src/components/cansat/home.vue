@@ -29,7 +29,6 @@ import MissionManager from 'services/missionManager'
 import defaultActuators from 'data/Actuators'
 import defaultSensors from 'data/Sensors'
 import utils from 'services/utils'
-import mcp2210 from 'services/mcp2210'
 
 export default {
   name: 'home-axtec',
@@ -44,7 +43,6 @@ export default {
   },
 
   created(){
-
     if(this.$store.getters.axtec.debug){ 
        
     }
