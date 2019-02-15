@@ -1,11 +1,44 @@
 
 const path = require('path');
 const cc1101 = require('./cc1101.js');
-//const pathMCP2210CLI = path.resolve('./../../build/MCP2210/mcp2210-cli.exe');
+const pathMCP2210CLI = path.resolve('./../../build/MCP2210/mcp2210-cli.exe');
 const protocol = require('./protocol.js');
-const pathMCP2210CLI = path.resolve('./build/MCP2210/mcp2210-cli.exe');
+//const pathMCP2210CLI = path.resolve('./build/MCP2210/mcp2210-cli.exe');
 
 // Init the CC1101 and set RX mode
+
+/*
+let data = {
+  //data: [ 0x7e, 0 , 2 , 0,0, 255]
+  data: [ 0, 0x7e, 0 , 23, 5,  8,0,0,0,0,0,0, 1,0,0, 3,0,0, 7, 0,0,0,0,0,0,0,0, 231]
+  //data: [ 0x7d, 0, 0, 0, 0x7e, 0 , 8, 5,  8,0,0,0,0,0,0,242]
+}
+
+let decoded = protocol.decode_packet(data);
+console.log(Date.now() + ": Data -> " + JSON.stringify(decoded));
+console.log(JSON.stringify(decoded.decoded));
+*/
+
+const cmd =
+[
+    { name: 'getError', data: [] },         
+    { name: 'getParachute', data: []},    
+    { name: 'setParachute', data: [1] },    
+    { name: 'getBalloon', data:  [] },      
+    { name: 'setBalloon', data: [1] },          
+    { name: 'getSensor', data: [ 1,2,3]},
+    { name: 'getBattery', data: [] },      
+    { name: 'setReport', data: [2] },  
+    { name: 'startReport', data: [1] }      
+]
+
+for(let a = 0; a < cmd.length; a++){
+  let packet = protocol.create_packet( cmd[a].name, cmd[a].data );
+  console.log(JSON.stringify(packet));
+}
+
+
+/*
 console.log("Init: " + cc1101.cc1101_init(pathMCP2210CLI));
 
 cc1101.cc1101_set_cli_path(pathMCP2210CLI);
@@ -52,3 +85,4 @@ setInterval(function()
   }
 
 }, 100);
+*/
