@@ -8,33 +8,33 @@ typedef enum
 {
     CANSAT_GET_ERRORS = 0x00,
     CANSAT_PARACHUTE_STATE = 0x01,
-    CANSAT_OPEN_PARACHUTE = 0x02,
+    CANSAT_PARACHUTE = 0x02,
     CANSAT_BALLOON_STATE = 0x03,
-    CANSAT_OPEN_BALLOON = 0x04,
+    CANSAT_BALLOON = 0x04,
     CANSAT_READ_SENSOR = 0x05,
     CANSAT_GET_BATTERY = 0x06,
     CANSAT_SET_REPORT_FREQUENCY = 0x07,
     CANSAT_ENABLE_DISABLE_REPORT = 0x08,
-    CANSAT_GET_POSITION = 0x09,
     CANSAT_UNKNOWN
 } cansat_packet_type_t;
 
 typedef enum
 {
-    GYROSCOPE = 0x01,
-    MAGNETOMETER = 0x02,
-    ACCELEROMETER = 0x03,
-    ORIENTATION = 0x04,
-    TEMPERATURE = 0x05,
-    HUMIDITY = 0x06,
-    PRESSURE = 0x07,
-    ALTITUDE = 0x08,
-    BATTERY_VOLTAGE = 0x09,
-    BATTERY_CURRENT = 0x0A,
-    V3V3_VOLTAGE = 0x0B,
-    V3V3_CURRENT = 0x0C,
-    V5V_VOLTAGE = 0x0D,
-    V5V_CURRENT = 0x0E,
+    BATTERY_VOLTAGE = 0x01,
+    BATTERY_CURRENT = 0x02,
+    V3V3_VOLTAGE = 0x03,
+    V3V3_CURRENT = 0x04,
+    V5V_VOLTAGE = 0x05,
+    V5V_CURRENT = 0x06,
+    POSITION = 0x07,
+    GYROSCOPE = 0x08,
+    MAGNETOMETER = 0x09,
+    ACCELEROMETER = 0x0A,
+    ORIENTATION = 0x0B,
+    TEMPERATURE = 0x0C,
+    HUMIDITY = 0x0D,
+    PRESSURE = 0x0E,
+    ALTITUDE = 0x0F,
     UNKNOWN_SENSOR
 } cansat_sensor_type_t;
 
@@ -53,6 +53,20 @@ bool cansat_packet_decode_report_frequency(uint8_t* data, uint8_t* report_period
 
 bool cansat_packet_decode_enable_disable_report(uint8_t* data, bool* enabled, unsigned int length);
 
-bool cansat_packet_decode_read_sensor(uint8_t* data, cansat_sensor_type_t* sensor_id, unsigned int length);
+/**
+ * @brief Decode the sensor IDs from the packet
+ * 
+ * @param data array of bytes from the packet data to decode
+ * @param sensor_id pointer to a cansat_sensor_type_t array to store all the decoded IDs
+ * @param decoded_length number of IDs decoded
+ * @param length size of the data array
+ * @param max_array_size size of the sensor_id array
+ * @return true if decoding was successful
+ * @return false failed to decode
+ */
+bool cansat_packet_decode_read_sensors(uint8_t* data, cansat_sensor_type_t* sensor_id, unsigned int* decoded_length, unsigned int length, unsigned int max_array_size);
+
+bool cansat_packet_decode_parachute(uint8_t* data, bool* open, unsigned int length);
+bool cansat_packet_decode_balloon(uint8_t* data, bool* open, unsigned int length);
 
 #endif // __CANSAT_PACKET_H__

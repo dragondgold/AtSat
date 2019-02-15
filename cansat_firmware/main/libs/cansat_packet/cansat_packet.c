@@ -52,19 +52,50 @@ bool cansat_packet_decode_enable_disable_report(uint8_t* data, bool* enabled, un
     return false;
 }
 
-bool cansat_packet_decode_read_sensor(uint8_t* data, cansat_sensor_type_t* sensor_id, unsigned int length)
+bool cansat_packet_decode_read_sensors(uint8_t* data, cansat_sensor_type_t* sensor_id, unsigned int* decoded_length, unsigned int length, unsigned int max_array_size)
+{
+    *decoded_length = 0;
+
+    // Check packet type
+    if(cansat_packet_get_type(data, length) == CANSAT_READ_SENSOR && length > 1 && max_array_size > 0)
+    {
+        for(unsigned int index = 1; (index - 1) < max_array_size && index < length; ++index)
+        {
+            if(data[index] >= UNKNOWN_SENSOR)
+            {
+                sensor_id[index-1] = UNKNOWN_SENSOR;
+            }
+            else
+            {
+                sensor_id[index-1] = data[index];
+            }
+            ++(*decoded_length);
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+bool cansat_packet_decode_parachute(uint8_t* data, bool* open, unsigned int length)
 {
     // Check packet type
-    if(cansat_packet_get_type(data, length) == CANSAT_READ_SENSOR && length > 1)
+    if(cansat_packet_get_type(data, length) == CANSAT_PARACHUTE && length > 1)
     {
-        if(data[1] >= UNKNOWN_SENSOR)
-        {
-            *sensor_id = UNKNOWN_SENSOR;
-        }
-        else
-        {
-            *sensor_id = data[1];
-        }
+        *open = data[1];
+        return true;
+    }
+
+    return false;
+}
+
+bool cansat_packet_decode_balloon(uint8_t* data, bool* open, unsigned int length)
+{
+    // Check packet type
+    if(cansat_packet_get_type(data, length) == CANSAT_BALLOON && length > 1)
+    {
+        *open = data[1];
         return true;
     }
 
