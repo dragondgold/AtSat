@@ -52,19 +52,26 @@ bool cansat_packet_decode_enable_disable_report(uint8_t* data, bool* enabled, un
     return false;
 }
 
-bool cansat_packet_decode_read_sensor(uint8_t* data, cansat_sensor_type_t* sensor_id, unsigned int length)
+bool cansat_packet_decode_read_sensors(uint8_t* data, cansat_sensor_type_t* sensor_id, unsigned int* decoded_length, unsigned int length, unsigned int max_array_size)
 {
+    *decoded_length = 0;
+
     // Check packet type
-    if(cansat_packet_get_type(data, length) == CANSAT_READ_SENSOR && length > 1)
+    if(cansat_packet_get_type(data, length) == CANSAT_READ_SENSOR && length > 1 && max_array_size > 0)
     {
-        if(data[1] >= UNKNOWN_SENSOR)
+        for(unsigned int index = 1; (index - 1) < max_array_size && index < length; ++index)
         {
-            *sensor_id = UNKNOWN_SENSOR;
+            if(data[index] >= UNKNOWN_SENSOR)
+            {
+                sensor_id[index-1] = UNKNOWN_SENSOR;
+            }
+            else
+            {
+                sensor_id[index-1] = data[index];
+            }
+            ++(*decoded_length);
         }
-        else
-        {
-            *sensor_id = data[1];
-        }
+
         return true;
     }
 

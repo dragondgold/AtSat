@@ -53,7 +53,18 @@ bool cansat_packet_decode_report_frequency(uint8_t* data, uint8_t* report_period
 
 bool cansat_packet_decode_enable_disable_report(uint8_t* data, bool* enabled, unsigned int length);
 
-bool cansat_packet_decode_read_sensor(uint8_t* data, cansat_sensor_type_t* sensor_id, unsigned int length);
+/**
+ * @brief Decode the sensor IDs from the packet
+ * 
+ * @param data array of bytes from the packet data to decode
+ * @param sensor_id pointer to a cansat_sensor_type_t array to store all the decoded IDs
+ * @param decoded_length number of IDs decoded
+ * @param length size of the data array
+ * @param max_array_size size of the sensor_id array
+ * @return true if decoding was successful
+ * @return false failed to decode
+ */
+bool cansat_packet_decode_read_sensors(uint8_t* data, cansat_sensor_type_t* sensor_id, unsigned int* decoded_length, unsigned int length, unsigned int max_array_size);
 
 bool cansat_packet_decode_parachute(uint8_t* data, bool* open, unsigned int length);
 bool cansat_packet_decode_balloon(uint8_t* data, bool* open, unsigned int length);

@@ -33,6 +33,7 @@ static TaskHandle_t task_handle_rx, task_handle_tx, task_handle_report;
 static cc1101_packet_t cc1101_packet;
 static axtec_decoded_packet_t axtec_decoded_packet;
 static cansat_errors_t errors;
+static cansat_sensor_type_t sensor_types[COM_MANAGER_MAX_SENSOR_IDS];
 
 // Queue
 static StaticQueue_t tx_static_queue;
@@ -185,186 +186,194 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
         
         case CANSAT_READ_SENSOR:
             {
+                // Decode sensor(s) ID(s)
                 static sensors_data_t sensors_data;
-                static cansat_sensor_type_t sensor_type;
-                if(cansat_packet_decode_read_sensor(packet->data, &sensor_type, packet->length))
+                unsigned int ids_length = 0;
+                if(!cansat_packet_decode_read_sensors(packet->data, sensor_types, &ids_length, packet->length, COM_MANAGER_MAX_SENSOR_IDS))
                 {
-                    ESP_LOGD(TAG, "Sensor ID: %d", sensor_type);
+                    ESP_LOGW(TAG, "Error decoding sensor ID");
+                    break;
+                }
 
-                    // Packet type
-                    buffer[0] = CANSAT_READ_SENSOR;
+                // Packet type
+                buffer[0] = CANSAT_READ_SENSOR;
+                unsigned int buffer_index = 1;
+                unsigned int total_length = 1;
+
+                // Go through each decoded ID
+                for(unsigned int n = 0; n < ids_length; ++n)
+                {
+                    cansat_sensor_type_t sensor_type = sensor_types[n];
+
+                    ESP_LOGD(TAG, "Sensor ID: %d", sensor_type);
 
                     switch(sensor_type)
                     {
                         case GYROSCOPE:
                             // Sensor ID
-                            buffer[1] = GYROSCOPE;
-                            memset(buffer + 2, 0x00, 6);
+                            buffer[buffer_index++] = GYROSCOPE;
+                            memset(buffer + buffer_index, 0x00, 6);
 
                             if(sensor_manager_get_data(&sensors_data))
                             {
                                 // Put the 3 axis in the X, Y, Z order with MSB first
-                                buffer[2] = (uint8_t)((int16_t)sensors_data.gyro.x >> 8);
-                                buffer[3] = (uint8_t)((int16_t)sensors_data.gyro.x);
-                                buffer[4] = (uint8_t)((int16_t)sensors_data.gyro.y >> 8);
-                                buffer[5] = (uint8_t)((int16_t)sensors_data.gyro.y);
-                                buffer[6] = (uint8_t)((int16_t)sensors_data.gyro.z >> 8);
-                                buffer[7] = (uint8_t)((int16_t)sensors_data.gyro.z);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.gyro.x >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.gyro.x);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.gyro.y >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.gyro.y);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.gyro.z >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.gyro.z);
                             }
                             else
                             {
+                                buffer_index += 6;
                                 ESP_LOGW(TAG, "Failed getting gyro data");
                             }
 
-                            ESP_LOGD(TAG, "Sending GYROSCOPE packet");
-                            axtec_packet_encode(&packet_to_send, buffer, 8);
-                            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            total_length += 7;
+                            ESP_LOGD(TAG, "Created GYROSCOPE packet");
                             break;
 
                         case MAGNETOMETER:
                             // Sensor ID
-                            buffer[1] = MAGNETOMETER;
-                            memset(buffer + 2, 0x00, 6);
+                            buffer[buffer_index++] = MAGNETOMETER;
+                            memset(buffer + buffer_index, 0x00, 6);
 
                             if(sensor_manager_get_data(&sensors_data))
                             {
                                 // Put the 3 axis in the X, Y, Z order with MSB first
-                                buffer[2] = (uint8_t)((int16_t)sensors_data.mag.x >> 8);
-                                buffer[3] = (uint8_t)((int16_t)sensors_data.mag.x);
-                                buffer[4] = (uint8_t)((int16_t)sensors_data.mag.y >> 8);
-                                buffer[5] = (uint8_t)((int16_t)sensors_data.mag.y);
-                                buffer[6] = (uint8_t)((int16_t)sensors_data.mag.z >> 8);
-                                buffer[7] = (uint8_t)((int16_t)sensors_data.mag.z);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.mag.x >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.mag.x);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.mag.y >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.mag.y);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.mag.z >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.mag.z);
                             }
                             else
                             {
+                                buffer_index += 6;
                                 ESP_LOGW(TAG, "Failed getting mag data");
                             }
 
-                            ESP_LOGD(TAG, "Sending MAGNETOMETER packet");
-                            axtec_packet_encode(&packet_to_send, buffer, 8);
-                            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            total_length += 7;
+                            ESP_LOGD(TAG, "Created MAGNETOMETER packet");
                             break;
 
                         case ACCELEROMETER:
                             // Sensor ID
-                            buffer[1] = ACCELEROMETER;
-                            memset(buffer + 2, 0x00, 6);
+                            buffer[buffer_index++] = ACCELEROMETER;
+                            memset(buffer + buffer_index, 0x00, 6);
 
                             if(sensor_manager_get_data(&sensors_data))
                             {
                                 // Put the 3 axis in the X, Y, Z order with MSB first
-                                buffer[2] = (uint8_t)((int16_t)sensors_data.acc.x >> 8);
-                                buffer[3] = (uint8_t)((int16_t)sensors_data.acc.x);
-                                buffer[4] = (uint8_t)((int16_t)sensors_data.acc.y >> 8);
-                                buffer[5] = (uint8_t)((int16_t)sensors_data.acc.y);
-                                buffer[6] = (uint8_t)((int16_t)sensors_data.acc.z >> 8);
-                                buffer[7] = (uint8_t)((int16_t)sensors_data.acc.z);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.acc.x >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.acc.x);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.acc.y >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.acc.y);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.acc.z >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.acc.z);
                             }
                             else
                             {
+                                buffer_index += 6;
                                 ESP_LOGW(TAG, "Failed getting acc data");
                             }
 
-                            ESP_LOGD(TAG, "Sending ACCELEROMETER packet");
-                            axtec_packet_encode(&packet_to_send, buffer, 8);
-                            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            total_length += 7;
+                            ESP_LOGD(TAG, "Created ACCELEROMETER packet");
                             break;
 
                         case ORIENTATION:
                             // Sensor ID
-                            buffer[1] = ORIENTATION;
-                            memset(buffer + 2, 0x00, 6);
+                            buffer[buffer_index++] = ORIENTATION;
+                            memset(buffer + buffer_index, 0x00, 6);
 
                             if(sensor_manager_get_data(&sensors_data))
                             {
                                 // Put the 3 axis in the X, Y, Z order with MSB first
-                                buffer[2] = (uint8_t)((int16_t)sensors_data.orientation.x >> 8);
-                                buffer[3] = (uint8_t)((int16_t)sensors_data.orientation.x);
-                                buffer[4] = (uint8_t)((int16_t)sensors_data.orientation.y >> 8);
-                                buffer[5] = (uint8_t)((int16_t)sensors_data.orientation.y);
-                                buffer[6] = (uint8_t)((int16_t)sensors_data.orientation.z >> 8);
-                                buffer[7] = (uint8_t)((int16_t)sensors_data.orientation.z);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.orientation.x >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.orientation.x);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.orientation.y >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.orientation.y);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.orientation.z >> 8);
+                                buffer[buffer_index++] = (uint8_t)((int16_t)sensors_data.orientation.z);
                             }
                             else
                             {
+                                buffer_index += 6;
                                 ESP_LOGW(TAG, "Failed getting orientation data");
                             }
 
-                            ESP_LOGD(TAG, "Sending ORIENTATION packet");
-                            axtec_packet_encode(&packet_to_send, buffer, 8);
-                            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            total_length += 7;
+                            ESP_LOGD(TAG, "Created ORIENTATION packet");
                             break;
 
                         case TEMPERATURE:
                             // Sensor ID
-                            buffer[1] = TEMPERATURE;
-                            buffer[2] = 0;
+                            buffer[buffer_index++] = TEMPERATURE;
+                            buffer[buffer_index++] = 0;
 
                             if(sensor_manager_get_data(&sensors_data))
                             {
-                                buffer[2] = (uint8_t)((int8_t)sensors_data.temperature);
+                                buffer[buffer_index - 1] = (uint8_t)((int8_t)sensors_data.temperature);
                             }
 
-                            ESP_LOGD(TAG, "Sending TEMPERATURE packet");
-                            axtec_packet_encode(&packet_to_send, buffer, 3);
-                            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            total_length += 2;
+                            ESP_LOGD(TAG, "Created TEMPERATURE packet");
                             break;
 
                         case HUMIDITY:
                             // Sensor ID
-                            buffer[1] = HUMIDITY;
-                            buffer[2] = 0;
+                            buffer[buffer_index++] = HUMIDITY;
+                            buffer[buffer_index++] = 0;
 
                             if(sensor_manager_get_data(&sensors_data))
                             {
-                                buffer[2] = sensors_data.humidity;
+                                buffer[buffer_index - 1] = sensors_data.humidity;
                             }
 
-                            ESP_LOGD(TAG, "Sending HUMIDITY packet");
-                            axtec_packet_encode(&packet_to_send, buffer, 3);
-                            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            total_length += 2;
+                            ESP_LOGD(TAG, "Created HUMIDITY packet");
                             break;
 
                         case PRESSURE:
                             // Sensor ID
-                            buffer[1] = PRESSURE;
-                            buffer[2] = 0;
-                            buffer[3] = 0;
+                            buffer[buffer_index++] = PRESSURE;
+                            buffer[buffer_index++] = 0;
+                            buffer[buffer_index++] = 0;
 
                             if(sensor_manager_get_data(&sensors_data))
                             {
-                                buffer[2] = (uint8_t)((uint16_t)sensors_data.pressure >> 8);
-                                buffer[3] = (uint8_t)sensors_data.pressure;
+                                buffer[buffer_index - 2] = (uint8_t)((uint16_t)sensors_data.pressure >> 8);
+                                buffer[buffer_index - 1] = (uint8_t)sensors_data.pressure;
                             }
 
-                            ESP_LOGD(TAG, "Sending PRESSURE packet");
-                            axtec_packet_encode(&packet_to_send, buffer, 4);
-                            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            total_length += 3;
+                            ESP_LOGD(TAG, "Created PRESSURE packet");
                             break;
 
                         case ALTITUDE:
                             // Sensor ID
-                            buffer[1] = ALTITUDE;
-                            buffer[2] = 0;
-                            buffer[3] = 0;
+                            buffer[buffer_index++] = ALTITUDE;
+                            buffer[buffer_index++] = 0;
+                            buffer[buffer_index++] = 0;
 
                             if(sensor_manager_get_data(&sensors_data))
                             {
-                                buffer[2] = (uint8_t)((uint16_t)sensors_data.altitude >> 8);
-                                buffer[3] = (uint8_t)sensors_data.altitude;
+                                buffer[buffer_index - 2] = (uint8_t)((uint16_t)sensors_data.altitude >> 8);
+                                buffer[buffer_index - 1] = (uint8_t)sensors_data.altitude;
                             }
 
-                            ESP_LOGD(TAG, "Sending ALTITUDE packet");
-                            axtec_packet_encode(&packet_to_send, buffer, 4);
-                            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                            total_length += 3;
+                            ESP_LOGD(TAG, "Created ALTITUDE packet");
                             break;
 
                         case POSITION:
                             {
                                 // Fill with latitude and longitude 0
-                                buffer[1] = POSITION;
-                                memset(buffer + 2, 0x00, 9);
+                                buffer[buffer_index++] = POSITION;
+                                memset(buffer + buffer_index, 0x00, 9);
 
                                 if(gps_manager_get_gga(&gps_data))
                                 {
@@ -381,125 +390,109 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                     int32_t lon_i = (int32_t)(lon * (0x7FFFFFFF / 180.0));
 
                                     // Add the integers to the buffer, latitude first, MSB first
-                                    buffer[2] = (uint8_t)(lat_i >> 24);
-                                    buffer[3] = (uint8_t)(lat_i >> 16);
-                                    buffer[4] = (uint8_t)(lat_i >> 8);
-                                    buffer[5] = (uint8_t)lat_i;
+                                    buffer[buffer_index++] = (uint8_t)(lat_i >> 24);
+                                    buffer[buffer_index++] = (uint8_t)(lat_i >> 16);
+                                    buffer[buffer_index++] = (uint8_t)(lat_i >> 8);
+                                    buffer[buffer_index++] = (uint8_t)lat_i;
 
-                                    buffer[6] = (uint8_t)(lon_i >> 24);
-                                    buffer[7] = (uint8_t)(lon_i >> 16);
-                                    buffer[8] = (uint8_t)(lon_i >> 8);
-                                    buffer[9] = (uint8_t)lon_i;
+                                    buffer[buffer_index++] = (uint8_t)(lon_i >> 24);
+                                    buffer[buffer_index++] = (uint8_t)(lon_i >> 16);
+                                    buffer[buffer_index++] = (uint8_t)(lon_i >> 8);
+                                    buffer[buffer_index++] = (uint8_t)lon_i;
+                                }
+                                else
+                                {
+                                    buffer_index += 8;
                                 }
 
-                                // Add the packet to the send queue
-                                ESP_LOGD(TAG, "Sending POSITION packet");
-                                axtec_packet_encode(&packet_to_send, buffer, 10);
-                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                                total_length += 9;
+                                ESP_LOGD(TAG, "Created POSITION packet");
                             }
                             break;
 
                         case BATTERY_VOLTAGE:
                             {
                                 // Sensor ID
-                                buffer[1] = BATTERY_VOLTAGE;
-                                buffer[2] = 0;
-                                buffer[3] = 0;
+                                buffer[buffer_index++] = BATTERY_VOLTAGE;
 
                                 uint16_t voltage = power_monitor_get_battery_voltage();
 
-                                buffer[2] = (uint8_t)(voltage >> 8);
-                                buffer[3] = (uint8_t)voltage;
+                                buffer[buffer_index++] = (uint8_t)(voltage >> 8);
+                                buffer[buffer_index++] = (uint8_t)voltage;
 
-                                ESP_LOGD(TAG, "Sending BATTERY_VOLTAGE packet");
-                                axtec_packet_encode(&packet_to_send, buffer, 4);
-                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                                total_length += 3;
+                                ESP_LOGD(TAG, "Created BATTERY_VOLTAGE packet");
                             }
                             break;
 
                         case BATTERY_CURRENT:
                             {
                                 // Sensor ID
-                                buffer[1] = BATTERY_CURRENT;
-                                buffer[2] = 0;
-                                buffer[3] = 0;
+                                buffer[buffer_index++] = BATTERY_CURRENT;
 
                                 uint16_t current = power_monitor_get_battery_current();
 
-                                buffer[2] = (uint8_t)(current >> 8);
-                                buffer[3] = (uint8_t)current;
+                                buffer[buffer_index++] = (uint8_t)(current >> 8);
+                                buffer[buffer_index++] = (uint8_t)current;
 
-                                ESP_LOGD(TAG, "Sending BATTERY_CURRENT packet");
-                                axtec_packet_encode(&packet_to_send, buffer, 4);
-                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                                total_length += 3;
+                                ESP_LOGD(TAG, "Created BATTERY_CURRENT packet");
                             }
                             break;
 
                         case V3V3_VOLTAGE:
                             {
                                 // Sensor ID
-                                buffer[1] = V3V3_VOLTAGE;
-                                buffer[2] = 0;
-                                buffer[3] = 0;
+                                buffer[buffer_index++] = V3V3_VOLTAGE;
 
                                 uint16_t voltage = power_monitor_get_3v3_voltage();
 
-                                buffer[2] = (uint8_t)(voltage >> 8);
-                                buffer[3] = (uint8_t)voltage;
+                                buffer[buffer_index++] = (uint8_t)(voltage >> 8);
+                                buffer[buffer_index++] = (uint8_t)voltage;
 
-                                axtec_packet_encode(&packet_to_send, buffer, 4);
-                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                                total_length += 3;
                             }
                             break;
 
                         case V3V3_CURRENT:
                             {
                                 // Sensor ID
-                                buffer[1] = V3V3_CURRENT;
-                                buffer[2] = 0;
-                                buffer[3] = 0;
+                                buffer[buffer_index++] = V3V3_CURRENT;
 
                                 uint16_t current = power_monitor_get_3v3_current();
 
-                                buffer[2] = (uint8_t)(current >> 8);
-                                buffer[3] = (uint8_t)current;
+                                buffer[buffer_index++] = (uint8_t)(current >> 8);
+                                buffer[buffer_index++] = (uint8_t)current;
 
-                                axtec_packet_encode(&packet_to_send, buffer, 4);
-                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                                total_length += 3;
                             }
                             break;
 
                         case V5V_VOLTAGE:
                             {
                                 // Sensor ID
-                                buffer[1] = V5V_VOLTAGE;
-                                buffer[2] = 0;
-                                buffer[3] = 0;
+                                buffer[buffer_index++] = V5V_VOLTAGE;
 
                                 uint16_t voltage = power_monitor_get_5v_voltage();
 
-                                buffer[2] = (uint8_t)(voltage >> 8);
-                                buffer[3] = (uint8_t)voltage;
+                                buffer[buffer_index++] = (uint8_t)(voltage >> 8);
+                                buffer[buffer_index++] = (uint8_t)voltage;
 
-                                axtec_packet_encode(&packet_to_send, buffer, 4);
-                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                                total_length += 3;
                             }
                             break;
 
                         case V5V_CURRENT:
                             {
                                 // Sensor ID
-                                buffer[1] = V5V_CURRENT;
-                                buffer[2] = 0;
-                                buffer[3] = 0;
+                                buffer[buffer_index++] = V5V_CURRENT;
 
                                 uint16_t current = power_monitor_get_5v_current();
 
-                                buffer[2] = (uint8_t)(current >> 8);
-                                buffer[3] = (uint8_t)current;
+                                buffer[buffer_index++] = (uint8_t)(current >> 8);
+                                buffer[buffer_index++] = (uint8_t)current;
 
-                                axtec_packet_encode(&packet_to_send, buffer, 4);
-                                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                                total_length += 3;
                             }
                             break;
 
@@ -514,9 +507,15 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                             break;
                     }
                 }
+
+                // Send all the data now
+                if(axtec_packet_encode(&packet_to_send, buffer, total_length))
+                {
+                    xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                }
                 else
                 {
-                    ESP_LOGW(TAG, "Error decoding sensor ID");
+                    ESP_LOGW(TAG, "Failed encoding packet");
                 }
             }
             break;

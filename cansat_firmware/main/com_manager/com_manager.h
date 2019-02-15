@@ -17,6 +17,7 @@ typedef struct
 #define COM_MANAGER_QUEUE_ELEMENT_SIZE      sizeof(axtec_encoded_packet_t)
 #define COM_MANAGER_DEFAULT_REPORT_PERIOD   1000    // 1000 ms
 #define COM_MANAGER_DEFAULT_REPORTS_ENABLED true
+#define COM_MANAGER_MAX_SENSOR_IDS          20
 
 esp_err_t com_manager_init(void);
 
