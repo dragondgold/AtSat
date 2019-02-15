@@ -13,6 +13,7 @@
 #include "servo_manager/servo_manager.h"
 #include "battery_manager/battery_manager.h"
 #include "sensor_manager/sensor_manager.h"
+#include "led_manager/led_manager.h"
 
 #include "driver/spi_common.h"
 #include "driver/spi_master.h"
@@ -594,6 +595,15 @@ static void rx_task(void* arg)
         if(length > 0 && cc1101_is_packet_sent_available())
         {
             ESP_LOGV(TAG, "Packet available");
+
+            if(led_manager_is_on())
+            {
+                led_manager_off();
+            }
+            else
+            {
+                led_manager_on();
+            }
 
             // Read the packet
             if(cc1101_read_data(&cc1101_packet))

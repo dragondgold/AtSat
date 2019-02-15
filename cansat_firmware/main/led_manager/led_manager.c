@@ -29,6 +29,7 @@ typedef enum
 } state_machine_t;
 static state_machine_t status = OFF;
 static bool fade = false;
+static bool on = false;
 
 static void set_led_duty(float duty, bool fade, int fade_time)
 {
@@ -86,6 +87,7 @@ static void led_task(void* args)
                 set_led_duty(100, fade, LED_MANAGER_SLOW_BLINK_TIME);
                 timeout = pdMS_TO_TICKS(LED_MANAGER_SLOW_BLINK_TIME);
                 status = SLOW_OFF;
+                on = true;
                 break;
 
             case SLOW_OFF:
@@ -93,6 +95,7 @@ static void led_task(void* args)
                 set_led_duty(0, fade, LED_MANAGER_SLOW_BLINK_TIME);
                 timeout = pdMS_TO_TICKS(LED_MANAGER_SLOW_BLINK_TIME);
                 status = SLOW_ON;
+                on = false;
                 break;
 
             case FAST_ON:
@@ -100,6 +103,7 @@ static void led_task(void* args)
                 set_led_duty(100, fade, LED_MANAGER_FAST_BLINK_TIME);
                 timeout = pdMS_TO_TICKS(LED_MANAGER_FAST_BLINK_TIME);
                 status = FAST_OFF;
+                on = true;
                 break;
 
             case FAST_OFF:
@@ -107,18 +111,21 @@ static void led_task(void* args)
                 set_led_duty(0, fade, LED_MANAGER_FAST_BLINK_TIME);
                 timeout = pdMS_TO_TICKS(LED_MANAGER_FAST_BLINK_TIME);
                 status = FAST_ON;
+                on = false;
                 break;
 
             case ON:
                 ESP_LOGV(TAG, "Run ON");
                 set_led_duty(100, false, 0);
                 timeout = portMAX_DELAY;
+                on = true;
                 break;
 
             case OFF:
                 ESP_LOGV(TAG, "Run OFF");
                 set_led_duty(0, false, 0);
                 timeout = portMAX_DELAY;
+                on = false;
                 break;
         }
     }
@@ -187,6 +194,11 @@ void led_manager_off(void)
 void led_manager_on(void)
 {
     xTaskNotify(task_handle, ON, eSetValueWithOverwrite);
+}
+
+bool led_manager_is_on(void)
+{
+    return on;
 }
 
 void led_manager_slow_blink(bool faded)
