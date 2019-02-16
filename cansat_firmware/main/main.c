@@ -24,6 +24,7 @@
 #include "led_manager/led_manager.h"
 #include "com_manager/com_manager.h"
 #include "power_monitor/power_monitor.h"
+#include "sup_cmd_manager/sup_cmd_manager.h"
 
 #ifdef DEBUG
     #define LOG_LOCAL_LEVEL ESP_LOG_DEBUG
@@ -112,6 +113,7 @@ void app_main()
     err += servo_manager_init();
     err += com_manager_init();
     err += power_monitor_init();
+    err += sup_cmd_manager_init();
 
     ESP_LOGI(TAG, "RAM left %d bytes", esp_get_free_heap_size());
 
