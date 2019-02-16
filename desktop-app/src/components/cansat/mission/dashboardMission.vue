@@ -81,7 +81,7 @@ export default {
   methods:{
         filterSensors(){
             let filtered = this.$store.getters.axtec.project.mission.data.sensors.filter(function(n) {
-                return (n._type != 'power')
+                return (n._type != 'power' && n._type != 'gps')
             });
             return filtered
         },

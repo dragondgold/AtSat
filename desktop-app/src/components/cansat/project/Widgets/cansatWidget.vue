@@ -133,9 +133,7 @@ export default {
             this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': true})
             this.$store.commit('setIDCanSat', { 'index': 0, 'id': this.selectedCansat})
             this.$store.commit('setNameCanSat', { 'index': 0, 'name': this.canSatName})
-            this.$store.commit('setSignalCanSat', { 'index': 0, 'signal': this.signalLevel})
-            
-                     
+            this.$store.commit('setSignalCanSat', { 'index': 0, 'signal': this.signalLevel})      
         },
         clearStatusesOnDisconnect(){
             this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': false})
@@ -178,7 +176,7 @@ export default {
         },
         resetSensors(){
             for(let s = 0; s < defaultSensors.sensors.length; s++){
-                this.$store.commit('addNewSensor', defaultSensors.sensors[s])
+                this.$store.commit('addNewSensor', defaultSensors.sensors[s])   
             }     
         }
     }

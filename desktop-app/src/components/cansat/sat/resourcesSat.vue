@@ -17,24 +17,24 @@
               </div>
             </vuestic-collapse>
             <vuestic-collapse>
-              <span slot="header"> {{$t('cansat.resources.sensors.title')}} </span>
-              <div slot="body">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="collapse-page__content">
-                      <sensors-widget/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </vuestic-collapse>
-            <vuestic-collapse>
               <span slot="header"> {{$t('cansat.resources.sensors.tabs.powerSupplies.title')}} </span>
               <div slot="body">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="collapse-page__content">
                       <powerSuppliesWidget/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </vuestic-collapse>
+            <vuestic-collapse>
+              <span slot="header"> {{$t('cansat.resources.sensors.title')}} </span>
+              <div slot="body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="collapse-page__content">
+                      <sensors-widget/>
                     </div>
                   </div>
                 </div>

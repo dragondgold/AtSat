@@ -11,34 +11,6 @@ import defaultSensors from 'data/Sensors'
 import codeValues from 'data/codeValues'
 
 export default {
-    saveMission(){
-        if(store.getters.axtec.project.path !== ''){
-            let jsonToEdit = JSON.parse(JSON.stringify(store.getters.axtec.project))
-            let sensors = jsonToEdit.cansat[0].sensors
-            for(let s= 0; s< sensors.length; s++){
-                if(sensors[s]._type == 'vector'){
-                    sensors[s].x = 0
-                    sensors[s].y = 0
-                    sensors[s].z = 0
-                }else{ // It's 'scalar' or 'power' or 'user'
-                    sensors[s].lastValue = sensors[s].minValue
-                }
-                delete sensors[s].samples
-            }
-            let projectFile =  JSON.stringify({ sensors: sensors})
-            this.saveProjectFile(store.getters.axtec.project.path,projectFile)
-        }else{
-            store.commit('pushNotificationModal',{ 
-                'title': vm.$t('cansat.notifications.modal.project.save'), 
-                'date': utils.getDate(),
-                'code': codeValues.project.invalidPath,
-                'okText': vm.$t('cansat.notifications.modal.okBtn'),
-                'uuid': utils.generateUUID().toString(),
-                'type': vm.$t('cansat.notifications.center.types.error'),
-                'cancelDisabled': true
-            })
-        }
-    },
     saveProject(){  
         if(store.getters.axtec.project.path !== ''){
             let jsonToEdit = JSON.parse(JSON.stringify(store.getters.axtec.project))
@@ -205,10 +177,10 @@ export default {
             
             // Incomplete sensors with all _types
             let missingCommonKeys = sensors.filter(function(s,index) { 
-                return (s._type == undefined || s.id == undefined || s.status == undefined || s.cansatIndex == undefined || 
+                return ((s._type == undefined || s.id == undefined || s.status == undefined || s.cansatIndex == undefined || 
                         s.step == undefined || s.unit == undefined || s.type == undefined || s.maxValue == undefined ||
-                        s.minValue == undefined || s.minThreshold == undefined || s.maxThreshold == undefined 
-                )
+                        s.minValue == undefined || s.minThreshold == undefined || s.maxThreshold == undefined) && s._type != 'gps')  
+                
             })
             if(missingCommonKeys.length > 0){ 
 

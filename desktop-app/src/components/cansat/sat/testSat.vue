@@ -110,8 +110,8 @@ export default {
       ],
       tests: [
         { name: 'cansat.resources.actuators.title', status: '', test: this.testActuators,errorNotif: this.errorNotifActuators},
-        { name: 'cansat.resources.sensors.title', status: '', test: this.testsSensors,errorNotif: this.errorNotifSensors},
         { name: 'cansat.resources.sensors.tabs.powerSupplies.title', status: '',test: this.testsPowerSupllies, errorNotif: this.errorNotifPowerSupplies},
+        { name: 'cansat.resources.sensors.title', status: '', test: this.testsSensors,errorNotif: this.errorNotifSensors},
         { name: 'cansat.resources.sensors.gps.title', status: '', test: this.testGPS,errorNotif: this.errorNotifGPS}
       ],
       actualTest: 0,
