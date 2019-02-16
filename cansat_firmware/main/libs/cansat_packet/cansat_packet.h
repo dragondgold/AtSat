@@ -15,6 +15,7 @@ typedef enum
     CANSAT_GET_BATTERY = 0x06,
     CANSAT_SET_REPORT_FREQUENCY = 0x07,
     CANSAT_ENABLE_DISABLE_REPORT = 0x08,
+    CANSAT_ENABLE_DISABLE_PS = 0x09
     CANSAT_UNKNOWN
 } cansat_packet_type_t;
 
@@ -68,5 +69,7 @@ bool cansat_packet_decode_read_sensors(uint8_t* data, cansat_sensor_type_t* sens
 
 bool cansat_packet_decode_parachute(uint8_t* data, bool* open, unsigned int length);
 bool cansat_packet_decode_balloon(uint8_t* data, bool* open, unsigned int length);
+
+bool cansat_packet_decode_enable_disable_ps(uint8_t* data, bool* enabled, unsigned int length);
 
 #endif // __CANSAT_PACKET_H__

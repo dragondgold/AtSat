@@ -102,4 +102,16 @@ bool cansat_packet_decode_balloon(uint8_t* data, bool* open, unsigned int length
     return false;
 }
 
+bool cansat_packet_decode_enable_disable_ps(uint8_t* data, bool* enabled, unsigned int length)
+{
+    // Check packet type
+    if(cansat_packet_get_type(data, length) == CANSAT_ENABLE_DISABLE_PS && length > 1)
+    {
+        *enabled = data[1];
+        return true;
+    }
+
+    return false;
+}
+
 
