@@ -14,6 +14,7 @@
 #include "battery_manager/battery_manager.h"
 #include "sensor_manager/sensor_manager.h"
 #include "led_manager/led_manager.h"
+#include "aux_ps/aux_ps.h"
 
 #include "driver/spi_common.h"
 #include "driver/spi_master.h"
@@ -562,6 +563,31 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                 }
 
                 ESP_LOGD(TAG, "Sending CANSAT_ENABLE_DISABLE_REPORT packet");
+                axtec_packet_encode(&packet_to_send, buffer, 2);
+                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            }
+            break;
+
+        case CANSAT_ENABLE_DISABLE_PS:
+            {
+                buffer[0] = CANSAT_ENABLE_DISABLE_REPORT;
+                buffer[1] = 0x00;
+
+                bool enabled;
+                if(cansat_packet_decode_enable_disable_ps(packet->data, &enabled, packet->length))
+                {
+                    buffer[1] = 0x01;
+                    if(enabled)
+                    {
+                        aux_ps_enable();
+                    }
+                    else
+                    {
+                        aux_ps_disable();
+                    }
+                }
+
+                ESP_LOGD(TAG, "Sending CANSAT_ENABLE_DISABLE_PS packet");
                 axtec_packet_encode(&packet_to_send, buffer, 2);
                 xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
             }

@@ -174,19 +174,19 @@ bool cc1101_reg_config_settings(void)
     uint8_t pa_table_915[] = {0xC3,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
     spi_write_burst_reg(CC1101_PATABLE, pa_table_915, sizeof(pa_table_915));
  
-    spi_write_reg(CC1101_MDMCFG4,  0xF8);   // DRATE_E = 8
-    spi_write_reg(CC1101_MDMCFG3,  0x83);   // With DRATE_E on MDMCFG4 = 8 this gives 9600 bauds 
+    spi_write_reg(CC1101_MDMCFG4,  0xC8);   // Baud rate 10k
+    spi_write_reg(CC1101_MDMCFG3,  0x93);   // Baud rate 10k 
     spi_write_reg(CC1101_MDMCFG2,  0x13);   // 30/32 sync word, no Manchester encoding, GFSK modulation, DC filter before modulator
     spi_write_reg(CC1101_MDMCFG1,  0x22);   // 4 preamble bytes, no forward error correction
     spi_write_reg(CC1101_MDMCFG0,  0xF8);   // 200 kHz channel spacing together with CHANSPC_E bits in MDMCFG1
     spi_write_reg(CC1101_CHANNR,   channel);// Channel number
-    spi_write_reg(CC1101_DEVIATN,  0x15);
+    spi_write_reg(CC1101_DEVIATN,  0x34);
     spi_write_reg(CC1101_FREND1,   0x56);
     spi_write_reg(CC1101_FREND0,   0x10);   
     spi_write_reg(CC1101_MCSM0,    0x18);
     spi_write_reg(CC1101_FOCCFG,   0x16);
     spi_write_reg(CC1101_BSCFG,    0x6C);
-    spi_write_reg(CC1101_AGCCTRL2, 0x03);
+    spi_write_reg(CC1101_AGCCTRL2, 0x43);
   	spi_write_reg(CC1101_AGCCTRL1, 0x40);
     spi_write_reg(CC1101_AGCCTRL0, 0x91);
     spi_write_reg(CC1101_FSCAL3,   0xE9);   // Value given by TI SmartRF Studio
@@ -201,7 +201,7 @@ bool cc1101_reg_config_settings(void)
     spi_write_reg(CC1101_IOCFG0,   0x06);  	// Asserts GDO0 when sync word has been sent/received, and de-asserts at the end of the packet 
     spi_write_reg(CC1101_PKTCTRL1, 0x04);   // Two status bytes will be appended to the payload of the packet, including RSSI, LQI and CRC OK
 											// No address check
-    spi_write_reg(CC1101_PKTCTRL0, 0x01);	// Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
+    spi_write_reg(CC1101_PKTCTRL0, 0x01);	// Whitening OFF, CRC disabled, variable length packets, packet length configured by the first byte after sync word
     spi_write_reg(CC1101_ADDR,     0x00);	// Address used for packet filtration (not used here)
     spi_write_reg(CC1101_PKTLEN,   0x3D); 	// 61 bytes max packet length allowed
 	spi_write_reg(CC1101_MCSM1,    0x3F);	// After TX go to RX, after RX stay in RX, CCA_MODE If RSSI below threshold unless currently receiving a packet
@@ -224,7 +224,7 @@ bool cc1101_reg_config_settings(void)
         ESP_LOGE(TAG, "Error on CC1101_IOCFG0. Read: %d", val);
         return false;
     }
-    if((val = spi_read_reg(CC1101_MDMCFG4)) != 0xF8)
+    if((val = spi_read_reg(CC1101_MDMCFG4)) != 0xC8)
     {
         ESP_LOGE(TAG, "Error on CC1101_MDMCFG4. Read: %d", val);
         return false;
@@ -417,7 +417,7 @@ bool cc1101_read_data(cc1101_packet_t* packet)
             // Read RSSI and LQI
             spi_read_burst_reg(CC1101_RXFIFO, status, 2);
 
-            packet->rssi = status[0];
+            packet->rssi = status[0] >= 128 ? (int8_t)(((int)status[0] - 256) / 2 - 74) : (int8_t)((int)status[0] / 2 - 74);
             packet->lqi = status[1] & 0x7F;
 
             // The packet->data contains the data but the data[0] has the status bytes that

@@ -12,7 +12,7 @@ typedef struct
 {
     uint8_t length;
     uint8_t data[CC1101_MAX_PACKET_SIZE];   
-    uint8_t rssi;
+    int8_t rssi;
     uint8_t lqi;
 } cc1101_packet_t;
 
