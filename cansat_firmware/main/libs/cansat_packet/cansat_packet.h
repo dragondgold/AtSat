@@ -6,7 +6,7 @@
 
 typedef enum
 {
-    CANSAT_GET_ERRORS = 0x00,
+    CANSAT_ERRORS = 0x00,
     CANSAT_PARACHUTE_STATE = 0x01,
     CANSAT_PARACHUTE = 0x02,
     CANSAT_BALLOON_STATE = 0x03,
@@ -38,6 +38,18 @@ typedef enum
     ALTITUDE = 0x0F,
     UNKNOWN_SENSOR
 } cansat_sensor_type_t;
+
+typedef enum 
+{
+    INVALID_COMMAND = 1,
+    WRONG_COMMAND_LENGTH = 2,
+    WRONG_CHECKSUM = 3,
+    BATTERY_OVERCURRENT = 10,
+    OVERVOLTAGE_3V3 = 11,
+    OVERCURRENT_3V3 = 12,
+    OVERVOLTAGE_5V = 13,
+    OVERCURRENT_5V = 14
+} cansat_error_t;
 
 bool cansat_packet_init(void);
 

@@ -5,13 +5,6 @@
 #include "libs/axtec_packet/axtec_packet.h"
 #include <stdbool.h>
 
-typedef struct
-{
-    bool invalid_command;
-    bool wrong_command_length;
-    bool wrong_checksum;
-} cansat_errors_t;
-
 #define COM_MANAGER_CARRIER_FREQUENCY           915.0
 #define COM_MANAGER_QUEUE_SIZE                  20
 #define COM_MANAGER_QUEUE_ELEMENT_SIZE          sizeof(axtec_encoded_packet_t)
