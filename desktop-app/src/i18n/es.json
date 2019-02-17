@@ -254,8 +254,10 @@
       }  
     },
     "notifications":{
-      "etConnected": "Estación terrena conectada",
-      "etDisconnected": "Estación terrena desconectada",
+      "etReady": "Estación terrena lista para usar.",
+      "etError": "Error al configurar la estación terrena. Intente reconectarla.",
+      "etConfig": "Configurando Estación terrena.",
+      "etDisconnected": "Estación terrena desconectada.",
       "center":{
         "title": "Centro de notificaciones",
         "searchLabel": "Buscar",

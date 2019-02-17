@@ -253,7 +253,9 @@
       }  
     },
     "notifications":{
-      "etConnected": "Earth station connected.",
+      "etReady": "Earth station ready.",
+      "etError": "Error configuring earth station. Please reconnect your ET.",
+      "etConfig": "Configuring Earth station.",
       "etDisconnected": "Earth station discconnected.",
       "center":{
         "title": "Notification center",

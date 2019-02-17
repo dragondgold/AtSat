@@ -1,11 +1,10 @@
-const ref = require("ref")
-const path = require('path')
 const { fork } = require('child_process');
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 import store from '../store'
 import utils from 'services/utils'
+import { Debugger } from 'electron';
 
 let worker = undefined
 
@@ -15,6 +14,7 @@ export default {
         worker =  fork(require.resolve('./worker.js'));
 
         worker.on('message', (msg) => {
+            console.log(JSON.stringify(msg))
             this.etConnected(msg);
             this.cansatConnected(msg);
             this.anErrorOcurred(msg);
@@ -29,8 +29,10 @@ export default {
         worker.on('exit', (e) => {
             debugger
             console.log("Exit fork: " + e)
+            worker = undefined
+            let that = this
+            setTimeout(that.initWorker, 5000);
         });
-
     },
     killWorker()
     {
@@ -51,20 +53,45 @@ export default {
     {
         if(msg.et)
         {
-            if(msg.et.connected  && msg.et.connected != store.getters.axtec.project.earthStation.connected ){
+            if(msg.et.state == 'error'){
+                store.commit('pushNotificationModal',{ 
+                    'title': vm.$t('cansat.notifications.etConfig'), 
+                    'content': m.$t('cansat.notifications.etError'), 
+                    'date': utils.getDate(),
+                    'code': 0,
+                    'uuid': utils.generateUUID().toString(),
+                    'type': vm.$t('cansat.notifications.center.types.error')
+                })
+            }
+            else if(msg.et.state == 'config'){
                 store.commit('pushNotificationToast',{ 
-                    'text': vm.$t('cansat.notifications.etConnected'), 
+                    'text': vm.$t('cansat.notifications.etConfig'), 
                     'icon': 'fa-check'          
                 })
                 store.commit('pushNotificationModal',{ 
-                    'title': vm.$t('cansat.notifications.etConnected'), 
+                    'title': vm.$t('cansat.notifications.etConfig'), 
+                    'date': utils.getDate(),
+                    'code': 0,
+                    'uuid': utils.generateUUID().toString(),
+                    'type': vm.$t('cansat.notifications.center.types.info')
+                })
+            }
+            else if( msg.et.state == 'connected' ){
+                debugger
+                store.commit('pushNotificationToast',{ 
+                    'text': vm.$t('cansat.notifications.etReady'), 
+                    'icon': 'fa-check'          
+                })
+                store.commit('pushNotificationModal',{ 
+                    'title': vm.$t('cansat.notifications.etReady'), 
                     'date': utils.getDate(),
                     'code': 0,
                     'uuid': utils.generateUUID().toString(),
                     'type': vm.$t('cansat.notifications.center.types.info')
                 })
                 store.commit('setStatusEarthStation', true)
-            }else if(!msg.et.connected  && msg.et.connected != store.getters.axtec.project.earthStation.connected){
+
+            }else if(msg.et.state == 'disconnected'){
                 store.commit('pushNotificationToast',{ 
                     'text': vm.$t('cansat.notifications.etDisconnected'), 
                     'icon': 'fa-unlink'          

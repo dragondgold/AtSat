@@ -1,23 +1,26 @@
-
 const path = require('path');
 const cc1101 = require('./cc1101.js');
 const protocol = require('./protocol.js');
+const usb = require('usb');
 
 let pathToCLI;
 if(process.send == undefined){
-  pathToCLI = path.resolve('./../../build/MCP2210/mcp2210-cli.exe')
+  pathToCLI = path.resolve('./../../build/MCP2210/mcp2210-cli.exe');
 }else{
-  pathToCLI = path.resolve('./build/MCP2210/mcp2210-cli.exe')
+  pathToCLI = path.resolve('./build/MCP2210/mcp2210-cli.exe');
 }
 
 const maxAttempt = 2;
+const vid = 0x4D8;
+const pid = 0xDE;
 
 let control = {
   et:{
     attempt: 0,
     connected: false,
     interval: {},
-    time: 2000
+    time: 2000,
+    error: 0
   },
   cansat:{
     attempt: 0,
@@ -27,7 +30,7 @@ let control = {
     time: 2000,
     waiting: false
   }
-}
+};
 
 let checkForData = function()
 {
@@ -113,49 +116,85 @@ let intervalConnectCanSat = function(){
 
 }
 
-let intervalConnectET = function(){
-  try {
-    control.et.connected = cc1101.cc1101_init(pathToCLI);
+let intervalConnectET = function()
+{
 
-    while(control.et.attempt < maxAttempt && !control.et.connected)
-    {
-      control.et.connected = cc1101.cc1101_init(pathToCLI);
-      if(control.et.connected)
-      {
-        control.et.attempt = 0; 
-        control.cansat.interval = setInterval(intervalConnectCanSat, control.cansat.time);
-      }
-      else
-      {
-        control.et.attempt ++;
-        console.log( "Trying to connect to an ET, Attempt: " + control.et.attempt)
-      }
-    }  
-    control.et.attempt = 0;
-
-    console.log( "ET CONNECTED: " + control.et.connected);
-    if(process.send)
-    {
-      process.send({
-        et: {
-          connected: control.et.connected
-        }
-      })
-    }
-  } 
-  catch (error) 
+  if(  usb.findByIds( vid, pid )  && control.et.error == 0)
   {
-    console.log(error)
+    if(!control.et.connected)
+    {
+      if(process.send)
+      {
+        process.send({
+          et: {
+            state: 'config'
+          }
+        });
+      }
+  
+      control.et.connected = cc1101.cc1101_init(pathToCLI);
+  
+      while(control.et.attempt < maxAttempt && !control.et.connected)
+      {
+        control.et.connected = cc1101.cc1101_init(pathToCLI);
+        if(control.et.connected)
+        {
+          control.et.attempt = 0; 
+          control.cansat.interval = setInterval(intervalConnectCanSat, control.cansat.time);
+        }
+        else
+        {
+          control.et.attempt ++;
+          console.log( "Trying to connect to an ET, Attempt: " + control.et.attempt)
+        }
+      }  
+      control.et.attempt = 0;
+
+      if(control.et.attempt == maxAttempt)
+      {
+        console.log( "Error configuring ET");
+        if(process.send)
+        {
+          control.et.error = -1;
+          process.send({
+            et: {
+              state: 'error'
+            }
+          })
+        }
+      }
+      else if(control.et.connected)
+      {
+        console.log( "ET CONNECTED: " + control.et.connected);
+        if(process.send)
+        {
+          control.et.error = 0;
+          process.send({
+            et: {
+              state: 'connected'
+            }
+          })
+        }
+      }      
+    }
+  }
+  else if(control.et.connected)
+  {
     if(process.send)
     {
+      control.et.connected = false;
       process.send({
         et: {
+          state: 'disconnected',
           connected: control.et.connected
         }
-      })
+      });
     }
   }
 }
+
+
+
 
 control.et.interval = setInterval(intervalConnectET, control.et.time);
 

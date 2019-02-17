@@ -26,7 +26,7 @@ export default {
             indexToast: 0,
             isToastContentPresent: true,
             toastText: 'This toast is awesome!',
-            toastDuration: 2500,
+            toastDuration: 5000,
             toastIcon: 'fa-rocket',
             toastPosition: 'bottom-right',
             isToastFullWidth: false,
