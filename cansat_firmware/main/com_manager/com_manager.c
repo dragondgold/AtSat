@@ -34,7 +34,6 @@ static TaskHandle_t task_handle_rx, task_handle_tx, task_handle_report;
 // Packets
 static cc1101_packet_t cc1101_packet;
 static axtec_decoded_packet_t axtec_decoded_packet;
-static cansat_errors_t errors;
 static cansat_sensor_type_t sensor_types[COM_MANAGER_MAX_SENSOR_IDS];
 
 // Queue
@@ -65,55 +64,8 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
     ESP_LOGD(TAG, "Packet type: %d", type);
     switch(type)
     {
-        case CANSAT_GET_ERRORS:
-            {
-                buffer[0] = CANSAT_GET_ERRORS;
-                unsigned int length = 1;
-
-                if(errors.invalid_command)
-                {
-                    buffer[length++] = 1;
-                    errors.invalid_command = false;
-                }
-                if(errors.wrong_command_length)
-                {
-                    buffer[length++] = 2;
-                    errors.wrong_command_length = false;
-                }
-                if(errors.wrong_checksum)
-                {
-                    buffer[length++] = 3;
-                    errors.wrong_checksum = false;
-                }
-                if(power_monitor_is_battery_overcurrent())
-                {
-                    buffer[length++] = 10;
-                }
-                if(power_monitor_is_3v3_overvoltage())
-                {
-                    buffer[length++] = 11;
-                }
-                if(power_monitor_is_3v3_overcurrent())
-                {
-                    buffer[length++] = 12;
-                }
-                if(power_monitor_is_5v_overvoltage())
-                {
-                    buffer[length++] = 13;
-                }
-                if(power_monitor_is_5v_overcurrent())
-                {
-                    buffer[length++] = 14;
-                }
-                if(!gps_manager_is_valid_location())
-                {
-                    buffer[length++] = 21;
-                }
-
-                ESP_LOGD(TAG, "Sending CANSAT_GET_ERRORS packet");
-                axtec_packet_encode(&packet_to_send, buffer, length);
-                xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
-            }
+        case CANSAT_ERRORS:
+            ESP_LOGD(TAG, "Sending CANSAT_GET_ERRORS packet");
             break;
 
         case CANSAT_PARACHUTE_STATE:
@@ -499,13 +451,23 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                             break;
 
                         case UNKNOWN_SENSOR:
-                            errors.invalid_command = true;
-                            ESP_LOGW(TAG, "Unknown sensor type %d", sensor_type);
+                            {
+                                ESP_LOGW(TAG, "Unknown sensor type %d", sensor_type);
+                                
+                                // Send invalid command error packet
+                                uint8_t data[] = { CANSAT_ERRORS, INVALID_COMMAND };
+                                axtec_packet_encode(&packet_to_send, data, sizeof(data));
+                            }
                             break;
 
                         default:
-                            errors.invalid_command = true;
-                            ESP_LOGE(TAG, "Shouldn't reach default case with sensor type %d", sensor_type);
+                            {
+                                ESP_LOGE(TAG, "Shouldn't reach default case with sensor type %d", sensor_type);
+                                
+                                // Send invalid command error packet
+                                uint8_t data[] = { CANSAT_ERRORS, INVALID_COMMAND };
+                                axtec_packet_encode(&packet_to_send, data, sizeof(data));
+                            }
                             break;
                     }
                 }
@@ -605,9 +567,43 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
 
 static void rx_task(void* arg) 
 {
+    static axtec_encoded_packet_t packet_to_send;
+    
     while(true)
     {
         vTaskDelay(pdMS_TO_TICKS(50));
+
+        // Check for errors that should be sent
+        if(power_monitor_is_battery_overcurrent())
+        {
+            uint8_t buffer[] = { CANSAT_ERRORS, BATTERY_OVERCURRENT };
+            axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+        }
+        if(power_monitor_is_3v3_overvoltage())
+        {
+            uint8_t buffer[] = { CANSAT_ERRORS, OVERVOLTAGE_3V3 };
+            axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+        }
+        if(power_monitor_is_3v3_overcurrent())
+        {
+            uint8_t buffer[] = { CANSAT_ERRORS, OVERCURRENT_3V3 };
+            axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+        }
+        if(power_monitor_is_5v_overvoltage())
+        {
+            uint8_t buffer[] = { CANSAT_ERRORS, OVERVOLTAGE_5V };
+            axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+        }
+        if(power_monitor_is_5v_overcurrent())
+        {
+            uint8_t buffer[] = { CANSAT_ERRORS, OVERCURRENT_5V };
+            axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+        }
 
         if(!xSemaphoreTake(cc1101_mutex, pdMS_TO_TICKS(100)))
         {
@@ -650,13 +646,20 @@ static void rx_task(void* arg)
                     else
                     {
                         ESP_LOGW(TAG, "Wrong packet checksum");
-                        errors.wrong_checksum = true;
+
+                        uint8_t buffer[] = { CANSAT_ERRORS, WRONG_CHECKSUM };
+                        axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+                        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                     }
                 }
                 else if(code == LENGTH_ERROR)
                 {
-                    errors.wrong_command_length = true;
+                    // Wrong command length error
                     ESP_LOGW(TAG, "Wrong packet length");
+                    
+                    uint8_t buffer[] = { CANSAT_ERRORS, WRONG_COMMAND_LENGTH };
+                    axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+                    xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
                 }
                 else
                 {
