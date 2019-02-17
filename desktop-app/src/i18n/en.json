@@ -253,6 +253,8 @@
       }  
     },
     "notifications":{
+      "etConnected": "Earth station connected.",
+      "etDisconnected": "Earth station discconnected.",
       "center":{
         "title": "Notification center",
         "searchLabel": "Search",

@@ -1,8 +1,164 @@
 
 const path = require('path');
 const cc1101 = require('./cc1101.js');
-const pathMCP2210CLI = path.resolve('./../../build/MCP2210/mcp2210-cli.exe');
 const protocol = require('./protocol.js');
+
+let pathToCLI;
+if(process.send == undefined){
+  pathToCLI = path.resolve('./../../build/MCP2210/mcp2210-cli.exe')
+}else{
+  pathToCLI = path.resolve('./build/MCP2210/mcp2210-cli.exe')
+}
+
+const maxAttempt = 2;
+
+let control = {
+  et:{
+    attempt: 0,
+    connected: false,
+    interval: {},
+    time: 2000
+  },
+  cansat:{
+    attempt: 0,
+    id: 0,
+    connected: false,
+    interval: {},
+    time: 2000,
+    waiting: false
+  }
+}
+
+let checkForData = function()
+{
+  let bytes = cc1101.cc1101_bytes_in_rx_fifo();
+
+  // Data available?
+  if(bytes > 0 && cc1101.cc1101_is_packet_sent_available())
+  {
+    let data = cc1101.cc1101_read_data();
+    console.log(Date.now() + ": Data -> " + JSON.stringify(data));
+    let decoded = protocol.decode_packet(data);
+    console.log(Date.now() + ": Data -> " + JSON.stringify(decoded));
+    //process.send(decoded)
+    cc1101.cc1101_set_rx(true);
+  }
+
+  // Flush the RX FIFO if needed
+  if(cc1101.cc1101_is_rx_overflow())
+  {
+      console.log(Date.now() + ": Flush");
+      cc1101.cc1101_set_rx(true);
+  }
+
+}
+
+let intervalConnectCanSat = function(){
+  try {
+    if(control.et.connnected){
+      while(control.cansat.attempt < maxAttempt && control.cansat.connected == false)
+      {
+        //control.cansat.connected = cc1101.cc1101_init(pathToCLI);
+        let packet = protocol.create_packet('getParachute' ,[] );
+        
+        cc1101.cc1101_send_data(packet);
+
+        let bytes = 0;
+        let delay = 50;
+        let count = 0;
+
+        while(bytes == 0 && cc1101.cc1101_is_packet_sent_available() && count < 5){
+          bytes = cc1101.cc1101_bytes_in_rx_fifo();
+          var start = new Date().getTime();
+          while (new Date().getTime() < start + delay);
+          count ++;
+        }
+        let data = cc1101.cc1101_read_data();
+        let decoded = protocol.decode_packet(data);
+
+        if(decoded.error == 0){
+          control.cansat.connected = true
+          clearInterval(control.cansat.interval);
+        }
+
+        if(control.cansat.connected){
+          control.cansat.attempt = 0;
+          console.log( "CANSAT CONNECTED")
+        }else{
+          control.cansat.attempt ++;
+          console.log( "Trying to connect to CanSat, Attempt: " + control.cansat.attempt)
+        }
+      }  
+      control.cansat.attempt = 0;
+
+      if(process.send){
+        process.send({
+          cansat: {
+            connected: control.cansat.connected
+          }
+        })
+      }
+    }
+    
+  } catch (error) {
+    console.log(error)
+    if(process.send){
+      process.send({
+        cansat: {
+          connected: control.cansat.connected
+        }
+      })
+    }
+  }
+
+}
+
+let intervalConnectET = function(){
+  try {
+    control.et.connected = cc1101.cc1101_init(pathToCLI);
+
+    while(control.et.attempt < maxAttempt && !control.et.connected)
+    {
+      control.et.connected = cc1101.cc1101_init(pathToCLI);
+      if(control.et.connected)
+      {
+        control.et.attempt = 0; 
+        control.cansat.interval = setInterval(intervalConnectCanSat, control.cansat.time);
+      }
+      else
+      {
+        control.et.attempt ++;
+        console.log( "Trying to connect to an ET, Attempt: " + control.et.attempt)
+      }
+    }  
+    control.et.attempt = 0;
+
+    console.log( "ET CONNECTED: " + control.et.connected);
+    if(process.send)
+    {
+      process.send({
+        et: {
+          connected: control.et.connected
+        }
+      })
+    }
+  } 
+  catch (error) 
+  {
+    console.log(error)
+    if(process.send)
+    {
+      process.send({
+        et: {
+          connected: control.et.connected
+        }
+      })
+    }
+  }
+}
+
+control.et.interval = setInterval(intervalConnectET, control.et.time);
+
 //const pathMCP2210CLI = path.resolve('./build/MCP2210/mcp2210-cli.exe');
 
 // Init the CC1101 and set RX mode
@@ -18,7 +174,7 @@ let decoded = protocol.decode_packet(data);
 console.log(Date.now() + ": Data -> " + JSON.stringify(decoded));
 console.log(JSON.stringify(decoded.decoded));
 */
-
+/*
 const cmd =
 [
     { name: 'getError', data: [] },         
@@ -35,7 +191,7 @@ const cmd =
 for(let a = 0; a < cmd.length; a++){
   let packet = protocol.create_packet( cmd[a].name, cmd[a].data );
   console.log(JSON.stringify(packet));
-}
+}*/
 
 
 /*
@@ -86,3 +242,4 @@ setInterval(function()
 
 }, 100);
 */
+

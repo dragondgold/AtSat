@@ -109,7 +109,6 @@ export default {
         csvString +=  vm.$t('cansat.mission.exportTitles.endDate') + mission.endDate + '\r\n' + '\r\n'
 
         for(let s = 0; s < sensors.length; s++){    
-            let column
             let isVectorType
             if( sensors[s]._type != "vector"){
                 isVectorType = false
@@ -177,10 +176,11 @@ export default {
             }else{
                 fs.writeFile(path, contents, (err) => {
                     if(err){
+                        debugger
                         log.error('An error ocurred creating the file ' + path + ' error: ' +  err.message);
                         store.commit('pushNotificationModal',{ 
                             'title': vm.$t('cansat.notifications.modal.mission.saveError'), 
-                            'content': '',
+                            'content': err.message,
                             'date': utils.getDate(),
                             'code': codeValues.mission.saveError,
                             'okText': vm.$t('cansat.notifications.modal.okBtn'),
@@ -265,6 +265,8 @@ export default {
         }
         let file = JSON.parse(data)
 
+        let defaultSensorsToshow = defaultSensors.getSensors()
+
         // Invalid project 
         if(file.mission == undefined || file.mission.data == undefined || file.mission.data.sensors == undefined 
             || file.mission.data.sensors.length == 0 || file.mission.data.location == undefined 
@@ -306,13 +308,13 @@ export default {
             }
             
             // Missing default sensors
-            let defaultVectorSensors = defaultSensors.sensors.filter(function(s,index) {   
+            let defaultVectorSensors = defaultSensorsToshow.filter(function(s,index) {   
                 return (s._type == 'vector')
             })
-            let defaultScalarSensors = defaultSensors.sensors.filter(function(s,index) {   
+            let defaultScalarSensors = defaultSensorsToshow.filter(function(s,index) {   
                 return (s._type == 'scalar')
             })
-            let defaultPowerSensors = defaultSensors.sensors.filter(function(s,index) {    
+            let defaultPowerSensors = defaultSensorsToshow.filter(function(s,index) {    
                 return (s._type == 'power')
             })
             let vectorSensors = sensors.filter(function(s,index) {   
@@ -358,9 +360,9 @@ export default {
             }
 
             // Find wrong IDs
-            for(let s= 0 ;s < defaultSensors.sensors.length;s++){
+            for(let s= 0 ;s < defaultSensorsToshow.length;s++){
                 let matchId = sensors.filter(function(sensor,index) { 
-                    return (sensor.id == defaultSensors.sensors[s].id && sensor._type == defaultSensors.sensors[s]._type)
+                    return (sensor.id == defaultSensorsToshow[s].id && sensor._type == defaultSensorsToshow[s]._type)
                 })
                 if(matchId.length !=1){
                     store.commit('pushNotificationModal',{ 
@@ -403,10 +405,7 @@ export default {
                 'uuid': utils.generateUUID().toString(),
                 'type': vm.$t('cansat.notifications.center.types.info')
             })
-            store.commit('pushNotificationToast',{ 
-                'text': vm.$t('cansat.notifications.modal.mission.loadedOk'), 
-                'icon': 'fa-check'          
-            })
+            
 
             store.commit('createSensorMission',{
                 clear: true

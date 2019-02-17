@@ -101,8 +101,7 @@ export default {
             fields: [ {'title':  'cansat.link.table.id' },{'title': 'cansat.link.table.name'}, {'title':'cansat.link.table.signal'}, {'title':'cansat.link.table.action'}],
             cansats: [this.$store.getters.axtec.project.cansat[0]]
         }
-    },
-    
+    },    
     computed:{
         ETConnected(){
             return this.$store.getters.axtec.project.earthStation.connected
@@ -175,8 +174,9 @@ export default {
             this.$store.commit('setActuators', defaultActuators.actuators[defaultActuators.balloon])
         },
         resetSensors(){
-            for(let s = 0; s < defaultSensors.sensors.length; s++){
-                this.$store.commit('addNewSensor', defaultSensors.sensors[s])   
+            let sensors = defaultSensors.getSensors()
+            for(let s = 0; s < sensors.length; s++){
+                this.$store.commit('addNewSensor', sensors[s])     
             }     
         }
     }

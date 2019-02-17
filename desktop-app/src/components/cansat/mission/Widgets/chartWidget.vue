@@ -228,16 +228,30 @@ export default {
                 z= Math.random() * 12
             }
 
-            this.$store.commit('addSensorSample',{
-                index: this.sensor.id - 1,
-                samples: {
-                    lastValue: x,
-                    x: x,
-                    y: y,
-                    z: z,
-                    timespan: time
+            let index = -1
+            let sensors = this.$store.getters.axtec.project.mission.data.sensors
+            for(let s = 0; s <sensors.length; s++ ){
+                if(sensors[s].id == this.sensor.id){
+                    index = s
+                    break;
                 }
-            })
+            }
+
+            if(index != -1){
+                this.$store.commit('addSensorSample',{
+                    index: index,
+                    samples: {
+                        lastValue: x,
+                        x: x,
+                        y: y,
+                        z: z,
+                        timespan: time
+                    }
+                })
+            }else{
+                alert("Index error pushing data")
+            }
+            
         },
         goToFullChart(){
             this.$router.push({name:'fullChart',  params: {sensor: this.sensor, showAllSamples: true }})

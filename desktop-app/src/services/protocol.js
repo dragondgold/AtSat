@@ -510,6 +510,12 @@ module.exports =
      */
     decode_packet: function(packet)
     {
+        if(packet.data.length < 5){
+            recPackets.funcName = this.decode_packet.name
+            recPackets.error = CMD_ERROR_LENGTH;
+            return recPackets;
+        }
+
         let pkg = protocol_remove_escape(packet.data);
 
         protocol_clear_decoded();

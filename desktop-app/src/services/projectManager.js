@@ -159,6 +159,8 @@ export default {
         }
         let project = JSON.parse(data)
 
+        let defaultSensorsToshow = defaultSensors.getSensors()
+
         // Invalid project 
         if(project.sensors == undefined || project.sensors.length == 0){ 
             store.commit('pushNotificationModal',{ 
@@ -198,13 +200,13 @@ export default {
             }
 
             // Missing default sensors
-            let defaultVectorSensors = defaultSensors.sensors.filter(function(s,index) {   
+            let defaultVectorSensors = defaultSensorsToshow.filter(function(s,index) {   
                 return (s._type == 'vector')
             })
-            let defaultScalarSensors = defaultSensors.sensors.filter(function(s,index) {   
+            let defaultScalarSensors = defaultSensorsToshow.filter(function(s,index) {   
                 return (s._type == 'scalar')
             })
-            let defaultPowerSensors = defaultSensors.sensors.filter(function(s,index) {    
+            let defaultPowerSensors = defaultSensorsToshow.filter(function(s,index) {    
                 return (s._type == 'power')
             })
             let vectorSensors = sensors.filter(function(s,index) {   
@@ -230,9 +232,6 @@ export default {
                 return codeValues.project.missingSensors
             }
 
-
-
-
             // Find duplicates ids
             let s = sensors.map(function(item){ return item.id });
             let isDuplicate = s.some(function(item, idx){ 
@@ -253,9 +252,9 @@ export default {
             }
 
             // Find wrong IDs
-            for(let s= 0 ;s < defaultSensors.sensors.length;s++){
+            for(let s= 0 ;s < defaultSensorsToshow.length;s++){
                 let matchId = sensors.filter(function(sensor,index) { 
-                    return (sensor.id == defaultSensors.sensors[s].id && sensor._type == defaultSensors.sensors[s]._type) 
+                    return (sensor.id == defaultSensorsToshow[s].id && sensor._type == defaultSensorsToshow[s]._type) 
                 })
                 if(matchId.length !=1){
                     store.commit('pushNotificationModal',{ 

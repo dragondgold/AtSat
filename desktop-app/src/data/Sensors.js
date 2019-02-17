@@ -1,4 +1,9 @@
 export default {
+    getSensors: function(){
+        return this.sensors.filter(function(s,index) { 
+            return (s.disable == undefined)  
+        })
+    },
     newSensor:{
         cansatIndex: 0,     // Default index for the selected CanSat
         id: '',              // ID = CMD Sent and received from CanSat
@@ -105,12 +110,6 @@ export default {
             _type: 'power'
         },
         { 
-            cansatIndex: 0, // Dummy sensor, is not used because it has an other structure but is necessary for not generate corrupt projects and missions
-            id: 7,       
-            _type: 'gps',
-            hide: true     // Not show in UI
-        },
-        { 
             cansatIndex: 0,
             id: 8, 
             type: 'cansat.resources.sensors.giroscope',
@@ -172,7 +171,8 @@ export default {
             unit: '°', 
             step: 0.1,          
             status: 'danger',
-            _type: 'vector'
+            _type: 'vector',
+            disable: true       // This sensor is disable. 'disable' is used to filter sensors in this.getSensors()
         },
         { 
             cansatIndex: 0,
