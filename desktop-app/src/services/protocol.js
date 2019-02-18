@@ -190,6 +190,7 @@ protocol_decode_data = function(packets)
                 case PROTOCOL_CMD_SET_BALLOON:
                 case PROTOCOL_CMD_GET_BATTERY:
                 case PROTOCOL_CMD_SET_REPORT_FREQ:
+                case PROTOCOL_CMD_ENABLE_PS:
                     recPackets.decoded.push(
                         { state : packet[1], cmd: cmd}
                     );
