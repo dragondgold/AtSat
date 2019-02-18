@@ -43,6 +43,7 @@ static void battery_sample_task(void* args)
         if(battery_data.is_charging != temp_data.is_charging)
         {
             ESP_LOGI(TAG, "Battery %s", temp_data.is_charging ? "started charging" : "stopped charging");
+            ESP_LOGI(TAG, "Battery SOC: %d %%", temp_data.soc);
             ESP_LOGI(TAG, "Battery avg current: %d mA", temp_data.avg_current);
             ESP_LOGI(TAG, "Battery voltage: %d mV", temp_data.volts);
             ESP_LOGI(TAG, "Battery temperature: %.2f", bq27441_get_temperature(INTERNAL_TEMP) / 100.0);
