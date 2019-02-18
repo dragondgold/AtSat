@@ -340,22 +340,21 @@ module.exports =
         this.spi_write_reg(CC1101_FSCTRL1, 0x06);
         this.spi_write_reg(CC1101_FSCTRL0, 0x00);
         
-        // PA Table for 915 MHz in the order -30, -20, -15, -10, 0, 5, 7, and 10 dbm
-        this.spi_write_burst_reg(CC1101_PATABLE, [0xCE,0x00,0x00,0x00,0x00,0x00,0x00,0x00]);
+        this.spi_write_burst_reg(CC1101_PATABLE, [0xC3,0x00,0x00,0x00,0x00,0x00,0x00,0x00]);
 
-        this.spi_write_reg(CC1101_MDMCFG4,  0xF8);   // DRATE_E = 8
-        this.spi_write_reg(CC1101_MDMCFG3,  0x83);   // With DRATE_E on MDMCFG4 = 8 this gives 9600 bauds 
+        this.spi_write_reg(CC1101_MDMCFG4,  0xC8);   // Baud rate 10k
+        this.spi_write_reg(CC1101_MDMCFG3,  0x83);   // Baud rate 10k
         this.spi_write_reg(CC1101_MDMCFG2,  0x13);   // 30/32 sync word, no Manchester encoding, GFSK modulation, DC filter before modulator
         this.spi_write_reg(CC1101_MDMCFG1,  0x22);   // 4 preamble bytes, no forward error correction
         this.spi_write_reg(CC1101_MDMCFG0,  0xF8);   // 200 kHz channel spacing together with CHANSPC_E bits in MDMCFG1
         this.spi_write_reg(CC1101_CHANNR,   channel);// Channel number
-        this.spi_write_reg(CC1101_DEVIATN,  0x15);
+        this.spi_write_reg(CC1101_DEVIATN,  0x34);
         this.spi_write_reg(CC1101_FREND1,   0x56);
         this.spi_write_reg(CC1101_FREND0,   0x10);
         this.spi_write_reg(CC1101_MCSM0,    0x18);
         this.spi_write_reg(CC1101_FOCCFG,   0x16);
         this.spi_write_reg(CC1101_BSCFG,    0x6C);
-        this.spi_write_reg(CC1101_AGCCTRL2, 0x03);
+        this.spi_write_reg(CC1101_AGCCTRL2, 0x43);
         this.spi_write_reg(CC1101_AGCCTRL1, 0x40);
         this.spi_write_reg(CC1101_AGCCTRL0, 0x91);
         this.spi_write_reg(CC1101_FSCAL3,   0xE9);      // Value given by TI SmartRF Studio
@@ -383,19 +382,19 @@ module.exports =
         // Check the registers values
         let registers = [   CC1101_FSCTRL1, 0x06,
                             CC1101_FSCTRL0, 0x00,
-                            CC1101_MDMCFG4, 0xF8,
+                            CC1101_MDMCFG4, 0xC8,
                             CC1101_MDMCFG3, 0x83,
                             CC1101_MDMCFG2, 0x13,
                             CC1101_MDMCFG1, 0x22,
                             CC1101_MDMCFG0, 0xF8,
                             CC1101_CHANNR, channel,
-                            CC1101_DEVIATN, 0x15,
+                            CC1101_DEVIATN, 0x34,
                             CC1101_FREND1, 0x56,
                             CC1101_FREND0, 0x10,
                             CC1101_MCSM0, 0x18,
                             CC1101_FOCCFG, 0x16,
                             CC1101_BSCFG, 0x6C,
-                            CC1101_AGCCTRL2, 0x03,
+                            CC1101_AGCCTRL2, 0x43,
                             CC1101_AGCCTRL1, 0x40,
                             CC1101_AGCCTRL0, 0x91,
                             CC1101_FSCAL3, 0xE9,
@@ -644,7 +643,7 @@ module.exports =
                 // Read RSSI and LQI
                 status = this.spi_read_burst_reg(CC1101_RXFIFO, 2);
 
-                packet.rssi = status[0];
+                packet.rssi = status[0] >= 128 ? ((status[0] - 256) / 2 - 74) : ((status[0] / 2) - 74);
                 packet.lqi = status[1] & 0x7F;
                 packet.valid = true;
 
