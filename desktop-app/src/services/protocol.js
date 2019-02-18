@@ -18,7 +18,8 @@ const PROTOCOL_CMD_SET_BALLOON          = 0x04;
 const PROTOCOL_CMD_GET_SENSOR           = 0x05;      
 const PROTOCOL_CMD_GET_BATTERY          = 0x06;      
 const PROTOCOL_CMD_SET_REPORT_FREQ      = 0x07;     
-const PROTOCOL_CMD_START_REPORT    = 0x08;        
+const PROTOCOL_CMD_START_REPORT         = 0x08;
+const PROTOCOL_CMD_ENABLE_PS            = 0x09;        
 
 const PROTOCOL_SENSOR_ID_VBAT           = 0x01;
 const PROTOCOL_SENSOR_ID_IBAT           = 0x02;
@@ -41,12 +42,13 @@ const sendCMDLength =
     { name: 'getError', id: PROTOCOL_CMD_ERROR, length: 1 },                // send: CMD
     { name: 'getParachute', id: PROTOCOL_CMD_GET_PARACHUTE, length: 1 },    // send: CMD
     { name: 'setParachute', id: PROTOCOL_CMD_SET_PARACHUTE, length: 2 },    // send: CMD + SETTER
-    { name: 'getBalloon', id: PROTOCOL_CMD_GET_BALLOON, length: 1 },      // send: CMD
-    { name: 'setBalloon', id: PROTOCOL_CMD_SET_BALLOON, length: 2 },          // send: CMD + SETTER
+    { name: 'getBalloon', id: PROTOCOL_CMD_GET_BALLOON, length: 1 },        // send: CMD
+    { name: 'setBalloon', id: PROTOCOL_CMD_SET_BALLOON, length: 2 },        // send: CMD + SETTER
     { name: 'getSensor', id: PROTOCOL_CMD_GET_SENSOR, length: 'variable' },
-    { name: 'getBattery', id: PROTOCOL_CMD_GET_BATTERY, length: 1 },      // send: CMD
-    { name: 'setReport', id: PROTOCOL_CMD_SET_REPORT_FREQ, length: 2 },  // send: CMD + SETTER
-    { name: 'startReport', id: PROTOCOL_CMD_START_REPORT, length: 2 }      // send: CMD + SETTER
+    { name: 'getBattery', id: PROTOCOL_CMD_GET_BATTERY, length: 1 },        // send: CMD
+    { name: 'setReport', id: PROTOCOL_CMD_SET_REPORT_FREQ, length: 2 },     // send: CMD + SETTER
+    { name: 'startReport', id: PROTOCOL_CMD_START_REPORT, length: 2 },      // send: CMD + SETTER
+    { name: 'enablePorwerSupply', id:PROTOCOL_CMD_ENABLE_PS, length: 2}     // send: CMD + SETTER
 ]
 
 let recCMDLength = 
@@ -59,7 +61,8 @@ let recCMDLength =
     { id: PROTOCOL_CMD_GET_SENSOR,          length: 'variable' }, // Explained below
     { id: PROTOCOL_CMD_GET_BATTERY,         length: 2 }, // rec: CMD + BATTERY %             
     { id: PROTOCOL_CMD_SET_REPORT_FREQ,     length: 2 }, // rec: CMD + STATE                 
-    { id: PROTOCOL_CMD_START_REPORT,        length: 2 } // rec: CMD + STATE        
+    { id: PROTOCOL_CMD_START_REPORT,        length: 2 }, // rec: CMD + STATE     
+    { id: PROTOCOL_CMD_ENABLE_PS,           length: 2 } // rec: CMD + STATE         
 ]         
 
 let sensorsLength = 
@@ -80,9 +83,6 @@ let sensorsLength =
     { id: PROTOCOL_SENSOR_ID_PRESSURE,       length: 2 }, // rec: MSB p + LSB p       send: CMD + ID 
     { id: PROTOCOL_SENSOR_ID_ALTITUDE,       length: 2 }, // rec: MSB a + LSB a       send: CMD + ID 
 ]
-
-
-
 
 let recPackets = 
 {
