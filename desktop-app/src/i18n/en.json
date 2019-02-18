@@ -1,5 +1,26 @@
 {
   "cansat":{
+    "worker":{
+      "cmdsErrors":{
+        "wrongFormat": "CMD received with wrong format.",
+        "wrongLength": "CMD received with wrong length.",
+        "wrongChecksum": "CMD received with wrong checksum.",
+        "overCurrentVBat": "Overcurrent detected in Vbatt.",
+        "overVoltage3V3": "Overvoltage detected in 3.3 V.",
+        "overCurrent3V3": "Overcurrent detected in 3.3 V.",
+        "overVoltage5V": "Overvoltage detected in 5 V.",
+        "overCurrent5V": "Overcurrent detected in 5 V.",
+        "tipProtections": "Please, turn off your CanSat and check your connections.",
+        "tipProtocol": "Check that the data frames are correct",
+        "tipRestartPower": "Once the problem is resolved, you can enable the power supply by going to CanSat > Resources > power supplies"
+      },
+      "actuators":{
+        "openParachute": "The actuator of parachute is open",
+        "closeParachute": "The actuator of parachute is closed",
+        "openBalloon": "The actuator of balloon is open",
+        "closeBalloon": "The actuator of balloon is close"
+      }
+    },
     "mission":{
       "exportTitles":{
         "exportBy": "Plataforma educativa CanSat - AXTEC",

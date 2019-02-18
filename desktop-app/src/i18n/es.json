@@ -1,5 +1,26 @@
 {
   "cansat":{
+    "worker":{
+      "cmdsErrors":{
+        "wrongFormat": "Comando inválido o mal formateado.",
+        "wrongLength": "Longitud de trama Errónea.",
+        "wrongChecksum": "Checksum incorrecto.",
+        "overCurrentVBat": "Sobrecorriente detectada en VBat.",
+        "overVoltage3V3": "Sobretensión en 3.3 V.",
+        "overCurrent3V3": "Sobrecorriente detectada en 3.3 V.",
+        "overVoltage5V": "Sobretensión en 5 V.",
+        "overCurrent5V": "Sobrecorriente detectada en 5V.",
+        "tipProtections": "Por favor apage su CanSat y revise las conexiones.",
+        "tipProtocol": "Compruebe que la tramas que genera sean correctas.",
+        "tipRestartPower": "Una vez resuelto el problema, puede habilitar las fuentes yendo a CanSat > Recursos > Fuentes de alimentación"
+      },
+      "actuators":{
+        "openParachute": "El actuador del paracaídas esta abierto",
+        "closeParachute": "El actuador del paracaídas esta cerrado",
+        "openBalloon": "El actuador del globo esta abierto",
+        "closeBalloon": "El actuador del paracaídas esta cerrado"
+      }
+    },
     "mission":{
       "exportTitles":{
         "exportBy": "Plataforma educativa CanSat - AXTEC",

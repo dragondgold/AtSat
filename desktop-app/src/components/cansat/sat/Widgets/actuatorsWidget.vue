@@ -39,6 +39,7 @@
 
 <script>
 import actuators from 'data/Actuators'
+import CanSatAPI from 'services/CanSatAPI'
 
 export default {
     name: 'actuators-widget',
@@ -71,20 +72,27 @@ export default {
 
     methods:{
         openActuator(key){
+            CanSatAPI.setActuator(key, 1)
+            /*
             this.$store.commit('setActuators',
             { 
                 'cansatIndex': 0, 
                 'actuatorIndex': key, 
                 'status' : 'cansat.resources.open'
             })
+            */
         },
         closeActuator(key){
+            CanSatAPI.setActuator(key, 0)
+
+            /*
             this.$store.commit('setActuators',
             { 
                 'cansatIndex': 0, 
                 'actuatorIndex': key, 
                 'status' : 'cansat.resources.close'
             })
+            */
         }
     }
 }

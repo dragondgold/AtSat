@@ -1,12 +1,14 @@
 const path = require('path');
 const cc1101 = require('./cc1101.js');
 const protocol = require('./protocol.js');
-const usb = require('usb');
+
+let usb;
 
 let pathToCLI;
 if(process.send == undefined){
   pathToCLI = path.resolve('./../../build/MCP2210/mcp2210-cli.exe');
 }else{
+  usb = require('usb');
   pathToCLI = path.resolve('./build/MCP2210/mcp2210-cli.exe');
 }
 
@@ -28,9 +30,55 @@ let control = {
     connected: false,
     interval: {},
     time: 2000,
-    waiting: false
+    waiting: false,
+    samples:{
+      interval: {},
+      time: 500
+    }
   }
 };
+
+if(process.on)
+{
+  process.on('message', (msg) => 
+  {
+    cmdToSendlistener(msg)
+  });
+}
+
+let cmdToSendlistener = function(msg)
+{
+  if(msg.cmdToSend)
+  {
+    process.send(msg)
+    if(control.cansat.connected){
+      let packet = protocol.create_packet( msg.cmdToSend, msg.valuesArray );
+      if(packet.length > 0){
+        cc1101.cc1101_send_data(packet);
+      }
+    }
+  }
+}
+
+
+/*
+const cmd =
+[
+    { name: 'getError', data: [] },         
+    { name: 'getParachute', data: []},    
+    { name: 'setParachute', data: [1] },    
+    { name: 'getBalloon', data:  [] },      
+    { name: 'setBalloon', data: [1] },          
+    { name: 'getSensor', data: [ 1,2,3]},
+    { name: 'getBattery', data: [] },      
+    { name: 'setReport', data: [2] },  
+    { name: 'startReport', data: [1] }      
+]
+for(let a = 0; a < cmd.length; a++){
+  let packet = protocol.create_packet( cmd[a].name, cmd[a].data );
+  console.log(JSON.stringify(packet));
+}*/
+
 
 let checkForData = function()
 {
@@ -43,7 +91,14 @@ let checkForData = function()
     console.log(Date.now() + ": Data -> " + JSON.stringify(data));
     let decoded = protocol.decode_packet(data);
     console.log(Date.now() + ": Data -> " + JSON.stringify(decoded));
-    //process.send(decoded)
+
+    process.send({
+      newCMDReceived: {
+        data: decoded
+      }
+    })
+    
+  
     cc1101.cc1101_set_rx(true);
   }
 
@@ -81,7 +136,8 @@ let intervalConnectCanSat = function(){
 
         if(decoded.error == 0){
           control.cansat.connected = true
-          clearInterval(control.cansat.interval);
+
+          control.cansat.samples.interval = setInterval( checkForData, control.cansat.samples.time);
         }
 
         if(control.cansat.connected){
@@ -118,120 +174,119 @@ let intervalConnectCanSat = function(){
 
 let intervalConnectET = function()
 {
-
-  if(  usb.findByIds( vid, pid )  && control.et.error == 0)
-  {
-    if(!control.et.connected)
+  try {
+    if(  usb.findByIds( vid, pid )  && control.et.error == 0)
+    {
+      if(!control.et.connected)
+      {
+        if(process.send)
+        {
+          process.send({
+            et: {
+              state: 'config'
+            }
+          });
+        }
+    
+        control.et.connected = cc1101.cc1101_init(pathToCLI);
+    
+        while(control.et.attempt < maxAttempt && !control.et.connected)
+        {
+          control.et.connected = cc1101.cc1101_init(pathToCLI);
+          if(control.et.connected)
+          {
+            control.et.attempt = 0; 
+            control.cansat.interval = setInterval(intervalConnectCanSat, control.cansat.time);
+          }
+          else
+          {
+            control.et.attempt ++;
+            console.log( "Trying to connect to an ET, Attempt: " + control.et.attempt)
+          }
+        }  
+        control.et.attempt = 0;
+  
+        if(control.et.attempt == maxAttempt)
+        {
+          control.cansat.connected = false;
+          console.log( "Error configuring ET");
+          if(process.send)
+          {
+            control.et.error = -1;
+            process.send({
+              et: {
+                state: 'error'
+              }
+            })
+          }
+        }
+        else if(control.et.connected)
+        {
+          console.log( "ET CONNECTED: " + control.et.connected);
+          if(process.send)
+          {
+            control.et.error = 0;
+            process.send({
+              et: {
+                state: 'connected'
+              }
+            })
+          }
+        }      
+      }
+    }
+    else if(control.et.connected)
     {
       if(process.send)
       {
+        control.et.connected = false;
+        control.et.cansat = false;
         process.send({
           et: {
-            state: 'config'
+            state: 'disconnected'
           }
         });
       }
-  
-      control.et.connected = cc1101.cc1101_init(pathToCLI);
-  
-      while(control.et.attempt < maxAttempt && !control.et.connected)
-      {
-        control.et.connected = cc1101.cc1101_init(pathToCLI);
-        if(control.et.connected)
-        {
-          control.et.attempt = 0; 
-          control.cansat.interval = setInterval(intervalConnectCanSat, control.cansat.time);
-        }
-        else
-        {
-          control.et.attempt ++;
-          console.log( "Trying to connect to an ET, Attempt: " + control.et.attempt)
-        }
-      }  
-      control.et.attempt = 0;
+    }
+  } catch (error) {
+    //console.log(error);
+    //clearInterval(control.et.interval);
 
-      if(control.et.attempt == maxAttempt)
-      {
-        console.log( "Error configuring ET");
-        if(process.send)
-        {
-          control.et.error = -1;
-          process.send({
-            et: {
-              state: 'error'
-            }
-          })
-        }
-      }
-      else if(control.et.connected)
-      {
-        console.log( "ET CONNECTED: " + control.et.connected);
-        if(process.send)
-        {
-          control.et.error = 0;
-          process.send({
-            et: {
-              state: 'connected'
-            }
-          })
-        }
-      }      
-    }
   }
-  else if(control.et.connected)
-  {
-    if(process.send)
-    {
-      control.et.connected = false;
-      process.send({
-        et: {
-          state: 'disconnected',
-          connected: control.et.connected
-        }
-      });
-    }
-  }
+
 }
-
-
-
-
 control.et.interval = setInterval(intervalConnectET, control.et.time);
 
 //const pathMCP2210CLI = path.resolve('./build/MCP2210/mcp2210-cli.exe');
 
 // Init the CC1101 and set RX mode
 
-/*
+
 let data = {
   //data: [ 0x7e, 0 , 2 , 0,0, 255]
-  data: [ 0, 0x7e, 0 , 23, 5,  8,0,0,0,0,0,0, 1,0,0, 3,0,0, 7, 0,0,0,0,0,0,0,0, 231]
-  //data: [ 0x7d, 0, 0, 0, 0x7e, 0 , 8, 5,  8,0,0,0,0,0,0,242]
+  //data: [ 0, 0x7e, 0 , 23, 5,  8,0,0,0,0,0,0, 1,0,5, 3,1,0, 7, 0,0,0,0,0,0,0,0, 225] // get sensor
+ //data: [ 0x7d, 0, 0, 0, 0x7e, 0 , 8, 5,  8,0,0,0,0,0,0,242]
+  //data: [ 0x7d, 0, 0, 0, 0x7e, 0 , 2, 0,  11,244] // error 
+  //data: [0x7e, 0,2,1,0,254] // get parachute
+  data: [0x7e, 0,2,6,100,149] // get battery
 }
 
 let decoded = protocol.decode_packet(data);
 console.log(Date.now() + ": Data -> " + JSON.stringify(decoded));
 console.log(JSON.stringify(decoded.decoded));
-*/
+
+if(decoded.error == 0){
+  
+  process.send({
+    newCMDReceived: {
+      data: decoded
+    }
+  })
+}
+
 /*
-const cmd =
-[
-    { name: 'getError', data: [] },         
-    { name: 'getParachute', data: []},    
-    { name: 'setParachute', data: [1] },    
-    { name: 'getBalloon', data:  [] },      
-    { name: 'setBalloon', data: [1] },          
-    { name: 'getSensor', data: [ 1,2,3]},
-    { name: 'getBattery', data: [] },      
-    { name: 'setReport', data: [2] },  
-    { name: 'startReport', data: [1] }      
-]
 
-for(let a = 0; a < cmd.length; a++){
-  let packet = protocol.create_packet( cmd[a].name, cmd[a].data );
-  console.log(JSON.stringify(packet));
-}*/
-
+*/
 
 /*
 console.log("Init: " + cc1101.cc1101_init(pathMCP2210CLI));
@@ -281,4 +336,3 @@ setInterval(function()
 
 }, 100);
 */
-

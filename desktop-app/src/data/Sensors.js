@@ -1,5 +1,9 @@
 export default {
     getSensors: function(){
+        for(let s= 0; s< this.sensors.length; s++){
+            this.sensors[s].sensorIndex = s;
+        }
+
         return this.sensors.filter(function(s,index) { 
             return (s.disable == undefined)  
         })

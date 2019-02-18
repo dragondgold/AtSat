@@ -9,6 +9,11 @@ const CMD_OK = 0;
 const CMD_ERROR_WRONG_FORMAT = 1;
 const CMD_ERROR_LENGTH = 2;
 const CMD_ERROR_CHECKSUM = 3;
+const CMD_ERROR_OVERCURRENT_VBATT = 10;
+const CMD_ERROR_OVERVOLTAGE_3V3 = 11;
+const CMD_ERROR_OVERCURRENT_3V3 = 12;
+const CMD_ERROR_OVERVOLTAGE_5V = 13;
+const CMD_ERROR_OVERCURRENT_5V = 14;
 
 const PROTOCOL_CMD_ERROR                = 0x00;      
 const PROTOCOL_CMD_GET_PARACHUTE        = 0x01;      
@@ -37,18 +42,43 @@ const PROTOCOL_SENSOR_ID_HUMIDITY       = 0x0D;
 const PROTOCOL_SENSOR_ID_PRESSURE       = 0x0E;
 const PROTOCOL_SENSOR_ID_ALTITUDE       = 0x0F;
 
+const errors = [
+    { code: CMD_ERROR_WRONG_FORMAT,        title: 'cansat.worker.cmdsErrors.wrongFormat',        content: 'cansat.worker.cmdsErrors.tipProtocol' },
+    { code: CMD_ERROR_LENGTH,              title: 'cansat.worker.cmdsErrors.wrongLength',        content: 'cansat.worker.cmdsErrors.tipProtocol' },
+    { code: CMD_ERROR_CHECKSUM,            title: 'cansat.worker.cmdsErrors.wrongChecksum',      content: 'cansat.worker.cmdsErrors.tipProtocol' },
+    { code: CMD_ERROR_OVERCURRENT_VBATT,   title: 'cansat.worker.cmdsErrors.overCurrentVBat',    content: 'cansat.worker.cmdsErrors.tipProtections' },
+    { code: CMD_ERROR_OVERVOLTAGE_3V3,     title: 'cansat.worker.cmdsErrors.overVoltage3V3',     content: 'cansat.worker.cmdsErrors.tipProtections', info: 'cansat.worker.cmdsErrors.tipRestartPower'},
+    { code: CMD_ERROR_OVERCURRENT_3V3,     title: 'cansat.worker.cmdsErrors.overCurrent3V3',     content: 'cansat.worker.cmdsErrors.tipProtections', info: 'cansat.worker.cmdsErrors.tipRestartPower' },
+    { code: CMD_ERROR_OVERVOLTAGE_5V,      title: 'cansat.worker.cmdsErrors.overVoltage5V',      content: 'cansat.worker.cmdsErrors.tipProtections', info: 'cansat.worker.cmdsErrors.tipRestartPower'},
+    { code: CMD_ERROR_OVERCURRENT_5V,      title: 'cansat.worker.cmdsErrors.overCurrent5V',      content: 'cansat.worker.cmdsErrors.tipProtections', info: 'cansat.worker.cmdsErrors.tipRestartPower'},
+]
+
+const cmdNames = 
+[
+    { name: 'getError',                     id: PROTOCOL_CMD_ERROR },            
+    { name: 'getParachute',                 id: PROTOCOL_CMD_GET_PARACHUTE },    
+    { name: 'setParachute',                 id: PROTOCOL_CMD_SET_PARACHUTE },    
+    { name: 'getBalloon',                   id: PROTOCOL_CMD_GET_BALLOON },      
+    { name: 'setBalloon',                   id: PROTOCOL_CMD_SET_BALLOON },      
+    { name: 'getSensor',                    id: PROTOCOL_CMD_GET_SENSOR },
+    { name: 'getBattery',                   id: PROTOCOL_CMD_GET_BATTERY },      
+    { name: 'setReport',                    id: PROTOCOL_CMD_SET_REPORT_FREQ }, 
+    { name: 'startReport',                  id: PROTOCOL_CMD_START_REPORT },     
+    { name: 'enablePowerSupply',            id:PROTOCOL_CMD_ENABLE_PS }      
+]
+
 const sendCMDLength =
 [
-    { name: 'getError', id: PROTOCOL_CMD_ERROR, length: 1 },                // send: CMD
-    { name: 'getParachute', id: PROTOCOL_CMD_GET_PARACHUTE, length: 1 },    // send: CMD
-    { name: 'setParachute', id: PROTOCOL_CMD_SET_PARACHUTE, length: 2 },    // send: CMD + SETTER
-    { name: 'getBalloon', id: PROTOCOL_CMD_GET_BALLOON, length: 1 },        // send: CMD
-    { name: 'setBalloon', id: PROTOCOL_CMD_SET_BALLOON, length: 2 },        // send: CMD + SETTER
-    { name: 'getSensor', id: PROTOCOL_CMD_GET_SENSOR, length: 'variable' },
-    { name: 'getBattery', id: PROTOCOL_CMD_GET_BATTERY, length: 1 },        // send: CMD
-    { name: 'setReport', id: PROTOCOL_CMD_SET_REPORT_FREQ, length: 2 },     // send: CMD + SETTER
-    { name: 'startReport', id: PROTOCOL_CMD_START_REPORT, length: 2 },      // send: CMD + SETTER
-    { name: 'enablePorwerSupply', id:PROTOCOL_CMD_ENABLE_PS, length: 2}     // send: CMD + SETTER
+    { id: PROTOCOL_CMD_ERROR,               length: 1 },        // send: CMD
+    { id: PROTOCOL_CMD_GET_PARACHUTE,       length: 1 },        // send: CMD
+    { id: PROTOCOL_CMD_SET_PARACHUTE,       length: 2 },        // send: CMD + SETTER
+    { id: PROTOCOL_CMD_GET_BALLOON,         length: 1 },        // send: CMD
+    { id: PROTOCOL_CMD_SET_BALLOON,         length: 2 },        // send: CMD + SETTER
+    { id: PROTOCOL_CMD_GET_SENSOR,          length: 'variable' },
+    { id: PROTOCOL_CMD_GET_BATTERY,         length: 1 },        // send: CMD
+    { id: PROTOCOL_CMD_SET_REPORT_FREQ,     length: 2 },        // send: CMD + SETTER
+    { id: PROTOCOL_CMD_START_REPORT,        length: 2 },        // send: CMD + SETTER
+    { id:PROTOCOL_CMD_ENABLE_PS,            length: 2}          // send: CMD + SETTER
 ]
 
 let recCMDLength = 
@@ -180,97 +210,122 @@ protocol_decode_data = function(packets)
         {
             let packet = packetsToDecode[p];
             let cmd = packet[0];
-
-            switch(cmd)
+            let cmdName = cmdNames.filter( function(n) 
             {
-                case PROTOCOL_CMD_ERROR:
-                case PROTOCOL_CMD_GET_PARACHUTE:
-                case PROTOCOL_CMD_SET_PARACHUTE:
-                case PROTOCOL_CMD_GET_BALLOON:
-                case PROTOCOL_CMD_SET_BALLOON:
-                case PROTOCOL_CMD_GET_BATTERY:
-                case PROTOCOL_CMD_SET_REPORT_FREQ:
-                case PROTOCOL_CMD_ENABLE_PS:
-                    recPackets.decoded.push(
-                        { state : packet[1], cmd: cmd}
-                    );
-                    recPackets.error = CMD_OK;   
-                    break;
-                case PROTOCOL_CMD_GET_SENSOR:
-                    let id = packet[1];
-                    let value = 0;
-                    
-                    switch(id)
-                    {
-                        case PROTOCOL_SENSOR_ID_GYROSCOPE:
-                        case PROTOCOL_SENSOR_ID_MAGNETOMETER:
-                        case PROTOCOL_SENSOR_ID_ACCELEROMETER:
-                        case PROTOCOL_SENSOR_ID_ORIENTATION:
-                            
-                            let x = protocol_convert_to_signed(packet[2] * Math.pow(2,8) + packet[3]);
-                            let y = protocol_convert_to_signed(packet[4] * Math.pow(2,8) + packet[5]);
-                            let z = protocol_convert_to_signed(packet[6] * Math.pow(2,8) + packet[7]);
+                return (n.id == cmd)
+            });
 
+            if(cmdName[0]){
+                switch(cmd)
+                {
+                    case PROTOCOL_CMD_ERROR:
+                        let errorCode = packet[1];
+    
+                        let validError = errors.filter( function(n) 
+                        {
+                            return (n.code == errorCode)
+                        });
+    
+                        if(validError[0]){
                             recPackets.decoded.push(
                                 { 
-                                    cmd: cmd ,
-                                    sensorID : id ,
-                                    x : x ,
-                                    y : y ,
-                                    z : z
+                                    cmdName:  cmdName[0].name,
+                                    error: validError[0]
                                 }
                             );
-                            break;
-                        case PROTOCOL_SENSOR_ID_TEMPERATURE:
-                        case PROTOCOL_SENSOR_ID_HUMIDITY:
-                            value = packet[2];
-                            recPackets.decoded.push(
-                                { 
-                                    cmd : cmd ,
-                                    sensorID : id ,
-                                    value : value 
-                                }
-                            );
-                            break;
-                        case PROTOCOL_SENSOR_ID_PRESSURE:
-                        case PROTOCOL_SENSOR_ID_ALTITUDE:
-                        case PROTOCOL_SENSOR_ID_VBAT:
-                        case PROTOCOL_SENSOR_ID_IBAT:
-                        case PROTOCOL_SENSOR_ID_V3V3:
-                        case PROTOCOL_SENSOR_ID_I3V3:
-                        case PROTOCOL_SENSOR_ID_V5:
-                        case PROTOCOL_SENSOR_ID_I5:
-
-                            value = packet[2] * Math.pow(2,8) + packet[3];
-                            recPackets.decoded.push(
-                                { 
-                                    cmd : cmd,
-                                    sensorID : id ,
-                                    value : value 
-                                }
-                            );
-                            break;
-                        case PROTOCOL_SENSOR_ID_GPS:
-                            let latInt = packet[2] * Math.pow(2,24) + packet[3] * Math.pow(2,16) + packet[4] * Math.pow(2,8) + packet[5];
-                            let lngInt = packet[6] * Math.pow(2,24) + packet[7] * Math.pow(2,16) + packet[8] * Math.pow(2,8) + packet[9];
-                
-                            let lat = ((~~latInt) / (2147483647 / 180.0));
-                            let lng = ((~~lngInt) / (0x7FFFFFFF / 180.0));
-                                
-                            recPackets.decoded.push(
-                                { 
-                                    cmd : cmd ,
-                                    sensorID : id ,
-                                    lat : lat ,
-                                    lng : lng  
-                                }
-                            );
-
-                            break; 
-                    }
-                    recPackets.error = CMD_OK; 
-                    break; 
+                        }
+                        break;
+                    case PROTOCOL_CMD_GET_PARACHUTE:
+                    case PROTOCOL_CMD_SET_PARACHUTE:
+                    case PROTOCOL_CMD_GET_BALLOON:
+                    case PROTOCOL_CMD_SET_BALLOON:
+                    case PROTOCOL_CMD_GET_BATTERY:
+                    case PROTOCOL_CMD_SET_REPORT_FREQ:
+                    case PROTOCOL_CMD_ENABLE_PS:
+                        recPackets.decoded.push(
+                            { state : packet[1], cmdName: cmdName[0].name}
+                        );
+                        recPackets.error = CMD_OK;   
+                        break;
+                    case PROTOCOL_CMD_GET_SENSOR:
+                        let id = packet[1];
+                        let value = 0;
                         
+                        switch(id)
+                        {
+                            case PROTOCOL_SENSOR_ID_GYROSCOPE:
+                            case PROTOCOL_SENSOR_ID_MAGNETOMETER:
+                            case PROTOCOL_SENSOR_ID_ACCELEROMETER:
+                            case PROTOCOL_SENSOR_ID_ORIENTATION:
+                                
+                                let x = protocol_convert_to_signed(packet[2] * Math.pow(2,8) + packet[3]);
+                                let y = protocol_convert_to_signed(packet[4] * Math.pow(2,8) + packet[5]);
+                                let z = protocol_convert_to_signed(packet[6] * Math.pow(2,8) + packet[7]);
+    
+                                recPackets.decoded.push(
+                                    { 
+                                        cmdName:  cmdName[0].name,
+                                        sensorID : id ,
+                                        x : x ,
+                                        y : y ,
+                                        z : z
+                                    }
+                                );
+                                break;
+                            case PROTOCOL_SENSOR_ID_TEMPERATURE:
+                            case PROTOCOL_SENSOR_ID_HUMIDITY:
+                                value = packet[2];
+                                recPackets.decoded.push(
+                                    { 
+                                        cmdName:  cmdName[0].name,
+                                        sensorID : id ,
+                                        value : value 
+                                    }
+                                );
+                                break;
+                            case PROTOCOL_SENSOR_ID_PRESSURE:
+                            case PROTOCOL_SENSOR_ID_ALTITUDE:
+                            case PROTOCOL_SENSOR_ID_VBAT:
+                            case PROTOCOL_SENSOR_ID_IBAT:
+                            case PROTOCOL_SENSOR_ID_V3V3:
+                            case PROTOCOL_SENSOR_ID_I3V3:
+                            case PROTOCOL_SENSOR_ID_V5:
+                            case PROTOCOL_SENSOR_ID_I5:
+    
+                                value = packet[2] * Math.pow(2,8) + packet[3];
+                                recPackets.decoded.push(
+                                    { 
+                                        cmdName: cmdName[0].name,
+                                        sensorID : id ,
+                                        value : value 
+                                    }
+                                );
+                                break;
+                            case PROTOCOL_SENSOR_ID_GPS:
+                                let latInt = packet[2] * Math.pow(2,24) + packet[3] * Math.pow(2,16) + packet[4] * Math.pow(2,8) + packet[5];
+                                let lngInt = packet[6] * Math.pow(2,24) + packet[7] * Math.pow(2,16) + packet[8] * Math.pow(2,8) + packet[9];
+                    
+                                let lat = ((~~latInt) / (2147483647 / 180.0));
+                                let lng = ((~~lngInt) / (0x7FFFFFFF / 180.0));
+                                    
+                                recPackets.decoded.push(
+                                    { 
+                                        cmdName: cmdName[0].name,
+                                        sensorID : id ,
+                                        lat : lat ,
+                                        lng : lng  
+                                    }
+                                );
+    
+                                break; 
+                        }
+                        recPackets.error = CMD_OK; 
+                        break;              
+                }
+            }
+            else
+            {
+                recPackets.error = CMD_ERROR_WRONG_FORMAT
             }
         }
     }
@@ -460,7 +515,14 @@ protocol_convert_to_signed = function(value)
 
 module.exports =
 {
-
+    /**
+     * Get cmd allowed
+     * @returns Array of cmds
+     */
+    getAvailableCmds: function()
+    {
+        return cmdNames;
+    },
     /**
      * Create packet 
      * @param {*} cmdName of packet to send
@@ -471,35 +533,42 @@ module.exports =
     {
         let packet = [];
     
-        let cmdValid = sendCMDLength.filter( function(n) 
+        let cmdValid = cmdNames.filter( function(n) 
         {
             return (n.name == cmdName)
         });
-        
+
         if(cmdValid[0])
         {
-            if(cmdValid[0].length == 'variable'){
-                packet.push(cmdValid[0].id);
-                for(let d = 0 ; d < data.length ; d++ )
-                {
-                    packet.push(data[d]);
-                }
-            }else{
-                if(cmdValid[0].length == data.length + 1) 
-                {
-                    packet.push(cmdValid[0].id);
+            let cmd = sendCMDLength.filter( function(n) 
+            {
+                return (n.id == cmdValid[0].id)
+            });
+            if(cmd[0]){
+                if(cmd[0].length == 'variable'){
+                    packet.push(cmd[0].id);
                     for(let d = 0 ; d < data.length ; d++ )
                     {
                         packet.push(data[d]);
                     }
+                }else{
+                    if(cmd[0].length == data.length + 1) 
+                    {
+                        packet.push(cmd[0].id);
+                        for(let d = 0 ; d < data.length ; d++ )
+                        {
+                            packet.push(data[d]);
+                        }
+                    }
+                    else
+                    {
+                        recPackets.funcName = this.create_packet.name
+                        recPackets.error = CMD_ERROR_LENGTH;
+                        return packet;
+                    }
                 }
-                else
-                {
-                    recPackets.funcName = this.create_packet.name
-                    recPackets.error = CMD_ERROR_LENGTH;
-                    return packet;
-                }
-            }        
+            }
+                    
         }
         return protocol_format_packet(packet);
     },

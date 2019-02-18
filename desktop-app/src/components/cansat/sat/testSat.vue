@@ -197,7 +197,6 @@ export default {
         this.tests[this.actualTest].status = 'ok'
         this.actualTest++
         setTimeout(this.tests[this.actualTest].test(), this.testTimetoout)
-        
       }
     },
     errorCallbackActuators(){

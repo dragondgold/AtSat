@@ -189,19 +189,19 @@ const mutations = {
     }) 
   },
   setSensor(state,data){
-    if(data.status != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].status = data.status
-    if(data.lastValue != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].lastValue = data.lastValue
-    if(data.minThreshold != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].minThreshold = data.minThreshold
-    if(data.maxThreshold != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].maxThreshold = data.maxThreshold
-    if(data.minValue != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].minValue = data.minValue
-    if(data.maxValue != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].maxValue = data.maxValue
-    if(data.x != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].x = data.x
-    if(data.y != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].y = data.y
-    if(data.z != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].z = data.z
-    if(data.step != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].step = data.step
-    if(data.unit != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].unit = data.unit
-    if(data.type != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1].type = data.type
-    if(data._type != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.id-1]._type = data._type
+    if(data.status != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].status = data.status
+    if(data.lastValue != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].lastValue = data.lastValue
+    if(data.minThreshold != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].minThreshold = data.minThreshold
+    if(data.maxThreshold != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].maxThreshold = data.maxThreshold
+    if(data.minValue != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].minValue = data.minValue
+    if(data.maxValue != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].maxValue = data.maxValue
+    if(data.x != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].x = data.x
+    if(data.y != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].y = data.y
+    if(data.z != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].z = data.z
+    if(data.step != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].step = data.step
+    if(data.unit != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].unit = data.unit
+    if(data.type != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].type = data.type
+    if(data._type != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex]._type = data._type
   },
   addNewLocation(state,data){
     if(data.clear){
@@ -264,13 +264,18 @@ const mutations = {
     }
   },
   addSensorSample(state,data){
-    state.axtec.project.mission.data.sensors[data.index].samples.push({
-      ... (data.samples.lastValue != undefined ? { lastValue: data.samples.lastValue} : []),
-      ... (data.samples.x != undefined ? { x: data.samples.x} : []),
-      ... (data.samples.y != undefined ? { y: data.samples.y} : []),
-      ... (data.samples.z != undefined ? { z: data.samples.z} : []),
-      timespan: data.samples.timespan              
-    }) 
+
+    if(state.axtec.project.cansat.missionActive){
+      state.axtec.project.mission.data.sensors[data.index].samples.push({
+        ... (data.samples.lastValue != undefined ? { lastValue: data.samples.lastValue} : []),
+        ... (data.samples.x != undefined ? { x: data.samples.x} : []),
+        ... (data.samples.y != undefined ? { y: data.samples.y} : []),
+        ... (data.samples.z != undefined ? { z: data.samples.z} : []),
+        timespan: data.samples.timespan              
+      }) 
+    }
+    
+
   },
   setDateMission(state,data){
     if(data.startDate != undefined) state.axtec.project.mission.startDate = data.startDate
@@ -281,6 +286,9 @@ const mutations = {
   },
   setFinishMission(state,data){
     if(data.finish != undefined) state.axtec.project.cansat[0].missionFinish = data.finish          
+  },
+  setBatteryLevel(state,data){
+    if(data.level != undefined) state.axtec.project.cansat[0].battery = data.level          
   },
 }
 
@@ -369,6 +377,9 @@ const actions = {
   setFinishMission({ commit }, data){
     commit(setFinishMission,data)
   },    
+  setBatteryLevel({ commit }, data){
+    commit(setBatteryLevel,data)
+  }
 }
 
 export default {

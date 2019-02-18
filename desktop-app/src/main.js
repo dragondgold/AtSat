@@ -54,4 +54,5 @@ let vm = new Vue({
 
 global.vm = vm
 
+CanSatAPI.initDefaultStructure()
 CanSatAPI.initWorker()

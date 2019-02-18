@@ -38,7 +38,6 @@ export default {
       this.$store.commit('addNewLocation',{ 
           timespan: utils.getDate(),
           lat: Math.random()*10,
-          lat: Math.random()*10,
           lng: Math.random()*10  
         })
     }
