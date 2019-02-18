@@ -77,6 +77,7 @@
 var path = require("path")
 import utils from 'services/utils'
 import MissionManager from 'services/missionManager'
+import CanSatAPI from 'services/CanSatAPI'
 
 export default {
     name: 'controls-widget',
@@ -133,6 +134,7 @@ export default {
             this.$store.commit('setDateMission',{
                 startDate: utils.getDate()
             })
+            CanSatAPI.startMission()
         },
         saveMission(){
             MissionManager.saveMission()
@@ -149,6 +151,7 @@ export default {
             this.$store.commit('setFinishMission',{
                 finish:  true
             })
+            CanSatAPI.stopMission()
         },
         exportMission(){
             MissionManager.exportToCSV()

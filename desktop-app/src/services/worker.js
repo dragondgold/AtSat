@@ -51,15 +51,16 @@ let cmdToSendlistener = function(msg)
   if(msg.cmdToSend)
   {
     process.send(msg)
-    if(control.cansat.connected){
-      let packet = protocol.create_packet( msg.cmdToSend, msg.valuesArray );
+    if(control.cansat.connected || true){
+      let packet = protocol.create_packet( msg.cmdToSend.cmd, msg.cmdToSend.valuesArray );
+
+      process.send(packet)
       if(packet.length > 0){
-        cc1101.cc1101_send_data(packet);
+        //cc1101.cc1101_send_data(packet);
       }
     }
   }
 }
-
 
 /*
 const cmd =
@@ -261,7 +262,7 @@ control.et.interval = setInterval(intervalConnectET, control.et.time);
 
 // Init the CC1101 and set RX mode
 
-
+/*
 let data = {
   //data: [ 0x7e, 0 , 2 , 0,0, 255]
   //data: [ 0, 0x7e, 0 , 23, 5,  8,0,0,0,0,0,0, 1,0,5, 3,1,0, 7, 0,0,0,0,0,0,0,0, 225] // get sensor
@@ -283,7 +284,7 @@ if(decoded.error == 0){
     }
   })
 }
-
+*/
 /*
 
 */

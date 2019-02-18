@@ -35,8 +35,6 @@ export default {
             let that = this
             setTimeout(that.initWorker, 5000);
         });
-
-       //worker.send({getDefaultSensors: {}})
     },
     initDefaultStructure(){
         // Load sensors structure
@@ -51,17 +49,9 @@ export default {
             worker.kill()
         }
     },
-    getDefaultSensors(){
-        worker.send('getDefaultSensors');
-    },
-    sendCommand(cmd, data)
+    getDefaultSensors()
     {
-        worker.send({ 
-            cmdParser: { 
-                cmd: cmd,
-                data: data
-            }
-        })
+        worker.send('getDefaultSensors');
     },
     etConnected(msg)
     {
@@ -156,6 +146,12 @@ export default {
         }else{
             this.sendCMDToWorker('setBalloon', [value])
         }
+    },
+    startMission(){
+        this.sendCMDToWorker('startReport', [1])
+    },
+    stopMission(){
+        this.sendCMDToWorker('startReport', [0])
     },
     newCMDReceived(msg){
         if(msg.newCMDReceived){
