@@ -1,7 +1,7 @@
 <template>
     <div class="form-elements chart-widget">
-        <div class="col-md-12" style="text-align:center;">
-            <h4 v-if="!showAllSamples" class="mb-0">{{ $t(sensor.type)}}</h4>
+        <div  v-if="!showAllSamples" class="col-md-12" style="text-align:center;">
+            <h4  class="mb-0">{{ $t(sensor.type)}}</h4>
             <div class="col-md-12">
                 <small>{{$t('cansat.mission.dashboard.charts.lastSamples')}} 
                     <a href @click.prevent="goToFullChart">
@@ -49,7 +49,7 @@ export default {
     data () {
         return {
             debug: this.$store.getters.axtec.debug,
-            limit: 5,
+            limit: 50,
             type: 'line',
             dataOrig: {
                 x: [],
@@ -156,7 +156,7 @@ export default {
             return t.yLabel.toString() + " " + this.sensor.unit
         },
         loadData(){
-            if(this.finished){
+
                 // Set label to each axis
                 if( this.sensor._type != "vector"){
                     this.data.datasets[0].label = this.$t('cansat.mission.dashboard.charts.samples')
@@ -177,7 +177,7 @@ export default {
                     }
                 }
 
-            }
+            
         },
         addNewData(x,y,z,time){
             if(x != undefined){ // 'x' or 'lastValue' depend of sensors _type
