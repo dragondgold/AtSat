@@ -174,13 +174,14 @@ bool cc1101_reg_config_settings(void)
     uint8_t pa_table_915[] = {0xC3,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
     spi_write_burst_reg(CC1101_PATABLE, pa_table_915, sizeof(pa_table_915));
  
-    spi_write_reg(CC1101_MDMCFG4,  0xC8);   // Baud rate 10k
+    spi_write_reg(CC1101_FIFOTHR,  0x47);   // 0 db attenuation
+    spi_write_reg(CC1101_MDMCFG4,  0xC8);   // Baud rate 10k, 101kHz RX bandwidth
     spi_write_reg(CC1101_MDMCFG3,  0x93);   // Baud rate 10k 
     spi_write_reg(CC1101_MDMCFG2,  0x13);   // 30/32 sync word, no Manchester encoding, GFSK modulation, DC filter before modulator
-    spi_write_reg(CC1101_MDMCFG1,  0x22);   // 4 preamble bytes, no forward error correction
+    spi_write_reg(CC1101_MDMCFG1,  0x72);   // 24 preamble bytes, no forward error correction
     spi_write_reg(CC1101_MDMCFG0,  0xF8);   // 200 kHz channel spacing together with CHANSPC_E bits in MDMCFG1
     spi_write_reg(CC1101_CHANNR,   channel);// Channel number
-    spi_write_reg(CC1101_DEVIATN,  0x34);
+    spi_write_reg(CC1101_DEVIATN,  0x40);
     spi_write_reg(CC1101_FREND1,   0x56);
     spi_write_reg(CC1101_FREND0,   0x10);   
     spi_write_reg(CC1101_MCSM0,    0x18);
@@ -201,7 +202,7 @@ bool cc1101_reg_config_settings(void)
     spi_write_reg(CC1101_IOCFG0,   0x06);  	// Asserts GDO0 when sync word has been sent/received, and de-asserts at the end of the packet 
     spi_write_reg(CC1101_PKTCTRL1, 0x04);   // Two status bytes will be appended to the payload of the packet, including RSSI, LQI and CRC OK
 											// No address check
-    spi_write_reg(CC1101_PKTCTRL0, 0x01);	// Whitening OFF, CRC disabled, variable length packets, packet length configured by the first byte after sync word
+    spi_write_reg(CC1101_PKTCTRL0, 0x41);	// Whitening on, CRC disabled, variable length packets, packet length configured by the first byte after sync word
     spi_write_reg(CC1101_ADDR,     0x00);	// Address used for packet filtration (not used here)
     spi_write_reg(CC1101_PKTLEN,   0x3D); 	// 61 bytes max packet length allowed
 	spi_write_reg(CC1101_MCSM1,    0x3F);	// After TX go to RX, after RX stay in RX, CCA_MODE If RSSI below threshold unless currently receiving a packet
@@ -214,7 +215,7 @@ bool cc1101_reg_config_settings(void)
 
     // Read some values to check that they were written
     uint8_t val;
-    if((val = spi_read_reg(CC1101_PKTCTRL0)) != 0x01)
+    if((val = spi_read_reg(CC1101_PKTCTRL0)) != 0x41)
     {
         ESP_LOGE(TAG, "Error on CC1101_PKTCTRL0. Read: %d", val);
         return false;

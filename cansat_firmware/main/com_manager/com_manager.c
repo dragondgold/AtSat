@@ -568,7 +568,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
 static void rx_task(void* arg) 
 {
     static axtec_encoded_packet_t packet_to_send;
-    
+
     while(true)
     {
         vTaskDelay(pdMS_TO_TICKS(50));
@@ -605,81 +605,84 @@ static void rx_task(void* arg)
             xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
         }
 
-        if(!xSemaphoreTake(cc1101_mutex, pdMS_TO_TICKS(100)))
+        // Take mutex
+        if(xSemaphoreTake(cc1101_mutex, pdMS_TO_TICKS(100)))
         {
-            ESP_LOGW(TAG, "rx_task couldn't take mutex");
-        }
+            uint8_t length = cc1101_bytes_in_rx_fifo();
+            //ESP_LOGV(TAG, "Bytes: %d", length);
 
-        uint8_t length = cc1101_bytes_in_rx_fifo();
-        ESP_LOGV(TAG, "Bytes: %d", length);
-
-        // Check if data has been received and is ready to be read
-        if(length > 0 && cc1101_is_packet_sent_available())
-        {
-            ESP_LOGV(TAG, "Packet available");
-
-            if(led_manager_is_on())
+            // Check if data has been received and is ready to be read
+            if(length > 0 && cc1101_is_packet_sent_available())
             {
-                led_manager_off();
-            }
-            else
-            {
-                led_manager_on();
-            }
+                ESP_LOGV(TAG, "Packet available");
 
-            // Read the packet
-            if(cc1101_read_data(&cc1101_packet))
-            {
-                axtec_packet_error_t code;
-
-                // Decode the packet
-                if((code = axtec_packet_decode(&axtec_decoded_packet, cc1101_packet.data, cc1101_packet.length)) == PACKET_OK)
+                if(led_manager_is_on())
                 {
-                    ESP_LOGV(TAG, "Packet decoded");
-                    // Check if the packet is valid
-                    if(axtec_decoded_packet.valid)
-                    {
-                        // Process the packet and take the neccesary actions
-                        ESP_LOGV(TAG, "Packet valid");
-                        process_cansat_packet(&axtec_decoded_packet);
-                    }
-                    else
-                    {
-                        ESP_LOGW(TAG, "Wrong packet checksum");
-
-                        uint8_t buffer[] = { CANSAT_ERRORS, WRONG_CHECKSUM };
-                        axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
-                        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
-                    }
-                }
-                else if(code == LENGTH_ERROR)
-                {
-                    // Wrong command length error
-                    ESP_LOGW(TAG, "Wrong packet length");
-                    
-                    uint8_t buffer[] = { CANSAT_ERRORS, WRONG_COMMAND_LENGTH };
-                    axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
-                    xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                    led_manager_off();
                 }
                 else
                 {
-                    ESP_LOGW(TAG, "Error on decode: %d", code);
+                    led_manager_on();
+                }
+
+                // Read the packet
+                if(cc1101_read_data(&cc1101_packet))
+                {
+                    axtec_packet_error_t code;
+
+                    // Decode the packet
+                    if((code = axtec_packet_decode(&axtec_decoded_packet, cc1101_packet.data, cc1101_packet.length)) == PACKET_OK)
+                    {
+                        ESP_LOGV(TAG, "Packet decoded");
+                        // Check if the packet is valid
+                        if(axtec_decoded_packet.valid)
+                        {
+                            // Process the packet and take the neccesary actions
+                            ESP_LOGD(TAG, "Packet valid. RSSI: %d dbm. LQI: %d %%", cc1101_packet.rssi, cc1101_packet.lqi);
+                            process_cansat_packet(&axtec_decoded_packet);
+                        }
+                        else
+                        {
+                            ESP_LOGW(TAG, "Wrong packet checksum");
+
+                            uint8_t buffer[] = { CANSAT_ERRORS, WRONG_CHECKSUM };
+                            axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+                            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                        }
+                    }
+                    else if(code == LENGTH_ERROR)
+                    {
+                        // Wrong command length error
+                        ESP_LOGW(TAG, "Wrong packet length");
+                        
+                        uint8_t buffer[] = { CANSAT_ERRORS, WRONG_COMMAND_LENGTH };
+                        axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+                        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+                    }
+                    else
+                    {
+                        ESP_LOGW(TAG, "Error on decode: %d", code);
+                    }
+                }
+                else
+                {
+                    ESP_LOGW(TAG, "Error reading packet");
                 }
             }
-            else
+
+            // Flush the RX FIFO if needed
+            if(cc1101_is_rx_overflow())
             {
-                ESP_LOGW(TAG, "Error reading packet");
+                ESP_LOGW(TAG, "RX FLUSH");
+                cc1101_set_rx(true);
             }
-        }
 
-        // Flush the RX FIFO if needed
-        if(cc1101_is_rx_overflow())
+            xSemaphoreGive(cc1101_mutex);   
+        }
+        else
         {
-            ESP_LOGW(TAG, "RX FLUSH");
-            cc1101_set_rx(true);
+            ESP_LOGW(TAG, "rx_task couldn't take mutex");
         }
-
-        xSemaphoreGive(cc1101_mutex);
     }
 }
 
@@ -695,30 +698,32 @@ static void tx_task(void* arg)
         {
             ESP_LOGV(TAG, "Sending data");
             // Take the mutex to send data
-            if(!xSemaphoreTake(cc1101_mutex, pdMS_TO_TICKS(500)))
+            if(xSemaphoreTake(cc1101_mutex, pdMS_TO_TICKS(500)))
+            {
+                // Retry at most 5 times to send the packet
+                bool data_sent = false;
+                for(unsigned int n = 0; n < 5; ++n)
+                {
+                    if(cc1101_send_data(packet.raw, packet.length))
+                    {
+                        data_sent = true;
+                        break;
+                    }
+                }
+
+                if(!data_sent)
+                {
+                    ESP_LOGW(TAG, "Failed sending data");
+                }
+
+                // Set RX mode again and release the mutex
+                cc1101_set_rx(true);
+                xSemaphoreGive(cc1101_mutex);   
+            }
+            else
             {
                 ESP_LOGW(TAG, "tx_task couldn't take mutex");
             }
-
-            // Retry at most 5 times to send the packet
-            bool data_sent = false;
-            for(unsigned int n = 0; n < 5; ++n)
-            {
-                if(cc1101_send_data(packet.raw, packet.length))
-                {
-                    data_sent = true;
-                    break;
-                }
-            }
-
-            if(!data_sent)
-            {
-                ESP_LOGW(TAG, "Failed sending data");
-            }
-
-            // Set RX mode again and release the mutex
-            cc1101_set_rx(true);
-            xSemaphoreGive(cc1101_mutex);
         }
         else
         {
@@ -754,6 +759,8 @@ static void report_task(void* arg)
     packet_power.length = 7;
     packet_power.valid = true;
 
+    bool send_power = false;
+
     while(true)
     {
         // Send the data automatically every 'report_frequency'
@@ -761,11 +768,20 @@ static void report_task(void* arg)
 
         if(reports_enabled)
         {
-            // Send all the sensors data in one packet
-            process_cansat_packet(&packet_sensors);
+            ESP_LOGD(TAG, "Reporting data");
 
-            // Send all the voltages and currents now
-            process_cansat_packet(&packet_power);
+            if(send_power)
+            {
+                // Send all the voltages and currents now
+                process_cansat_packet(&packet_power);
+            }
+            else
+            {
+                // Send all the sensors data in one packet
+                process_cansat_packet(&packet_sensors);
+            }
+
+            send_power = send_power ? false : true;
         }
     }
 }
