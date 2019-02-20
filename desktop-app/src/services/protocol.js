@@ -97,21 +97,21 @@ let recCMDLength =
 
 let sensorsLength = 
 [
-    { id: PROTOCOL_SENSOR_ID_VBAT,           length: 2 }, // rec: MSB mV + LSB mV     send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_IBAT,           length: 2 }, // rec: MSB mA + LSB mA     send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_V3V3,           length: 2 }, // rec: MSB mV + LSB mV     send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_I3V3,           length: 2 }, // rec: MSB mA + LSB mA     send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_V5,             length: 2 }, // rec: MSB mV + LSB mV     send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_I5,             length: 2 }, // rec: MSB mA + LSB mA     send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_GPS,            length: 8 }, // rec: LAT MSB + LAT[2] + LAT[1] + LAT LSB + LNG MSB + LNG[2] + LNG[1] + LNG LSB    send: CMD
-    { id: PROTOCOL_SENSOR_ID_GYROSCOPE,      length: 6 }, // rec: MSB x + LSB x + MSB y + LSB y + MSB z + LSB z   send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_MAGNETOMETER,   length: 6 }, // rec: MSB x + LSB x + MSB y + LSB y + MSB z + LSB z   send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_ACCELEROMETER,  length: 6 }, // rec: MSB x + LSB x + MSB y + LSB y + MSB z + LSB z   send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_ORIENTATION,    length: 6 }, // rec: MSB x + LSB x + MSB y + LSB y + MSB z + LSB z   send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_TEMPERATURE,    length: 1 }, // rec: TEMP °              send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_HUMIDITY,       length: 1 }, // rec: HUM %               send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_PRESSURE,       length: 2 }, // rec: MSB p + LSB p       send: CMD + ID 
-    { id: PROTOCOL_SENSOR_ID_ALTITUDE,       length: 2 }, // rec: MSB a + LSB a       send: CMD + ID 
+    { id: PROTOCOL_SENSOR_ID_VBAT,           length: 2 }, // rec: MSB mV + LSB mV     
+    { id: PROTOCOL_SENSOR_ID_IBAT,           length: 2 }, // rec: MSB mA + LSB mA    
+    { id: PROTOCOL_SENSOR_ID_V3V3,           length: 2 }, // rec: MSB mV + LSB mV      
+    { id: PROTOCOL_SENSOR_ID_I3V3,           length: 2 }, // rec: MSB mA + LSB mA     
+    { id: PROTOCOL_SENSOR_ID_V5,             length: 2 }, // rec: MSB mV + LSB mV    
+    { id: PROTOCOL_SENSOR_ID_I5,             length: 2 }, // rec: MSB mA + LSB mA     
+    { id: PROTOCOL_SENSOR_ID_GPS,            length: 9 }, // rec: LAT MSB + LAT[2] + LAT[1] + LAT LSB + LNG MSB + LNG[2] + LNG[1] + LNG LSB + VALID  
+    { id: PROTOCOL_SENSOR_ID_GYROSCOPE,      length: 6 }, // rec: MSB x + LSB x + MSB y + LSB y + MSB z + LSB z   
+    { id: PROTOCOL_SENSOR_ID_MAGNETOMETER,   length: 6 }, // rec: MSB x + LSB x + MSB y + LSB y + MSB z + LSB z   
+    { id: PROTOCOL_SENSOR_ID_ACCELEROMETER,  length: 6 }, // rec: MSB x + LSB x + MSB y + LSB y + MSB z + LSB z   
+    { id: PROTOCOL_SENSOR_ID_ORIENTATION,    length: 6 }, // rec: MSB x + LSB x + MSB y + LSB y + MSB z + LSB z   
+    { id: PROTOCOL_SENSOR_ID_TEMPERATURE,    length: 1 }, // rec: TEMP °              
+    { id: PROTOCOL_SENSOR_ID_HUMIDITY,       length: 1 }, // rec: HUM %                
+    { id: PROTOCOL_SENSOR_ID_PRESSURE,       length: 2 }, // rec: MSB p + LSB p       
+    { id: PROTOCOL_SENSOR_ID_ALTITUDE,       length: 2 }, // rec: MSB a + LSB a       
 ]
 
 let recPackets = 
@@ -304,18 +304,23 @@ protocol_decode_data = function(packets)
                             case PROTOCOL_SENSOR_ID_GPS:
                                 let latInt = packet[2] * Math.pow(2,24) + packet[3] * Math.pow(2,16) + packet[4] * Math.pow(2,8) + packet[5];
                                 let lngInt = packet[6] * Math.pow(2,24) + packet[7] * Math.pow(2,16) + packet[8] * Math.pow(2,8) + packet[9];
+
+
                     
                                 let lat = ((~~latInt) / (2147483647 / 180.0));
                                 let lng = ((~~lngInt) / (0x7FFFFFFF / 180.0));
                                     
-                                recPackets.decoded.push(
-                                    { 
-                                        cmdName: cmdName[0].name,
-                                        sensorID : id ,
-                                        lat : lat ,
-                                        lng : lng  
-                                    }
-                                );
+                                // Is valid?
+                                if(packet[10]){
+                                    recPackets.decoded.push(
+                                        { 
+                                            cmdName: cmdName[0].name,
+                                            sensorID : id ,
+                                            lat : lat ,
+                                            lng : lng  
+                                        }
+                                    );
+                                }
     
                                 break; 
                         }
