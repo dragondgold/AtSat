@@ -47,6 +47,10 @@
 #define SUP_CMD_MANAGER_TASK_PRIORITY           4
 #define SUP_CMD_MANAGER_AFFINITY                tskNO_AFFINITY
 
+#define CONSOLE_MANAGER_STACK_SIZE              1500
+#define CONSOLE_MANAGER_TASK_PRIORITY           2
+#define CONSOLE_MANAGER_AFFINITY                tskNO_AFFINITY
+
 // UART
 #define GPS_UART_NUMBER             UART_NUM_2
 #define ARDUINO_UART_NUMBER         UART_NUM_1
