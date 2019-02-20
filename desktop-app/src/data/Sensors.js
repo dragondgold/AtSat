@@ -157,7 +157,7 @@ export default {
             maxValue: 16000,
             maxThreshold: 16000,  
             unit: 'mg', 
-            step: 0.1,          
+            step: 10,          
             status: 'danger',
             _type: 'vector'
         },
@@ -176,7 +176,7 @@ export default {
             step: 0.1,          
             status: 'danger',
             _type: 'vector',
-            disable: true       // This sensor is disable. 'disable' is used to filter sensors in this.getSensors()
+            disable: true       // This sensor is disabled. It´s not show in UI. 'disable' is used to filter sensors in this.getSensors()
         },
         { 
             cansatIndex: 0,

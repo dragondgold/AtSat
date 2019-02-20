@@ -73,7 +73,7 @@ export default {
                         data: [],
                         borderWidth: 2,
                         fill:false,
-                        ... (this.sensor._type != 'vector' ? { hidden: true} : []),
+                        //... (this.sensor._type != 'vector' ? { hidden: true} : []),
                         borderColor: 'rgba(0, 0, 255, 1)',
                         pointBackgroundColor: 'rgba(0, 0, 255, 1)'
                     }, 
@@ -82,7 +82,7 @@ export default {
                         data: [],
                         borderWidth: 2,
                         fill:false,
-                        ... (this.sensor._type != 'vector' ? { hidden: true} : []),
+                        //... (this.sensor._type != 'vector' ? { hidden: true} : []),
                         borderColor: 'rgba(255, 0, 0, 1)',
                         pointBackgroundColor: 'rgba(255, 0, 0, 1)'
                     }                           
@@ -238,6 +238,15 @@ export default {
             }
 
             if(index != -1){
+                this.$store.commit('setSensor',
+                 {
+                    cansatIndex: 0 ,
+                    sensorIndex: index,
+                    lastValue: x,
+                    x: x,
+                    y: y,
+                    z: z,
+                })
                 this.$store.commit('addSensorSample',{
                     index: index,
                     samples: {

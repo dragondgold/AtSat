@@ -78,7 +78,7 @@ const sendCMDLength =
     { id: PROTOCOL_CMD_GET_BATTERY,         length: 1 },        // send: CMD
     { id: PROTOCOL_CMD_SET_REPORT_FREQ,     length: 2 },        // send: CMD + SETTER
     { id: PROTOCOL_CMD_START_REPORT,        length: 2 },        // send: CMD + SETTER
-    { id:PROTOCOL_CMD_ENABLE_PS,            length: 2}          // send: CMD + SETTER
+    { id:PROTOCOL_CMD_ENABLE_PS,            length: 2}          // send: CMD
 ]
 
 let recCMDLength = 

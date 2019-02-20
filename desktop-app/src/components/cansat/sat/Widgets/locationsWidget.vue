@@ -23,7 +23,8 @@ export default {
             map: {},
             marker: {},
             minZoom: 7,
-            maxZoom: 10
+            maxZoom: 10,
+            altitude: this.$store.getters.axtec.project.cansat[0].altitude
         }
     },
 
@@ -32,8 +33,7 @@ export default {
             location: 'location',
             signal: 'cansatSignal',
             name: 'cansatName',
-            battery: 'cansatBattery',
-            altitude: 'cansatAltitude'
+            battery: 'cansatBattery'
         })
     },
 

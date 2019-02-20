@@ -54,6 +54,7 @@
 
 <script>
 import sensors from 'data/Sensors'
+import CanSatAPI from 'services/CanSatAPI'
 
 export default {
     name: 'variables-tab',
@@ -116,9 +117,27 @@ export default {
             let filtered = sensor.filter(function(n) {
                 return (n._type == 'power')
             })
+
+            
+
             for(let s = 0 ;s < filtered.length;s++){
-                filtered[s].status= 'ok'
-                this.$store.commit('setSensor', filtered[s])
+                let sensor;
+                let index = -1
+                
+                let searchID = this.$store.getters.axtec.project.mission.data.sensors
+                for(let c = 0; c <searchID.length; c++ ){
+                    if(searchID[c].id == filtered[s].sensorID){
+                        index = c
+                        sensor = searchID[c];
+                        break;
+                    }
+                }
+                if(sensor != undefined){ 
+                    filtered[s].status= 'ok'
+                    filtered[s].sensorID = index
+                    this.$store.commit('setSensor', filtered[s])
+                }
+                CanSatAPI.enablePowerSupply()
             }
         }
     }

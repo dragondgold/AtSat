@@ -56,11 +56,12 @@ let cmdToSendlistener = function(msg)
 
       process.send(packet)
       if(packet.length > 0){
-        //cc1101.cc1101_send_data(packet);
+        cc1101.cc1101_send_data(packet);
       }
     }
   }
 }
+
 
 /*
 const cmd =
@@ -93,18 +94,25 @@ let checkForData = function()
     let decoded = protocol.decode_packet(data);
     console.log(Date.now() + ": Data -> " + JSON.stringify(decoded));
 
+    console.log({
+      
+    })
+  if(process.send){
     process.send({
       newCMDReceived: {
-        data: decoded
+        data: decoded,
+        packet: JSON.stringify(data)
       }
     })
+  }
+
     
   
     cc1101.cc1101_set_rx(true);
   }
 
   // Flush the RX FIFO if needed
-  if(cc1101.cc1101_is_rx_overflow())
+  if(bytes & 0x80)
   {
       console.log(Date.now() + ": Flush");
       cc1101.cc1101_set_rx(true);
@@ -114,7 +122,7 @@ let checkForData = function()
 
 let intervalConnectCanSat = function(){
   try {
-    if(control.et.connnected){
+    if(control.et.connected){
       while(control.cansat.attempt < maxAttempt && control.cansat.connected == false)
       {
         //control.cansat.connected = cc1101.cc1101_init(pathToCLI);
@@ -135,10 +143,12 @@ let intervalConnectCanSat = function(){
         let data = cc1101.cc1101_read_data();
         let decoded = protocol.decode_packet(data);
 
+        console.log(JSON.stringify(data),JSON.stringify(decoded))
         if(decoded.error == 0){
           control.cansat.connected = true
 
           control.cansat.samples.interval = setInterval( checkForData, control.cansat.samples.time);
+          
         }
 
         if(control.cansat.connected){
@@ -175,8 +185,8 @@ let intervalConnectCanSat = function(){
 
 let intervalConnectET = function()
 {
-  try {
-    if(  usb.findByIds( vid, pid )  && control.et.error == 0)
+  try { // usb.findByIds( vid, pid ) 
+    if( usb.findByIds( vid, pid )  && control.et.error == 0)
     {
       if(!control.et.connected)
       {
@@ -197,7 +207,7 @@ let intervalConnectET = function()
           if(control.et.connected)
           {
             control.et.attempt = 0; 
-            control.cansat.interval = setInterval(intervalConnectCanSat, control.cansat.time);
+            
           }
           else
           {
@@ -223,6 +233,7 @@ let intervalConnectET = function()
         }
         else if(control.et.connected)
         {
+          control.cansat.interval = setInterval(intervalConnectCanSat, control.cansat.time);
           console.log( "ET CONNECTED: " + control.et.connected);
           if(process.send)
           {
@@ -285,55 +296,4 @@ if(decoded.error == 0){
   })
 }
 */
-/*
 
-*/
-
-/*
-console.log("Init: " + cc1101.cc1101_init(pathMCP2210CLI));
-
-cc1101.cc1101_set_cli_path(pathMCP2210CLI);
-cc1101.cc1101_set_rx(true);
-
-// Check for incoming data every 50 ms
-setInterval(function()
-{
-  let bytes = cc1101.cc1101_bytes_in_rx_fifo();
-  console.log(Date.now() + ": Bytes: " + bytes);
-  //console.log(cc1101.cc1101_read_status(0x35));
-
-  // Data available?
-  if(bytes > 0 && cc1101.cc1101_is_packet_sent_available())
-  {
-    let data = cc1101.cc1101_read_data();
-    console.log(Date.now() + ": Data -> " + JSON.stringify(data));
-    let decoded = protocol.decode_packet(data);
-    console.log(Date.now() + ": Data -> " + JSON.stringify(decoded));
-    //process.send(decoded)
-    cc1101.cc1101_set_rx(true);
-  }
-
-  // Flush the RX FIFO if needed
-  if(cc1101.cc1101_is_rx_overflow())
-  {
-      console.log(Date.now() + ": Flush");
-      cc1101.cc1101_set_rx(true);
-  }
-}, 50);
-
-// Send data every 1000 ms
-let a
-setInterval(function()
-{
-  cc1101.cc1101_send_data([0x7E, 0x00, 0x02, 5,3, 247]);
-  
-  if(a ==1){
-    cc1101.cc1101_send_data([0x7E, 0x00, 0x2,4,1, 250]);
-    a = 0;
-  }else{
-    cc1101.cc1101_send_data([0x7E, 0x00, 0x2,4,0, 251]);
-    a = 1;
-  }
-
-}, 100);
-*/

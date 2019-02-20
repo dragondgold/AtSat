@@ -202,6 +202,11 @@ const mutations = {
     if(data.unit != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].unit = data.unit
     if(data.type != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex].type = data.type
     if(data._type != undefined) state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex]._type = data._type
+
+    let sensor =  state.axtec.project.cansat[data.cansatIndex].sensors[data.sensorIndex];
+    if(sensor.type != undefined && sensor.type.includes('altitude')){
+      state.axtec.project.cansat[0].altitude = data.lastValue
+    }
   },
   addNewLocation(state,data){
     if(data.clear){
@@ -265,14 +270,26 @@ const mutations = {
   },
   addSensorSample(state,data){
 
-    if(state.axtec.project.cansat.missionActive){
-      state.axtec.project.mission.data.sensors[data.index].samples.push({
-        ... (data.samples.lastValue != undefined ? { lastValue: data.samples.lastValue} : []),
-        ... (data.samples.x != undefined ? { x: data.samples.x} : []),
-        ... (data.samples.y != undefined ? { y: data.samples.y} : []),
-        ... (data.samples.z != undefined ? { z: data.samples.z} : []),
-        timespan: data.samples.timespan              
-      }) 
+    if(state.axtec.project.cansat[0].missionActive){
+      try {
+        if(data.index >= state.axtec.project.mission.data.sensors.length){
+          debugger
+        }else{
+          state.axtec.project.mission.data.sensors[data.index].samples.push({
+            ... (data.samples.lastValue != undefined ? { lastValue: data.samples.lastValue} : []),
+            ... (data.samples.x != undefined ? { x: data.samples.x} : []),
+            ... (data.samples.y != undefined ? { y: data.samples.y} : []),
+            ... (data.samples.z != undefined ? { z: data.samples.z} : []),
+            timespan: data.samples.timespan              
+          }) 
+        }
+        
+      } catch (error) {
+        debugger
+      }
+      
+
+      
     }
     
 

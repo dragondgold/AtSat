@@ -340,15 +340,16 @@ module.exports =
         this.spi_write_reg(CC1101_FSCTRL1, 0x06);
         this.spi_write_reg(CC1101_FSCTRL0, 0x00);
         
-        this.spi_write_burst_reg(CC1101_PATABLE, [0xC3,0x00,0x00,0x00,0x00,0x00,0x00,0x00]);
+        this.spi_write_burst_reg(CC1101_PATABLE, [0x27,0x00,0x00,0x00,0x00,0x00,0x00,0x00]);
 
+        this.spi_write_reg(CC1101_FIFOTHR,  0x47);
         this.spi_write_reg(CC1101_MDMCFG4,  0xC8);   // Baud rate 10k
-        this.spi_write_reg(CC1101_MDMCFG3,  0x83);   // Baud rate 10k
+        this.spi_write_reg(CC1101_MDMCFG3,  0x93);   // Baud rate 1C3
         this.spi_write_reg(CC1101_MDMCFG2,  0x13);   // 30/32 sync word, no Manchester encoding, GFSK modulation, DC filter before modulator
-        this.spi_write_reg(CC1101_MDMCFG1,  0x22);   // 4 preamble bytes, no forward error correction
+        this.spi_write_reg(CC1101_MDMCFG1,  0x72);   // 4 preamble bytes, no forward error correction
         this.spi_write_reg(CC1101_MDMCFG0,  0xF8);   // 200 kHz channel spacing together with CHANSPC_E bits in MDMCFG1
         this.spi_write_reg(CC1101_CHANNR,   channel);// Channel number
-        this.spi_write_reg(CC1101_DEVIATN,  0x34);
+        this.spi_write_reg(CC1101_DEVIATN,  0x40);
         this.spi_write_reg(CC1101_FREND1,   0x56);
         this.spi_write_reg(CC1101_FREND0,   0x10);
         this.spi_write_reg(CC1101_MCSM0,    0x18);
@@ -369,7 +370,7 @@ module.exports =
         this.spi_write_reg(CC1101_IOCFG0,   0x06);      // Asserts GDO0 when sync word has been sent/received, and de-asserts at the end of the packet 
         this.spi_write_reg(CC1101_PKTCTRL1, 0x04);      // Two status bytes will be appended to the payload of the packet, including RSSI, LQI and CRC OK
                                                         // No address check
-        this.spi_write_reg(CC1101_PKTCTRL0, 0x01);	    // Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
+        this.spi_write_reg(CC1101_PKTCTRL0, 0x41);	    // Whitening OFF, CRC Enabled, variable length packets, packet length configured by the first byte after sync word
         this.spi_write_reg(CC1101_ADDR,     0x00);	    // Address used for packet filtration (not used here)
         this.spi_write_reg(CC1101_PKTLEN,   0x3D); 	    // 61 bytes max packet length allowed
         this.spi_write_reg(CC1101_MCSM1,    0x3F);
@@ -383,12 +384,12 @@ module.exports =
         let registers = [   CC1101_FSCTRL1, 0x06,
                             CC1101_FSCTRL0, 0x00,
                             CC1101_MDMCFG4, 0xC8,
-                            CC1101_MDMCFG3, 0x83,
+                            CC1101_MDMCFG3, 0x93,
                             CC1101_MDMCFG2, 0x13,
-                            CC1101_MDMCFG1, 0x22,
+                            CC1101_MDMCFG1, 0x72,
                             CC1101_MDMCFG0, 0xF8,
                             CC1101_CHANNR, channel,
-                            CC1101_DEVIATN, 0x34,
+                            CC1101_DEVIATN, 0x40,
                             CC1101_FREND1, 0x56,
                             CC1101_FREND0, 0x10,
                             CC1101_MCSM0, 0x18,
@@ -408,7 +409,7 @@ module.exports =
                             CC1101_IOCFG2, 0x2E,
                             CC1101_IOCFG0, 0x06,
                             CC1101_PKTCTRL1, 0x04,
-                            CC1101_PKTCTRL0, 0x01,
+                            CC1101_PKTCTRL0, 0x41,
                             CC1101_ADDR, 0x00,
                             CC1101_PKTLEN, 0x3D,
                             CC1101_FREQ2, 0x23,

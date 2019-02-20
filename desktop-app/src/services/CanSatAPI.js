@@ -120,14 +120,14 @@ export default {
                     'text': vm.$t('cansat.notifications.etConnected'), 
                     'icon': 'fa-check'          
                 })
-                store.commit('setStatusCanSat', true)
+                store.commit('setStatusCanSat', {connected: true, index: 0})
             }else if(!msg.cansat.connected  && msg.cansat.connected != store.getters.axtec.project.cansat[0].connected )
             {
                 store.commit('pushNotificationToast',{ 
                     'text': vm.$t('cansat.notifications.etDisconnected'), 
                     'icon': 'fa-unlink'          
                 })
-                store.commit('setStatusCanSat', false)
+                store.commit('setStatusCanSat', {connected: false, index: 0})
             }
         }
     },
@@ -141,10 +141,27 @@ export default {
     },
     setActuator(id, value)
     {
+        let state = 'cansat.resources.close'
+        if(value== 1){
+            state = 'cansat.resources.open'
+        }
         if(id == 0){
             this.sendCMDToWorker('setParachute', [value])
+            
+            store.commit('setActuators',
+            { 
+                'cansatIndex': 0, 
+                'actuatorIndex': 0, 
+                'status' : state
+            })
         }else{
             this.sendCMDToWorker('setBalloon', [value])
+            store.commit('setActuators',
+            { 
+                'cansatIndex': 0, 
+                'actuatorIndex': id, 
+                'status' : state
+            })
         }
     },
     startMission(){
@@ -152,6 +169,9 @@ export default {
     },
     stopMission(){
         this.sendCMDToWorker('startReport', [0])
+    },
+    enablePowerSupply(){
+        this.sendCMDToWorker('enablePowerSupply', [1])
     },
     newCMDReceived(msg){
         if(msg.newCMDReceived){
@@ -189,6 +209,8 @@ export default {
                                 store.commit('setSensor', filtered[s])
                             }
                         }
+
+                        this.sendCMDToWorker('getError', [])
 
                         break;
                     case 'getParachute':
@@ -283,42 +305,54 @@ export default {
                                 lng: cmdsToParse[c].lng 
                             })
                         }else{
-                            let sensor = defaultSensors.getSensors().filter(function(n) {
-                                return (n.id == cmdsToParse[c].sensorID)
-                            })
-                            if(sensor[0]){   
-                                if(sensor[0]._type == 'vector'){
-
-                                    sensor[0].x = cmdsToParse[c].x
-                                    sensor[0].y = cmdsToParse[c].y
-                                    sensor[0].z = cmdsToParse[c].z
-
-                                    store.commit('setSensor', sensor[0])
-                                    
-                                    store.commit('addSensorSample',{
-                                        index: cmdsToParse[c].sensorID,
-                                        samples: {
+                            let sensor;
+                            let index = -1
+                            let searchID = store.getters.axtec.project.mission.data.sensors
+                            for(let s = 0; s <searchID.length; s++ ){
+                                if(searchID[s].id == cmdsToParse[c].sensorID){
+                                    index = s
+                                    sensor = searchID[s];
+                                    break;
+                                }
+                            }
+                            if(sensor != undefined){                                  
+                                if(index != -1){
+                                    if(sensor._type == 'vector'){
+    
+                                        store.commit('setSensor',{
+                                            cansatIndex: 0 ,
+                                            sensorIndex: index,
                                             x: cmdsToParse[c].x,
                                             y: cmdsToParse[c].y,
-                                            z: cmdsToParse[c].z,
-                                            timespan: utils.getDate()
-                                        }
-                                    })
-                                    
-                                }else{
-                                    
-                                    sensor[0].lastValue = cmdsToParse[c].value
-
-                                    store.commit('setSensor', sensor[0])
-                                    
-                                    store.commit('addSensorSample',{
-                                        index: cmdsToParse[c].sensorID,
-                                        samples: {
-                                            lastValue: cmdsToParse[c].value,
-                                            timespan: utils.getDate()
-                                        }
-                                    })
-                                }
+                                            z: cmdsToParse[c].z
+                                        })
+                                        
+                                        store.commit('addSensorSample',{
+                                            index: index,
+                                            samples: {
+                                                x: cmdsToParse[c].x,
+                                                y: cmdsToParse[c].y,
+                                                z: cmdsToParse[c].z,
+                                                timespan: utils.getDate()
+                                            }
+                                        })
+                                        
+                                    }else{
+                                        store.commit('setSensor', {
+                                            cansatIndex: 0 ,
+                                            sensorIndex: index,
+                                            lastValue: cmdsToParse[c].value
+                                        })
+                                        
+                                        store.commit('addSensorSample',{
+                                            index: index,
+                                            samples: {
+                                                lastValue: cmdsToParse[c].value,
+                                                timespan: utils.getDate()
+                                            }
+                                        })
+                                    }
+                                }                                
                             }
                         }
                         break;
