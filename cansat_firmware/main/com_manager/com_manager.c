@@ -9,6 +9,7 @@
 #include "libs/cansat_packet/cansat_packet.h"
 #include "libs/minmea/minmea.h"
 #include "power_monitor/power_monitor.h"
+#include "freertos/timers.h"
 
 #include "servo_manager/servo_manager.h"
 #include "battery_manager/battery_manager.h"
@@ -44,6 +45,7 @@ static QueueHandle_t tx_queue;
 // Configs
 static TickType_t report_frequency = pdMS_TO_TICKS(COM_MANAGER_DEFAULT_REPORT_PERIOD);
 static bool reports_enabled = COM_MANAGER_DEFAULT_REPORTS_ENABLED;
+static error_flags_t error_flags;
 
 // Mutex
 static StaticSemaphore_t cc1101_mutex_buffer;
@@ -65,7 +67,15 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
     switch(type)
     {
         case CANSAT_ERRORS:
-            ESP_LOGD(TAG, "Sending CANSAT_GET_ERRORS packet");
+            // Clear error flags
+            power_monitor_clear_errors();
+            error_flags.overcurrent_3v3 = false;
+            error_flags.overcurrent_5v = false;
+            error_flags.overcurrent_bat = false;
+            error_flags.overvoltage_3v3 = false;
+            error_flags.overvoltage_5v = false;
+
+            ESP_LOGD(TAG, "Received CANSAT_GET_ERRORS packet");
             break;
 
         case CANSAT_PARACHUTE_STATE:
@@ -576,33 +586,23 @@ static void rx_task(void* arg)
         // Check for errors that should be sent
         if(power_monitor_is_battery_overcurrent())
         {
-            uint8_t buffer[] = { CANSAT_ERRORS, BATTERY_OVERCURRENT };
-            axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
-            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            error_flags.overcurrent_bat = true;
         }
         if(power_monitor_is_3v3_overvoltage())
         {
-            uint8_t buffer[] = { CANSAT_ERRORS, OVERVOLTAGE_3V3 };
-            axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
-            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            error_flags.overvoltage_3v3 = true;
         }
         if(power_monitor_is_3v3_overcurrent())
         {
-            uint8_t buffer[] = { CANSAT_ERRORS, OVERCURRENT_3V3 };
-            axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
-            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            error_flags.overcurrent_3v3 = true;
         }
         if(power_monitor_is_5v_overvoltage())
         {
-            uint8_t buffer[] = { CANSAT_ERRORS, OVERVOLTAGE_5V };
-            axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
-            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            error_flags.overvoltage_5v = true;
         }
         if(power_monitor_is_5v_overcurrent())
         {
-            uint8_t buffer[] = { CANSAT_ERRORS, OVERCURRENT_5V };
-            axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
-            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            error_flags.overcurrent_5v = true;
         }
 
         // Take mutex
@@ -786,6 +786,52 @@ static void report_task(void* arg)
     }
 }
 
+// Check every X seconds (defined by the timer) the errors flags to send the corresponding
+//  packets.
+static void errors_check(TimerHandle_t xTimer)
+{
+    static axtec_encoded_packet_t packet_to_send;
+    
+    ESP_LOGD(TAG, "Checking errors");
+
+    // Check errors
+    if(error_flags.overcurrent_bat)
+    {
+        ESP_LOGI(TAG, "Battery overcurrent");
+        uint8_t buffer[] = { CANSAT_ERRORS, BATTERY_OVERCURRENT };
+        axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+    }
+    if(error_flags.overvoltage_3v3)
+    {
+        ESP_LOGI(TAG, "3.3V overvoltage");
+        uint8_t buffer[] = { CANSAT_ERRORS, OVERVOLTAGE_3V3 };
+        axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+    }
+    if(error_flags.overcurrent_3v3)
+    {
+        ESP_LOGI(TAG, "3.3V overcurrent");
+        uint8_t buffer[] = { CANSAT_ERRORS, OVERCURRENT_3V3 };
+        axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+    }
+    if(error_flags.overvoltage_5v)
+    {
+        ESP_LOGI(TAG, "5V overvoltage");
+        uint8_t buffer[] = { CANSAT_ERRORS, OVERVOLTAGE_5V };
+        axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+    }
+    if(error_flags.overcurrent_5v)
+    {
+        ESP_LOGI(TAG, "5V overcurrent");
+        uint8_t buffer[] = { CANSAT_ERRORS, OVERCURRENT_5V };
+        axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
+        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+    }
+}
+
 esp_err_t com_manager_init(void)
 {
     ESP_LOGI(TAG, "Initializing");
@@ -806,6 +852,9 @@ esp_err_t com_manager_init(void)
             // Queue
             tx_queue = xQueueCreateStatic(COM_MANAGER_QUEUE_SIZE, COM_MANAGER_QUEUE_ELEMENT_SIZE, tx_queue_storage,
                                         &tx_static_queue);
+
+            // Create timer
+            xTimerStart(xTimerCreate("errors_tmr", pdMS_TO_TICKS(2000), pdTRUE, (void *)0, errors_check), pdMS_TO_TICKS(200));
 
             // Create tasks
             ESP_LOGV(TAG, "Creating tasks");
