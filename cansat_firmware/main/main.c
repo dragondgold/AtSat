@@ -117,7 +117,7 @@ void app_main()
     //err += sup_cmd_manager_init();
     err += console_manager_init();
 
-    ESP_LOGI(TAG, "RAM left %d bytes", esp_get_free_heap_size());
+    ESP_LOGI(TAG, "RAM left: %d bytes", esp_get_free_heap_size());
 
     if(err == ESP_OK)
     {

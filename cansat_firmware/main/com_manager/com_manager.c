@@ -794,7 +794,7 @@ static void errors_check(TimerHandle_t xTimer)
 {
     static axtec_encoded_packet_t packet_to_send;
     
-    ESP_LOGD(TAG, "Checking errors");
+    ESP_LOGV(TAG, "Checking errors");
 
     // Check errors
     if(error_flags.overcurrent_bat)
