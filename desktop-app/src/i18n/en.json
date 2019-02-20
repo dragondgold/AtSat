@@ -277,7 +277,9 @@
       "etReady": "Earth station ready.",
       "etError": "Error configuring earth station. Please reconnect your ET.",
       "etConfig": "Configuring Earth station.",
-      "etDisconnected": "Earth station discconnected.",
+      "etDisconnected": "Earth station disconnected.",
+      "etCansatConnected": "CanSat connected",
+      "etCansatDisconnected": "CanSat disconnected",
       "center":{
         "title": "Notification center",
         "searchLabel": "Search",

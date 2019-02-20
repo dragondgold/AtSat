@@ -279,6 +279,8 @@
       "etError": "Error al configurar la estación terrena. Intente reconectarla.",
       "etConfig": "Configurando Estación terrena.",
       "etDisconnected": "Estación terrena desconectada.",
+      "etCansatConnected": "CanSat conectado",
+      "etCansatDisconnected": "CanSat desconectado",
       "center":{
         "title": "Centro de notificaciones",
         "searchLabel": "Buscar",
