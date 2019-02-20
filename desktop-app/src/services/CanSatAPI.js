@@ -16,11 +16,12 @@ export default {
         
         worker =  fork(require.resolve('./worker.js'));
 
+        let that = this
         worker.on('message', (msg) => {
             console.log(JSON.stringify(msg))
-            this.etConnected(msg);
-            this.cansatConnected(msg);
-            this.newCMDReceived(msg);
+            that.etConnected(msg);
+            that.cansatConnected(msg);
+            that.newCMDReceived(msg);
         });
 
         worker.on('error', (err) => {
@@ -32,7 +33,6 @@ export default {
             debugger
             console.log("Exit fork: " + e)
             worker = undefined
-            let that = this
             setTimeout(that.initWorker, 5000);
         });
     },

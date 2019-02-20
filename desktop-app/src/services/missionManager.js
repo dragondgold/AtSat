@@ -379,6 +379,7 @@ export default {
                 }
             }
 
+            /*
             // Empty samples or history
             let lengthSamplesSensors = sensors.filter(function(sensor,index) { 
                 return ( sensor.samples.length == 0 ) 
@@ -396,7 +397,8 @@ export default {
                 })
                 return codeValues.mission.samplesError
             }
-
+            */
+           
             // It's a valid project
             store.commit('pushNotificationModal',{ 
                 'title': vm.$t('cansat.notifications.modal.mission.loadedOk'), 
