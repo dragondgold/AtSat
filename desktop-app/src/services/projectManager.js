@@ -25,7 +25,7 @@ export default {
                 }
                 delete sensors[s].samples
             }
-            let projectFile =  JSON.stringify({ sensors: sensors})
+            let projectFile =  JSON.stringify({ name: jsonToEdit.cansat[0].name ,sensors: sensors})
             this.saveProjectFile(store.getters.axtec.project.path,projectFile)
         }else{
             store.commit('pushNotificationModal',{ 
@@ -290,6 +290,8 @@ export default {
                 store.commit('addNewSensor', sensors[s])
             }
             
+            store.commit('setNameCanSat', { name: project.name  ,index: 0 })
+
             store.commit('axtecPath', path)
 
             store.commit('setTestStatus',{ 
