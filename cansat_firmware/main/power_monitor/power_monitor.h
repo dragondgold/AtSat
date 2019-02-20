@@ -16,6 +16,10 @@
 #define POWER_MONITOR_MAX_BAT_CURRENT       1200
 #define POWER_MONITOR_MAX_BAT_VOLTAGE       4500
 
+#define POWER_MONITOR_MIN_3V3_VOLTAGE       1200
+#define POWER_MONITOR_MIN_5V_VOLTAGE        1200
+#define POWER_MONITOR_SAMPLES_TO_RAMP_UP    20
+
 typedef struct
 {
     float constant;

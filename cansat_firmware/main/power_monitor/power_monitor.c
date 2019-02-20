@@ -30,6 +30,7 @@ static const float ibat_factor = 1.0/2.55;
 static power_status_t power_status;
 static int64_t t2, t1;
 static unsigned int fail_count = 0;
+static unsigned int samples_since_ramp_up = 0;
 
 static uint16_t apply_filter(filter_data_t* filter, uint16_t new_value)
 {
@@ -131,13 +132,16 @@ static void power_monitor_task(void* args)
                     ESP_LOGV(TAG, "5 I: %d", power_status.rail_5v.avg_current);
                     ESP_LOGV(TAG, "BAT I: %d", power_status.rail_bat.avg_current);
 
-                    // Check currents
-                    if(power_status.rail_3v3.avg_current > POWER_MONITOR_MAX_3V3_CURRENT)
+                    // Check currents. Also check the voltage, if it's too low then we have an overcurrent situation too. The "samples_since_ramp_up" makes
+                    //  sure false overcurrents are not being detected due to low voltage during the ramp-up of the power supply
+                    if(power_status.rail_3v3.avg_current > POWER_MONITOR_MAX_3V3_CURRENT || 
+                        (samples_since_ramp_up >= POWER_MONITOR_SAMPLES_TO_RAMP_UP && power_status.rail_3v3.avg_voltage <= POWER_MONITOR_MIN_3V3_VOLTAGE))
                     {
                         power_status.rail_3v3.overcurrent = true;
                         aux_ps_disable();
                     }
-                    if(power_status.rail_5v.avg_current > POWER_MONITOR_MAX_5V_CURRENT)
+                    if(power_status.rail_5v.avg_current > POWER_MONITOR_MAX_5V_CURRENT ||
+                        (samples_since_ramp_up >= POWER_MONITOR_SAMPLES_TO_RAMP_UP && power_status.rail_5v.avg_voltage <= POWER_MONITOR_MIN_5V_VOLTAGE))
                     {
                         power_status.rail_5v.overcurrent = true;
                         aux_ps_disable();
@@ -164,6 +168,11 @@ static void power_monitor_task(void* args)
                         power_status.rail_bat.overvoltage = true;
                         aux_ps_disable();
                     }
+                }
+
+                if(samples_since_ramp_up < POWER_MONITOR_SAMPLES_TO_RAMP_UP)
+                {
+                    ++samples_since_ramp_up;
                 }
             }
             else
@@ -271,6 +280,7 @@ esp_err_t power_monitor_init(void)
 void power_monitor_clear_errors(void)
 {
     fail_count = 0;
+    samples_since_ramp_up = 0;
     power_status.rail_3v3.overcurrent = false;
     power_status.rail_3v3.overvoltage = false;
     power_status.rail_5v.overcurrent = false;
