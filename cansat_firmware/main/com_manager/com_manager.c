@@ -363,13 +363,15 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                                     buffer[buffer_index++] = (uint8_t)(lon_i >> 16);
                                     buffer[buffer_index++] = (uint8_t)(lon_i >> 8);
                                     buffer[buffer_index++] = (uint8_t)lon_i;
+
+                                    buffer[buffer_index++] = (gps_data.fix_quality == 1 || gps_data.fix_quality == 6) ? 0x01 : 0x00;
                                 }
                                 else
                                 {
-                                    buffer_index += 8;
+                                    buffer_index += 9;
                                 }
 
-                                total_length += 9;
+                                total_length += 10;
                                 ESP_LOGD(TAG, "Created POSITION packet");
                             }
                             break;
