@@ -307,6 +307,9 @@ const mutations = {
   setBatteryLevel(state,data){
     if(data.level != undefined) state.axtec.project.cansat[0].battery = data.level          
   },
+  loadMission(state,data){
+    state.axtec.project.mission = data.mission
+  }
 }
 
 const actions = {
@@ -396,6 +399,9 @@ const actions = {
   },    
   setBatteryLevel({ commit }, data){
     commit(setBatteryLevel,data)
+  },
+  loadMission({ commit }, data){
+    commit(loadMission,data)
   }
 }
 

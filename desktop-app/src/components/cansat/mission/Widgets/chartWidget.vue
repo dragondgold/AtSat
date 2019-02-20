@@ -67,24 +67,28 @@ export default {
                         ... (this.sensor._type != 'vector' ? { fill:true} : { fill:false}),
                         backgroundColor: 'rgba(0, 255, 0, 0.1)',
                         borderColor: 'rgba(0, 255, 0, 1)',
-                        pointBackgroundColor: 'rgba(0, 255, 0, 1)'},
+                        pointBackgroundColor: 'rgba(0, 255, 0, 1)',
+                        pointBorderWidth: 0
+                    },
                     {
                         label: '',
                         data: [],
                         borderWidth: 2,
                         fill:false,
-                        //... (this.sensor._type != 'vector' ? { hidden: true} : []),
+                        ... (this.sensor._type != 'vector' ? { hidden: true} : []),
                         borderColor: 'rgba(0, 0, 255, 1)',
-                        pointBackgroundColor: 'rgba(0, 0, 255, 1)'
+                        pointBackgroundColor: 'rgba(0, 0, 255, 1)',
+                        pointBorderWidth: 0
                     }, 
                     {
                         label: '',
                         data: [],
                         borderWidth: 2,
                         fill:false,
-                        //... (this.sensor._type != 'vector' ? { hidden: true} : []),
+                        ... (this.sensor._type != 'vector' ? { hidden: true} : []),
                         borderColor: 'rgba(255, 0, 0, 1)',
-                        pointBackgroundColor: 'rgba(255, 0, 0, 1)'
+                        pointBackgroundColor: 'rgba(255, 0, 0, 1)',
+                        pointBorderWidth: 0
                     }                           
                 ]
             },

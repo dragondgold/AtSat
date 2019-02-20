@@ -406,46 +406,9 @@ export default {
                 'type': vm.$t('cansat.notifications.center.types.info')
             })
             
-
-            store.commit('createSensorMission',{
-                clear: true
+            store.commit('loadMission', {
+                mission: file.mission
             })
-            for(let s= 0; s< sensors.length; s++){
-                store.commit('createSensorMission',{
-                    id: sensors[s].id,
-                    _type: sensors[s]._type,
-                    type: sensors[s].type,
-                    unit: sensors[s].unit,
-                    minValue: sensors[s].minValue,
-                    maxValue: sensors[s].maxValue,
-                    cansatName: store.getters.axtec.project.cansat[0].name
-                })
-                for(let sample = 0; sample < sensors[s].samples.length; sample++){
-                    store.commit('addSensorSample',{
-                        index: s,
-                        samples: {
-                            ... (sensors[s].samples[sample].lastValue != undefined ? { lastValue: sensors[s].samples[sample].lastValue} : []),
-                            ... (sensors[s].samples[sample].x != undefined ? { x: sensors[s].samples[sample].x} : []),
-                            ... (sensors[s].samples[sample].y != undefined ? { y: sensors[s].samples[sample].y} : []),
-                            ... (sensors[s].samples[sample].z != undefined ? { z: sensors[s].samples[sample].z} : []),
-                            timespan: sensors[s].samples[sample].timespan
-                        }
-                    })
-                }
-            }
-
-            store.commit('addLocationMission',{
-                clear: true
-            })
-            for(let h= 0; h< location.history.length; h++){
-                store.commit('addLocationMission',
-                    {   
-                        lat: location.history[h].lat,
-                        lng: location.history[h].lng, 
-                        timespan: utils.getDate()
-                    }
-                )
-            }
 
             store.commit('setPathMission', {
                 path: path
@@ -459,15 +422,6 @@ export default {
             store.commit('setMissionType',{
                 cansatIndex: 0,
                 missionType: 'imported'
-            })
-
-            store.commit('setDateMission',{
-                startDate:  file.mission.startDate,
-                endDate: file.mission.endDate
-            })
-
-            store.commit('setCansatMission',{
-                name:  file.mission.cansatName
             })
 
             store.commit('setFinishMission',{
