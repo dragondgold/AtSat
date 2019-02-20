@@ -13,9 +13,11 @@
                                     <td v-if="!isImportedMission">{{$t('cansat.mission.dashboard.controls.projectName')}}</td>
                                     <td>{{$t('cansat.mission.dashboard.controls.missionName')}}</td>
                                     <td >{{$t('cansat.mission.dashboard.controls.cansatName')}}</td>
-                                    <td v-if="!isImportedMission">{{$t('cansat.mission.dashboard.controls.statusCansat')}}</td>
                                     <td> {{$t('cansat.mission.dashboard.controls.startDateLabel')}}</td>
                                     <td> {{$t('cansat.mission.dashboard.controls.endDateLabel')}}</td>
+                                    <td> RSSI </td>
+                                    <td> LQI </td>
+                                    <td> Batt </td>
                                     <td> {{$t('cansat.mission.dashboard.controls.actions')}}</td>            
                                 </tr>
                             </thead>
@@ -24,9 +26,11 @@
                                     <td v-if="!isImportedMission">{{getProjectName}}</td>
                                     <td>{{getMissionName}}</td>
                                     <td >{{getCanSatName}}</td>
-                                    <td v-if="!isImportedMission">{{getCanSatStatus}}</td>
                                     <td>{{getStartDate}}</td>
                                     <td> {{getEndDate}}</td>
+                                    <td> {{rssi}}</td>
+                                    <td> {{lqi}}</td>
+                                    <td> {{battery}} </td>
                                     <td> 
 
                                             <vuestic-tooltip v-if="!isImportedMission && !isMissionActive && !finished" :options="{ 'content': $t('cansat.mission.dashboard.controls.startBtn'), 'placement': 'bottom'  }">
@@ -83,10 +87,19 @@ export default {
     name: 'controls-widget',
     data () {
         return {
-            
+
         }
     },
     computed:{
+        rssi(){
+            return this.$store.getters.axtec.project.cansat[0].rssi
+        },
+        lqi(){
+            return this.$store.getters.axtec.project.cansat[0].lqi
+        },
+        battery(){
+            return this.$store.getters.axtec.project.cansat[0].battery
+        },
         isImportedMission(){
             return this.$store.getters.axtec.project.cansat[0].missionType == 'imported'
         },

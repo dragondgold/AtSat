@@ -37,6 +37,8 @@ const state = {
         name:'',              // A friendly name for the cansat
         connected:'',         // is the cansat connected?
         signal: 0,            // Signal level '%'    
+        rssi: 0,
+        lqi: 0,
         battery: 0,           // Battery level '%'
         altitude: 0,          // It´s a copy of altitude on sensor. Is needed for map.'m'
         testOk: false,        // State of test
@@ -269,7 +271,6 @@ const mutations = {
     }
   },
   addSensorSample(state,data){
-
     if(state.axtec.project.cansat[0].missionActive){
       try {
         if(data.index >= state.axtec.project.mission.data.sensors.length){
@@ -286,13 +287,8 @@ const mutations = {
         
       } catch (error) {
         debugger
-      }
-      
-
-      
+      }    
     }
-    
-
   },
   setDateMission(state,data){
     if(data.startDate != undefined) state.axtec.project.mission.startDate = data.startDate
@@ -309,6 +305,12 @@ const mutations = {
   },
   loadMission(state,data){
     state.axtec.project.mission = data.mission
+  },
+  setRSSI(state,data){
+    state.axtec.project.cansat[0].rssi = data.rssi
+  },
+  setLQI(state,data){
+    state.axtec.project.cansat[0].lqi = data.lqi
   }
 }
 

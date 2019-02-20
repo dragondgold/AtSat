@@ -22,6 +22,18 @@ export default {
             that.etConnected(msg);
             that.cansatConnected(msg);
             that.newCMDReceived(msg);
+
+            if(msg.newCMDReceived && msg.newCMDReceived.packet){
+                let packet = msg.newCMDReceived.packet
+                if(packet.rssi){
+                    store.commit('setRSSI', { rssi: packet.rssi })   
+                    console.log("RSSI: "+ packet.rssi)  
+                }
+                if(packet.lqi){
+                    store.commit('setLQI', { lqi: packet.lqi }) 
+                    console.log("LQI: "+ packet.lqi)      
+                }
+            }
         });
 
         worker.on('error', (err) => {
@@ -117,14 +129,14 @@ export default {
             if(msg.cansat.connected  && msg.cansat.connected != store.getters.axtec.project.cansat[0].connected )
             {
                 store.commit('pushNotificationToast',{ 
-                    'text': vm.$t('cansat.notifications.etConnected'), 
+                    'text': vm.$t('cansat.notifications.etCansatConnected'), 
                     'icon': 'fa-check'          
                 })
                 store.commit('setStatusCanSat', {connected: true, index: 0})
             }else if(!msg.cansat.connected  && msg.cansat.connected != store.getters.axtec.project.cansat[0].connected )
             {
                 store.commit('pushNotificationToast',{ 
-                    'text': vm.$t('cansat.notifications.etDisconnected'), 
+                    'text': vm.$t('cansat.notifications.etCansatDisconnected'), 
                     'icon': 'fa-unlink'          
                 })
                 store.commit('setStatusCanSat', {connected: false, index: 0})
@@ -174,7 +186,7 @@ export default {
         this.sendCMDToWorker('enablePowerSupply', [1])
     },
     newCMDReceived(msg){
-        if(msg.newCMDReceived){
+        if(msg.newCMDReceived &&  msg.newCMDReceived.data){
             let cmdsToParse = msg.newCMDReceived.data.decoded
             for(let c= 0; c < cmdsToParse.length; c++){
                 switch(cmdsToParse[c].cmdName){

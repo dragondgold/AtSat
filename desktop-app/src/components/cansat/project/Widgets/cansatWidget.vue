@@ -49,6 +49,10 @@
                             <td>{{cansat.id}}</td>
                             <td>{{cansat.name}}</td>
                             <td>{{cansat.signal}}</td>
+                            <td>{{rssi}}</td>
+                            <td>{{lqi}}</td>
+                            <td>{{battery}}</td>
+
                             <td>
                                 <div class="btn btn-danger btn-with-icon btn-micro rounded-icon">
                                     <div class="btn-with-icon-content" @click="disconnect()">
@@ -98,11 +102,20 @@ export default {
             signalLevel: '0',
             valid: false,
             isCanSatConnect: this.$store.getters.axtec.project.cansat[0].connected,
-            fields: [ {'title':  'cansat.link.table.id' },{'title': 'cansat.link.table.name'}, {'title':'cansat.link.table.signal'}, {'title':'cansat.link.table.action'}],
+            fields: [ {'title':  'cansat.link.table.id' },{'title': 'cansat.link.table.name'}, {'title':'cansat.link.table.signal'}, {'title':'RSSI'},{'title':'LQI'}, {'title':'Batt'},{'title':'cansat.link.table.action'}],
             cansats: [this.$store.getters.axtec.project.cansat[0]]
         }
     },    
     computed:{
+        rssi(){
+            return this.$store.getters.axtec.project.cansat[0].rssi
+        },
+        lqi(){
+            return this.$store.getters.axtec.project.cansat[0].lqi
+        },
+        battery(){
+            return this.$store.getters.axtec.project.cansat[0].battery
+        },
         ETConnected(){
             return this.$store.getters.axtec.project.earthStation.connected
         },
