@@ -135,13 +135,13 @@ static void power_monitor_task(void* args)
                     // Check currents. Also check the voltage, if it's too low then we have an overcurrent situation too. The "samples_since_ramp_up" makes
                     //  sure false overcurrents are not being detected due to low voltage during the ramp-up of the power supply
                     if(power_status.rail_3v3.avg_current > POWER_MONITOR_MAX_3V3_CURRENT || 
-                        (samples_since_ramp_up >= POWER_MONITOR_SAMPLES_TO_RAMP_UP && power_status.rail_3v3.avg_voltage <= POWER_MONITOR_MIN_3V3_VOLTAGE))
+                        (samples_since_ramp_up >= POWER_MONITOR_SAMPLES_TO_RAMP_UP && power_status.rail_3v3.avg_voltage <= POWER_MONITOR_MIN_3V3_VOLTAGE && aux_ps_is_enabled()))
                     {
                         power_status.rail_3v3.overcurrent = true;
                         aux_ps_disable();
                     }
                     if(power_status.rail_5v.avg_current > POWER_MONITOR_MAX_5V_CURRENT ||
-                        (samples_since_ramp_up >= POWER_MONITOR_SAMPLES_TO_RAMP_UP && power_status.rail_5v.avg_voltage <= POWER_MONITOR_MIN_5V_VOLTAGE))
+                        (samples_since_ramp_up >= POWER_MONITOR_SAMPLES_TO_RAMP_UP && power_status.rail_5v.avg_voltage <= POWER_MONITOR_MIN_5V_VOLTAGE && aux_ps_is_enabled()))
                     {
                         power_status.rail_5v.overcurrent = true;
                         aux_ps_disable();
