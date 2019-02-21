@@ -51,6 +51,22 @@ static error_flags_t error_flags;
 static StaticSemaphore_t cc1101_mutex_buffer;
 static SemaphoreHandle_t cc1101_mutex;
 
+static void close_parachute_balloon(TimerHandle_t xTimer)
+{
+    uint32_t id = ( uint32_t ) pvTimerGetTimerID(xTimer);
+
+    // Close parachute
+    if(id == CANSAT_PARACHUTE)
+    {
+        servo_manager_close_parachute();
+    }
+    // Close balloon
+    else if(id == CANSAT_BALLOON)
+    {
+        servo_manager_close_balloon();
+    }
+}
+
 /**
  * @brief Process the axtec_decoded_packet_t packet and take the neccesary actions
  * 
@@ -90,7 +106,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
 
         case CANSAT_PARACHUTE:
             {
-                // Open parachute and send the state
+                // Open/close parachute and send the state
                 buffer[0] = CANSAT_PARACHUTE;
                 buffer[1] = 0x00;
 
@@ -100,6 +116,9 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                     if(open)
                     {
                         buffer[1] = servo_manager_open_parachute() ? 0x01 : 0x00;
+
+                        // When opening, automatically close it after some time
+                        xTimerStart(xTimerCreate("close_tmr", pdMS_TO_TICKS(COM_MANAGER_AUTO_CLOSE_TIME), pdFALSE, (void *)CANSAT_PARACHUTE, close_parachute_balloon), pdMS_TO_TICKS(200));
                     }
                     else
                     {
@@ -125,7 +144,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
 
         case CANSAT_BALLOON:
             {
-                // Open balloon and send the state
+                // Open/close balloon and send the state
                 buffer[0] = CANSAT_BALLOON;
                 buffer[1] = 0x00;
 
@@ -135,6 +154,9 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
                     if(open)
                     {
                         buffer[1] = servo_manager_open_balloon() ? 0x01 : 0x00;
+
+                        // When opening, automatically close it after some time
+                        xTimerStart(xTimerCreate("close_tmr", pdMS_TO_TICKS(COM_MANAGER_AUTO_CLOSE_TIME), pdFALSE, (void *)CANSAT_BALLOON, close_parachute_balloon), pdMS_TO_TICKS(200));
                     }
                     else
                     {
@@ -794,7 +816,7 @@ static void errors_check(TimerHandle_t xTimer)
 {
     static axtec_encoded_packet_t packet_to_send;
     
-    ESP_LOGD(TAG, "Checking errors");
+    ESP_LOGV(TAG, "Checking errors");
 
     // Check errors
     if(error_flags.overcurrent_bat)

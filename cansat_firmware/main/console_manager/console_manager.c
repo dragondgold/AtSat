@@ -7,6 +7,9 @@
 #include "linenoise/linenoise.h"
 #include "argtable3/argtable3.h"
 #include "config/cansat.h"
+#include "libs/minmea/minmea.h"
+#include "sensor_manager/sensor_manager.h"
+#include "servo_manager/servo_manager.h"
 
 #include "esp_log.h"
 
@@ -20,6 +23,48 @@ static TaskHandle_t task_handle;
 static int free_mem_cmd(int argc, char** argv)
 {
     printf("%d bytes\n", esp_get_free_heap_size());
+    return 0;
+}
+
+static int samples_cmd(int argc, char** argv)
+{
+    sensors_data_t* samples = sensor_manager_get_samples();
+
+    for(unsigned int n = 0; n < SENSOR_MANAGER_MAX_SAMPLES_TO_STORE; ++n)
+    {
+        if(samples[n].valid)
+        {
+            printf("Sample %d: %d, %.2f %.2f %.2f, %.2f %.2f %.2f, %.2f %.2f %.2f, %d, %d, %d, %.5f %.5f, %.2f\n", 
+                n,
+                (uint32_t)samples[n].timestamp,
+                samples[n].gyro.x, samples[n].gyro.y, samples[n].gyro.z,
+                samples[n].acc.x, samples[n].acc.y, samples[n].acc.z,
+                samples[n].mag.x, samples[n].mag.y, samples[n].mag.z,
+                (unsigned int)samples[n].pressure,
+                (unsigned int)samples[n].temperature,
+                (unsigned int)samples[n].humidity,
+                minmea_tocoord(&samples[n].latitude),
+                minmea_tocoord(&samples[n].longitude),
+                samples[n].altitude);
+        }
+    }
+
+    return 0;
+}
+
+static int open_servo(int argc, char** argv)
+{
+    servo_manager_open_balloon();
+    servo_manager_open_parachute();
+    printf("\n");
+    return 0;
+}
+
+static int close_servo(int argc, char** argv)
+{
+    servo_manager_close_balloon();
+    servo_manager_close_parachute();
+    printf("\n");
     return 0;
 }
 
@@ -52,7 +97,6 @@ void console_task(void* arg)
         // Get a line using linenoise.
         // The line is returned when ENTER is pressed.
         char* line = linenoise(prompt);
-        ESP_LOGI(TAG, "Got line");
 
         // Ignore empty lines
         if (line != NULL) {
@@ -130,13 +174,34 @@ esp_err_t console_manager_init(void)
     linenoiseHistorySetMaxLen(100);
 
     // Register commands
-    const esp_console_cmd_t cmd = {
+    const esp_console_cmd_t cmd_free = {
         .command = "free",
         .help = "Get the total size of heap memory available",
         .hint = NULL,
         .func = &free_mem_cmd,
     };
-    ESP_ERROR_CHECK(esp_console_cmd_register(&cmd));
+    const esp_console_cmd_t cmd_samples = {
+        .command = "samples",
+        .help = "Get all samples stored",
+        .hint = NULL,
+        .func = &samples_cmd,
+    };
+    const esp_console_cmd_t cmd_open = {
+        .command = "open",
+        .help = "Open servo",
+        .hint = NULL,
+        .func = &open_servo,
+    };
+    const esp_console_cmd_t cmd_close = {
+        .command = "close",
+        .help = "Close servo",
+        .hint = NULL,
+        .func = &close_servo,
+    };
+    ESP_ERROR_CHECK(esp_console_cmd_register(&cmd_free));
+    ESP_ERROR_CHECK(esp_console_cmd_register(&cmd_samples));
+    ESP_ERROR_CHECK(esp_console_cmd_register(&cmd_open));
+    ESP_ERROR_CHECK(esp_console_cmd_register(&cmd_close));
 
     task_handle = xTaskCreateStaticPinnedToCore(console_task, "console", CONSOLE_MANAGER_STACK_SIZE, 
         NULL, CONSOLE_MANAGER_TASK_PRIORITY, stack, &task, CONSOLE_MANAGER_AFFINITY);

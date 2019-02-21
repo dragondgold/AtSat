@@ -6,7 +6,7 @@
 #include "esp_log.h"
 #include "libs/sensor_fusion/sensor_fusion.h"
 #include "libs/minmea/minmea.h"
-#include "float.h"
+#include "esp_timer.h"
 #include "servo_manager/servo_manager.h"
 
 #include "gps_manager/gps_manager.h"
@@ -22,11 +22,14 @@ static sensors_data_t sensors_data;
 static float last_altitude = 0;
 static bool got_first_altitude = false;
 static float altitude_change = 0;
+static sensors_data_t sensors_samples[SENSOR_MANAGER_MAX_SAMPLES_TO_STORE] = { 0 };
 
 // Sensor fusion
 static SensorFusionGlobals sfg;                 // Sensor fusion instance
 static struct PhysicalSensor sensors[3];        // Storage for the sensors used
-static registerDeviceInfo_t i2cBusInfo = {      // It doesn't matter, this is not used in our case
+static registerDeviceInfo_t i2cBusInfo = 
+{   
+    // It doesn't matter, this is not used in our case
     .deviceInstance     = 0,
     .functionParam      = NULL,
     .idleFunction       = NULL
@@ -85,11 +88,12 @@ static void fusion_task(void* arg)
 static void sensors_task(void* arg)
 {
     struct minmea_sentence_gga gps_data;
+    unsigned int current_sample_index = 0;
 
     while(true)
     {
-        // Update temperature, pressure, humidity and location every 500 ms
-        vTaskDelay(500 / portTICK_PERIOD_MS);
+        // Update temperature, pressure, humidity and location every 200 ms
+        vTaskDelay(200 / portTICK_PERIOD_MS);
 
         pressure_manager_do_sample();
         humidity_manager_sample();
@@ -132,11 +136,25 @@ static void sensors_task(void* arg)
                         ESP_LOGI(TAG, "Fall detection, opening parachute");
                     }
                 }
-
                 // TODO: if we don't have a GPS fix we can estimate the height with the pressure sensor
-                
             }
+
+            // Save the current time in us
+            sensors_data.timestamp = esp_timer_get_time();
+            sensors_data.valid = true;
+
+            // Store the sample
+            if(current_sample_index >= SENSOR_MANAGER_MAX_SAMPLES_TO_STORE)
+            {
+                current_sample_index = 0;
+            }
+            sensors_samples[current_sample_index++] = sensors_data;
+
             xSemaphoreGive(sample_mutex);
+        }
+        else
+        {
+            ESP_LOGW(TAG, "sensors_task() couldn't get mutex");
         }
     }
 }
@@ -309,4 +327,9 @@ bool sensor_manager_get_data(sensors_data_t* data)
     }
 
     return false;
+}
+
+sensors_data_t* sensor_manager_get_samples(void)
+{
+    return sensors_samples;
 }

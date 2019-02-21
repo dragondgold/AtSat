@@ -20,6 +20,7 @@ typedef struct
 #define COM_MANAGER_DEFAULT_REPORT_PERIOD       2000    // 2000 ms
 #define COM_MANAGER_DEFAULT_REPORTS_ENABLED     false
 #define COM_MANAGER_MAX_SENSOR_IDS              20
+#define COM_MANAGER_AUTO_CLOSE_TIME             10000   // Automatic close time for parachute and balloon in ms
 
 esp_err_t com_manager_init(void);
 
