@@ -56,6 +56,7 @@ static int open_servo(int argc, char** argv)
 {
     servo_manager_open_balloon();
     servo_manager_open_parachute();
+    printf("\n");
     return 0;
 }
 
@@ -63,6 +64,7 @@ static int close_servo(int argc, char** argv)
 {
     servo_manager_close_balloon();
     servo_manager_close_parachute();
+    printf("\n");
     return 0;
 }
 
