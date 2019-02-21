@@ -50,7 +50,7 @@
       "dashboard":{
         "title": "Tablero de trabajo",
         "charts":{
-          "lastSamples": "Se mostrarán las últimas 5 muestras.",
+          "lastSamples": "Se mostrarán las últimas 25 muestras.",
           "goToFullChart": "Ver completo",
           "time": "Tiempo",
           "samples": "Muestras"

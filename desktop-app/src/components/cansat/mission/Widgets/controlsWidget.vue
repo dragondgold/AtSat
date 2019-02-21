@@ -15,9 +15,9 @@
                                     <td >{{$t('cansat.mission.dashboard.controls.cansatName')}}</td>
                                     <td> {{$t('cansat.mission.dashboard.controls.startDateLabel')}}</td>
                                     <td> {{$t('cansat.mission.dashboard.controls.endDateLabel')}}</td>
-                                    <td> RSSI </td>
-                                    <td> LQI </td>
-                                    <td> Batt </td>
+                                    <td v-if="!isImportedMission"> RSSI </td>
+                                    <td v-if="!isImportedMission"> LQI </td>
+                                    <td v-if="!isImportedMission"> Batt </td>
                                     <td> {{$t('cansat.mission.dashboard.controls.actions')}}</td>            
                                 </tr>
                             </thead>
@@ -28,9 +28,9 @@
                                     <td >{{getCanSatName}}</td>
                                     <td>{{getStartDate}}</td>
                                     <td> {{getEndDate}}</td>
-                                    <td> {{rssi}}</td>
-                                    <td> {{lqi}}</td>
-                                    <td> {{battery}} </td>
+                                    <td v-if="!isImportedMission"> {{rssi}}</td>
+                                    <td v-if="!isImportedMission"> {{lqi}}</td>
+                                    <td v-if="!isImportedMission"> {{battery}} </td>
                                     <td> 
 
                                             <vuestic-tooltip v-if="!isImportedMission && !isMissionActive && !finished" :options="{ 'content': $t('cansat.mission.dashboard.controls.startBtn'), 'placement': 'bottom'  }">

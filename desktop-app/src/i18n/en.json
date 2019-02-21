@@ -50,7 +50,7 @@
       "dashboard":{
         "title": "Dashboard",
         "charts":{
-          "lastSamples": "The last 5 samples will be displayed.",
+          "lastSamples": "The last 25 samples will be displayed.",
           "goToFullChart": "See full",
           "time": "Time",
           "samples": "Samples"

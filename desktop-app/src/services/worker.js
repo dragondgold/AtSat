@@ -38,6 +38,9 @@ let control = {
  * @returns true if we received a valid packet and sent it to parent
  */
 let sendCommand = function(cmdName, data, sendToparent){
+
+ // process.send("ESTOY POR ENVIAR");
+
   let packet = protocol.create_packet( cmdName, data );
   if(process.send){
     process.send(packet)
@@ -47,6 +50,9 @@ let sendCommand = function(cmdName, data, sendToparent){
 
   if(packet.length > 0){
     cc1101.cc1101_send_data(packet);
+
+   // process.send("TERMINE DE ENVIAR");
+
     if(waitResponse(sendToparent)){
       console.log("Response received");
       return true;
@@ -65,6 +71,8 @@ let sendCommand = function(cmdName, data, sendToparent){
 let waitResponse = function(sendToparent){
   let packetReceived = false;
   var end = new Date().getTime() + control.cansat.timeout;
+
+  //process.send("ESTOY POR CHECKEAR");
 
   while(!packetReceived &&  new Date().getTime() < end)
   {
@@ -98,6 +106,8 @@ let waitResponse = function(sendToparent){
       }
       
     }
+
+
     // Flush the RX FIFO if needed
     if(bytes & 0x80)
     {
@@ -105,6 +115,7 @@ let waitResponse = function(sendToparent){
         cc1101.cc1101_set_rx(true);
     }
   }
+  //process.send("TERMINE DE CHECKEAR");
   console.log("Response received: " + packetReceived);
   return packetReceived;
 }
@@ -116,7 +127,7 @@ let waitResponse = function(sendToparent){
  */
 let getSensors = function ()
 {
-  return sendCommand('getSensor', [7,8,9,10,12,13,14],true); 
+  return sendCommand('getSensor', [7,8,9,10,12,13,14,15],true); 
 }
 
 /**
