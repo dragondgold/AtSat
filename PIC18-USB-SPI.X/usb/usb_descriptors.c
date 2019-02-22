@@ -260,15 +260,13 @@ sizeof(sd000),USB_DESCRIPTOR_STRING,{0x0409}};
 //Manufacturer string descriptor
 const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[25];}sd001={
 sizeof(sd001),USB_DESCRIPTOR_STRING,
-{'M','i','c','r','o','c','h','i','p',' ',
-'T','e','c','h','n','o','l','o','g','y',' ','I','n','c','.'
+{'A','X','T','E','C',' ','I','n','g','e','n','i','e','r','i','a'
 }};
 
 //Product string descriptor
 const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[25];}sd002={
 sizeof(sd002),USB_DESCRIPTOR_STRING,
-{'C','D','C',' ','R','S','-','2','3','2',' ',
-'E','m','u','l','a','t','i','o','n',' ','D','e','m','o'}
+{'C','a','n','S','a','t',' ','E','s','t','a','c','i','o','n',' ','t','e','r','r','e','n','a'}
 };
 
 //Array of configuration descriptors

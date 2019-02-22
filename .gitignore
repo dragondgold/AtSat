@@ -2,3 +2,5 @@
 *.bck
 
 pic16_firmware.X/nbproject/private/
+PIC18-USB-SPI.X/build/
+PIC18-USB-SPI.X/dist/

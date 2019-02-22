@@ -1,27 +1,10 @@
-/** INCLUDES *******************************************************/
 #include "system.h"
-
 #include "app_device_cdc_to_uart.h"
 
 #include "usb.h"
 #include "usb_device.h"
 #include "usb_device_cdc.h"
 
-/********************************************************************
- * Function:        void main(void)
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          None
- *
- * Side Effects:    None
- *
- * Overview:        Main program entry point.
- *
- * Note:            None
- *******************************************************************/
 void main(void)
 {
     USBDeviceInit();
@@ -29,9 +12,6 @@ void main(void)
     
     TRISCbits.TRISC4 = 0;
     LATCbits.LATC4 = 1;
-    
-    //Update the baudrate info in the CDC driver
-    CDCSetBaudRate(cdc_notice.GetLineCoding.dwDTERate);
     
     while(1)
     {
@@ -57,26 +37,15 @@ void main(void)
          * top of the while loop. */
         if( USBGetDeviceState() < CONFIGURED_STATE )
         {
-            /* Jump back to the top of the while loop. */
             continue;
         }
 
-        /* If we are currently suspended, then we need to see if we need to
-         * issue a remote wakeup.  In either case, we shouldn't process any
-         * keyboard commands since we aren't currently communicating to the host
-         * thus just continue back to the start of the while loop. */
         if( USBIsDeviceSuspended()== true )
         {
-            /* Jump back to the top of the while loop. */
             continue;
         }
 
         //Application specific tasks
         APP_DeviceCDCEmulatorTasks();
-
-    }//end while
-}//end main
-
-/*******************************************************************************
- End of File
-*/
+    }
+}
