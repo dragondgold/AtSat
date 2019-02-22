@@ -1,25 +1,26 @@
 export default {
     project: {
         ok: 100,
-        jsonInvalid: 101,   // json.parse error
-        projectKeyInvalid: 102,
-        missingCommonKeys: 103,
-        missingSensors: 104,
-        duplicateIDs: 105,
-        wrongIDs: 106,
-        invalidPath:107,
-        saveError: 108
+        invalidPath:101,
+        saveError: 102,
+        jsonInvalid: 103,   // json.parse error
+        projectKeyInvalid: 104,
+        missingCommonKeys: 105,
+        missingSensors: 106,
+        duplicateIDs: 107,
+        wrongIDs: 108,
+        
     }, 
     mission:{
-        ok:110,
-        invalidPath:111,
-        saveError:112,
-        jsonInvalid:113,
-        keysInvalid:114,
-        missingKeys: 115,
-        missingSensors: 116,
-        duplicateIDs: 117,
-        wrongIDs: 118,
-        samplesError: 119
+        ok:120,
+        invalidPath:121,
+        saveError:122,
+        jsonInvalid:123,
+        keysInvalid:124,
+        missingKeys: 125,
+        missingSensors: 126,
+        duplicateIDs: 127,
+        wrongIDs: 128,
+        samplesError: 129
     }
 }
