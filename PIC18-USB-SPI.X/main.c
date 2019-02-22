@@ -12,18 +12,11 @@ void main(void)
     
     // Initialize the device
     SYSTEM_Initialize();
-    
-    // Enable high priority global interrupts
-    INTERRUPT_GlobalInterruptHighEnable();
-
-    // Enable low priority global interrupts.
-    INTERRUPT_GlobalInterruptLowEnable();
-
-    // Enable the Peripheral Interrupts
-    INTERRUPT_PeripheralInterruptEnable();
+    LED_SetHigh();
     
     while(1)
     {
+        ClrWdt();
         #if defined(USB_POLLING)
             // Interrupt or polling method.  If using polling, must call
             // this function periodically.  This function will take care

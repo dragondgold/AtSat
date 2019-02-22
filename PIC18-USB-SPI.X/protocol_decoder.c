@@ -45,6 +45,9 @@ void protocol_decoder_init(void (*callback)(protocol_packet_t*))
 {
     packet_decoded = callback;
     escaping_byte = false;
+    packet.valid = false;
+    data_index = 0;
+    checksum = 0;
     state = WAITING_START;
 }
 

@@ -51,8 +51,7 @@
 #include "pin_manager.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include "interrupt_manager.h"
-#include "spi1_driver.h"
+#include "spi1.h"
 
 
 

@@ -107,6 +107,17 @@
 #define LED_SetDigitalInput()    do { TRISCbits.TRISC4 = 1; } while(0)
 #define LED_SetDigitalOutput()   do { TRISCbits.TRISC4 = 0; } while(0)
 
+// get/set CS aliases
+#define CS_TRIS                 TRISCbits.TRISC5
+#define CS_LAT                  LATCbits.LATC5
+#define CS_PORT                 PORTCbits.RC5
+#define CS_SetHigh()            do { LATCbits.LATC5 = 1; } while(0)
+#define CS_SetLow()             do { LATCbits.LATC5 = 0; } while(0)
+#define CS_Toggle()             do { LATCbits.LATC5 = ~LATCbits.LATC5; } while(0)
+#define CS_GetValue()           PORTCbits.RC5
+#define CS_SetDigitalInput()    do { TRISCbits.TRISC5 = 1; } while(0)
+#define CS_SetDigitalOutput()   do { TRISCbits.TRISC5 = 0; } while(0)
+
 // get/set SDO1 aliases
 #define SDO1_TRIS                 TRISCbits.TRISC7
 #define SDO1_LAT                  LATCbits.LATC7
