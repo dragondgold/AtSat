@@ -4,16 +4,10 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <logicalFolder name="bsp" displayName="bsp" projectFiles="true">
-        <itemPath>bsp/buttons.h</itemPath>
-        <itemPath>bsp/leds.h</itemPath>
-        <itemPath>bsp/usart.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="system" displayName="system" projectFiles="true">
         <itemPath>system/app_device_cdc_to_uart.h</itemPath>
         <itemPath>system/app_led_usb_status.h</itemPath>
         <itemPath>system/fixed_address_memory.h</itemPath>
-        <itemPath>system/io_mapping.h</itemPath>
         <itemPath>system/system.h</itemPath>
       </logicalFolder>
       <logicalFolder name="usb" displayName="usb" projectFiles="true">
@@ -37,14 +31,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <logicalFolder name="bsp" displayName="bsp" projectFiles="true">
-        <itemPath>bsp/buttons.c</itemPath>
-        <itemPath>bsp/leds.c</itemPath>
-        <itemPath>bsp/usart.c</itemPath>
-      </logicalFolder>
       <logicalFolder name="system" displayName="system" projectFiles="true">
         <itemPath>system/app_device_cdc_to_uart.c</itemPath>
-        <itemPath>system/app_led_usb_status.c</itemPath>
         <itemPath>system/system.c</itemPath>
       </logicalFolder>
       <logicalFolder name="usb" displayName="usb" projectFiles="true">

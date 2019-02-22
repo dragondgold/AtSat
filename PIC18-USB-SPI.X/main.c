@@ -2,7 +2,6 @@
 #include "system.h"
 
 #include "app_device_cdc_to_uart.h"
-#include "app_led_usb_status.h"
 
 #include "usb.h"
 #include "usb_device.h"
@@ -23,20 +22,19 @@
  *
  * Note:            None
  *******************************************************************/
-MAIN_RETURN main(void)
+void main(void)
 {
-    SYSTEM_Initialize(SYSTEM_STATE_USB_START);
-
     USBDeviceInit();
     USBDeviceAttach();
     
     TRISCbits.TRISC4 = 0;
     LATCbits.LATC4 = 1;
     
+    //Update the baudrate info in the CDC driver
+    CDCSetBaudRate(cdc_notice.GetLineCoding.dwDTERate);
+    
     while(1)
     {
-        SYSTEM_Tasks();
-
         #if defined(USB_POLLING)
             // Interrupt or polling method.  If using polling, must call
             // this function periodically.  This function will take care

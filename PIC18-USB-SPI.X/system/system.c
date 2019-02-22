@@ -49,36 +49,6 @@ please contact mla_licensing@microchip.com
 #pragma config EBTR0  = OFF
 #pragma config EBTR1  = OFF
 #pragma config EBTRB  = OFF
-
-/*********************************************************************
-* Function: void SYSTEM_Initialize( SYSTEM_STATE state )
-*
-* Overview: Initializes the system.
-*
-* PreCondition: None
-*
-* Input:  SYSTEM_STATE - the state to initialize the system into
-*
-* Output: None
-*
-********************************************************************/
-void SYSTEM_Initialize( SYSTEM_STATE state )
-{
-    switch(state)
-    {
-        case SYSTEM_STATE_USB_START:
-            LED_Enable(LED_USB_DEVICE_STATE);
-            BUTTON_Enable(BUTTON_DEVICE_CDC_BASIC_DEMO);
-            break;
-            
-        case SYSTEM_STATE_USB_SUSPEND: 
-            break;
-            
-        case SYSTEM_STATE_USB_RESUME:
-            break;
-    }
-}
-
 			
 #if(__XC8_VERSION < 2000)
     #define INTERRUPT interrupt

@@ -26,10 +26,8 @@ please contact mla_licensing@microchip.com
 
 #include "usb.h"
 
-#include "app_led_usb_status.h"
 #include "app_device_cdc_to_uart.h"
 #include "usb_config.h"
-#include "usart.h"
 
 /** VARIABLES ******************************************************/
 
@@ -69,7 +67,7 @@ void APP_DeviceCDCEmulatorInitialize()
     line_coding.dwDTERate = 19200;
 
     unsigned char i;
-    USART_Initialize();
+    //USART_Initialize();
 
     //Initialize the arrays
     for (i=0; i<sizeof(USB_Out_Buffer); i++)
@@ -81,10 +79,6 @@ void APP_DeviceCDCEmulatorInitialize()
     LastRS232Out = 0;
     lastTransmission = 0;
 }
-
-
-    #define mDataRdyUSART() PIR1bits.RCIF
-    #define mTxRdyUSART()   TXSTAbits.TRMT
 
 /*********************************************************************
 * Function: void APP_DeviceCDCEmulatorTasks(void);

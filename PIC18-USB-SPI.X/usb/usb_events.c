@@ -21,7 +21,6 @@ please contact mla_licensing@microchip.com
 #include "system.h"
 
 #include "app_device_cdc_to_uart.h"
-#include "app_led_usb_status.h"
 
 #include "usb.h"
 #include "usb_device.h"
@@ -35,19 +34,12 @@ bool USER_USB_CALLBACK_EVENT_HANDLER(USB_EVENT event, void *pdata, uint16_t size
             break;
 
         case EVENT_SOF:
-            /* We are using the SOF as a timer to time the LED indicator.  Call
-             * the LED update function here. */
-            APP_LEDUpdateUSBStatus();
             break;
 
         case EVENT_SUSPEND:
-            /* Update the LED status for the suspend event. */
-            APP_LEDUpdateUSBStatus();
             break;
 
         case EVENT_RESUME:
-            /* Update the LED status for the resume event. */
-            APP_LEDUpdateUSBStatus();
             break;
 
         case EVENT_CONFIGURED:
