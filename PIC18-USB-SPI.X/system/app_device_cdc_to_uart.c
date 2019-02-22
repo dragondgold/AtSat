@@ -1,83 +1,40 @@
-/*******************************************************************************
-Copyright 2016 Microchip Technology Inc. (www.microchip.com)
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-To request to license the code under the MLA license (www.microchip.com/mla_license), 
-please contact mla_licensing@microchip.com
-*******************************************************************************/
-
-/** INCLUDES *******************************************************/
 #include "system.h"
-
 #include <stdint.h>
 #include <string.h>
-#include <stddef.h>
+#include <stdbool.h>
 
 #include "usb.h"
-
 #include "app_device_cdc_to_uart.h"
 #include "usb_config.h"
+#include "../protocol_decoder.h"
 
-/** VARIABLES ******************************************************/
+static uint8_t usb_output_buffer[CDC_DATA_OUT_EP_SIZE];
+static uint8_t usb_input_buffer[CDC_DATA_IN_EP_SIZE];
+static uint8_t transferred_bytes = 0;
 
-//static bool buttonPressed;
-//static char buttonMessage[] = "Button pressed.\r\n";
-static uint8_t USB_Out_Buffer[CDC_DATA_OUT_EP_SIZE];
-static uint8_t RS232_Out_Data[CDC_DATA_IN_EP_SIZE];
+static void packet_decoded(protocol_packet_t *packet)
+{
+    LATCbits.LATC4 = !LATCbits.LATC4;
+}
 
-unsigned char  NextUSBOut;
-unsigned char    NextUSBOut;
-unsigned char    LastRS232Out;  // Number of characters in the buffer
-unsigned char    RS232cp;       // current position within the buffer
-unsigned char RS232_Out_Data_Rdy = 0;
-USB_HANDLE  lastTransmission;
-
-
-/*********************************************************************
-* Function: void APP_DeviceCDCEmulatorInitialize(void);
-*
-* Overview: Initializes the demo code
-*
-* PreCondition: None
-*
-* Input: None
-*
-* Output: None
-*
-********************************************************************/
 void APP_DeviceCDCEmulatorInitialize()
 {
     CDCInitEP();
 
-    
+    // Serial port settings
     line_coding.bCharFormat = 0;
     line_coding.bDataBits = 8;
     line_coding.bParityType = 0;
-    line_coding.dwDTERate = 19200;
+    line_coding.dwDTERate = 115200;
 
-    unsigned char i;
-    //USART_Initialize();
-
-    //Initialize the arrays
-    for (i=0; i<sizeof(USB_Out_Buffer); i++)
+    //Initialize the array
+    for (unsigned int i = 0; i < sizeof(usb_output_buffer); i++)
     {
-        USB_Out_Buffer[i] = 0;
+        usb_output_buffer[i] = 0;
     }
 
-    NextUSBOut = 0;
-    LastRS232Out = 0;
-    lastTransmission = 0;
+    transferred_bytes = 0;
+    protocol_decoder_init(packet_decoded);
 }
 
 /*********************************************************************
@@ -97,26 +54,28 @@ void APP_DeviceCDCEmulatorInitialize()
 void APP_DeviceCDCEmulatorTasks()
 {
     /* If the USB device isn't configured yet, we can't really do anything
-     * else since we don't have a host to talk to.  So jump back to the
-     * top of the while loop. */
-    if( USBGetDeviceState() < CONFIGURED_STATE )
+     * else since we don't have a host to talk to. So return. */
+    if(USBGetDeviceState() < CONFIGURED_STATE)
+    {
+        return;
+    }
+    
+    if(USBIsDeviceSuspended() == true)
     {
         return;
     }
 
-    /* If we are currently suspended, then we need to see if we need to
-     * issue a remote wakeup.  In either case, we shouldn't process any
-     * keyboard commands since we aren't currently communicating to the host
-     * thus just continue back to the start of the while loop. */
-    if( USBIsDeviceSuspended()== true )
-    {
-        return;
-    }
-
-    LastRS232Out = getsUSBUSART(RS232_Out_Data,64); //until the buffer is free.
-    if(LastRS232Out > 0)
-    {
-        LATCbits.LATC4 = !LATCbits.LATC4;
+    // Read data from the USB
+    transferred_bytes = getsUSBUSART(usb_input_buffer, CDC_DATA_IN_EP_SIZE);
+    
+    // Any data available?
+    if(transferred_bytes > 0)
+    {   
+        // Add all the bytes to the decoder
+        for(uint8_t n = 0; n < transferred_bytes; ++n)
+        {
+            protocol_decoder_add_data(usb_input_buffer[n]);
+        }
     }
     
     /*
