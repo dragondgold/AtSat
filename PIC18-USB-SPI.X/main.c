@@ -1,6 +1,6 @@
 #include "system.h"
 #include "app_device_cdc_to_uart.h"
-
+#include "mcc_generated_files/mcc.h"
 #include "usb.h"
 #include "usb_device.h"
 #include "usb_device_cdc.h"
@@ -10,8 +10,17 @@ void main(void)
     USBDeviceInit();
     USBDeviceAttach();
     
-    TRISCbits.TRISC4 = 0;
-    LATCbits.LATC4 = 1;
+    // Initialize the device
+    SYSTEM_Initialize();
+    
+    // Enable high priority global interrupts
+    INTERRUPT_GlobalInterruptHighEnable();
+
+    // Enable low priority global interrupts.
+    INTERRUPT_GlobalInterruptLowEnable();
+
+    // Enable the Peripheral Interrupts
+    INTERRUPT_PeripheralInterruptEnable();
     
     while(1)
     {

@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdbool.h>
-
+#include "../mcc_generated_files/mcc.h"
 #include "usb.h"
 #include "app_device_cdc_to_uart.h"
 #include "usb_config.h"
@@ -15,7 +15,7 @@ static uint8_t transferred_bytes = 0;
 static void packet_decoded(protocol_packet_t *packet)
 {
     // Change LED state every time a packet is received
-    LATCbits.LATC4 = !LATCbits.LATC4;
+    LED_Toggle();
     
     // Check if any bytes are waiting in the queue to send to the USB host.
     // If any bytes are waiting, and the endpoint is available, prepare to

@@ -4,12 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/system/app_device_cdc_to_uart.c</file>
-            <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/usb/usb_events.c</file>
-            <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/bsp/leds.c</file>
-            <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/bsp/usart.c</file>
-            <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/bsp/buttons.c</file>
+            <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/mcc_generated_files/device_config.c</file>
+            <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/protocol_decoder.c</file>
+            <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/usb/usb_device_cdc.c</file>
             <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/system/system.c</file>
+            <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/protocol_decoder.h</file>
             <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/main.c</file>
+            <file>file:/C:/msys32/home/tmax4/esp/PIC18-USB-SPI.X/system/system.h</file>
         </group>
     </open-files>
 </project-private>
