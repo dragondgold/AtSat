@@ -27,6 +27,29 @@ static uint8_t usb_buffer_index = 0;
 static uint8_t checksum = 0;
 static bool checksum_sent = false;
 
+static void check_and_add_checksum(void)
+{
+    // Calculate the checksum
+    uint8_t c = 0xFF - checksum;
+
+    // Need to escape the checksum?
+    if(c == PROTOCOL_DECODER_START_BYTE || c == PROTOCOL_DECODER_ESCAPE_BYTE)
+    {
+        // Is there room for the 2 bytes?
+        if(usb_buffer_index < (CDC_DATA_OUT_EP_SIZE - 2))
+        {
+            usb_out_buffer[usb_buffer_index++] = PROTOCOL_DECODER_ESCAPE_BYTE;
+            usb_out_buffer[usb_buffer_index++] = c ^ 0x20;
+            checksum_sent = true;
+        }
+    }
+    else
+    {
+        usb_out_buffer[usb_buffer_index++] = 0xFF - checksum;
+        checksum_sent = true;
+    }
+}
+
 static void packet_decoded(protocol_packet_t *packet)
 {
     // Change LED state every time a packet is received
@@ -43,32 +66,25 @@ static void packet_decoded(protocol_packet_t *packet)
                 // Send the bytes through SPI and get the response
                 tx_data_size = packet->length;
                 uint8_t *data = temp_buffer;
+                
+                CS_SetLow();
+                
+                uint8_t b = 0;
                 while(tx_data_size--)
                 {
-                    // Toggle CS for each byte
-                    CS_SetLow();
-                    *data = SPI1_Exchange8bit(*data);
+                    __delay_us(1);
+                    b = *data;
+                    *data = SPI1_Exchange8bit(b);
                     data++;
-                    CS_SetHigh();
                 }
+                
+                CS_SetHigh();
                 
                 // Mark the data as needed to be sent
                 tx_data_size = packet->length;
                 tx_state = SM_START_DATA_SEND;
                 break;
         }
-        /*
-        // Check if any bytes are waiting in the queue to send to the USB host.
-        // If any bytes are waiting, and the endpoint is available, prepare to
-        //  send the USB packet to the host.
-        if(USBUSARTIsTxTrfReady())
-        {
-            for(uint8_t n = 0; n < packet->length; ++n)
-            {
-                usb_out_buffer[n] = packet->data[n];
-            }
-            putUSBUSART(usb_out_buffer, packet->length);
-        }*/
     }
 }
 
@@ -178,8 +194,9 @@ void APP_DeviceCDCEmulatorTasks()
                     // Send the checksum if it wasn't sent yet
                     if(!checksum_sent)
                     {
-                        usb_out_buffer[0] = 0xFF - checksum;
-                        putUSBUSART(usb_out_buffer, 1);
+                        usb_buffer_index = 0;
+                        check_and_add_checksum();
+                        putUSBUSART(usb_out_buffer, usb_buffer_index);
                         checksum_sent = true;
                     }
                     else
@@ -200,8 +217,7 @@ void APP_DeviceCDCEmulatorTasks()
                     //  for the checksum byte, add it now
                     if(data_index == tx_data_size && usb_buffer_index < (CDC_DATA_OUT_EP_SIZE-1))
                     {
-                        usb_out_buffer[usb_buffer_index++] = 0xFF - checksum;
-                        checksum_sent = true;
+                        check_and_add_checksum();
                     }
                     
                     // When we reach here, the entire USB buffer was filled or the entire
