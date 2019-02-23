@@ -137,36 +137,42 @@ static void power_monitor_task(void* args)
                     if(power_status.rail_3v3.avg_current > POWER_MONITOR_MAX_3V3_CURRENT || 
                         (samples_since_ramp_up >= POWER_MONITOR_SAMPLES_TO_RAMP_UP && power_status.rail_3v3.avg_voltage <= POWER_MONITOR_MIN_3V3_VOLTAGE && aux_ps_is_enabled()))
                     {
-                        power_status.rail_3v3.overcurrent = true;
                         aux_ps_disable();
+                        power_status.rail_3v3.overcurrent = true;
+                        power_status.rail_3v3.overcurrent_current = power_status.rail_3v3.avg_current;
                     }
                     if(power_status.rail_5v.avg_current > POWER_MONITOR_MAX_5V_CURRENT ||
                         (samples_since_ramp_up >= POWER_MONITOR_SAMPLES_TO_RAMP_UP && power_status.rail_5v.avg_voltage <= POWER_MONITOR_MIN_5V_VOLTAGE && aux_ps_is_enabled()))
                     {
-                        power_status.rail_5v.overcurrent = true;
                         aux_ps_disable();
+                        power_status.rail_5v.overcurrent = true;
+                        power_status.rail_5v.overcurrent_current = power_status.rail_5v.avg_current;
                     }
                     if(power_status.rail_bat.avg_current > POWER_MONITOR_MAX_BAT_CURRENT)
                     {
-                        power_status.rail_bat.overcurrent = true;
                         aux_ps_disable();
+                        power_status.rail_bat.overcurrent = true;
+                        power_status.rail_bat.overcurrent_current = power_status.rail_bat.avg_current;
                     }
 
                     // Check voltages
                     if(power_status.rail_3v3.avg_voltage > POWER_MONITOR_MAX_3V3_VOLTAGE)
                     {
-                        power_status.rail_3v3.overvoltage = true;
                         aux_ps_disable();
+                        power_status.rail_3v3.overvoltage = true;
+                        power_status.rail_3v3.overvoltage_voltage = power_status.rail_3v3.avg_voltage;
                     }
                     if(power_status.rail_5v.avg_voltage > POWER_MONITOR_MAX_5V_VOLTAGE)
                     {
-                        power_status.rail_5v.overvoltage = true;
                         aux_ps_disable();
+                        power_status.rail_5v.overvoltage = true;
+                        power_status.rail_5v.overvoltage_voltage = power_status.rail_5v.avg_voltage;
                     }
                     if(power_status.rail_bat.avg_voltage > POWER_MONITOR_MAX_BAT_VOLTAGE)
                     {
-                        power_status.rail_bat.overvoltage = true;
                         aux_ps_disable();
+                        power_status.rail_bat.overvoltage = true;
+                        power_status.rail_bat.overvoltage_voltage = power_status.rail_bat.avg_voltage;
                     }
                 }
 
@@ -287,6 +293,11 @@ void power_monitor_clear_errors(void)
     power_status.rail_5v.overvoltage = false;
     power_status.rail_bat.overcurrent = false;
     power_status.rail_bat.overvoltage = false;
+}
+
+power_status_t power_monitor_get_all_data(void)
+{
+    return power_status;
 }
 
 uint16_t power_monitor_get_battery_current(void)

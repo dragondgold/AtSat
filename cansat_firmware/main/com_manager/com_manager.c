@@ -821,35 +821,35 @@ static void errors_check(TimerHandle_t xTimer)
     // Check errors
     if(error_flags.overcurrent_bat)
     {
-        ESP_LOGI(TAG, "Battery overcurrent");
+        ESP_LOGI(TAG, "Battery overcurrent: %d mA", power_monitor_get_all_data().rail_bat.overcurrent_current);
         uint8_t buffer[] = { CANSAT_ERRORS, BATTERY_OVERCURRENT };
         axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
         xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
     if(error_flags.overvoltage_3v3)
     {
-        ESP_LOGI(TAG, "3.3V overvoltage");
+        ESP_LOGI(TAG, "3.3V overvoltage: %d mV", power_monitor_get_all_data().rail_3v3.overvoltage_voltage);
         uint8_t buffer[] = { CANSAT_ERRORS, OVERVOLTAGE_3V3 };
         axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
         xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
     if(error_flags.overcurrent_3v3)
     {
-        ESP_LOGI(TAG, "3.3V overcurrent");
+        ESP_LOGI(TAG, "3.3V overcurrent: %d mA", power_monitor_get_all_data().rail_3v3.overcurrent_current);
         uint8_t buffer[] = { CANSAT_ERRORS, OVERCURRENT_3V3 };
         axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
         xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
     if(error_flags.overvoltage_5v)
     {
-        ESP_LOGI(TAG, "5V overvoltage");
+        ESP_LOGI(TAG, "5V overvoltage: %d mV", power_monitor_get_all_data().rail_5v.overvoltage_voltage);
         uint8_t buffer[] = { CANSAT_ERRORS, OVERVOLTAGE_5V };
         axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
         xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
     if(error_flags.overcurrent_5v)
     {
-        ESP_LOGI(TAG, "5V overcurrent");
+        ESP_LOGI(TAG, "5V overcurrent: %d mA", power_monitor_get_all_data().rail_5v.overcurrent_current);
         uint8_t buffer[] = { CANSAT_ERRORS, OVERCURRENT_5V };
         axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
         xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
