@@ -53,17 +53,31 @@ static SemaphoreHandle_t cc1101_mutex;
 
 static void close_parachute_balloon(TimerHandle_t xTimer)
 {
+    static uint8_t buffer[2] = {0};
+    static axtec_encoded_packet_t packet_to_send;
     uint32_t id = ( uint32_t ) pvTimerGetTimerID(xTimer);
 
     // Close parachute
     if(id == CANSAT_PARACHUTE)
     {
         servo_manager_close_parachute();
+
+        // Alert parachute was closed
+        buffer[0] = CANSAT_PARACHUTE_STATE;
+        buffer[1] = 0x00;
+        axtec_packet_encode(&packet_to_send, buffer, 2);
+        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
     // Close balloon
     else if(id == CANSAT_BALLOON)
     {
         servo_manager_close_balloon();
+
+        // Alert balloon was closed
+        buffer[0] = CANSAT_BALLOON_STATE;
+        buffer[1] = 0x00;
+        axtec_packet_encode(&packet_to_send, buffer, 2);
+        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
 }
 
