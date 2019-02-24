@@ -37,6 +37,8 @@ typedef struct
     uint16_t avg_voltage;   // Average voltage in mV
     uint16_t avg_current;   // Average current in mA
 
+    uint16_t overcurrent_current;   // In mA
+    uint16_t overvoltage_voltage;   // In mV
     bool overcurrent;
     bool overvoltage;
 } power_rail_t;
@@ -52,6 +54,7 @@ esp_err_t power_monitor_init(void);
 
 void power_monitor_clear_errors(void);
 
+power_status_t power_monitor_get_all_data(void);
 uint16_t power_monitor_get_battery_current(void);
 uint16_t power_monitor_get_battery_voltage(void);
 uint16_t power_monitor_get_3v3_current(void);

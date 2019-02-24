@@ -66,8 +66,8 @@ void SPI1_Initialize(void)
 {
     // Set the SPI1 module to the options selected in the User Interface
     
-    // R_nW write_noTX; P stopbit_notdetected; S startbit_notdetected; BF RCinprocess_TXcomplete; SMP Middle; UA dontupdate; CKE Idle to Active; D_nA lastbyte_address; 
-    SSPSTAT = 0x00;
+    // R_nW write_noTX; P stopbit_notdetected; S startbit_notdetected; BF RCinprocess_TXcomplete; SMP Middle; UA dontupdate; CKE Active to Idle; D_nA lastbyte_address; 
+    SSPSTAT = 0x40;
     
     // SSPEN enabled; WCOL no_collision; CKP Idle:Low, Active:High; SSPM FOSC/16; SSPOV no_overflow; 
     SSPCON1 = 0x21;

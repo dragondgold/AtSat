@@ -84,7 +84,7 @@ bool servo_manager_open_parachute(void)
 {
     if(xSemaphoreTake(mutex, 200 / portTICK_PERIOD_MS))
     {
-        set_servo_duty(SERVO_MANAGER_PARACHUTE_CHANNEL, SERVO_MANAGER_OPEN_SERVO_DUTY);
+        set_servo_duty(SERVO_MANAGER_PARACHUTE_CHANNEL, SERVO_MANAGER_PARACHUTE_OPEN_SERVO_DUTY);
         parachute_opened = true;
         xSemaphoreGive(mutex);
         return true;
@@ -96,7 +96,7 @@ bool servo_manager_close_parachute(void)
 {
     if(xSemaphoreTake(mutex, 200 / portTICK_PERIOD_MS))
     {
-        set_servo_duty(SERVO_MANAGER_PARACHUTE_CHANNEL, SERVO_MANAGER_CLOSE_SERVO_DUTY);
+        set_servo_duty(SERVO_MANAGER_PARACHUTE_CHANNEL, SERVO_MANAGER_PARACHUTE_CLOSE_SERVO_DUTY);
         parachute_opened = false;
         xSemaphoreGive(mutex);
         return true;
@@ -108,7 +108,7 @@ bool servo_manager_open_balloon(void)
 {
     if(xSemaphoreTake(mutex, 200 / portTICK_PERIOD_MS))
     {
-        set_servo_duty(SERVO_MANAGER_BALLOON_CHANNEL, SERVO_MANAGER_OPEN_SERVO_DUTY);
+        set_servo_duty(SERVO_MANAGER_BALLOON_CHANNEL, SERVO_MANAGER_BALLOON_OPEN_SERVO_DUTY);
         balloon_opened = true;
         xSemaphoreGive(mutex);
         return true;
@@ -120,7 +120,7 @@ bool servo_manager_close_balloon(void)
 {
     if(xSemaphoreTake(mutex, 200 / portTICK_PERIOD_MS))
     {
-        set_servo_duty(SERVO_MANAGER_BALLOON_CHANNEL, SERVO_MANAGER_CLOSE_SERVO_DUTY);
+        set_servo_duty(SERVO_MANAGER_BALLOON_CHANNEL, SERVO_MANAGER_BALLOON_CLOSE_SERVO_DUTY);
         balloon_opened = false;
         xSemaphoreGive(mutex);
         return true;

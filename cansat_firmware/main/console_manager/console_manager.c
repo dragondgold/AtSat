@@ -10,6 +10,7 @@
 #include "libs/minmea/minmea.h"
 #include "sensor_manager/sensor_manager.h"
 #include "servo_manager/servo_manager.h"
+#include "aux_ps/aux_ps.h"
 
 #include "esp_log.h"
 
@@ -64,6 +65,13 @@ static int close_servo(int argc, char** argv)
 {
     servo_manager_close_balloon();
     servo_manager_close_parachute();
+    printf("\n");
+    return 0;
+}
+
+static int ps_cmd(int argc, char** argv)
+{
+    aux_ps_enable();
     printf("\n");
     return 0;
 }
@@ -198,10 +206,17 @@ esp_err_t console_manager_init(void)
         .hint = NULL,
         .func = &close_servo,
     };
+    const esp_console_cmd_t cmd_ps = {
+        .command = "ps",
+        .help = "Power supply control",
+        .hint = NULL,
+        .func = &ps_cmd,
+    };
     ESP_ERROR_CHECK(esp_console_cmd_register(&cmd_free));
     ESP_ERROR_CHECK(esp_console_cmd_register(&cmd_samples));
     ESP_ERROR_CHECK(esp_console_cmd_register(&cmd_open));
     ESP_ERROR_CHECK(esp_console_cmd_register(&cmd_close));
+    ESP_ERROR_CHECK(esp_console_cmd_register(&cmd_ps));
 
     task_handle = xTaskCreateStaticPinnedToCore(console_task, "console", CONSOLE_MANAGER_STACK_SIZE, 
         NULL, CONSOLE_MANAGER_TASK_PRIORITY, stack, &task, CONSOLE_MANAGER_AFFINITY);

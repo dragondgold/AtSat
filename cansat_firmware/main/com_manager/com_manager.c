@@ -53,17 +53,31 @@ static SemaphoreHandle_t cc1101_mutex;
 
 static void close_parachute_balloon(TimerHandle_t xTimer)
 {
+    static uint8_t buffer[2] = {0};
+    static axtec_encoded_packet_t packet_to_send;
     uint32_t id = ( uint32_t ) pvTimerGetTimerID(xTimer);
 
-    // Close parachute
-    if(id == CANSAT_PARACHUTE)
+    // Close parachute if open
+    if(id == CANSAT_PARACHUTE && servo_manager_is_parachute_open())
     {
         servo_manager_close_parachute();
+
+        // Alert parachute was closed
+        buffer[0] = CANSAT_PARACHUTE_STATE;
+        buffer[1] = 0x00;
+        axtec_packet_encode(&packet_to_send, buffer, 2);
+        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
-    // Close balloon
-    else if(id == CANSAT_BALLOON)
+    // Close balloon if open
+    else if(id == CANSAT_BALLOON && servo_manager_is_ballon_open())
     {
         servo_manager_close_balloon();
+
+        // Alert balloon was closed
+        buffer[0] = CANSAT_BALLOON_STATE;
+        buffer[1] = 0x00;
+        axtec_packet_encode(&packet_to_send, buffer, 2);
+        xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
 }
 
@@ -821,35 +835,35 @@ static void errors_check(TimerHandle_t xTimer)
     // Check errors
     if(error_flags.overcurrent_bat)
     {
-        ESP_LOGI(TAG, "Battery overcurrent");
+        ESP_LOGI(TAG, "Battery overcurrent: %d mA", power_monitor_get_all_data().rail_bat.overcurrent_current);
         uint8_t buffer[] = { CANSAT_ERRORS, BATTERY_OVERCURRENT };
         axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
         xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
     if(error_flags.overvoltage_3v3)
     {
-        ESP_LOGI(TAG, "3.3V overvoltage");
+        ESP_LOGI(TAG, "3.3V overvoltage: %d mV", power_monitor_get_all_data().rail_3v3.overvoltage_voltage);
         uint8_t buffer[] = { CANSAT_ERRORS, OVERVOLTAGE_3V3 };
         axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
         xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
     if(error_flags.overcurrent_3v3)
     {
-        ESP_LOGI(TAG, "3.3V overcurrent");
+        ESP_LOGI(TAG, "3.3V overcurrent: %d mA", power_monitor_get_all_data().rail_3v3.overcurrent_current);
         uint8_t buffer[] = { CANSAT_ERRORS, OVERCURRENT_3V3 };
         axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
         xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
     if(error_flags.overvoltage_5v)
     {
-        ESP_LOGI(TAG, "5V overvoltage");
+        ESP_LOGI(TAG, "5V overvoltage: %d mV", power_monitor_get_all_data().rail_5v.overvoltage_voltage);
         uint8_t buffer[] = { CANSAT_ERRORS, OVERVOLTAGE_5V };
         axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
         xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
     }
     if(error_flags.overcurrent_5v)
     {
-        ESP_LOGI(TAG, "5V overcurrent");
+        ESP_LOGI(TAG, "5V overcurrent: %d mA", power_monitor_get_all_data().rail_5v.overcurrent_current);
         uint8_t buffer[] = { CANSAT_ERRORS, OVERCURRENT_5V };
         axtec_packet_encode(&packet_to_send, buffer, sizeof(buffer));
         xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
