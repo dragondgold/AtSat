@@ -18,20 +18,34 @@ export default {
 
         let that = this
         worker.on('message', (msg) => {
-            console.log(JSON.stringify(msg))
+            //console.log(JSON.stringify(msg))
             that.etConnected(msg);
             that.cansatConnected(msg);
             that.newCMDReceived(msg);
+
+            if(msg.test){
+                console.log(msg.test);
+            }
+
+            if(msg.queueAdd || msg.queueSend){
+                console.log(msg);
+            }
+
+            if(msg.serialPorts){
+                if(store.getters.axtec.serialPorts.length != msg.serialPorts.length){
+                    store.commit('setSerialPorts', {ports: msg.serialPorts})   
+                }
+            }
 
             if(msg.newCMDReceived && msg.newCMDReceived.packet){
                 let packet = msg.newCMDReceived.packet
                 if(packet.rssi){
                     store.commit('setRSSI', { rssi: packet.rssi })   
-                    console.log("RSSI: "+ packet.rssi)  
+                    //console.log("RSSI: "+ packet.rssi)  
                 }
                 if(packet.lqi){
                     store.commit('setLQI', { lqi: packet.lqi }) 
-                    console.log("LQI: "+ packet.lqi)      
+                    //console.log("LQI: "+ packet.lqi)      
                 }
             }
         });
@@ -159,7 +173,7 @@ export default {
         }
         if(id == 0){
             this.sendCMDToWorker('setParachute', [value])
-            
+
             store.commit('setActuators',
             { 
                 'cansatIndex': 0, 
@@ -177,11 +191,37 @@ export default {
         }
     },
     startMission(){
-        this.sendCMDToWorker('startReport', [1])
+        worker.send( { 
+            cmdToWorker:{
+                cmd: 'startReport'
+            } 
+        })
     },
     stopMission(){
-        this.sendCMDToWorker('startReport', [0])
+        worker.send( { 
+            cmdToWorker:{
+                cmd: 'endReport'
+            } 
+        })
     },
+
+    connectToPort(comName){
+        worker.send( { 
+            cmdToWorker:{
+                cmd: 'connectSerialPort',
+                comName: comName
+            } 
+        })
+    },
+
+    disconnectToPort(){
+        worker.send( { 
+            cmdToWorker:{
+                cmd: 'disconnectSerialPort'
+            } 
+        })
+    },
+
     enablePowerSupply(){
         this.sendCMDToWorker('enablePowerSupply', [1])
     },

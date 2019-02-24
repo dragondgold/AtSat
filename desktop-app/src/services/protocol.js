@@ -127,7 +127,7 @@ let recPackets =
 /**
  * Clear cmd_decoded
  */
-protocol_clear_decoded = function()
+let protocol_clear_decoded = function()
 {
     recPackets.cmd = 0;
     recPackets.len = 0;
@@ -142,7 +142,7 @@ protocol_clear_decoded = function()
  * @param {*} data array of data to calculate checksum
  * @returns value of checksum 
  */
-protocol_calculate_checksum = function(data)
+let protocol_calculate_checksum = function(data)
 {
     let checksum = 0;
     for(let n = 0; n < data.length; n++){
@@ -156,7 +156,7 @@ protocol_calculate_checksum = function(data)
  * @param {*} packet to modify
  * @returns valid packet
  */
-protocol_add_escape = function(packet)
+let protocol_add_escape = function(packet)
 {
     let newPacket = [];
     newPacket.push(packet[0]);
@@ -175,7 +175,7 @@ protocol_add_escape = function(packet)
  * Remove escape from pkg
  * @returns clean packet
  */
-protocol_remove_escape = function(packet)
+let protocol_remove_escape = function(packet)
 {
     let escape = false;
     let newPacket = [];
@@ -199,7 +199,7 @@ protocol_remove_escape = function(packet)
  * @param {*} packets arrays to decode
  * @returns object recPackets
  */
-protocol_decode_data = function(packets)
+let protocol_decode_data = function(packets)
 {
     let cmd = recPackets.cmd;
     let length = recPackets.len;
@@ -342,7 +342,7 @@ protocol_decode_data = function(packets)
  * @param {*} rx_buffer to split
  * @returns true if we have packet to decode. recPackets object contains error info.
  */
-protocol_split_valid_packets = function(rx_buffer)
+let protocol_split_valid_packets = function(rx_buffer)
 {
     if( recPackets.cmd == PROTOCOL_CMD_GET_SENSOR )
     {
@@ -430,7 +430,7 @@ protocol_split_valid_packets = function(rx_buffer)
  * @param {*} rx_buffer to format
  * @returns formatted packet
  */
-protocol_extract_packet = function(rx_buffer)
+let protocol_extract_packet = function(rx_buffer)
 {
     let escape = false;
     let packet = [];
@@ -487,7 +487,7 @@ protocol_extract_packet = function(rx_buffer)
  * @param {*} data array to format where data[0] is cmd 
  * @returns packet with valid protocol
  */
-protocol_format_packet =  function(data)
+let protocol_format_packet =  function(data)
 {
     let packet = [];
     let length = data.length; // Because cmd is included in data as first element of array
@@ -510,7 +510,7 @@ protocol_format_packet =  function(data)
  * @param {*} packet to format
  * @returns formatted packet
  */
-protocol_convert_to_signed = function(value)
+let protocol_convert_to_signed = function(value)
 {
     if ((value & 0x8000) > 0) {
         value = value - 0x10000;

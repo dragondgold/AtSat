@@ -48,7 +48,6 @@
                         <tr v-for="(cansat,key) in cansats" :key="key">
                             <td>{{cansat.id}}</td>
                             <td>{{cansat.name}}</td>
-                            <td>{{cansat.signal}}</td>
                             <td>{{rssi}}</td>
                             <td>{{lqi}}</td>
                             <td>{{battery}}</td>
@@ -99,10 +98,9 @@ export default {
             canSatName: this.$store.getters.axtec.project.cansat[0].name,
             canSatList: ['id_mcp2210'],
             selectedCansat: this.$store.getters.axtec.project.cansat[0].id,
-            signalLevel: '0',
             valid: false,
             isCanSatConnect: this.$store.getters.axtec.project.cansat[0].connected,
-            fields: [ {'title':  'cansat.link.table.id' },{'title': 'cansat.link.table.name'}, {'title':'cansat.link.table.signal'}, {'title':'RSSI'},{'title':'LQI'}, {'title':'Batt'},{'title':'cansat.link.table.action'}],
+            fields: [ {'title':  'cansat.link.table.id' },{'title': 'cansat.link.table.name'}, {'title':'RSSI'},{'title':'LQI'}, {'title':'Batt'},{'title':'cansat.link.table.action'}],
             cansats: [this.$store.getters.axtec.project.cansat[0]]
         }
     },    

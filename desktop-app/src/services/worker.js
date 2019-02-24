@@ -1,34 +1,120 @@
-const path = require('path');
 const cc1101 = require('./cc1101.js');
 const protocol = require('./protocol.js');
-
-let usb;
-
-let pathToCLI;
-if(process.send == undefined){
-  pathToCLI = path.resolve('./../../build/MCP2210/mcp2210-cli.exe');
-}else{
-  usb = require('usb');
-  pathToCLI = path.resolve('./build/MCP2210/mcp2210-cli.exe');
-}
+const SerialPort = require('serialport');
 
 const maxAttempt = 2;
 const vid = 0x4D8;
 const pid = 0xDE;
+const MCP_MANUFACTURER = 'Microchip Technology, Inc.';
 
 let control = {
   et:{
     attempt: 0,
     connected: false,
-    error: 0
+    error: 0,
+    intervalConnect: {}
   },
   cansat:{
     attempt: 0,
     timeout: 100,
     connected: false,
-    missionActive: false
+    missionActive: false,
+    intervalMission: {}
   }
 };
+
+let isCCUBusy =false;
+let queueSend = [];
+let comName = '';
+
+/**
+ * Decode data from packet
+ * Listen for msg from parent and sent it to cc1101
+ */
+if(process.on)
+{
+  process.on('message', (msg) => 
+  {
+    cmdToSendlistener(msg);
+    cmdWorker(msg);
+  });
+}
+
+let cmdToSendlistener =  function(msg)
+{
+  if(msg.cmdToSend)
+  {
+    if(control.cansat.connected || true){
+      let packet = protocol.create_packet( msg.cmdToSend.cmd, msg.cmdToSend.valuesArray );
+
+      if(process.send)process.send({queueAdd: packet})
+
+      // Add cmd to queue
+      console.log('Pushing to queue: ' + packet);
+      queueSend.push(packet);
+    }
+  }
+}
+
+let cmdWorker = function(msg)
+{
+  if(msg.cmdToWorker)
+  {
+    let cmd =msg.cmdToWorker.cmd;
+    if(cmd == 'startReport')
+    {
+      control.cansat.missionActive = true;
+    
+    }
+
+    if(cmd == 'endReport')
+    {
+      control.cansat.missionActive = false;
+    }
+
+    if(cmd == 'connectSerialPort')
+    {
+      comName = msg.cmdToWorker.comName;
+    }
+
+    if(cmd == 'disconnectSerialPort')
+    {
+      comName = '';
+      clearInterval(control.et.intervalConnect);
+      clearInterval(control.cansat.intervalMission);
+      control.et.connected = false;
+      control.cansat.connected = false;
+      let port = cc1101.get_port();
+      port.close();
+    }
+
+  }
+}
+
+/**
+ * Send command to CANSAT 
+ */
+let sendCMDCanSat= async function(){
+  if(!isCCUBusy){
+    isCCUBusy = true;
+    console.log('Transmiting');
+
+    if(queueSend.length > 0){
+      console.log('Packets in queue: ' + JSON.stringify(queueSend) );
+      let packet = queueSend.shift();
+      
+      console.log('Trying to send: ' + packet);
+      console.log('Packets in queue before shift: ' + JSON.stringify(queueSend) );
+      //process.send({packet})
+      if(packet.length > 0){       
+        await cc1101.cc1101_send_data(packet);     
+        if(process.send) process.send({queueSend: packet});
+      }
+    }
+    isCCUBusy = false;
+    console.log('END Transmiting');
+  }
+}
 
 /**
  * Send command to cc1101 
@@ -39,28 +125,15 @@ let control = {
  */
 let sendCommand = function(cmdName, data, sendToparent){
 
- // process.send("ESTOY POR ENVIAR");
-
   let packet = protocol.create_packet( cmdName, data );
   if(process.send){
     process.send(packet)
   }else{
-    console.log(packet)
+
   }
 
-  if(packet.length > 0){
-    cc1101.cc1101_send_data(packet);
-
-   // process.send("TERMINE DE ENVIAR");
-
-    if(waitResponse(sendToparent)){
-      console.log("Response received");
-      return true;
-    }else{
-      console.log("No response");
-      return false;
-    }
-  }
+  console.log('Pushing to queue: ' + packet);
+  queueSend.push(packet);
 }
 
 /**
@@ -68,25 +141,23 @@ let sendCommand = function(cmdName, data, sendToparent){
  * @param {*} sendToparent if we need send response to parent
  * @returns true if we received a valid packet and sent it to parent
  */
-let waitResponse = function(sendToparent){
-  let packetReceived = false;
-  var end = new Date().getTime() + control.cansat.timeout;
-
-  //process.send("ESTOY POR CHECKEAR");
-
-  while(!packetReceived &&  new Date().getTime() < end)
+let checkForData = async function(sendToparent){
+  if(isCCUBusy){
+    return;
+  }
+  isCCUBusy = true;
+  console.log('Receiving');
+  await cc1101.cc1101_bytes_in_rx_fifo().then( async function(bytes)
   {
-    let bytes = cc1101.cc1101_bytes_in_rx_fifo();
-  
-    // Data available?
-    if(bytes > 0 && cc1101.cc1101_is_packet_sent_available())
+    if(bytes > 0)
     {
-      let data = cc1101.cc1101_read_data();
-      console.log(Date.now() + ": Data -> " + JSON.stringify(data));
-      
+      console.log("Bytes: " + bytes);
+      let data = await cc1101.cc1101_read_data();
+      let decoded = protocol.decode_packet(data);
+
       if(data.valid){
-        let decoded = protocol.decode_packet(data);
-        console.log(Date.now() + ": Data -> " + JSON.stringify(decoded));
+        console.log(decoded.decoded);
+
         if(process.send && sendToparent){
           process.send({
             newCMDReceived: {
@@ -100,30 +171,40 @@ let waitResponse = function(sendToparent){
               packet: data
             }
           })
-        }  
-        cc1101.cc1101_set_rx(true);
-        packetReceived = true
+        }
       }
       
+      
+      if(bytes & 0x80)
+      {
+        await cc1101.cc1101_set_rx(true);
+      }
     }
+    isCCUBusy = false;
+    console.log('END Receiving');
 
-
-    // Flush the RX FIFO if needed
-    if(bytes & 0x80)
-    {
-        console.log(Date.now() + ": Flush");
-        cc1101.cc1101_set_rx(true);
-    }
-  }
-  //process.send("TERMINE DE CHECKEAR");
-  console.log("Response received: " + packetReceived);
-  return packetReceived;
+  }).catch(function()
+  { 
+    isCCUBusy = false;
+    console.log('END Receiving');
+  });
 }
 
 
+let missionActive = async function ()
+{
+  // To avoid queue full of samples
+  if(queueSend.length < 3){
+    if(control.cansat.missionActive){
+      getPowerSupplies();
+      getSensors();
+    }
+    getBatteryLevel();
+  }  
+}
+
 /**
  * Get all samples from sensors
- * @returns true if we received a valid packet and sent it to parent. Use waitResponse() internally
  */
 let getSensors = function ()
 {
@@ -132,35 +213,32 @@ let getSensors = function ()
 
 /**
  * Get all samples from power supplies
- * @returns true if we received a valid packet and sent it to parent. Use waitResponse() internally
  */
 let getPowerSupplies = function ()
 {
-  return sendCommand('getSensor', [1,2,3,4,5,6], true); 
+  sendCommand('getSensor', [1,2,3,4,5,6], true); 
 }
 
 /**
  * Get battery level
- * @returns true if we received a valid packet and sent it to parent. Use waitResponse() internally
  */
 let getBatteryLevel = function ()
 {
-  return sendCommand('getBattery', [], true); 
+  sendCommand('getBattery', [], true); 
 }
 
 
 /**
  * Check if cansat is connected
- * @returns true if we received a valid packet and sent it to parent. Use waitResponse() internally
  */
-let getCansatConnected =function(){
-  return sendCommand('getBattery', [], true); 
+let getCansatConnected = function(){
+  sendCommand('getBattery', [], true); 
 }
 
 /**
  *  Logic to connected to an ET
  */
-let checkForETConnected = function()
+let checkForETConnected = async function()
 {
   let detectedDev = false;
   if(usb == undefined){
@@ -183,7 +261,7 @@ let checkForETConnected = function()
   
       while(control.et.attempt < maxAttempt && !control.et.connected)
       {
-        control.et.connected = cc1101.cc1101_init(pathToCLI);
+        control.et.connected = await cc1101.cc1101_init('COM12');
         if(control.et.connected)
         {
           control.et.attempt = 0; 
@@ -251,102 +329,56 @@ let checkForETConnected = function()
 }
 
 
-/**
- * Decode data from packet
- * Listen for msg from parent and sent it to cc1101
- */
-if(process.on)
-{
-  process.on('message', (msg) => 
+let findET = function(){
+  if(!control.et.connected)
   {
-    cmdToSendlistener(msg)
-  });
-}
-
-let cmdToSendlistener = function(msg)
-{
-  if(msg.cmdToSend)
-  {
-    process.send(msg)
-    if(control.cansat.connected || true){
-      let packet = protocol.create_packet( msg.cmdToSend.cmd, msg.cmdToSend.valuesArray );
-
-      if(msg.cmdToSend.cmd == 'startReport'){
-        control.cansat.missionActive = msg.cmdToSend.valuesArray[0];
+    SerialPort.list().then( function(ports){
+      let serialPorts = [];
+      for(let sp = 0; sp < ports.length ; sp++){
+        if( ports[sp].manufacturer == MCP_MANUFACTURER)
+        {
+          serialPorts.push( ports[sp].comName)
+        }
       }
+      if(process.send) process.send({serialPorts: serialPorts}); 
+    })
 
-      process.send(packet)
-      if(packet.length > 0){
-        cc1101.cc1101_send_data(packet);
-      }
+    if(comName != ''){
+      process.send({
+        et: {
+          state: 'config'
+        }
+      });
+      cc1101.cc1101_init(comName).then(async function()
+      {
+
+        control.et.connected = true;
+        process.send({
+          et: {
+            state: 'connected'
+          }
+        });
+        control.et.intervalConnect = setInterval(async function(){
+          await checkForData(true);
+          await sendCMDCanSat();
+        }, 200); 
+
+        control.cansat.intervalMission =setInterval(async function(){
+          missionActive();
+        }, 1000); 
+      });
     }
+
+  }
+  else{
+
   }
 }
 
+/*
 
+*/ 
 
-/**
- * Check for connected ET and Cansat. If the mission is active we send cmd to get sensor samples.
- *  Work in an interval
- */
-let main = function(){
-  try {
-    if( checkForETConnected() )
-    {
-      if(control.cansat.missionActive && control.cansat.connected)
-      {
-        if( getPowerSupplies() )
-        {
-          control.cansat.connected = true;
-        }
-        else
-        {
-          control.cansat.connected = false;
-        }
-        
-        if( getSensors() )
-        {
-          control.cansat.connected = true;
-        }
-        else 
-        {
-          control.cansat.connected = false;
-        }
-      }
-      else
-      {
-        if( getCansatConnected() )
-        {
-          
-          if(!control.cansat.connected && process.send){
-            process.send({
-              cansat: {
-                connected: true
-              }
-            })
-          }
-          console.log("CANSAT CONNECTED");
-          control.cansat.connected = true;
-        }
-        else 
-        {
-          if(control.cansat.connected && process.send){
-            process.send({
-              cansat: {
-                connected: false
-              }
-            })
-          }
-          console.log("CANSAT DISCONNECTED");
-          control.cansat.connected = false;
-        }
-  
-      }
-    }
-  } catch (error) {
-    if(process.send){
-      process.send((error))
-    }
-  }
-}
-setInterval(main, 1000)
+setInterval(async function(){
+  findET();
+}, 1000); 

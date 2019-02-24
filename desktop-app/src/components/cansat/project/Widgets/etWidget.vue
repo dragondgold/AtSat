@@ -11,7 +11,7 @@
                     name="USBPort"
                     :required="true"
                     ref="USBPort"
-                    v-bind:options="USBList"
+                    v-bind:options="serialPorts"
                     @input="validateConnection"
                     >
             </vuestic-simple-select>
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import CanSatAPI from 'services/CanSatAPI'
+import { debug } from 'util';
 export default {
     name: 'et-widget',
     props: {
@@ -45,8 +47,7 @@ export default {
     },
     data () {
         return {
-            USBPort: this.$store.getters.axtec.project.earthStation.port,
-            USBList: [ 'com1', 'com2'],
+            USBPort: '',
             valid: false,
             isConnected: this.$store.getters.axtec.project.earthStation.connected
         }
@@ -54,6 +55,19 @@ export default {
     created(){
         if(this.enableWizard){
             this.clearStatusesOnDisconnect()
+        }
+        
+    },
+    computed:{
+        serialPorts(){
+            return this.$store.getters.axtec.serialPorts
+        }
+    },
+    watch:{
+        serialPorts(ports){
+            if(ports.length == 0 && !this.isConnected){
+                this.USBPort = ''
+            }
         }
     },
     methods:{
@@ -71,6 +85,7 @@ export default {
         },
         connect(){
             if(this.USBPort != ''){
+                CanSatAPI.connectToPort(this.USBPort)
                 this.setStatusesOnConnect()
                 this.isConnected = this.$store.getters.axtec.project.earthStation.connected 
             }          
@@ -78,6 +93,7 @@ export default {
         disconnect(){
             this.clearStatusesOnDisconnect()
             this.isConnected = this.$store.getters.axtec.project.earthStation.connected
+            CanSatAPI.disconnectToPort()
         },
         validateConnection(){
             if(this.USBPort != ''){

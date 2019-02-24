@@ -30,6 +30,7 @@ const state = {
     notificationsToast: [
         
     ],
+    serialPorts: [],
     project:{
       path:'',                // Project
       cansat:[{
@@ -311,7 +312,10 @@ const mutations = {
   },
   setLQI(state,data){
     state.axtec.project.cansat[0].lqi = data.lqi
-  }
+  },
+  setSerialPorts(state,data){
+    state.axtec.serialPorts = data.ports
+  },
 }
 
 const actions = {
@@ -404,7 +408,10 @@ const actions = {
   },
   loadMission({ commit }, data){
     commit(loadMission,data)
-  }
+  },
+  setSerialPorts({ commit }, data){
+    commit(setSerialPorts,data)
+  },
 }
 
 export default {

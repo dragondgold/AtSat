@@ -1,5 +1,2 @@
 appId: axtec.cansat
-productName: CanSat
-win:
-  extraResources: ["./build/MCP2210/Mono.Options.dll","./build/MCP2210/mcp2210_dll_m_dotnetv4_x86.dll", "./build/MCP2210/mcp2210-cli.exe"]
- 
+productName: CanSat 

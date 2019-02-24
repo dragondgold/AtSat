@@ -165,7 +165,7 @@ var protocol_remove_escape = function(packet)
  * @param {*} data array of data to calculate checksum
  * @returns value of checksum 
  */
-protocol_calculate_checksum = function(data)
+let protocol_calculate_checksum = function(data)
 {
     let checksum = 0;
     for(let n = 0; n < data.length; n++)
@@ -180,7 +180,7 @@ protocol_calculate_checksum = function(data)
  * @param {*} data array to format where data[0] is cmd 
  * @returns packet with valid protocol
  */
-protocol_format_packet = function(data)
+let protocol_format_packet = function(data)
 {
     // Because cmd is included in data as first element of array
     let packet = [];
@@ -200,7 +200,7 @@ protocol_format_packet = function(data)
     return packet;
 }
 
-protocol_get_data = function(packet)
+let protocol_get_data = function(packet)
 {
     let bytes = protocol_remove_escape(packet);
     //console.log("Removed escape: " + bytes);
@@ -223,7 +223,10 @@ protocol_get_data = function(packet)
                 //console.log("Got checksum: " + checksum);
 
                 // Add all the bytes in the data
-                let sum = data.reduce((partial_sum, a) => partial_sum + a); 
+				let sum = 0; 
+				for(let d = 0; d< data.length ; d ++){
+					sum += data[d];
+				}
                 if((sum + checksum) & 0xFF == 0xFF)
                 {
                     return data;
@@ -243,7 +246,11 @@ function toHexString(byteArray) {
 
 module.exports =
 {
-	
+    
+    get_port: function(){
+        return port; 
+    },
+
     /**
      * Set CS pin level
      * @param {*} level true or false
@@ -372,7 +379,7 @@ module.exports =
             data.push(0x00);
         }
 
-        let obj = this.mcp2210_transfer_data(data);
+        let obj = await this.mcp2210_transfer_data(data);
 
         if(!obj.error)
         {
@@ -633,8 +640,8 @@ module.exports =
         
         //TODO: check for packet 
         // This doesn't work, we should find a way to detect when the packet has been sent
-        //while(this.cc1101_is_packet_sent_available());
-        //while(!this.cc1101_is_packet_sent_available());
+        while(await this.cc1101_is_packet_sent_available());
+        while(!await this.cc1101_is_packet_sent_available());
 
         return true;
     },
