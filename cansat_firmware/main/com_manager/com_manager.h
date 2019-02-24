@@ -17,7 +17,7 @@ typedef struct
 #define COM_MANAGER_CARRIER_FREQUENCY           915.0
 #define COM_MANAGER_QUEUE_SIZE                  20
 #define COM_MANAGER_QUEUE_ELEMENT_SIZE          sizeof(axtec_encoded_packet_t)
-#define COM_MANAGER_DEFAULT_REPORT_PERIOD       2000    // 2000 ms
+#define COM_MANAGER_DEFAULT_REPORT_PERIOD       200     // 200 ms
 #define COM_MANAGER_DEFAULT_REPORTS_ENABLED     false
 #define COM_MANAGER_MAX_SENSOR_IDS              20
 #define COM_MANAGER_AUTO_CLOSE_TIME             10000   // Automatic close time for parachute and balloon in ms
