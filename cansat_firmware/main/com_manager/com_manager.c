@@ -580,7 +580,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
 
         case CANSAT_ENABLE_DISABLE_PS:
             {
-                buffer[0] = CANSAT_ENABLE_DISABLE_REPORT;
+                buffer[0] = CANSAT_ENABLE_DISABLE_PS;
                 buffer[1] = 0x00;
 
                 bool enabled;
