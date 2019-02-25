@@ -93,7 +93,7 @@
       "subtitle": "Output: ",
       "testingLabel":" Test: ",
       "tips": "If you want to add a new sensor, you can do it in Resources > Sensors > Created by user",
-      "noTestOk": "Debe correr los test de integridad para acceder a esta funcionalidad",
+      "noTestOk": "You must run the integrity tests to access this functionality",
       "table":{
         "test": "Tests",
         "progress": "Progress",

@@ -1,19 +1,19 @@
 <template>
     <div class="form-wizard-tab-content">
         <h4 v-if="enableWizard" style="text-align:center">{{'cansat.project.new.wizard.stepTwo.description' | translate}}</h4>
-        <h4 v-else>{{'cansat.link.tabs.et' | translate}}</h4>
-        <div v-if="!isConnected">
-            
-            <p>{{ $t('cansat.project.new.wizard.stepTwo.titlePort') }}</p> 
-                    <vuestic-simple-select
-                    :label="'cansat.project.new.wizard.stepTwo.selectPort' | translate"
-                    v-model="USBPort"
-                    name="USBPort"
-                    :required="true"
-                    ref="USBPort"
-                    v-bind:options="serialPorts"
-                    @input="validateConnection"
-                    >
+        <h4 v-else style="text-align:center">{{'cansat.link.tabs.et' | translate}}</h4>
+        <div v-if="!isConnected" style="text-align:center">  
+            <p style="text-align:center">{{ $t('cansat.project.new.wizard.stepTwo.titlePort') }}</p> 
+            <vuestic-simple-select style="text-align:center"
+            :label="'cansat.project.new.wizard.stepTwo.selectPort' | translate"
+            v-model="USBPort"
+            name="USBPort"
+            :required="true"
+            ref="USBPort"
+            v-bind:options="serialPorts"
+            @input="validateConnection"
+            disabled
+            >
             </vuestic-simple-select>
         </div>
         <div class="col-md-12">

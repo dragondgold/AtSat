@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import sensors from 'data/Sensors'
+import defaultSensors from 'data/Sensors'
 import CanSatAPI from 'services/CanSatAPI'
 
 export default {
@@ -75,10 +75,13 @@ export default {
                 { "title" : 'cansat.resources.sensors.tabs.variables.table.unit'},
                 { "title" : 'cansat.resources.sensors.tabs.variables.table.status'},
                 { "title" : 'cansat.resources.sensors.tabs.variables.table.actions'}],
-            sensors: this.$store.getters.axtec.project.cansat[0].sensors,
         }
     },
-
+    computed:{
+        sensors(){
+            return this.$store.getters.axtec.project.cansat[0].sensors
+        }
+    },
     methods:{
         filterSensors(s){
             let filter = this.filterTableByType
@@ -113,33 +116,15 @@ export default {
             this.$store.commit('setSensor', s)
         },
         resetPowerSuply(){
-            let sensor = JSON.parse(JSON.stringify(this.sensors))
-            let filtered = sensor.filter(function(n) {
-                return (n._type == 'power')
-            })
-
-            
-
-            for(let s = 0 ;s < filtered.length;s++){
-                let sensor;
-                let index = -1
-                
-                let searchID = this.$store.getters.axtec.project.mission.data.sensors
-                for(let c = 0; c <searchID.length; c++ ){
-                    if(searchID[c].id == filtered[s].sensorID){
-                        index = c
-                        sensor = searchID[c];
-                        break;
-                    }
-                }
-                if(sensor != undefined){ 
-                    filtered[s].status= 'ok'
-                    filtered[s].sensorID = index
-                    this.$store.commit('setSensor', filtered[s])
-                }
-                CanSatAPI.enablePowerSupply()
-            }
+            CanSatAPI.enablePowerSupply(this.powerSupplyOk, this.powerSupplyFail)
+        },
+        powerSupplyOk(){
+            this.$store.commit('setPowerSuppliesState', { status: 'ok'})
+        },
+        powerSupplyFail(){
+            this.$store.commit('setPowerSuppliesState', { status: 'danger'})
         }
+
     }
 }
 </script>

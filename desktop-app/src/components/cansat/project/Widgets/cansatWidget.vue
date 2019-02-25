@@ -1,6 +1,6 @@
 <template>
     <div class="form-wizard-tab-content">
-        <div v-if="ETConnected">
+        <div v-if="ETConnected" style="text-align:center">
             <h4 v-if="enableWizard">{{'cansat.project.new.wizard.stepThree.description' | translate}}</h4>
             <h4 v-else>{{'cansat.link.tabs.cansat' | translate}}</h4>
             <div v-if="!isCanSatConnect">
@@ -49,7 +49,6 @@
                     </thead>
                     <tbody>
                         <tr v-for="(cansat,key) in cansats" :key="key">
-                            <td>{{cansat.id}}</td>
                             <td>{{cansat.name}}</td>
                             <td>{{rssi}}</td>
                             <td>{{lqi}}</td>
@@ -76,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div v-else>
+        <div v-else style="text-align:center">
             <h4>{{'cansat.link.tabs.cansat' | translate}}</h4>
             <p>{{'cansat.link.etDisconnectedLabel' | translate}}</p>
         </div>
@@ -105,11 +104,14 @@ export default {
             selectedCansat: this.$store.getters.axtec.project.cansat[0].id,
             valid: false,
             isCanSatConnect: this.$store.getters.axtec.project.cansat[0].connected,
-            fields: [ {'title':  'cansat.link.table.id' },{'title': 'cansat.link.table.name'}, {'title':'RSSI'},{'title':'LQI'}, {'title':'Batt'},{'title':'cansat.link.table.action'}],
+            fields: [ {'title': 'cansat.link.table.name'}, {'title':'RSSI'},{'title':'LQI'}, {'title':'Batt'},{'title':'cansat.link.table.action'}],
             cansats: [this.$store.getters.axtec.project.cansat[0]],
             disableIDList: true // TODO: CREATE A LIST OF CANSAT DETECTED
         }
     },    
+    created(){
+
+    },
     computed:{
         rssi(){
             return this.$store.getters.axtec.project.cansat[0].rssi
@@ -222,6 +224,7 @@ export default {
         },
         resetSensors(){
             let sensors = defaultSensors.getSensors()
+            debugger
             for(let s = 0; s < sensors.length; s++){
                 this.$store.commit('addNewSensor', sensors[s])     
             }     
