@@ -1222,35 +1222,6 @@ F 3 "" H 3600 6550 50  0001 C CNN
 $EndComp
 Text Label 3050 6400 2    50   ~ 0
 RXD
-$Comp
-L Device:R R3
-U 1 1 5C2E87A0
-P 7300 3950
-F 0 "R3" H 7230 3904 50  0000 R CNN
-F 1 "10k" H 7230 3996 50  0000 R CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7230 3950 50  0001 C CNN
-F 3 "~" H 7300 3950 50  0001 C CNN
-F 4 "RC0603JR-0710KL" H 7300 3950 50  0001 C CNN "Manufacturer Part Number"
-	1    7300 3950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VBUS #PWR0105
-U 1 1 5C2E8CBB
-P 7300 3800
-F 0 "#PWR0105" H 7300 3650 50  0001 C CNN
-F 1 "VBUS" H 7314 3975 50  0000 C CNN
-F 2 "" H 7300 3800 50  0001 C CNN
-F 3 "" H 7300 3800 50  0001 C CNN
-	1    7300 3800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7300 4100 7300 4200
-Wire Wire Line
-	7300 4200 7900 4200
-Wire Wire Line
-	7900 4200 7900 3600
 Wire Wire Line
 	7900 3600 8050 3600
 Text Label 9450 2700 0    50   ~ 0
@@ -1302,4 +1273,17 @@ F 3 "http://www.ftdichip.com/Products/ICs/FT231X.html" H 8750 3000 50  0001 C CN
 	1    8750 3000
 	-1   0    0    -1  
 $EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C73E497
+P 7900 3750
+F 0 "#PWR?" H 7900 3500 50  0001 C CNN
+F 1 "GND" H 7904 3576 50  0000 C CNN
+F 2 "" H 7900 3750 50  0001 C CNN
+F 3 "" H 7900 3750 50  0001 C CNN
+	1    7900 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7900 3600 7900 3750
 $EndSCHEMATC
