@@ -45,11 +45,7 @@ export default {
         {
           code: 'es',
           name: 'spanish',
-        },
-        {
-          code: 'br',
-          name: 'brazilian_portuguese',
-        },
+        }
       ],
     },
   },
