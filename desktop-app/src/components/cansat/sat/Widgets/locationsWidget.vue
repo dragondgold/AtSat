@@ -31,7 +31,6 @@ export default {
     computed:{
         ...mapGetters({
             location: 'location',
-            signal: 'cansatSignal',
             name: 'cansatName',
             battery: 'cansatBattery'
         })
@@ -70,7 +69,6 @@ export default {
                 '<div style="width:5rem">' +
                     this.name + 
                     '<br><i class="fa fa-rocket" style="color:red;margin:0.24rem"></i>: ' +  this.altitude +' m' + 
-                    '<br><i class="fa fa-signal" style="color:blue;margin:0.24rem"></i>: '+ this.signal  + ' %' +
                     '<br><i class="fa fa-battery-full" style="color:green;margin:0.24rem"></i>: '+ this.battery + ' %' +
                 '</div>'
             )

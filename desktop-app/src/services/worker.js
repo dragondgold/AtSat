@@ -7,6 +7,9 @@ const vid = 0x4D8;
 const pid = 0xDE;
 const MCP_MANUFACTURER = 'Microchip Technology, Inc.';
 
+const powerSuppliesArray =  [1,2,3,4,5,6]
+const sensorsArray=  [7,8,9,10,12,13,14,15]
+
 let control = {
   et:{
     attempt: 0,
@@ -26,6 +29,7 @@ let control = {
 let isCCUBusy =false;
 let queueSend = [];
 let comName = '';
+let comPorts = 0;
 
 /**
  * Decode data from packet
@@ -79,17 +83,39 @@ let cmdWorker = function(msg)
 
     if(cmd == 'disconnectSerialPort')
     {
-      comName = '';
-      clearInterval(control.et.intervalConnect);
-      clearInterval(control.cansat.intervalMission);
-      control.et.connected = false;
-      control.cansat.connected = false;
-      let port = cc1101.get_port();
-      port.close();
+     
+      if( control.et.connected){
+        clearOnDisconnect();
+      }
     }
+
+    if(cmd == 'disconnectToCansat')
+    {
+      control.cansat.connected = false;
+    }
+
 
   }
 }
+
+let clearOnDisconnect = function(){
+  comName = '';
+  clearInterval(control.et.intervalConnect);
+  clearInterval(control.cansat.intervalMission);
+  if(control.et.connected){
+    let port = cc1101.get_port();
+    port.close();
+  }
+  isCCUBusy = false;
+  control.et.connected = false;
+  control.cansat.connected = false;
+  process.send({
+    et: {
+      state: 'disconnected'
+    }
+  });
+}
+
 
 /**
  * Send command to CANSAT 
@@ -157,6 +183,9 @@ let checkForData = async function(sendToparent){
 
       if(data.valid){
         console.log(decoded.decoded);
+        if(!control.cansat.connected){
+          control.cansat.connected = true;
+        }
 
         if(process.send && sendToparent){
           process.send({
@@ -199,7 +228,9 @@ let missionActive = async function ()
       getPowerSupplies();
       getSensors();
     }
-    getBatteryLevel();
+    if(control.cansat.connected){
+      getBatteryLevel();
+    }
   }  
 }
 
@@ -208,7 +239,7 @@ let missionActive = async function ()
  */
 let getSensors = function ()
 {
-  return sendCommand('getSensor', [7,8,9,10,12,13,14,15],true); 
+  return sendCommand('getSensor', sensorsArray, true); 
 }
 
 /**
@@ -216,7 +247,7 @@ let getSensors = function ()
  */
 let getPowerSupplies = function ()
 {
-  sendCommand('getSensor', [1,2,3,4,5,6], true); 
+  sendCommand('getSensor', powerSuppliesArray, true); 
 }
 
 /**
@@ -235,114 +266,26 @@ let getCansatConnected = function(){
   sendCommand('getBattery', [], true); 
 }
 
-/**
- *  Logic to connected to an ET
- */
-let checkForETConnected = async function()
-{
-  let detectedDev = false;
-  if(usb == undefined){
-    detectedDev = true;
-  }else{
-    detectedDev = usb.findByIds( vid, pid ) 
-  }
-  if( detectedDev  && control.et.error == 0)
-  {
-    if(!control.et.connected)
-    {
-      if(process.send)
+let main = function(){
+  SerialPort.list().then( function(ports){
+    let serialPorts = [];
+    for(let sp = 0; sp < ports.length ; sp++){
+      if( ports[sp].manufacturer == MCP_MANUFACTURER)
       {
-        process.send({
-          et: {
-            state: 'config'
-          }
-        });
+        serialPorts.push( ports[sp].comName)
       }
-  
-      while(control.et.attempt < maxAttempt && !control.et.connected)
-      {
-        control.et.connected = await cc1101.cc1101_init('COM12');
-        if(control.et.connected)
-        {
-          control.et.attempt = 0; 
-          
-        }
-        else
-        {
-          control.et.attempt ++;
-          console.log( "Trying to connect to an ET, Attempt: " + control.et.attempt)
-        }
-      }  
-      control.et.attempt = 0;
-
-
-
-      if(control.et.attempt == maxAttempt && !control.et.connected)
-      {
-        control.cansat.connected = false;
-        console.log( "Error configuring ET");
-        if(process.send)
-        {
-          control.et.error = -1;
-          process.send({
-            et: {
-              state: 'error'
-            }
-          })
-        }
-        return false
-      }
-      else if(control.et.connected)
-      {
-        //control.cansat.interval = setInterval(intervalConnectCanSat, control.cansat.time);
-        console.log( "ET CONNECTED: " + control.et.connected);
-        if(process.send)
-        {
-          control.et.error = 0;
-          process.send({
-            et: {
-              state: 'connected'
-            }
-          })
-          console.log("ET CONNECTED")
-          return true
-        }
-      }      
-    }else{
-      return true;
-    }    
-  }
-  else if(control.et.connected)
-  {
-    if(process.send)
-    {
-      control.et.connected = false;
-      control.et.cansat = false;
-      process.send({
-        et: {
-          state: 'disconnected'
-        }
-      });
     }
-    return false
-  }
-}
+    if(process.send) process.send({serialPorts: serialPorts}); 
 
-
-let findET = function(){
+    if( comPorts.length != comPorts.length ){
+      comPorts = serialPorts;
+      if(serialPorts.length == 0){
+        clearOnDisconnect();
+      }
+    }
+  })
   if(!control.et.connected)
   {
-    SerialPort.list().then( function(ports){
-      let serialPorts = [];
-      for(let sp = 0; sp < ports.length ; sp++){
-        if( ports[sp].manufacturer == MCP_MANUFACTURER)
-        {
-          serialPorts.push( ports[sp].comName)
-        }
-      }
-      if(process.send) process.send({serialPorts: serialPorts}); 
-    })
-
     if(comName != ''){
       process.send({
         et: {
@@ -351,18 +294,20 @@ let findET = function(){
       });
       cc1101.cc1101_init(comName).then(async function()
       {
-
+        isCCUBusy = false;
         control.et.connected = true;
         process.send({
           et: {
             state: 'connected'
           }
         });
+        clearInterval(control.et.intervalConnect);
         control.et.intervalConnect = setInterval(async function(){
           await checkForData(true);
           await sendCMDCanSat();
         }, 200); 
 
+        clearInterval(control.cansat.intervalMission);
         control.cansat.intervalMission =setInterval(async function(){
           missionActive();
         }, 1000); 
@@ -375,10 +320,6 @@ let findET = function(){
   }
 }
 
-/*
-
-*/ 
-
 setInterval(async function(){
-  findET();
+  main();
 }, 1000); 

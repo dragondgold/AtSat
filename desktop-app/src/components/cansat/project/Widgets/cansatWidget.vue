@@ -4,15 +4,18 @@
             <h4 v-if="enableWizard">{{'cansat.project.new.wizard.stepThree.description' | translate}}</h4>
             <h4 v-else>{{'cansat.link.tabs.cansat' | translate}}</h4>
             <div v-if="!isCanSatConnect">
-                <p>{{ $t('cansat.project.new.wizard.stepThree.titleCanSat') }}</p>    
-                <vuestic-simple-select
-                :label="'cansat.project.new.wizard.stepThree.selectCanSat' | translate"
-                v-model="selectedCansat"
-                name="selectedCansat"
-                :required="true"
-                ref="selectedCansat"
-                v-bind:options="canSatList" disabled>
-                </vuestic-simple-select>
+                <div v-if="!disableIDList">
+                    <p>{{ $t('cansat.project.new.wizard.stepThree.titleCanSat') }}</p>    
+                    <vuestic-simple-select
+                    :label="'cansat.project.new.wizard.stepThree.selectCanSat' | translate"
+                    v-model="selectedCansat"
+                    name="selectedCansat"
+                    :required="true"
+                    ref="selectedCansat"
+                    v-bind:options="canSatList" disabled>
+                    </vuestic-simple-select>
+                </div>
+               
                 <p>{{ $t('cansat.project.new.wizard.stepThree.titleName') }}</p>    
                 <div class="form-group with-icon-right" style="width: inherit"
                     :class="{'has-error': !isFormPathValid(canSatName), 'valid': isFormPathValid(canSatName)}">
@@ -82,8 +85,10 @@
 
 <script>
 const isValidPath = require('is-valid-path')
+import CanSatAPI from 'services/CanSatAPI'
 import defaultActuators from 'data/Actuators'
 import defaultSensors from 'data/Sensors'
+import utils from 'services/utils'
 
 export default {
     name: 'cansat-widget',
@@ -101,7 +106,8 @@ export default {
             valid: false,
             isCanSatConnect: this.$store.getters.axtec.project.cansat[0].connected,
             fields: [ {'title':  'cansat.link.table.id' },{'title': 'cansat.link.table.name'}, {'title':'RSSI'},{'title':'LQI'}, {'title':'Batt'},{'title':'cansat.link.table.action'}],
-            cansats: [this.$store.getters.axtec.project.cansat[0]]
+            cansats: [this.$store.getters.axtec.project.cansat[0]],
+            disableIDList: true // TODO: CREATE A LIST OF CANSAT DETECTED
         }
     },    
     computed:{
@@ -154,22 +160,52 @@ export default {
             this.resetActuators() 
         },
         connect(){
-            if( this.canSatName != '' &&  this.selectedCansat != ''){
+            if( this.canSatName != '' &&  (this.selectedCansat != '' || this.disableIDList)){
                 this.setStatusesOnConnect()
+                CanSatAPI.connectToCansat(this.connectOK, this.connectFAIL)
             }
+        },
+        connectOK(){
+            this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': true})
+            this.$store.commit('pushNotificationToast',{ 
+                'text': vm.$t('cansat.notifications.etCansatConnected'), 
+                'icon': 'fa-check'          
+            })
+            this.$store.commit('pushNotificationModal',{ 
+                'title': vm.$t('cansat.notifications.etCansatConnected'), 
+                'date': utils.getDate(),
+                'code': 0,
+                'uuid': utils.generateUUID().toString(),
+                'type': vm.$t('cansat.notifications.center.types.info')
+            })
+        },
+        connectFAIL(){
+            this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': false})
+            this.$store.commit('pushNotificationToast',{ 
+                'text': vm.$t('cansat.notifications.etCansatErrorConnect'), 
+                'icon': 'fa-check'          
+            })
+            this.$store.commit('pushNotificationModal',{ 
+                'title': vm.$t('cansat.notifications.etCansatErrorConnect'), 
+                'date': utils.getDate(),
+                'code': 0,
+                'uuid': utils.generateUUID().toString(),
+                'type': vm.$t('cansat.notifications.center.types.info')
+            })
         },
         disconnect(){
             this.clearStatusesOnDisconnect()
+            CanSatAPI.disconnectToCansat()
         },  
         validateConnection(){
-            if(this.canSatName != '' && this.selectedCansat != ''){
+            if(this.canSatName != '' &&  (this.selectedCansat != '' || this.disableIDList)){
                 this.valid = true
             }else{
                 this.valid = false
             }
         },
         isValid(){
-            return this.valid 
+            return this.isCanSatConnect
         },
         isFormPathValid(field){
             return isValidPath(field) && field != ''

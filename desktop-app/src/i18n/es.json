@@ -281,6 +281,7 @@
       "etDisconnected": "Estación terrena desconectada.",
       "etCansatConnected": "CanSat conectado",
       "etCansatDisconnected": "CanSat desconectado",
+      "etCansatErrorConnect": "No se pudo establecer la conexión con el CanSat",
       "center":{
         "title": "Centro de notificaciones",
         "searchLabel": "Buscar",

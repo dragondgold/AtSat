@@ -1,6 +1,6 @@
 <template>
     <div class="form-wizard-tab-content">
-        <h4 v-if="enableWizard">{{'cansat.project.new.wizard.stepTwo.description' | translate}}</h4>
+        <h4 v-if="enableWizard" style="text-align:center">{{'cansat.project.new.wizard.stepTwo.description' | translate}}</h4>
         <h4 v-else>{{'cansat.link.tabs.et' | translate}}</h4>
         <div v-if="!isConnected">
             
@@ -16,9 +16,9 @@
                     >
             </vuestic-simple-select>
         </div>
-        <div class="col-md-12" v-if="!enableWizard" >
+        <div class="col-md-12">
             <div>
-                <p v-if="isConnected">  {{$t('cansat.link.etConnectedLabel') + USBPort.toUpperCase()}}  </p>
+                <p v-if="isConnected" style="text-align:center">{{$t('cansat.link.etConnectedLabel') + USBPort.toUpperCase()}}  </p>
                 <div class="col-md-12 pt-1 mb-3" style="text-align:center">
                     <button v-if="!isConnected" class="btn btn-success btn-micro " @click="connect()">
                         {{ $t('cansat.link.connect') }}
@@ -65,8 +65,10 @@ export default {
     },
     watch:{
         serialPorts(ports){
-            if(ports.length == 0 && !this.isConnected){
+            if(ports.length == 0){
                 this.USBPort = ''
+                this.clearStatusesOnDisconnect()
+                this.disconnect()
             }
         }
     },
@@ -80,7 +82,7 @@ export default {
             this.$store.commit('setStatusEarthStation', false)
             this.$store.commit('setStatusCanSat', { 'index': 0, 'connected': false})
             this.$store.commit('setIDCanSat', { 'index': 0, 'id': ''})
-            this.$store.commit('setNameCanSat', { 'index': 0, 'name': ''})
+            //this.$store.commit('setNameCanSat', { 'index': 0, 'name': ''})
             this.isConnected =false
         },
         connect(){
@@ -104,6 +106,9 @@ export default {
             }else{
                 this.valid = false
             }
+        },
+        isETConnected(){
+            return this.isConnected
         },
         isValid(){
             return this.valid
