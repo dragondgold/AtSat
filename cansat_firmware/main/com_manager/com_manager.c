@@ -607,6 +607,13 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
             ESP_LOGW(TAG, "Unknown packet type %d", type);
             break;
 
+        case CANSAT_SEND_DATA:
+            // Send data to the base station
+            ESP_LOGD(TAG, "Sending CANSAT_SEND_DATA packet");
+            axtec_packet_encode(&packet_to_send, packet->data, packet->length);
+            xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
+            break;
+
         default:
             ESP_LOGE(TAG, "Shouldn't reach default case with type %d", type);
             break;
