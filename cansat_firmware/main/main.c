@@ -114,8 +114,8 @@ void app_main()
     err += servo_manager_init();
     err += com_manager_init();
     err += power_monitor_init();
-    //err += sup_cmd_manager_init();
-    err += console_manager_init();
+    err += sup_cmd_manager_init();
+    //err += console_manager_init();
 
     ESP_LOGI(TAG, "RAM left: %d bytes", esp_get_free_heap_size());
 
@@ -129,7 +129,7 @@ void app_main()
     }
     else
     {
-        ESP_LOGE(TAG, "System init failed!");
+        ESP_LOGE(TAG, "------ System init failed! ------");
         led_manager_fast_blink(false);
     }
 

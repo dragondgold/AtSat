@@ -24,4 +24,6 @@ typedef struct
 
 esp_err_t com_manager_init(void);
 
+void com_manager_add_packet(axtec_decoded_packet_t* packet);
+
 #endif // __COM_MANAGER_H__

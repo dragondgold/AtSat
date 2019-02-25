@@ -580,7 +580,7 @@ static void process_cansat_packet(axtec_decoded_packet_t* packet)
 
         case CANSAT_ENABLE_DISABLE_PS:
             {
-                buffer[0] = CANSAT_ENABLE_DISABLE_REPORT;
+                buffer[0] = CANSAT_ENABLE_DISABLE_PS;
                 buffer[1] = 0x00;
 
                 bool enabled;
@@ -918,4 +918,15 @@ esp_err_t com_manager_init(void)
 
     ESP_LOGE(TAG, "Error initializing!");
     return ESP_FAIL;
+}
+
+void com_manager_add_packet(axtec_decoded_packet_t* packet)
+{
+    // Take the mutex
+    if(xSemaphoreTake(cc1101_mutex, pdMS_TO_TICKS(500)))
+    {
+        // Process the added packet
+        process_cansat_packet(packet);
+        xSemaphoreGive(cc1101_mutex);
+    }
 }
