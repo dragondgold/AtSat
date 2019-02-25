@@ -279,6 +279,7 @@
       "etConfig": "Configuring Earth station.",
       "etDisconnected": "Earth station disconnected.",
       "etCansatConnected": "CanSat connected",
+      "etCansatErrorConnect": "We could not establish connection with the CanSat",
       "etCansatDisconnected": "CanSat disconnected",
       "center":{
         "title": "Notification center",

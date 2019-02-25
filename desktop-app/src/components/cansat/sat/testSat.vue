@@ -89,8 +89,15 @@
 </template>
 
 <script>
+import CanSatAPI from 'services/CanSatAPI'
 import utils from 'services/utils'
 import { BreedingRhombusSpinner} from 'epic-spinners'
+
+const powerSuppliesArray =  [1,2,3,4,5,6]
+const sensorsArray =  [8,9,10,12,13,14,15]
+const gpsArray = [7]
+
+let that;
 
 export default {
   name: 'test-sat',
@@ -102,7 +109,7 @@ export default {
       debug: this.$store.getters.axtec.debug,
       isConnected: this.$store.getters.axtec.project.cansat[0].connected,
       testResult: this.$store.getters.axtec.project.cansat[0].testOk,
-      testTimetoout: 1000,
+      testTimetoout: 2000,
 
       fieldsSensors: [
         { title : 'cansat.test.table.test'},
@@ -118,12 +125,13 @@ export default {
       isTestRunning: false,
       testFinished: false,
       anErrorOcurred: false,
-      testingName: ''
+      testingName: '',
+      gpsHistory: 0
    }
   },
 
   created(){
-  
+    that = this;
   },
 
   computed: {
@@ -174,6 +182,7 @@ export default {
             'uuid': utils.generateUUID().toString(),
             'type': this.$t('cansat.notifications.center.types.action')
       })
+      CanSatAPI.setActuator(0, 1)
     },
     testBalloon(){
       this.testingName = 'balloon'
@@ -189,6 +198,7 @@ export default {
             'uuid': utils.generateUUID().toString(),
             'type': this.$t('cansat.notifications.center.types.action')
       })
+      CanSatAPI.setActuator(1, 1)
     },
     okCallbackActuators(){
       if(this.testingName == 'parachute'){
@@ -228,42 +238,6 @@ export default {
       }   
     },
 
-    testsSensors(){ 
-      this.$store.commit('pushNotificationModal',{ 
-            'title': this.$t('cansat.notifications.modal.test.sensors'), 
-            'date': utils.getDate(),
-            'code': 0,
-            'uuid': utils.generateUUID().toString(),
-            'type': this.$t('cansat.notifications.center.types.info')
-        })
-      this.tests[this.actualTest].status = 'testing'
-      if(this.debug){
-        setTimeout(this.okCallbackSensors, this.testTimetoout);
-      }else{
-        // Send command to cansat here and get response
-      }
-    },
-    okCallbackSensors(){
-      this.tests[this.actualTest].status = 'ok'
-      this.actualTest++
-      this.tests[this.actualTest].test()
-    },
-    errorCallbackSensors(){
-      this.error()
-    },
-    errorNotifSensors(){
-      this.$store.commit('pushNotificationModal',{ 
-          'title': this.$t('cansat.notifications.modal.test.sensorsError'), 
-          'content': this.$t('cansat.notifications.modal.test.sensorsContentError'),
-          'date': utils.getDate(),
-          'code': 0,
-          'okText': this.$t('cansat.notifications.modal.okBtn'),
-          'uuid': utils.generateUUID().toString(),
-          'type': this.$t('cansat.notifications.center.types.error'),
-          'cancelDisabled': true
-        })
-    },
-
     testsPowerSupllies(){
       this.$store.commit('pushNotificationModal',{ 
             'title': this.$t('cansat.notifications.modal.test.powerSupplies'), 
@@ -273,19 +247,15 @@ export default {
             'type': this.$t('cansat.notifications.center.types.info')
         })
       this.tests[this.actualTest].status = 'testing'
-      if(this.debug){
-        setTimeout(this.okCallbackPowerSupplies, this.testTimetoout);
-      }else{
-        // Send command to cansat here and get response
-      }
+      CanSatAPI.getSensors( powerSuppliesArray, this.okCallbackPowerSupplies, this.errorCallbackPowerSupplies)  
     },
     okCallbackPowerSupplies(){ 
-      this.tests[this.actualTest].status = 'ok'
-      this.actualTest++
-      this.tests[this.actualTest].test()
+      that.tests[that.actualTest].status = 'ok'
+      that.actualTest++
+      setTimeout(that.tests[that.actualTest].test(), this.testTimetoout)
     },
     errorCallbackPowerSupplies(){ 
-      this.error()
+      that.error()
     },
     errorNotifPowerSupplies(){
       this.$store.commit('pushNotificationModal',{ 
@@ -300,7 +270,40 @@ export default {
       })
     },
 
+    testsSensors(){ 
+      this.$store.commit('pushNotificationModal',{ 
+            'title': this.$t('cansat.notifications.modal.test.sensors'), 
+            'date': utils.getDate(),
+            'code': 0,
+            'uuid': utils.generateUUID().toString(),
+            'type': this.$t('cansat.notifications.center.types.info')
+        })
+      this.tests[this.actualTest].status = 'testing'
+      CanSatAPI.getSensors( sensorsArray, this.okCallbackSensors, this.errorCallbackSensors)  
+    },
+    okCallbackSensors(){
+      that.tests[that.actualTest].status = 'ok'
+      that.actualTest++
+      setTimeout(that.tests[that.actualTest].test(), this.testTimetoout)
+    },
+    errorCallbackSensors(){
+      that.error()
+    },
+    errorNotifSensors(){
+      this.$store.commit('pushNotificationModal',{ 
+          'title': this.$t('cansat.notifications.modal.test.sensorsError'), 
+          'content': this.$t('cansat.notifications.modal.test.sensorsContentError'),
+          'date': utils.getDate(),
+          'code': 0,
+          'okText': this.$t('cansat.notifications.modal.okBtn'),
+          'uuid': utils.generateUUID().toString(),
+          'type': this.$t('cansat.notifications.center.types.error'),
+          'cancelDisabled': true
+        })
+    },
+
     testGPS(){
+      this.gpsHistory = this.$store.getters.axtec.project.mission.data.location.history.length
       this.$store.commit('pushNotificationModal',{ 
             'title': this.$t('cansat.notifications.modal.test.gps'), 
             'date': utils.getDate(),
@@ -310,31 +313,32 @@ export default {
       })
       
       this.tests[this.actualTest].status = 'testing'    
-      if(this.debug){
-        setTimeout(this.okCallbackGPS, this.testTimetoout);
-      }else{
-        // Send command to cansat here and get response
-      }
+      CanSatAPI.getSensors( gpsArray, this.okCallbackGPS, this.errorCallbackGPS)  
     },
-    okCallbackGPS(){ 
-      this.tests[this.actualTest].status = 'ok'
-      this.finish()
-      this.$store.commit('pushNotificationModal',{ 
-            'title': this.$t('cansat.notifications.modal.test.finished'), 
-            'date': utils.getDate(),
-            'code': 0,
-            'uuid': utils.generateUUID().toString(),
-            'type': this.$t('cansat.notifications.center.types.info'),      
-      })
-      this.$store.commit('setTestStatus',{ 
-        cansatIndex: 0, 
-        testOk: true
-      })
-      this.$store.commit('pushNotificationToast',{ 
-          'text': this.$t('cansat.test.ok'), 
-          'icon': 'fa-check'          
-        })
-        
+    okCallbackGPS(){
+      setTimeout(() => {
+          if(this.gpsHistory == this.$store.getters.axtec.project.mission.data.location.history.length){
+            this.error()
+          }else{
+            this.tests[this.actualTest].status = 'ok'
+            this.finish()
+            this.$store.commit('pushNotificationModal',{ 
+                  'title': this.$t('cansat.notifications.modal.test.finished'), 
+                  'date': utils.getDate(),
+                  'code': 0,
+                  'uuid': utils.generateUUID().toString(),
+                  'type': this.$t('cansat.notifications.center.types.info'),      
+            })
+            this.$store.commit('setTestStatus',{ 
+              cansatIndex: 0, 
+              testOk: true
+            })
+            this.$store.commit('pushNotificationToast',{ 
+              'text': this.$t('cansat.test.ok'), 
+              'icon': 'fa-check'          
+            })  
+          }
+        }, 1000);
     },
     errorCallbackGPS(){ 
       this.error()

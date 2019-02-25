@@ -48,6 +48,7 @@ const {dialog} = require('electron').remote
 const storage = require('electron-json-storage')
 const {app} = require('electron')
 
+var that;
 export default {
   name: 'cansat-project-wizard',
   components: {
@@ -60,6 +61,8 @@ export default {
   },
   mounted(){
     this.clearStatuses() 
+    that = this;
+    that.$refs.etWidget.disconnect()
   },
   computed: {
     vsSteps () {
@@ -71,17 +74,17 @@ export default {
     
           },
           isValid: () => {
-            return this.$refs.projectWidget.isValid()
+            return that.$refs.projectWidget.isValid()
           },
         },
         {
           label: this.$t('cansat.project.new.wizard.stepTwo.label'),
           slot: 'page2',
           onNext: () => {
-
+      
           },
           isValid: () => {
-            return  this.$refs.etWidget.isValid()
+            return  that.$refs.etWidget.isETConnected()
           },
         },
         {
