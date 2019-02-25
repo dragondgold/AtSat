@@ -5,16 +5,20 @@
 #include <stdbool.h>
 #include "esp_log.h"
 
+//#define LOG_LOCAL_LEVEL     ESP_LOG_VERBOSE
 static const char* TAG = "axtec_packet";
 
 static uint8_t compute_checksum(uint8_t* data, unsigned int length)
 {
+    ESP_LOGV(TAG, "Computing checksum");
     uint8_t sum = 0;
     for(unsigned int n = 0; n < length; ++n)
     {
         sum += data[n];
+        ESP_LOGV(TAG, "Added %d", data[n]);
     }
 
+    ESP_LOGV(TAG, "Checksum is: %d", sum);
     return sum;
 }
 
@@ -118,7 +122,8 @@ axtec_packet_error_t axtec_packet_decode(axtec_decoded_packet_t* packet, uint8_t
     else
     {
         // Compute the checksum with the data bytes
-        uint8_t checksum = compute_checksum(packet->data, packet->length) + data[index + 1];
+        uint8_t checksum = compute_checksum(packet->data, packet->length) + data[index];
+        ESP_LOGV(TAG, "Computed sum is: %d and checksum byte is %d at %d", checksum, data[index], index);
 
         // Valid checksum?
         if(checksum == 0xFF)
