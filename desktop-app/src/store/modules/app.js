@@ -317,7 +317,6 @@ const mutations = {
     state.axtec.serialPorts = data.ports
   },
   setPowerSuppliesState(state,data){
-    debugger
     for(let s = 0 ; s < state.axtec.project.cansat[0].sensors.length; s++){
       if(state.axtec.project.cansat[0].sensors[s]._type == 'power'){
         state.axtec.project.cansat[0].sensors[s].status = data.status

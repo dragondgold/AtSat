@@ -19,6 +19,9 @@
         "closeParachute": "The actuator of parachute is closed",
         "openBalloon": "The actuator of balloon is open",
         "closeBalloon": "The actuator of balloon is close"
+      },
+      "powerSupplies":{
+        "enableOK": "Power supplies enabled" 
       }
     },
     "mission":{

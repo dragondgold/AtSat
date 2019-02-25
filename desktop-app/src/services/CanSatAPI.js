@@ -472,6 +472,17 @@ export default {
                     case 'setReport':
                         break;
                     case 'enablePowerSupply':
+                        store.commit('pushNotificationToast',{ 
+                            'text': vm.$t('cansat.worker.powerSupplies.enableOK'), 
+                            'icon': 'fa-check'          
+                        })
+                        store.commit('pushNotificationModal',{ 
+                            'title': vm.$t('cansat.worker.powerSupplies.enableOK'), 
+                            'date': utils.getDate(),
+                            'code': 0,
+                            'uuid': utils.generateUUID().toString(),
+                            'type': vm.$t('cansat.notifications.center.types.info')
+                        })
                         break;                                  
                 }
             }

@@ -19,6 +19,9 @@
         "closeParachute": "El actuador del paracaídas esta cerrado",
         "openBalloon": "El actuador del globo esta abierto",
         "closeBalloon": "El actuador del paracaídas esta cerrado"
+      },
+      "powerSupplies":{
+        "enableOK": "Fuentes de alimentación habilitadas" 
       }
     },
     "mission":{
@@ -200,8 +203,8 @@
           "actions": "Acciones"
         }
       }, 
-      "open": "Abrir",
-      "close": "Cerrar"     
+      "open": "Abierto",
+      "close": "Cerrado"     
     },
     "link":{
       "title": "Enlace",
