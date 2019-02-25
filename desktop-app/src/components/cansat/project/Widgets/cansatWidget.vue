@@ -1,5 +1,5 @@
 <template>
-    <div class="form-wizard-tab-content">
+    <div class="col-md-12">
         <div v-if="ETConnected" style="text-align:center">
             <h4 v-if="enableWizard">{{'cansat.project.new.wizard.stepThree.description' | translate}}</h4>
             <h4 v-else>{{'cansat.link.tabs.cansat' | translate}}</h4>
@@ -66,7 +66,7 @@
                 </table>
             </div>
 
-            <div class="col-md-12" v-if="!enableWizard">         
+            <div class="col-md-12">         
                 <div class="pt-1 mb-3" style="text-align:center">
                     <button v-if="!isCanSatConnect" class="btn btn-success btn-micro" @click="connect()">
                         {{'cansat.link.connect' | translate }}
@@ -207,16 +207,13 @@ export default {
             }
         },
         isValid(){
-            return this.isCanSatConnect
+            return this.valid
         },
         isFormPathValid(field){
             return isValidPath(field) && field != ''
         },
         getName(){
-            return this.canSatName
-        },
-        getSignalLevel(){
-            return this.signalLevel = 10
+            return this.isCanSatConnect
         },
         resetActuators(){
             this.$store.commit('setActuators', defaultActuators.actuators[defaultActuators.parachute])
@@ -224,7 +221,6 @@ export default {
         },
         resetSensors(){
             let sensors = defaultSensors.getSensors()
-            debugger
             for(let s = 0; s < sensors.length; s++){
                 this.$store.commit('addNewSensor', sensors[s])     
             }     

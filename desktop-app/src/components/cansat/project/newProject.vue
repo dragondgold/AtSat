@@ -95,6 +95,7 @@ export default {
           },
           isValid: () => {
             return  this.$refs.cansatWidget.isValid()
+            return  that.$refs.cansatWidget.isValid()
           },
         },
       ]
