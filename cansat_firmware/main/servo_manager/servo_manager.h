@@ -10,8 +10,8 @@
 
 #define SERVO_MANAGER_PARACHUTE_CLOSE_SERVO_DUTY        2.0       // 2 % of 50 Hz
 #define SERVO_MANAGER_PARACHUTE_OPEN_SERVO_DUTY         4.0       // 5 % of 50 Hz
-#define SERVO_MANAGER_BALLOON_CLOSE_SERVO_DUTY          2.0
-#define SERVO_MANAGER_BALLOON_OPEN_SERVO_DUTY           4.0
+#define SERVO_MANAGER_BALLOON_CLOSE_SERVO_DUTY          3.5
+#define SERVO_MANAGER_BALLOON_OPEN_SERVO_DUTY           2.0
 
 esp_err_t servo_manager_init(void);
 
