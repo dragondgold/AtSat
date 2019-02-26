@@ -16,6 +16,8 @@
 #include "sensor_manager/sensor_manager.h"
 #include "led_manager/led_manager.h"
 #include "aux_ps/aux_ps.h"
+#include "i2c_manager/i2c_manager.h"
+#include "spi_manager/spi_manager.h"
 
 #include "driver/spi_common.h"
 #include "driver/spi_master.h"
@@ -615,6 +617,14 @@ static void process_cansat_packet(axtec_decoded_packet_t *packet)
         xQueueSendToBack(tx_queue, &packet_to_send, pdMS_TO_TICKS(50));
         break;
 
+    case CANSAT_I2C_BUFFER:
+        ESP_LOGD(TAG, "Sending CANSAT_I2C_BUFFER packet");
+        break;
+
+    case CANSAT_SPI_BUFFER:
+        ESP_LOGD(TAG, "Sending CANSAT_SPI_BUFFER packet");
+        break;
+
     default:
         ESP_LOGE(TAG, "Shouldn't reach default case with type %d", type);
         break;
@@ -661,15 +671,6 @@ static void rx_task(void *arg)
             if (length > 0 && cc1101_is_packet_sent_available())
             {
                 ESP_LOGV(TAG, "Packet available");
-
-                if (led_manager_is_on())
-                {
-                    led_manager_off();
-                }
-                else
-                {
-                    led_manager_on();
-                }
 
                 // Read the packet
                 if (cc1101_read_data(&cc1101_packet))

@@ -3,6 +3,7 @@
 #include "driver/gpio.h"
 #include "config/cansat.h"
 #include "freertos/FreeRTOS.h"
+#include "led_manager/led_manager.h"
 
 #include "esp_log.h"
 
@@ -47,6 +48,16 @@ static void battery_sample_task(void* args)
             ESP_LOGI(TAG, "Battery avg current: %d mA", temp_data.avg_current);
             ESP_LOGI(TAG, "Battery voltage: %d mV", temp_data.volts);
             ESP_LOGI(TAG, "Battery temperature: %.2f", bq27441_get_temperature(INTERNAL_TEMP) / 100.0);
+
+            // Led indication when charging
+            if(temp_data.is_charging)
+            {
+                led_manager_slow_blink(true);
+            }
+            else
+            {
+                led_manager_on();
+            }
         }
 
         ESP_LOGV(TAG, "Battery SOC: %d %%", temp_data.soc);
