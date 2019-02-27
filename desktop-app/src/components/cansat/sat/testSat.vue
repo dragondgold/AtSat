@@ -201,16 +201,16 @@ export default {
       CanSatAPI.setActuator(1, 1)
     },
     okCallbackActuators(){
-      if(this.testingName == 'parachute'){
-        this.testBalloon()
+      if(that.testingName == 'parachute'){
+        that.testBalloon()
       }else{
-        this.tests[this.actualTest].status = 'ok'
-        this.actualTest++
-        setTimeout(this.tests[this.actualTest].test(), this.testTimetoout)
+        that.tests[that.actualTest].status = 'ok'
+        that.actualTest++
+        setTimeout(that.tests[that.actualTest].test(), that.testTimetoout)
       }
     },
     errorCallbackActuators(){
-      this.error()
+      that.error()
     },
     errorNotifActuators(){
       if(this.testingName == 'parachute'){
@@ -247,12 +247,12 @@ export default {
             'type': this.$t('cansat.notifications.center.types.info')
         })
       this.tests[this.actualTest].status = 'testing'
-      CanSatAPI.getSensors( powerSuppliesArray, this.okCallbackPowerSupplies, this.errorCallbackPowerSupplies)  
+      CanSatAPI.getSensors( powerSuppliesArray, that.okCallbackPowerSupplies, that.errorCallbackPowerSupplies)  
     },
     okCallbackPowerSupplies(){ 
       that.tests[that.actualTest].status = 'ok'
       that.actualTest++
-      setTimeout(that.tests[that.actualTest].test(), this.testTimetoout)
+      setTimeout(that.tests[that.actualTest].test(), that.testTimetoout)
     },
     errorCallbackPowerSupplies(){ 
       that.error()
@@ -279,12 +279,12 @@ export default {
             'type': this.$t('cansat.notifications.center.types.info')
         })
       this.tests[this.actualTest].status = 'testing'
-      CanSatAPI.getSensors( sensorsArray, this.okCallbackSensors, this.errorCallbackSensors)  
+      CanSatAPI.getSensors( sensorsArray, that.okCallbackSensors, that.errorCallbackSensors)  
     },
     okCallbackSensors(){
       that.tests[that.actualTest].status = 'ok'
       that.actualTest++
-      setTimeout(that.tests[that.actualTest].test(), this.testTimetoout)
+      setTimeout(that.tests[that.actualTest].test(), that.testTimetoout)
     },
     errorCallbackSensors(){
       that.error()
@@ -313,7 +313,7 @@ export default {
       })
       
       this.tests[this.actualTest].status = 'testing'    
-      CanSatAPI.getSensors( gpsArray, this.okCallbackGPS, this.errorCallbackGPS)  
+      CanSatAPI.getSensors( gpsArray, that.okCallbackGPS, that.errorCallbackGPS)  
     },
     okCallbackGPS(){
       setTimeout(() => {
