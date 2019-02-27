@@ -39,7 +39,7 @@ export default {
     }
   },
   getDate(){
-    return moment().format("YYYY-MM-DD HH:mm:ss",true)
+    return moment().format("YYYY-MM-DD HH:mm:ss.SS",true)
   },
   generateUUID(){
     return uuidv4()

@@ -12,13 +12,23 @@ module.exports = {
       filename: 'index.html',
       // when using title option,
       // template title tag needs to be <title><%= htmlWebpackPlugin.options.title %></title>
-      title: 'Vuestic Admin',
+      title: 'CanSat platform',
       // chunks to include on this page, by default includes
       // extracted common chunks and vendor chunks.
       chunks: ['chunk-vendors', 'chunk-common', 'index'],
     },
   },
   configureWebpack: {
+    optimization: {
+      namedChunks: true,
+      namedModules: true,
+      moduleIds: 'named',
+      concatenateModules: false,
+      minimize: false
+    },
+    output: {
+      filename: '[name].[hash].bundle.js'
+    },
     resolve: {
       alias: {
         'vue$': 'vue/dist/vue.esm.js',
@@ -36,6 +46,10 @@ module.exports = {
         'vuex-store': path.resolve('src/store')
       }
     },
+    externals: {
+      bindings: "require('bindings')",
+      serialport: "require('serialport')"
+    }
   },
   css: {
     loaderOptions: {
@@ -45,5 +59,6 @@ module.exports = {
         data: `@import "@/sass/shared.scss";`
       }
     }
-  }
+  },
+
 }

@@ -1,10 +1,10 @@
 <template>
   <div v-if="CanSatConnected" class="status-bar-container">
     <div class="col-md-12" style="width:5rem;color:white">
-      <i class="fa fa-signal" style="color:blue;margin:0.24rem"></i>
-      {{ lqi}}
-      <i class="fa fa-battery-full" style="color:green;margin:0.24rem"></i>
-      {{ battery}}
+      <i class="fa fa-signal" style="color:#0000ff;margin:0.24rem"></i>
+      {{ lqi}} %
+      <i class="fa fa-battery-full" style="color:#00ff00;margin:0.24rem"></i>
+      {{ battery}} %
     </div>
   </div>
 </template>

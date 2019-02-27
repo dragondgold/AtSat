@@ -1,24 +1,59 @@
-const { fork } = require('child_process');
-const ms = 700;
-
 import store from '../store'
 import utils from 'services/utils'
 import defaultSensors from 'data/Sensors.js'
-import { debug } from 'electron-log';
+//const SerialPort = require('serialport')
 
+
+let SerialPort
+try {
+    SerialPort = require('serialport');
+    console.log('Serial port ok')
+} catch (error) {
+    debugger
+    console.log('Serial port fail: ' + error)
+}
+
+
+const { fork } = require('child_process');
+const ms = 700;
+const path = require('path');
 let worker = undefined
 
 let defaultCmds = undefined
 
 let queueSend = [];
 let queueRec = [];
-let waitingResponse = false;
+
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
+let workerPath = path.resolve('./src/services/worker.js')
+let args = [isDevelopment]
+if (!isDevelopment) {
+    workerPath = path.resolve('./resources/build/worker.js')
+}
 
 export default {
-    initWorker()
-    {
-        
-        worker =  fork(require.resolve('./worker.js'));
+    initWorker() {
+        //workerPath = require.resolve('./worker.js');
+        worker = fork(workerPath, args,
+            {
+                ... (!isDevelopment ? {
+                    cwd: path.resolve('./resources/app')
+                } : []),
+                silent: true,
+                detached: true,
+                stdio: 'pipe'
+            })
+
+
+        worker.stderr.on('data', function (data) {
+            console.log('stderror: ' + data);
+        });
+
+        worker.stdout.on('data', function (data) {
+            console.log('stdout: ' + data);
+        });
+
 
         let that = this
         worker.on('message', (msg) => {
@@ -27,11 +62,11 @@ export default {
             that.cansatConnected(msg);
             that.newCMDReceived(msg);
 
-            if(msg.test){
+            if (msg.test) {
                 console.log(msg.test);
             }
 
-            if(msg.queueAdd || msg.queueSend){
+            if (msg.queueAdd || msg.queueSend) {
                 console.log(msg);
                 /*
                 if(msg.queueSend && queueSend.length != 0 && waitingResponse){
@@ -40,20 +75,20 @@ export default {
                 }*/
             }
 
-            if(msg.serialPorts){
-                if(store.getters.axtec.serialPorts.length != msg.serialPorts.length){
-                    store.commit('setSerialPorts', {ports: msg.serialPorts})   
+            if (msg.serialPorts) {
+                if (store.getters.axtec.serialPorts.length != msg.serialPorts.length) {
+                    store.commit('setSerialPorts', { ports: msg.serialPorts })
                 }
             }
 
-            if(msg.newCMDReceived && msg.newCMDReceived.packet){
+            if (msg.newCMDReceived && msg.newCMDReceived.packet) {
                 let packet = msg.newCMDReceived.packet
-                if(packet.rssi){
-                    store.commit('setRSSI', { rssi: packet.rssi })   
+                if (packet.rssi) {
+                    store.commit('setRSSI', { rssi: packet.rssi })
                     //console.log("RSSI: "+ packet.rssi)  
                 }
-                if(packet.lqi){
-                    store.commit('setLQI', { lqi: packet.lqi }) 
+                if (packet.lqi) {
+                    store.commit('setLQI', { lqi: parseInt((127 - packet.lqi) * 100 / 127) })
                     //console.log("LQI: "+ packet.lqi)      
                 }
             }
@@ -64,60 +99,58 @@ export default {
             console.log("\n\t\tERROR: spawn failed! (" + err + ")")
         });
 
-        worker.on('exit', (e) => {
+        worker.on('exit', (e, signal) => {
             debugger
-            console.log("Exit fork: " + e)
+            console.log("Exit fork e: " + e)
+            console.log("Exit fork signal: " + signal)
             worker = undefined
             setTimeout(that.initWorker, 5000);
         });
     },
-    initDefaultStructure(){
+    initDefaultStructure() {
         // Load sensors structure
         let sensors = defaultSensors.getSensors()
-        for(let s = 0; s < sensors.length; s++){
-            store.commit('addNewSensor', sensors[s])     
-        }     
+        for (let s = 0; s < sensors.length; s++) {
+            store.commit('addNewSensor', sensors[s])
+        }
     },
-    killWorker()
-    {
-        if(worker != undefined){
+    killWorker() {
+        if (worker != undefined) {
             worker.kill()
         }
     },
-    etConnected(msg)
-    {
-        if(msg.et)
-        {
-            if(msg.et.state == 'error'){
-                store.commit('pushNotificationModal',{ 
-                    'title': vm.$t('cansat.notifications.etConfig'), 
-                    'content': m.$t('cansat.notifications.etError'), 
+    etConnected(msg) {
+        if (msg.et) {
+            if (msg.et.state == 'error') {
+                store.commit('pushNotificationModal', {
+                    'title': vm.$t('cansat.notifications.etConfig'),
+                    'content': m.$t('cansat.notifications.etError'),
                     'date': utils.getDate(),
                     'code': 0,
                     'uuid': utils.generateUUID().toString(),
                     'type': vm.$t('cansat.notifications.center.types.error')
                 })
             }
-            else if(msg.et.state == 'config'){
-                store.commit('pushNotificationToast',{ 
-                    'text': vm.$t('cansat.notifications.etConfig'), 
-                    'icon': 'fa-wrench'          
+            else if (msg.et.state == 'config') {
+                store.commit('pushNotificationToast', {
+                    'text': vm.$t('cansat.notifications.etConfig'),
+                    'icon': 'fa-wrench'
                 })
-                store.commit('pushNotificationModal',{ 
-                    'title': vm.$t('cansat.notifications.etConfig'), 
+                store.commit('pushNotificationModal', {
+                    'title': vm.$t('cansat.notifications.etConfig'),
                     'date': utils.getDate(),
                     'code': 0,
                     'uuid': utils.generateUUID().toString(),
                     'type': vm.$t('cansat.notifications.center.types.info')
                 })
             }
-            else if( msg.et.state == 'connected' ){
-                store.commit('pushNotificationToast',{ 
-                    'text': vm.$t('cansat.notifications.etReady'), 
-                    'icon': 'fa-check'          
+            else if (msg.et.state == 'connected') {
+                store.commit('pushNotificationToast', {
+                    'text': vm.$t('cansat.notifications.etReady'),
+                    'icon': 'fa-check'
                 })
-                store.commit('pushNotificationModal',{ 
-                    'title': vm.$t('cansat.notifications.etReady'), 
+                store.commit('pushNotificationModal', {
+                    'title': vm.$t('cansat.notifications.etReady'),
                     'date': utils.getDate(),
                     'code': 0,
                     'uuid': utils.generateUUID().toString(),
@@ -125,169 +158,164 @@ export default {
                 })
                 store.commit('setStatusEarthStation', true)
 
-            }else if(msg.et.state == 'disconnected'){
-                store.commit('pushNotificationToast',{ 
-                    'text': vm.$t('cansat.notifications.etDisconnected'), 
-                    'icon': 'fa-unlink'          
+            } else if (msg.et.state == 'disconnected') {
+                store.commit('pushNotificationToast', {
+                    'text': vm.$t('cansat.notifications.etDisconnected'),
+                    'icon': 'fa-unlink'
                 })
-                store.commit('pushNotificationModal',{ 
-                    'title': vm.$t('cansat.notifications.etDisconnected'), 
+                store.commit('pushNotificationModal', {
+                    'title': vm.$t('cansat.notifications.etDisconnected'),
                     'date': utils.getDate(),
                     'code': 0,
                     'uuid': utils.generateUUID().toString(),
                     'type': vm.$t('cansat.notifications.center.types.info')
                 })
                 store.commit('setStatusEarthStation', false)
+                store.commit('setStatusCanSat', { connected: false, index: 0 })
             }
         }
     },
-    cansatConnected(msg)
-    {
-        if(msg.cansat)
-        {
-            if(msg.cansat.connected  && msg.cansat.connected != store.getters.axtec.project.cansat[0].connected )
-            {
-                store.commit('pushNotificationToast',{ 
-                    'text': vm.$t('cansat.notifications.etCansatConnected'), 
-                    'icon': 'fa-check'          
+    cansatConnected(msg) {
+        if (msg.cansat) {
+            if (msg.cansat.connected && msg.cansat.connected != store.getters.axtec.project.cansat[0].connected) {
+                store.commit('pushNotificationToast', {
+                    'text': vm.$t('cansat.notifications.etCansatConnected'),
+                    'icon': 'fa-check'
                 })
-                store.commit('setStatusCanSat', {connected: true, index: 0})
-            }else if(!msg.cansat.connected  && msg.cansat.connected != store.getters.axtec.project.cansat[0].connected )
-            {
-                store.commit('pushNotificationToast',{ 
-                    'text': vm.$t('cansat.notifications.etCansatDisconnected'), 
-                    'icon': 'fa-unlink'          
+                store.commit('setStatusCanSat', { connected: true, index: 0 })
+            } else if (!msg.cansat.connected && msg.cansat.connected != store.getters.axtec.project.cansat[0].connected) {
+                store.commit('pushNotificationToast', {
+                    'text': vm.$t('cansat.notifications.etCansatDisconnected'),
+                    'icon': 'fa-unlink'
                 })
-                store.commit('setStatusCanSat', {connected: false, index: 0})
+                store.commit('setStatusCanSat', { connected: false, index: 0 })
             }
         }
     },
-    sendCMDToWorker(cmdName, args, resolve,reject){
-        worker.send( { 
-            cmdToSend:{
+    sendCMDToWorker(cmdName, args, resolve, reject) {
+        worker.send({
+            cmdToSend: {
                 cmd: cmdName,
-                valuesArray:  args
-            } 
+                valuesArray: args
+            }
         })
 
-        if(resolve != undefined && reject != undefined){
-            queueSend.push({cmdName:  cmdName, timeout: setTimeout(reject,ms), resolve: resolve, reject: reject});
-            waitingResponse = true;
+        if (resolve != undefined && reject != undefined) {
+            queueSend.push({ cmdName: cmdName, timeout: setTimeout(reject, ms), resolve: resolve, reject: reject });
         }
     },
-    setActuator(id, value,resolve, reject)
-    {
+    setActuator(id, value, resolve, reject) {
         let state = 'cansat.resources.close'
-        if(value== 1){
+        if (value == 1) {
             state = 'cansat.resources.open'
         }
-        if(id == 0){
-            this.sendCMDToWorker('setParachute', [value],resolve,reject)
+        if (id == 0) {
+            this.sendCMDToWorker('setParachute', [value], resolve, reject)
 
             store.commit('setActuators',
-            { 
-                'cansatIndex': 0, 
-                'actuatorIndex': 0, 
-                'status' : state
-            })
-        }else{
-            this.sendCMDToWorker('setBalloon', [value],resolve,reject)
+                {
+                    'cansatIndex': 0,
+                    'actuatorIndex': 0,
+                    'status': state
+                })
+        } else {
+            this.sendCMDToWorker('setBalloon', [value], resolve, reject)
             store.commit('setActuators',
-            { 
-                'cansatIndex': 0, 
-                'actuatorIndex': id, 
-                'status' : state
-            })
+                {
+                    'cansatIndex': 0,
+                    'actuatorIndex': id,
+                    'status': state
+                })
         }
     },
-    startMission(){
-        worker.send( { 
-            cmdToWorker:{
+    startMission() {
+        worker.send({
+            cmdToWorker: {
                 cmd: 'startReport'
-            } 
+            }
         })
     },
-    stopMission(){
-        worker.send( { 
-            cmdToWorker:{
+    stopMission() {
+        worker.send({
+            cmdToWorker: {
                 cmd: 'endReport'
-            } 
+            }
         })
     },
 
-    connectToPort(comName){
-        worker.send( { 
-            cmdToWorker:{
+    connectToPort(comName) {
+        worker.send({
+            cmdToWorker: {
                 cmd: 'connectSerialPort',
                 comName: comName
-            } 
+            }
         })
     },
 
-    disconnectToPort(){
-        worker.send( { 
-            cmdToWorker:{
+    disconnectToPort() {
+        worker.send({
+            cmdToWorker: {
                 cmd: 'disconnectSerialPort'
-            } 
+            }
         })
     },
 
-    connectToCansat(resolve, reject){
+    connectToCansat(resolve, reject) {
         this.sendCMDToWorker('getBattery', [], resolve, reject)
     },
 
-    disconnectToCansat(){
-        worker.send( { 
-            cmdToWorker:{
+    disconnectToCansat() {
+        worker.send({
+            cmdToWorker: {
                 cmd: 'disconnectToCansat'
-            } 
+            }
         })
     },
 
-    getSensors(data,resolve, reject){
+    getSensors(data, resolve, reject) {
         this.sendCMDToWorker('getSensor', data, resolve, reject)
     },
 
-    enablePowerSupply(resolve,reject){
+    enablePowerSupply(resolve, reject) {
         this.sendCMDToWorker('enablePowerSupply', [1], resolve, reject)
     },
-    newCMDReceived(msg){
-        if(msg.newCMDReceived &&  msg.newCMDReceived.data){
+    newCMDReceived(msg) {
+        if (msg.newCMDReceived && msg.newCMDReceived.data) {
             let cmdsToParse = msg.newCMDReceived.data.decoded
             console.log("Decoding new packet");
-            for(let c= 0; c < cmdsToParse.length; c++){   
-                if(queueSend.length > 0){
-                    queueRec.push({cmdName: cmdsToParse[c].cmdName});
+            for (let c = 0; c < cmdsToParse.length; c++) {
+                if (queueSend.length > 0) {
+                    queueRec.push({ cmdName: cmdsToParse[c].cmdName });
                     let index = -1;
-                    for(let r = 0; r< queueRec.length; r++){
-                        if(queueRec[r].cmdName == queueSend[0].cmdName){
+                    for (let r = 0; r < queueRec.length; r++) {
+                        if (queueRec[r].cmdName == queueSend[0].cmdName) {
                             let send = queueSend.shift()
                             clearTimeout(send.timeout)
-                            if(send.resolve)send.resolve()
+                            if (send.resolve) send.resolve()
                             index = r;
                             break
                         }
                     }
-                    if(index >= 0){
+                    if (index >= 0) {
                         queueRec = queueRec.slice(index)
                     }
 
-                }else{
+                } else {
                     //debugger
                 }
 
-                switch(cmdsToParse[c].cmdName){
+                switch (cmdsToParse[c].cmdName) {
                     case 'getError':
                         let code = cmdsToParse[c].error.code;
                         let contentError = vm.$t(cmdsToParse[c].error.content);
 
-                        if(cmdsToParse[c].error.info)
-                        {
-                            contentError += ' ' +  vm.$t(cmdsToParse[c].error.info) ;
+                        if (cmdsToParse[c].error.info) {
+                            contentError += ' ' + vm.$t(cmdsToParse[c].error.info);
                         }
-                        
-                        store.commit('pushNotificationModal',{ 
-                            'title': vm.$t(cmdsToParse[c].error.title), 
+
+                        /*
+                        store.commit('pushNotificationModal', {
+                            'title': vm.$t(cmdsToParse[c].error.title),
                             'content': contentError,
                             'date': utils.getDate(),
                             'code': code,
@@ -296,33 +324,33 @@ export default {
                             'type': vm.$t('cansat.notifications.center.types.error'),
                             'cancelDisabled': true
                         })
+                        */
 
-                        
-                        if( code != 1 && code!= 2 && code != 3 ) // If exist and error on the power supplies
+                        if (code != 1 && code != 2 && code != 3) // If exist and error on the power supplies
                         {
-                            let filtered = defaultSensors.getSensors().filter(function(n) {
+                            let filtered = defaultSensors.getSensors().filter(function (n) {
                                 return (n._type == 'power')
                             })
-                            for(let s = 0 ;s < filtered.length;s++){
-                                filtered[s].status= 'danger'
+                            for (let s = 0; s < filtered.length; s++) {
+                                filtered[s].status = 'danger'
                                 store.commit('setSensor', filtered[s])
                             }
                         }
 
-                        this.sendCMDToWorker('getError', [], null,null)
+                        this.sendCMDToWorker('getError', [], null, null)
 
                         break;
                     case 'getParachute':
-                        if(cmdsToParse[c].state){ // Parachute is open
+                        if (cmdsToParse[c].state) { // Parachute is open
                             store.commit('setActuators',
-                            { 
-                                'cansatIndex': 0, 
-                                'actuatorIndex': 0, 
-                                'status' : 'cansat.resources.open'
-                            })
-                            store.commit('pushNotificationToast',{ 
-                                'text': vm.$t('cansat.worker.actuators.openParachute'), 
-                                'icon': 'fa-check'          
+                                {
+                                    'cansatIndex': 0,
+                                    'actuatorIndex': 0,
+                                    'status': 'cansat.resources.open'
+                                })
+                            store.commit('pushNotificationToast', {
+                                'text': vm.$t('cansat.worker.actuators.openParachute'),
+                                'icon': 'fa-check'
                             })
                             /*
                             store.commit('pushNotificationModal',{ 
@@ -332,16 +360,16 @@ export default {
                                 'uuid': utils.generateUUID().toString(),
                                 'type': vm.$t('cansat.notifications.center.types.info')
                             })*/
-                        }else{                     // It's close
+                        } else {                     // It's close
                             store.commit('setActuators',
-                            { 
-                                'cansatIndex': 0, 
-                                'actuatorIndex': 0, 
-                                'status' : 'cansat.resources.close'
-                            })
-                            store.commit('pushNotificationToast',{ 
-                                'text': vm.$t('cansat.worker.actuators.closeParachute'), 
-                                'icon': 'fa-check'          
+                                {
+                                    'cansatIndex': 0,
+                                    'actuatorIndex': 0,
+                                    'status': 'cansat.resources.close'
+                                })
+                            store.commit('pushNotificationToast', {
+                                'text': vm.$t('cansat.worker.actuators.closeParachute'),
+                                'icon': 'fa-check'
                             })
                             /*
                             store.commit('pushNotificationModal',{ 
@@ -354,19 +382,19 @@ export default {
                         }
                         break;
                     case 'setParachute':
-         
-                        break; 
+
+                        break;
                     case 'getBalloon':
-                        if(cmdsToParse[c].state){ // Balloon is open
+                        if (cmdsToParse[c].state) { // Balloon is open
                             $store.commit('setActuators',
-                            { 
-                                'cansatIndex': 0, 
-                                'actuatorIndex': 1, 
-                                'status' : 'cansat.resources.open'
-                            })
-                            store.commit('pushNotificationToast',{ 
-                                'text': vm.$t('cansat.worker.actuators.openBalloon'), 
-                                'icon': 'fa-check'          
+                                {
+                                    'cansatIndex': 0,
+                                    'actuatorIndex': 1,
+                                    'status': 'cansat.resources.open'
+                                })
+                            store.commit('pushNotificationToast', {
+                                'text': vm.$t('cansat.worker.actuators.openBalloon'),
+                                'icon': 'fa-check'
                             })
                             /*
                             store.commit('pushNotificationModal',{ 
@@ -377,16 +405,16 @@ export default {
                                 'type': vm.$t('cansat.notifications.center.types.info')
                             })
                             */
-                        }else{                     // It's close
+                        } else {                     // It's close
                             store.commit('setActuators',
-                            { 
-                                'cansatIndex': 0, 
-                                'actuatorIndex': 1, 
-                                'status' : 'cansat.resources.close'
-                            })
-                            store.commit('pushNotificationToast',{ 
-                                'text': vm.$t('cansat.worker.actuators.closeBalloon'), 
-                                'icon': 'fa-check'          
+                                {
+                                    'cansatIndex': 0,
+                                    'actuatorIndex': 1,
+                                    'status': 'cansat.resources.close'
+                                })
+                            store.commit('pushNotificationToast', {
+                                'text': vm.$t('cansat.worker.actuators.closeBalloon'),
+                                'icon': 'fa-check'
                             })
                             /*
                             store.commit('pushNotificationModal',{ 
@@ -400,42 +428,42 @@ export default {
                         break;
                     case 'setBalloon':
 
-                        break;  
+                        break;
                     case 'getSensor':
-                        if( cmdsToParse[c].lat != undefined){ // GPS sensor
-                            store.commit('addNewLocation',{ 
+                        if (cmdsToParse[c].lat != undefined) { // GPS sensor
+                            store.commit('addNewLocation', {
                                 timespan: utils.getDate(),
                                 lat: cmdsToParse[c].lat,
-                                lng: cmdsToParse[c].lng 
+                                lng: cmdsToParse[c].lng
                             })
-                        }else{
+                        } else {
                             let sensor;
                             let index = -1
                             let searchID
-                            if(store.getters.axtec.project.cansat[0].missionActive ){
+                            if (store.getters.axtec.project.cansat[0].missionActive) {
                                 searchID = store.getters.axtec.project.mission.data.sensors
-                            }else{
+                            } else {
                                 searchID = store.getters.axtec.project.cansat[0].sensors
                             }
-                            for(let s = 0; s <searchID.length; s++ ){
-                                if(searchID[s].id == cmdsToParse[c].sensorID){
+                            for (let s = 0; s < searchID.length; s++) {
+                                if (searchID[s].id == cmdsToParse[c].sensorID) {
                                     index = s
                                     sensor = searchID[s];
                                     break;
                                 }
                             }
-                            if(sensor != undefined){                                  
-                                if(index != -1){
-                                    if(sensor._type == 'vector'){
-                                        store.commit('setSensor',{
-                                            cansatIndex: 0 ,
+                            if (sensor != undefined) {
+                                if (index != -1) {
+                                    if (sensor._type == 'vector') {
+                                        store.commit('setSensor', {
+                                            cansatIndex: 0,
                                             sensorIndex: index,
                                             x: cmdsToParse[c].x,
                                             y: cmdsToParse[c].y,
                                             z: cmdsToParse[c].z
                                         })
-                                        
-                                        store.commit('addSensorSample',{
+
+                                        store.commit('addSensorSample', {
                                             index: index,
                                             samples: {
                                                 x: cmdsToParse[c].x,
@@ -444,15 +472,15 @@ export default {
                                                 timespan: utils.getDate()
                                             }
                                         })
-                                        
-                                    }else{
+
+                                    } else {
                                         store.commit('setSensor', {
-                                            cansatIndex: 0 ,
+                                            cansatIndex: 0,
                                             sensorIndex: index,
                                             lastValue: cmdsToParse[c].value
                                         })
-                                        
-                                        store.commit('addSensorSample',{
+
+                                        store.commit('addSensorSample', {
                                             index: index,
                                             samples: {
                                                 lastValue: cmdsToParse[c].value,
@@ -460,30 +488,34 @@ export default {
                                             }
                                         })
                                     }
-                                }                                
-                            }else{
+                                }
+                            } else {
                                 debugger
                             }
                         }
                         break;
                     case 'getBattery':
                         store.commit('setBatteryLevel', { level: cmdsToParse[c].state })
-                        break; 
+                        break;
                     case 'setReport':
                         break;
                     case 'enablePowerSupply':
-                        store.commit('pushNotificationToast',{ 
-                            'text': vm.$t('cansat.worker.powerSupplies.enableOK'), 
-                            'icon': 'fa-check'          
+                        store.commit('pushNotificationToast', {
+                            'text': vm.$t('cansat.worker.powerSupplies.enableOK'),
+                            'icon': 'fa-check'
                         })
-                        store.commit('pushNotificationModal',{ 
-                            'title': vm.$t('cansat.worker.powerSupplies.enableOK'), 
+                        store.commit('pushNotificationModal', {
+                            'title': vm.$t('cansat.worker.powerSupplies.enableOK'),
                             'date': utils.getDate(),
                             'code': 0,
                             'uuid': utils.generateUUID().toString(),
                             'type': vm.$t('cansat.notifications.center.types.info')
                         })
-                        break;                                  
+                        break;
+                    case 'freefallDetected':
+                        debugger
+                        alert('caida libre detectada: ' + cmdsToParse[c].state);
+                        break;
                 }
             }
         }
