@@ -14,7 +14,7 @@
     <modalNotification/>
     <notificationsNavbar class="col nav-item"/>
     <language-dropdown class="col nav-item"/>
-    <status-bar class="col nav-item"/>
+    <status-bar class="col-md-2 nav-item"/>
   </vuestic-navbar>
 </template>
 
