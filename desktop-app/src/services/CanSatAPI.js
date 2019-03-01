@@ -156,7 +156,7 @@ export default {
                     'uuid': utils.generateUUID().toString(),
                     'type': vm.$t('cansat.notifications.center.types.info')
                 })
-                store.commit('setStatusEarthStation', true)
+                store.commit("setStatusEarthStation", true);
 
             } else if (msg.et.state == 'disconnected') {
                 store.commit('pushNotificationToast', {
@@ -463,16 +463,17 @@ export default {
                                             z: cmdsToParse[c].z
                                         })
 
-                                        store.commit('addSensorSample', {
-                                            index: index,
-                                            samples: {
-                                                x: cmdsToParse[c].x,
-                                                y: cmdsToParse[c].y,
-                                                z: cmdsToParse[c].z,
-                                                timespan: utils.getDate()
-                                            }
-                                        })
-
+                                        if (store.getters.axtec.project.cansat[0].missionActive) {
+                                            store.commit('addSensorSample', {
+                                                index: index,
+                                                samples: {
+                                                    x: cmdsToParse[c].x,
+                                                    y: cmdsToParse[c].y,
+                                                    z: cmdsToParse[c].z,
+                                                    timespan: utils.getDate()
+                                                }
+                                            })
+                                        }
                                     } else {
                                         store.commit('setSensor', {
                                             cansatIndex: 0,
@@ -480,13 +481,15 @@ export default {
                                             lastValue: cmdsToParse[c].value
                                         })
 
-                                        store.commit('addSensorSample', {
-                                            index: index,
-                                            samples: {
-                                                lastValue: cmdsToParse[c].value,
-                                                timespan: utils.getDate()
-                                            }
-                                        })
+                                        if (store.getters.axtec.project.cansat[0].missionActive) {
+                                            store.commit('addSensorSample', {
+                                                index: index,
+                                                samples: {
+                                                    lastValue: cmdsToParse[c].value,
+                                                    timespan: utils.getDate()
+                                                }
+                                            })
+                                        }
                                     }
                                 }
                             } else {

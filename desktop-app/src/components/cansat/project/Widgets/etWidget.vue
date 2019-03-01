@@ -15,7 +15,6 @@
         :required="true"
         ref="USBPort"
         v-bind:options="serialPorts"
-        @input="validateConnection"
         disabled
       ></vuestic-simple-select>
     </div>
@@ -80,7 +79,6 @@ export default {
       }
     },
     isConnected(val) {
-      debugger;
       /*
       if (!val) {
         this.USBPort = "";
@@ -104,23 +102,11 @@ export default {
     connect() {
       if (this.USBPort != "") {
         CanSatAPI.connectToPort(this.USBPort);
-        this.setStatusesOnConnect();
       }
     },
     disconnect() {
-      debugger;
       this.clearStatusesOnDisconnect();
       CanSatAPI.disconnectToPort();
-    },
-    validateConnection() {
-      if (this.USBPort != "") {
-        this.valid = true;
-        if (this.enableWizard) {
-          this.setStatusesOnConnect();
-        }
-      } else {
-        this.valid = false;
-      }
     },
     isETConnected() {
       return this.$store.getters.axtec.project.earthStation.connected;

@@ -17,9 +17,10 @@ try {
   const pid = 0xDE;
   const MCP_MANUFACTURER = 'Microchip Technology, Inc.';
 
-  const powerSuppliesArray = [1, 2, 3, 4, 5, 6]
-  const sensorsArray = [7, 8, 9, 10, 12, 13, 14, 15]
+  const powerSuppliesArray = [1, 2, 3, 4, 5, 6];
+  const sensorsArray = [7, 8, 9, 10, 12, 13, 14, 15];
 
+  const MAX_QUEUE_SEND = 10;
   //const SerialPort = process.argv[2]
 
   let control = {
@@ -132,6 +133,11 @@ try {
       if (queueSend.length > 0) {
         console.log('Packets in queue: ' + JSON.stringify(queueSend));
         let packet = queueSend.shift();
+
+        if (queueSend.length > MAX_QUEUE_SEND) {
+          queueSend = [];
+          console.log('CLEANING QUEUE TO SEND...');
+        }
 
         console.log('Trying to send: ' + packet);
         console.log('Packets in queue before shift: ' + JSON.stringify(queueSend));
@@ -316,10 +322,14 @@ try {
           clearInterval(control.cansat.intervalMission);
           control.cansat.intervalMission = setInterval(async function () {
             missionActive();
-          }, 500);
+          }, 1000);
+
+
         }).catch(function (e) {
           console.log("Error on cc1101 init: " + e);
-          clearOnDisconnect();
+          isCCUBusy = false;
+          let port = cc1101.get_port();
+          port.close();
         })
       }
     }
