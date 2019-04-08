@@ -23,7 +23,7 @@
         <p
           v-if="isConnected"
           style="text-align:center"
-        >{{$t('cansat.link.etConnectedLabel') + USBPort.toUpperCase()}}</p>
+        >{{$t('cansat.link.etConnectedLabel') + port.toUpperCase()}}</p>
         <div class="col-md-12 pt-1 mb-3" style="text-align:center">
           <button v-if="!isConnected" class="btn btn-success btn-micro" @click="connect()">
             {{ $t('cansat.link.connect') }}
@@ -67,6 +67,9 @@ export default {
     },
     isConnected() {
       return this.$store.getters.axtec.project.earthStation.connected;
+    },
+    port() {
+      return this.$store.getters.axtec.project.earthStation.port;
     }
   },
   watch: {
@@ -79,12 +82,13 @@ export default {
       }
     },
     isConnected(val) {
-      /*
       if (!val) {
         this.USBPort = "";
         this.clearStatusesOnDisconnect();
         this.disconnect();
-      }*/
+      } else {
+        this.setStatusesOnConnect();
+      }
     }
   },
   methods: {

@@ -29,8 +29,7 @@ export default {
       map: {},
       marker: {},
       popup: {},
-      minZoom: 7,
-      maxZoom: 10,
+      minZoom: 16,
       name: this.$store.getters.axtec.project.cansat[0].name
     };
   },
@@ -108,8 +107,7 @@ export default {
       this.map.locate({
         setView: true,
         watch: true,
-        minZoom: this.minZoom,
-        maxZoom: this.maxZoom
+        minZoom: this.minZoom
       });
 
       L.tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {

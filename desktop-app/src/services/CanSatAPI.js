@@ -228,20 +228,6 @@ export default {
                 })
         }
     },
-    startMission() {
-        worker.send({
-            cmdToWorker: {
-                cmd: 'startReport'
-            }
-        })
-    },
-    stopMission() {
-        worker.send({
-            cmdToWorker: {
-                cmd: 'endReport'
-            }
-        })
-    },
 
     connectToPort(comName) {
         worker.send({
@@ -436,6 +422,7 @@ export default {
                                 lat: cmdsToParse[c].lat,
                                 lng: cmdsToParse[c].lng
                             })
+
                         } else {
                             let sensor;
                             let index = -1
@@ -464,6 +451,7 @@ export default {
                                         })
 
                                         if (store.getters.axtec.project.cansat[0].missionActive) {
+                                            //debugger
                                             store.commit('addSensorSample', {
                                                 index: index,
                                                 samples: {
@@ -482,6 +470,7 @@ export default {
                                         })
 
                                         if (store.getters.axtec.project.cansat[0].missionActive) {
+                                            //debugger
                                             store.commit('addSensorSample', {
                                                 index: index,
                                                 samples: {

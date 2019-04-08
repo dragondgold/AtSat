@@ -23,7 +23,7 @@ const state = {
   },
   isLoading: true,
   axtec: {
-    debug: true,              // For debugging. 
+    debug: false,              // For debugging. 
     notificationsModal: [     // Notification array. If it's type is info we don't show modal but it's appears in notification center
 
     ],
@@ -221,6 +221,8 @@ const mutations = {
         lng: data.lng,
         timespan: data.timespan,
       })
+    } else {
+      //debugger
     }
     state.axtec.project.mission.data.location.lat = data.lat
     state.axtec.project.mission.data.location.lng = data.lng
@@ -233,6 +235,7 @@ const mutations = {
     state.axtec.project.cansat[data.cansatIndex].testOk = data.testOk
   },
   setMissionStatus(state, data) {
+    debugger
     state.axtec.project.cansat[data.cansatIndex].missionActive = data.missionActive
   },
   setProjectStatus(state, data) {

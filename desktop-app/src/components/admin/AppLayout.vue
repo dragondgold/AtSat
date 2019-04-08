@@ -6,20 +6,27 @@
       <vuestic-pre-loader v-show="isLoading" class="pre-loader"></vuestic-pre-loader>
       <router-view></router-view>
     </main>
-    <span slot="footer">©2018. Made by&nbsp;<a href @click.prevent="openExternalLink" style="font-family:Inversionz; font-size: 2em;" class="link">axtec </a></span>
+    <span slot="footer">
+      &nbsp;
+      <a
+        href
+        @click.prevent="openExternalLink"
+        style="font-family:Inversionz; font-size: 2em;"
+        class="link"
+      >axtec</a>
+    </span>
   </vuestic-layout>
 </template>
 
 <script>
-
-import VuesticLayout from '../../vuestic-theme/vuestic-components/vuestic-layout/VuesticLayout'
-import AppNavbar from './app-navbar/AppNavbar'
-import AppSidebar from './app-sidebar/AppSidebar'
-import Layout from 'vuestic-theme/vuestic-directives/Layout'
-import { mapGetters } from 'vuex'
+import VuesticLayout from "../../vuestic-theme/vuestic-components/vuestic-layout/VuesticLayout";
+import AppNavbar from "./app-navbar/AppNavbar";
+import AppSidebar from "./app-sidebar/AppSidebar";
+import Layout from "vuestic-theme/vuestic-directives/Layout";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'app-layout',
+  name: "app-layout",
 
   components: {
     VuesticLayout,
@@ -27,25 +34,23 @@ export default {
     AppSidebar
   },
   directives: {
-    layout: Layout,
+    layout: Layout
   },
-  data () {
+  data() {
     return {
       opened: false
-    }
+    };
   },
   methods: {
-    toggleSidebar (opened) {
-      this.opened = opened
+    toggleSidebar(opened) {
+      this.opened = opened;
     },
-    openExternalLink(){
-      require("electron").shell.openExternal('https://axtec.com.ar/');
+    openExternalLink() {
+      require("electron").shell.openExternal("https://axtec.com.ar/");
     }
   },
   computed: {
-    ...mapGetters([
-      'isLoading'
-    ])
+    ...mapGetters(["isLoading"])
   }
-}
+};
 </script>

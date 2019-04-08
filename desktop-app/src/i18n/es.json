@@ -1,7 +1,7 @@
 {
-  "cansat":{
-    "worker":{
-      "cmdsErrors":{
+  "cansat": {
+    "worker": {
+      "cmdsErrors": {
         "wrongFormat": "Comando inválido o mal formateado.",
         "wrongLength": "Longitud de trama Errónea.",
         "wrongChecksum": "Checksum incorrecto.",
@@ -14,18 +14,19 @@
         "tipProtocol": "Compruebe que la tramas que genera sean correctas.",
         "tipRestartPower": "Una vez resuelto el problema, puede habilitar las fuentes yendo a CanSat > Recursos > Fuentes de alimentación"
       },
-      "actuators":{
+      "actuators": {
         "openParachute": "El actuador del paracaídas esta abierto",
         "closeParachute": "El actuador del paracaídas esta cerrado",
         "openBalloon": "El actuador del globo esta abierto",
         "closeBalloon": "El actuador del paracaídas esta cerrado"
       },
-      "powerSupplies":{
-        "enableOK": "Fuentes de alimentación habilitadas" 
+      "powerSupplies": {
+        "enableOK": "Fuentes de alimentación habilitadas"
       }
     },
-    "mission":{
-      "exportTitles":{
+    "mission": {
+      "exportTitles": {
+        "timeAxis": "El eje de tiempo se mostrará en minutos, segundos y milisegundos.",
         "exportBy": "Plataforma educativa CanSat - AXTEC",
         "startDate": "Inicio: ",
         "endDate": "Fin: ",
@@ -41,24 +42,24 @@
         "lat": "Latitud",
         "lng": "Longitud"
       },
-      "status":{
+      "status": {
         "ready": "Listo para usar",
         "problems": "No esta listo"
       },
-      "new":{
+      "new": {
         "title": "Nueva misión",
         "description": "Seleccione un nombre para su misión. La misma será guardada en la carpeta donde creó el proyecto.",
         "create": "Crear"
       },
-      "dashboard":{
+      "dashboard": {
         "title": "Tablero de trabajo",
-        "charts":{
+        "charts": {
           "lastSamples": "Se mostrarán las últimas 25 muestras.",
           "goToFullChart": "Ver completo",
           "time": "Tiempo",
           "samples": "Muestras"
         },
-        "controls":{
+        "controls": {
           "title": "Controles y estados",
           "startBtn": "Iniciar",
           "stopBtn": "Terminar",
@@ -75,7 +76,7 @@
           "signal": "Señal",
           "actions": "Acciones"
         }
-      }, 
+      },
       "import": "Importar",
       "export": "Exportar",
       "save": "Guardar",
@@ -85,27 +86,28 @@
       "nameLabel": "Nombre",
       "dateLabel": "Fecha"
     },
-    "test":{
-      "title": "Test de integridad",
+    "test": {
+      "title": "Pruebas de integridad",
       "description": "Los test verificaran el correcto funcionamiento de su CanSat. Durante el proceso, se le harán preguntas y mostrarán alertas en caso de falla",
       "start": "Iniciar tests",
       "results": "ver resultados",
       "goToMission": "Hacer una misión",
+      "goToMissionAnyway": "Hacer misión de todas formas",
       "ok": "Todos los sistemas funcionan correctamente",
       "error": "Error detectado: ",
       "subtitle": "Resultados: ",
-      "testingLabel":" Test: ",
+      "testingLabel": " Test: ",
       "noTestOk": "Debe correr los test de integridad para acceder a esta funcionalidad",
       "tips": "Si desea agregar un nuevo sensor, puede hacerlo en Recursos > Sensores > Creado por el usuario",
-      "table":{
+      "table": {
         "test": "Tests",
         "progress": "Progreso",
         "status": "Estado"
       }
     },
-    "resources":{
-      "title": "Recursos",  
-      "sensors":{
+    "resources": {
+      "title": "Recursos",
+      "sensors": {
         "title": "Sensores",
         "ok": "OK",
         "danger": "Cuidado",
@@ -124,15 +126,15 @@
         "i3v3": "Corriente 3.3 V",
         "v5v": "Voltaje 5 V",
         "i5v": "Corriente 5 V",
-        "gps":{
+        "gps": {
           "title": "GPS",
           "markerTitle": "CanSat: ",
           "center": "Centrar"
         },
-        "tabs":{
-          "imu":{
+        "tabs": {
+          "imu": {
             "title": "Vectoriales",
-            "table":{       
+            "table": {
               "id": "ID",
               "type": "Tipo",
               "x": "X",
@@ -142,12 +144,12 @@
               "unit": "Unidad",
               "actions": "Acciones",
               "status": "Estado",
-              "resetThreshold": "Reiniciar límites" 
+              "resetThreshold": "Reiniciar límites"
             }
           },
-          "variables":{
+          "variables": {
             "title": "Escalares",
-            "table":{       
+            "table": {
               "id": "ID",
               "type": "Tipo",
               "min": "Min",
@@ -157,14 +159,14 @@
               "actions": "Acciones",
               "status": "Estado",
               "resetThreshold": "Reiniciar límites",
-              "resetPowerSuply": "Reiniciar fuente"              
+              "resetPowerSuply": "Reiniciar fuente"
             }
           },
-          "createdByUser":{
+          "createdByUser": {
             "title": "Creados por el usuario",
             "button": "Crear o editar",
             "empty": "No hay sensores creados",
-            "newSensor":{
+            "newSensor": {
               "title": "Nuevos sensores",
               "subtitle": "Agrege un nuevo sensor configurando su tipo, rango mínimo y máximo que puede tener y la unidad medida.",
               "back": "Atrás",
@@ -174,39 +176,38 @@
               "invalidMin": "Debe ser menor al máximo",
               "invalidUnit": "No puede ser nulo",
               "invalidType": "No puede ser nulo"
-
             }
           },
-          "location":{
+          "location": {
             "title": "Ubicación",
             "current": "Ubicación actual",
             "historic": "Historial",
-            "table":{
+            "table": {
               "latitude": "Latitud",
               "longitude": "Longitud",
               "date": "Fecha"
             }
           },
-          "powerSupplies":{
+          "powerSupplies": {
             "title": "Fuentes de Alimentación"
           }
-        }   
+        }
       },
-      "actuators":{
+      "actuators": {
         "title": "Actuadores",
         "balloon": "Globo",
         "parachute": "Paraícadas",
-        "table":{
+        "table": {
           "id": "ID",
           "type": "Tipo",
           "status": "Estado",
           "actions": "Acciones"
         }
-      }, 
+      },
       "open": "Abierto",
-      "close": "Cerrado"     
+      "close": "Cerrado"
     },
-    "link":{
+    "link": {
       "title": "Enlace",
       "goToTest": "Hacer test",
       "connect": "Conectar",
@@ -218,13 +219,13 @@
       "cansatIDLabel": "CanSat ID: ",
       "cansatNameLabel": "CanSat name: ",
       "cansatSignalLabel": "Nivel de señal: ",
-      "table":{ 
+      "table": {
         "id": "ID",
         "name": "Nombre",
         "signal": "Señal",
         "action": "Acción"
       },
-      "tabs":{
+      "tabs": {
         "et": "Estación terrena",
         "cansat": "CanSat",
         "configLabel": "Configuraciones"
@@ -236,18 +237,18 @@
       "openMission": "Selecione un archivo \"cansat_data\"",
       "saveMission": "Guardar su misión"
     },
-    "home":{
+    "home": {
       "cards": {
         "newProject": "Crea un proyecto nuevo",
         "openProject": "Abre un proyecto existente",
         "loadMission": "Abre una mission pasada"
       }
     },
-    "project":{
-      "new":{
-        "wizard":{
+    "project": {
+      "new": {
+        "wizard": {
           "title": "Asistente de proyecto",
-          "stepOne":{
+          "stepOne": {
             "label": "Proyecto",
             "description": "Nombre y ubicación",
             "titleName": "Escriba un nombre para su nuevo proyecto",
@@ -257,27 +258,27 @@
             "location": "Ubicación",
             "invalidLocation": "Directorio inválido"
           },
-          "stepTwo":{
+          "stepTwo": {
             "label": "Estación terrena",
             "description": "Comunicación",
             "selectPort": "Puerto",
             "titlePort": "Selecione el puerto donde esta conectada su estacion terrena"
           },
-          "stepThree":{
+          "stepThree": {
             "label": "CanSat",
             "description": "Configuraciones",
             "selectCanSat": "CanSat",
             "titleCanSat": "Selecione su CanSat de la lista para crear un enlace",
-            "titleName": "Asignele un nombre a su CanSat para poder distinguirlo en futuras conexiones"   
+            "titleName": "Asignele un nombre a su CanSat para poder distinguirlo en futuras conexiones"
           },
-          "stepLast":{
+          "stepLast": {
             "description": "Su CanSat esta listo para usar y conectado a la estación terrena, antes de ralizar una mision es aconsejable realizar los test de integridad para verificar el correcto funcionamiento de su equipo.",
             "goToTest": "Realizar tests"
           }
         }
-      }  
+      }
     },
-    "notifications":{
+    "notifications": {
       "etReady": "Estación terrena lista para usar.",
       "etError": "Error al configurar la estación terrena. Intente reconectarla.",
       "etConfig": "Configurando Estación terrena.",
@@ -285,7 +286,7 @@
       "etCansatConnected": "CanSat conectado",
       "etCansatDisconnected": "CanSat desconectado",
       "etCansatErrorConnect": "No se pudo establecer la conexión con el CanSat",
-      "center":{
+      "center": {
         "title": "Centro de notificaciones",
         "searchLabel": "Buscar",
         "perPageLabel": "Por página",
@@ -306,7 +307,7 @@
         "cancelBtn": "Cancel",
         "yesBtn": "Si",
         "noBtn": "No",
-        "mission":{
+        "mission": {
           "noMissionCreated": "Primero debe crear una misión.",
           "noMissionActive": "Debe iniciar la misión para poder guardarla",
           "createdOk": "Misión creada exitosamente.",
@@ -327,7 +328,7 @@
           "samplesError": "Error en la cantidad de muestras. No se pudo cargar la misión.",
           "contentOverwriteNew": "Perderá los datos de la misión actual si no la guarda primero."
         },
-        "project":{
+        "project": {
           "noProjectCreated": "Primero debe crear un proyecto",
           "invalidPath": "Path inválido",
           "loadedOk": "El proyecto se cargó correctamente.",
@@ -347,7 +348,7 @@
           "saveOk": "Proyecto guardado correctamente.",
           "saveError": "Error al guardar proyecto."
         },
-        "test":{
+        "test": {
           "finished": "Test finalizado",
           "parachute": "Probando actuador de paracaídas",
           "parachuteContent": "¿El actuador del paracaídas se abrió y cerró correctamente?",
@@ -520,7 +521,7 @@
     "about": "Acerca",
     "aboutDocs": "Documentación",
     "home": "Inicio",
-    "project":"Proyecto",
+    "project": "Proyecto",
     "projectNew": "Nuevo",
     "projectOpen": "Abrir",
     "projectSave": "Guardar",
@@ -530,7 +531,7 @@
     "missionSave": "Guardar",
     "missionOpen": "Importar",
     "missioDashboard": "Tablero de trabajo",
-    "sat": "Cansat", 
+    "sat": "Cansat",
     "satEnlace": "Enlace",
     "satTest": "Pruebas de integridad",
     "satResources": "Recursos",
@@ -583,8 +584,7 @@
     "small": "Pequeño",
     "static": "Estático",
     "smallTitle": "Modal Pequeña",
-    "staticMessage":
-      "Esto es un modal estático. No se cerrará haciendo clic en el fondo.",
+    "staticMessage": "Esto es un modal estático. No se cerrará haciendo clic en el fondo.",
     "staticTitle": "Modal Estático",
     "title": "Modals"
   },
