@@ -57,7 +57,26 @@
 			"random": "c",
 			"array": "c",
 			"vector": "c",
-			"xstring": "c"
+			"xstring": "c",
+			"esp_timer.h": "c",
+			"i2c.h": "c",
+			"*.ipp": "c",
+			"sdkconfig.h": "c",
+			"esp_int_wdt.h": "c",
+			"i2c_manager.h": "c",
+			"sensor_manager.h": "c",
+			"limits.h": "c",
+			"deque": "c",
+			"initializer_list": "c",
+			"queue": "c",
+			"xutility": "c",
+			"iosfwd": "c",
+			"xlocale": "c",
+			"esp_vfs_dev.h": "c",
+			"xlocnum": "c",
+			"xloctime": "c",
+			"sup_cmd_manager.h": "c",
+			"axtec_packet.h": "c"
 		}
 	}
 }
