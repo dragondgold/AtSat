@@ -1,0 +1,648 @@
+{
+  "cansat": {
+    "worker": {
+      "cmdsErrors": {
+        "wrongFormat": "Comando inválido o mal formateado.",
+        "wrongLength": "Longitud de trama Errónea.",
+        "wrongChecksum": "Checksum incorrecto.",
+        "overCurrentVBat": "Sobrecorriente detectada en VBat.",
+        "overVoltage3V3": "Sobretensión en 3.3 V.",
+        "overCurrent3V3": "Sobrecorriente detectada en 3.3 V.",
+        "overVoltage5V": "Sobretensión en 5 V.",
+        "overCurrent5V": "Sobrecorriente detectada en 5V.",
+        "tipProtections": "Por favor apage su CanSat y revise las conexiones.",
+        "tipProtocol": "Compruebe que la tramas que genera sean correctas.",
+        "tipRestartPower": "Una vez resuelto el problema, puede habilitar las fuentes yendo a CanSat > Recursos > Fuentes de alimentación"
+      },
+      "actuators": {
+        "openParachute": "El actuador del paracaídas esta abierto",
+        "closeParachute": "El actuador del paracaídas esta cerrado",
+        "openBalloon": "El actuador del globo esta abierto",
+        "closeBalloon": "El actuador del paracaídas esta cerrado"
+      },
+      "powerSupplies": {
+        "enableOK": "Fuentes de alimentación habilitadas"
+      }
+    },
+    "mission": {
+      "exportTitles": {
+        "timeAxis": "El eje de tiempo se mostrará en minutos, segundos y milisegundos.",
+        "exportBy": "Plataforma educativa CanSat - AXTEC",
+        "startDate": "Inicio: ",
+        "endDate": "Fin: ",
+        "timespan": "Tiempo",
+        "sensor": "Sensor",
+        "value": "Valor",
+        "x": "X",
+        "y": "Y",
+        "z": "Z",
+        "unit": "Unidad",
+        "id": "ID",
+        "gps": "GPS",
+        "lat": "Latitud",
+        "lng": "Longitud"
+      },
+      "status": {
+        "ready": "Listo para usar",
+        "problems": "No esta listo"
+      },
+      "new": {
+        "title": "Nueva misión",
+        "description": "Seleccione un nombre para su misión. La misma será guardada en la carpeta donde creó el proyecto.",
+        "create": "Crear"
+      },
+      "dashboard": {
+        "title": "Tablero de trabajo",
+        "charts": {
+          "lastSamples": "Se mostrarán las últimas 25 muestras.",
+          "goToFullChart": "Ver completo",
+          "time": "Tiempo",
+          "samples": "Muestras"
+        },
+        "controls": {
+          "title": "Controles y estados",
+          "startBtn": "Iniciar",
+          "stopBtn": "Terminar",
+          "exportBtn": "Exportar",
+          "saveBtn": "Guardar",
+          "startDateLabel": "Inicio",
+          "endDateLabel": "Finalización",
+          "samplesToShowLabel": "Mostrar últimas muestras",
+          "projectName": "Proyecto",
+          "statusCansat": "Estado",
+          "missionName": "Misión",
+          "cansatName": "CanSat",
+          "battery": "Bateria",
+          "signal": "Señal",
+          "actions": "Acciones"
+        }
+      },
+      "import": "Importar",
+      "export": "Exportar",
+      "save": "Guardar",
+      "create": "Crear",
+      "start": "Iniciar",
+      "end": "Terminar",
+      "nameLabel": "Nombre",
+      "dateLabel": "Fecha"
+    },
+    "test": {
+      "title": "Pruebas de integridad",
+      "description": "Los test verificaran el correcto funcionamiento de su CanSat. Durante el proceso, se le harán preguntas y mostrarán alertas en caso de falla",
+      "start": "Iniciar tests",
+      "results": "ver resultados",
+      "goToMission": "Hacer una misión",
+      "goToMissionAnyway": "Hacer misión de todas formas",
+      "ok": "Todos los sistemas funcionan correctamente",
+      "error": "Error detectado: ",
+      "subtitle": "Resultados: ",
+      "testingLabel": " Test: ",
+      "noTestOk": "Debe correr los test de integridad para acceder a esta funcionalidad",
+      "tips": "Si desea agregar un nuevo sensor, puede hacerlo en Recursos > Sensores > Creado por el usuario",
+      "table": {
+        "test": "Tests",
+        "progress": "Progreso",
+        "status": "Estado"
+      }
+    },
+    "resources": {
+      "title": "Recursos",
+      "sensors": {
+        "title": "Sensores",
+        "ok": "OK",
+        "danger": "Cuidado",
+        "battery": "Batería",
+        "giroscope": "Giroscopio",
+        "magnetometer": "Magnetómetro",
+        "accelerometer": "Acelerómetro",
+        "temperature": "Temperatura",
+        "humidity": "Humedad",
+        "pressure": "Presión",
+        "altitude": "Altitud",
+        "orientation": "Orientación",
+        "vBatt": "V Batería",
+        "iBatt": "I Batería",
+        "v3v3": "Voltaje 3.3 V",
+        "i3v3": "Corriente 3.3 V",
+        "v5v": "Voltaje 5 V",
+        "i5v": "Corriente 5 V",
+        "gps": {
+          "title": "GPS",
+          "markerTitle": "CanSat: ",
+          "center": "Centrar"
+        },
+        "tabs": {
+          "imu": {
+            "title": "Vectoriales",
+            "table": {
+              "id": "ID",
+              "type": "Tipo",
+              "x": "X",
+              "y": "Y",
+              "z": "Z",
+              "maxThreshold": "Max",
+              "unit": "Unidad",
+              "actions": "Acciones",
+              "status": "Estado",
+              "resetThreshold": "Reiniciar límites"
+            }
+          },
+          "variables": {
+            "title": "Escalares",
+            "table": {
+              "id": "ID",
+              "type": "Tipo",
+              "min": "Min",
+              "max": "Max",
+              "value": "Valor",
+              "unit": "Unidad",
+              "actions": "Acciones",
+              "status": "Estado",
+              "resetThreshold": "Reiniciar límites",
+              "resetPowerSuply": "Reiniciar fuente"
+            }
+          },
+          "createdByUser": {
+            "title": "Creados por el usuario",
+            "button": "Crear o editar",
+            "empty": "No hay sensores creados",
+            "newSensor": {
+              "title": "Nuevos sensores",
+              "subtitle": "Agrege un nuevo sensor configurando su tipo, rango mínimo y máximo que puede tener y la unidad medida.",
+              "back": "Atrás",
+              "delete": "Borrar",
+              "add": "Agregar",
+              "edit": "Editar",
+              "invalidMin": "Debe ser menor al máximo",
+              "invalidUnit": "No puede ser nulo",
+              "invalidType": "No puede ser nulo"
+            }
+          },
+          "location": {
+            "title": "Ubicación",
+            "current": "Ubicación actual",
+            "historic": "Historial",
+            "table": {
+              "latitude": "Latitud",
+              "longitude": "Longitud",
+              "date": "Fecha"
+            }
+          },
+          "powerSupplies": {
+            "title": "Fuentes de Alimentación"
+          }
+        }
+      },
+      "actuators": {
+        "title": "Actuadores",
+        "balloon": "Globo",
+        "parachute": "Paraícadas",
+        "table": {
+          "id": "ID",
+          "type": "Tipo",
+          "status": "Estado",
+          "actions": "Acciones"
+        }
+      },
+      "open": "Abierto",
+      "close": "Cerrado"
+    },
+    "link": {
+      "title": "Enlace",
+      "goToTest": "Hacer test",
+      "connect": "Conectar",
+      "disconnect": "Desconectar",
+      "etConnectedLabel": "Conectada en: ",
+      "etDisconnectedLabel": "Estacion terrena no conectada",
+      "cansatDisconnectedLabel": "Conéctese a un CanSat",
+      "projectNoCreated": "Debe crear un proyecto antes de acceder a esta funcionalidad",
+      "cansatIDLabel": "CanSat ID: ",
+      "cansatNameLabel": "CanSat name: ",
+      "cansatSignalLabel": "Nivel de señal: ",
+      "table": {
+        "id": "ID",
+        "name": "Nombre",
+        "signal": "Señal",
+        "action": "Acción"
+      },
+      "tabs": {
+        "et": "Estación terrena",
+        "cansat": "CanSat",
+        "configLabel": "Configuraciones"
+      }
+    },
+    "dialog": {
+      "open": "Selecione un archivo \"cansat_pro\"",
+      "save": "Guardar su proyecto",
+      "openMission": "Selecione un archivo \"cansat_data\"",
+      "saveMission": "Guardar su misión"
+    },
+    "home": {
+      "cards": {
+        "newProject": "Crea un proyecto nuevo",
+        "openProject": "Abre un proyecto existente",
+        "loadMission": "Abre una mission pasada"
+      }
+    },
+    "project": {
+      "new": {
+        "wizard": {
+          "title": "Asistente de proyecto",
+          "stepOne": {
+            "label": "Proyecto",
+            "description": "Nombre y ubicación",
+            "titleName": "Escriba un nombre para su nuevo proyecto",
+            "name": "Nombre",
+            "invalidName": "Nombre inválido o ya utilizado",
+            "titleLocation": "Eliga una ubicación donde guardar su proyecto",
+            "location": "Ubicación",
+            "invalidLocation": "Directorio inválido"
+          },
+          "stepTwo": {
+            "label": "Estación terrena",
+            "description": "Comunicación",
+            "selectPort": "Puerto",
+            "titlePort": "Selecione el puerto donde esta conectada su estacion terrena"
+          },
+          "stepThree": {
+            "label": "CanSat",
+            "description": "Configuraciones",
+            "selectCanSat": "CanSat",
+            "titleCanSat": "Selecione su CanSat de la lista para crear un enlace",
+            "titleName": "Asignele un nombre a su CanSat para poder distinguirlo en futuras conexiones"
+          },
+          "stepLast": {
+            "description": "Su CanSat esta listo para usar y conectado a la estación terrena, antes de ralizar una mision es aconsejable realizar los test de integridad para verificar el correcto funcionamiento de su equipo.",
+            "goToTest": "Realizar tests"
+          }
+        }
+      }
+    },
+    "notifications": {
+      "etReady": "Estación terrena lista para usar.",
+      "etError": "Error al configurar la estación terrena. Intente reconectarla.",
+      "etConfig": "Configurando Estación terrena.",
+      "etDisconnected": "Estación terrena desconectada.",
+      "etCansatConnected": "CanSat conectado",
+      "etCansatDisconnected": "CanSat desconectado",
+      "etCansatErrorConnect": "No se pudo establecer la conexión con el CanSat",
+      "center": {
+        "title": "Centro de notificaciones",
+        "searchLabel": "Buscar",
+        "perPageLabel": "Por página",
+        "table": {
+          "title": "Titulo",
+          "code": "Código",
+          "date": "Fecha",
+          "type": "Tipo"
+        },
+        "types": {
+          "error": "Error",
+          "info": "Info",
+          "action": "Acción"
+        }
+      },
+      "modal": {
+        "okBtn": "Continuar",
+        "cancelBtn": "Cancel",
+        "yesBtn": "Si",
+        "noBtn": "No",
+        "mission": {
+          "noMissionCreated": "Primero debe crear una misión.",
+          "noMissionActive": "Debe iniciar la misión para poder guardarla",
+          "createdOk": "Misión creada exitosamente.",
+          "loadedOk": "Misión cargada exitosamente.",
+          "save": "Guardar misión.",
+          "import": "Importar misión.",
+          "exportError": "Error al exportar mision.",
+          "exportTip": "El archivo CSV exportado será guardado en el mismo directorio que la misión.",
+          "exportOK": "Misión exportada exitosamente.",
+          "saveOk": "Misión guardada exitosamente.",
+          "saveError": "Error al guardar misión.",
+          "invalidFormat": "Formato inválido. No se pudo importar.",
+          "invalidContent": "Estructura inválida. No se pudo importar.",
+          "incompleteFormat": "Misión incompleta. No se pudo importar.",
+          "missingSensors": "Sensores faltantes. No se pudo importar la misión.",
+          "duplicateIds": "IDs duplicados no permitidos. No se puede importar la misión.",
+          "wrongID": "ID erróneo. No se puede importar la misión.",
+          "samplesError": "Error en la cantidad de muestras. No se pudo cargar la misión.",
+          "contentOverwriteNew": "Perderá los datos de la misión actual si no la guarda primero."
+        },
+        "project": {
+          "noProjectCreated": "Primero debe crear un proyecto",
+          "invalidPath": "Path inválido",
+          "loadedOk": "El proyecto se cargó correctamente.",
+          "openAnyway": "Abrir de todas formas",
+          "wrongID": "ID erróneo. No se puede abrir el projecto.",
+          "duplicateIds": "IDs duplicados no permitidos. No se puede abrir el projecto.",
+          "invalid": "Proyecto inválido. No se pudo abrir.",
+          "invalidContent": "Estructura inválida. No se pudo abrir.",
+          "invalidFormat": "Formato inválido. No se pudo abrir.",
+          "incompleteFormat": "Projecto incompleto. No se pudo abrir.",
+          "missingSensors": "Sensores faltantes. No se pudo abrir el proyecto.",
+          "open": "Cargar proyecto.",
+          "save": "Guardar proyecto",
+          "titleNew": "Nuevo proyecto.",
+          "contentOverwriteNew": "Perderá los datos del proyecto actual si no los guarda primero.",
+          "createdOk": "Proyecto creado correctamente.",
+          "saveOk": "Proyecto guardado correctamente.",
+          "saveError": "Error al guardar proyecto."
+        },
+        "test": {
+          "finished": "Test finalizado",
+          "parachute": "Probando actuador de paracaídas",
+          "parachuteContent": "¿El actuador del paracaídas se abrió y cerró correctamente?",
+          "parachuteError": "Error en actuador paracaídas",
+          "actuatorsContentError": "Verifique que los servomotores estén conectados y su movimiento no se encuentre bloqueado",
+          "balloon": "Probando actuador de globo",
+          "balloonError": "Error en actuador globo",
+          "balloonContent": "¿El actuador del globo se abrió y cerró correctamente?",
+          "sensors": "Probando sensores",
+          "sensorsError": "Error en sensores",
+          "sensorsContentError": "Valores fuera de los rangos permitidos",
+          "powerSupplies": "Probando fuentes de alimentación",
+          "powerSuppliesError": "Error en fuentes de alimentación",
+          "powerSuppliesContentError": "Verifique que todos los circuitos funcionen correctamente",
+          "gps": "Probando GPS",
+          "gpsError": "Error en GPS",
+          "gpsContentError": "No se pudo localizar la ubicación de su CanSat"
+        }
+      }
+    }
+  },
+  "auth": {
+    "agree": "Acepto",
+    "alreadyJoined": "Ya tienes una cuenta?",
+    "createAccount": "Create cuenta",
+    "createNewAccount": "Crear cuenta",
+    "email": "Email",
+    "login": "Iniciar sesión",
+    "password": "Contraseña",
+    "signUp": "Registrar",
+    "termsOfUse": "Los terminos de uso",
+    "welcome": "Bienvenido!"
+  },
+  "buttons": {
+    "advanced": "Iconos, Grupos, Dropdowns",
+    "button": "BOTON",
+    "colors": "Colores",
+    "disabled": "DESHABILITADO",
+    "dropdown": "DESPLEGABLE",
+    "hover": "HOVER",
+    "main": "Botón Primario y Secundario",
+    "micro": "MICRO",
+    "pressed": "PRESIONADO",
+    "small": "PEQUEÑO"
+  },
+  "charts": {
+    "bubbleChart": "Bubble Chart",
+    "donutChart": "Donut Chart",
+    "horizontalBarChart": "Horizontal Bar Chart",
+    "lineChart": "Line Chart",
+    "pieChart": "Pie Chart",
+    "verticalBarChart": "Vertical Bar Chart"
+  },
+  "collapse": {
+    "accordion": "Acordeón",
+    "buttons": "Botones"
+  },
+  "dashboard": {
+    "elements": "Elementos",
+    "success": "ÉXITO",
+    "successMessage": "Ha leído correctamente este mensaje de alerta importante.",
+    "teamMembers": "Miembros del Equipo",
+    "versions": "Versiones"
+  },
+  "notificationsPage": {
+    "alerts": {
+      "title": "Alerts",
+      "success": "ÉXITO",
+      "successMessage": "Ha leído correctamente este mensaje de alerta importante.",
+      "info": "INFO",
+      "infoMessage": "Esta alerta necesita tu atención, pero no es muy importante.",
+      "warning": "ADVERTENCIA",
+      "warningMessage": "Mejor compruébalo, esto no pinta bien.",
+      "danger": "PELIGRO",
+      "dangerMessage": "Cambiar algunas cosas e enviarlo de nuevo."
+    },
+    "popovers": {
+      "title": "Tooltips & Popovers",
+      "popoverTitleLabel": "Title de Popover",
+      "popoverTextLabel": "Texto de Popover",
+      "popoverIconLabel": "Icono de Popover (fontawesome)",
+      "showPopover": "Mostrar Popover",
+      "topTooltip": "tope tooltip",
+      "rightTooltip": "derecha tooltip",
+      "leftTooltip": "izquierda",
+      "bottomTooltip": "fondo"
+    },
+    "Toasts": {
+      "title": "tostadas",
+      "textLabel": "Texto",
+      "durationLabel": "Duración (milisegundos)",
+      "iconLabel": "Icono (fontawesome)",
+      "fullWidthLabel": "Ancho total",
+      "launchToast": "Lanzar tostadas"
+    }
+  },
+  "extra": {
+    "tabs": {
+      "title": "Tabs",
+      "maps": "Mapas",
+      "overview": "Visión de conjunto",
+      "setupProfile": "Perfil de Configuración"
+    },
+    "chat": "Chat",
+    "profileCard": "Tarjeta de Perfil"
+  },
+  "forms": {
+    "controls": {
+      "female": "Mujer",
+      "male": "Hombre",
+      "title": "Checkboxes, Radios, Switches",
+      "radioDisabled": "Radio Desactivado",
+      "radio": "Radio",
+      "subscribe": "Suscribirse a la newsletter"
+    },
+    "inputs": {
+      "emailValidatedSuccess": "Email (validado con éxito)",
+      "emailValidated": "Email (validado)",
+      "inputWithIcon": "Input con Icono",
+      "inputWithButton": "Input con Boton",
+      "inputWithClearButton": "Input With Clear Button",
+      "inputWithRoundButton": "Input With Round Button",
+      "textInput": "Input de Texto",
+      "textInputWithDescription": "Input de Texto (con descripcion)",
+      "textArea": "Text Area",
+      "title": "Inputs",
+      "upload": "SUBIR"
+    },
+    "mediumEditor": {
+      "title": "Medium Editor"
+    },
+    "selects": {
+      "country": "País Select",
+      "countryMulti": "País Multi Select",
+      "multi": "Multi Select",
+      "simple": "Select Simple",
+      "title": "Selects"
+    },
+    "wizard": {
+      "completed": "Asistente Completado!",
+      "confirmSelection": "Confirmar selección",
+      "name": "Nombre",
+      "rich": "Asistente Rico",
+      "simple": "Asistente de proyecto",
+      "stepOne": "1. Nombre",
+      "stepTwo": "2. Ubicación",
+      "stepThree": "3. Confirmar",
+      "verticalRich": "Asistente Rico Vertical",
+      "verticalSimple": "Asistente Simple Vertical"
+    }
+  },
+  "grid": {
+    "fixed": "Grid Fijo",
+    "desktop": "Desktop Grid",
+    "responsive": "Responsive Grid",
+    "offsets": "Offsets"
+  },
+  "icons": {
+    "back": "Volver a los iconos",
+    "none": "No se han encontrado iconos",
+    "search": "Búsqueda de iconos",
+    "title": "Iconos"
+  },
+  "language": {
+    "brazilian_portuguese": "Português",
+    "english": "English",
+    "spanish": "Spanish"
+  },
+  "menu": {
+    "about": "Acerca",
+    "aboutDocs": "Documentación",
+    "home": "Inicio",
+    "project": "Proyecto",
+    "projectNew": "Nuevo",
+    "projectOpen": "Abrir",
+    "projectSave": "Guardar",
+    "projectConfig": "Configuraciones",
+    "mission": "Mision",
+    "missionNew": "Nueva",
+    "missionSave": "Guardar",
+    "missionOpen": "Importar",
+    "missioDashboard": "Tablero de trabajo",
+    "sat": "Cansat",
+    "satEnlace": "Enlace",
+    "satTest": "Pruebas de integridad",
+    "satResources": "Recursos",
+    "auth": "Autenticación",
+    "buttons": "Botones",
+    "charts": "Gráficos",
+    "collapse": "Colapso",
+    "colorPickers": "Selector de color",
+    "dashboard": "Dashboard",
+    "extra": "Extra",
+    "formElements": "Elementos de un Formulario",
+    "forms": "Formularios",
+    "formWizards": "Asistente para Formularios",
+    "mediumEditor": "Medium Editor",
+    "grid": "Grid",
+    "icons": "Iconos",
+    "cards": "Cards",
+    "login": "Iniciar sesión",
+    "maps": "Mapas",
+    "modals": "Modals",
+    "notifications": "Notificaciones",
+    "progressBars": "Barras de Progreso",
+    "signUp": "Registrar",
+    "statistics": "Estadisticas",
+    "tables": "Tablas",
+    "typography": "Tipografía",
+    "uiElements": "Elementos UI"
+  },
+  "cards": {
+    "go": "Ir",
+    "actionCreateProjectTitle": "Crea un proyecto nuevo",
+    "actionCreateProjectSub": "Configura tu CanSat y estación terrena para poder iniciar una mision",
+    "actionOpenProjectTitle": "Abre un proyecto existente",
+    "actionOpenProjectSub": "Carga las configuraciones de un proyecto ya existente",
+    "actionOpenMissionTitle": "Visualiza una mission pasada",
+    "actionOpenMissionSub": "Importa los datos obtenidos en una mision pasada, exporta las gráficas y analiza los resultados"
+  },
+  "messages": {
+    "all": "Ver todos los mensajes",
+    "new": "Nuevo mensajes de {name}"
+  },
+  "modal": {
+    "cancel": "CANCELAR",
+    "close": "CERRAR",
+    "confirm": "CONFIRMAR",
+    "large": "Largo",
+    "largeTitle": "Modal Largo",
+    "medium": "Mediano",
+    "mediumTitle": "Modal Mediana",
+    "small": "Pequeño",
+    "static": "Estático",
+    "smallTitle": "Modal Pequeña",
+    "staticMessage": "Esto es un modal estático. No se cerrará haciendo clic en el fondo.",
+    "staticTitle": "Modal Estático",
+    "title": "Modals"
+  },
+  "fileUpload": {
+    "advancedMediaGallery": "Avanzado, Galería de medios",
+    "advancedUploadList": "Avanzado, lista de carga",
+    "mediaGallery": "Galería media",
+    "uploadList": "Lista de carga",
+    "single": "Soltero",
+    "dragNdropFiles": "Arrastrar y soltar archivos",
+    "uploadedOn": "Subido en",
+    "fileDeleted": "El archivo fue eliminado exitosamente",
+    "undo": "Deshacer",
+    "preview": "Avance",
+    "delete": "Borrar",
+    "deleteFile": "Borrar archivo",
+    "uploadFile": "Subir archivo",
+    "uploadMedia": "Cargar medios",
+    "addAttachment": "Añadir un adjunto",
+    "modalTitle": "Validación de archivo",
+    "modalText": "El tipo de archivo es incorrecto!"
+  },
+  "navbar": {
+    "messageUs": "Envíenos sus preguntas o comentarios a"
+  },
+  "notifications": {
+    "all": "Ver todos los notificaciones",
+    "sentMessage": "{name} te ha mandado un mensaje",
+    "uploadedZip": "{name} ha subido un archivo Zip con {type}",
+    "startedTopic": "{name} ha creado una tema nueva"
+  },
+  "progressBars": {
+    "basic": "Basico",
+    "basicVertical": "Basico y Vertical",
+    "circle": "Circular",
+    "colorFulTitle": "Barras Coloridas",
+    "thin": "Delgado",
+    "thinVertical": "Delgado Vertical",
+    "thick": "Grueso",
+    "title": "Barras de Progresso"
+  },
+  "tables": {
+    "basic": "Tabla basica",
+    "styled": "Colores, Iconos, Etiquetas",
+    "advanced": "Búsqueda y Paginación",
+    "headings": {
+      "city": "Ciudad",
+      "email": "Email",
+      "name": "Nombre",
+      "score": "Puntuación"
+    },
+    "dataTable": {
+      "noDataAvailable": "No hay datos relevantes"
+    }
+  },
+  "user": {
+    "language": "Cambiar Idioma",
+    "profile": "Mi Perfil",
+    "logout": "Cerrar Sesión"
+  }
+}

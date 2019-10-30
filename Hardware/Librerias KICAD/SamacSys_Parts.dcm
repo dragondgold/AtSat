@@ -1,0 +1,142 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 0915BM15A0001E
+D Signal Conditioning 915MHz BALUN/FILTER
+F http://www.mouser.com/datasheet/2/611/0915BM15A0001-242333.pdf
+$ENDCMP
+#
+$CMP 5-1814832-1
+D SUBMINIATURE COAX
+F http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1814832&DocType=Customer+Drawing&DocLang=English
+$ENDCMP
+#
+$CMP 500SSP1S1M6QEA
+D Slide Switches SPDT RA SLIDE PC MNT
+F https://www.e-switch.com/system/asset/product_line/data_sheet/115/500.pdf
+$ENDCMP
+#
+$CMP BMX055
+D Small versatile 9-axis sensor module
+F http://www.mouser.com/ds/2/621/BST-BMX055-DS000-02-586421.pdf
+$ENDCMP
+#
+$CMP BQ24091DGQT
+D Texas Instruments BQ24091DGQT, Battery Charge Controller, 1000mA, 10-Pin MSOP
+F http://www.ti.com/lit/gpn/bq24091
+$ENDCMP
+#
+$CMP BQ24392RSER
+D SPST USB 2.0 High-Speed Switch With Battery Charging Detection
+F http://www.ti.com/lit/gpn/bq24392
+$ENDCMP
+#
+$CMP BQ27441DRZR-G1A
+D System-Side Impedance Track Battery Fuel (Gas) Gauge
+F http://www.ti.com/lit/gpn/bq27441-g1
+$ENDCMP
+#
+$CMP CC1101RGP
+D Texas Instruments CC1101RGP, RF Transceiver IC Triple Band 1.8  3.6 V 20-Pin QFN
+F http://www.ti.com/lit/ds/symlink/cc1101.pdf
+$ENDCMP
+#
+$CMP CONUFL001-SMD
+D RF Connectors / Coaxial Connectors U.FL Straight Surface Mount Jack
+F https://componentsearchengine.com/Datasheets/1/CONUFL001-SMD.pdf
+$ENDCMP
+#
+$CMP CSTNE16M0V530000R0
+D Resonators 16.0000MHz 15pF SMD CHP Resntr
+F https://www.murata.com/en-eu/products/productdata/8801162231838/SPEC-CSTNE16M0V530000R0.pdf?1519875007000
+$ENDCMP
+#
+$CMP IS25LP080D-JULE-TR
+D NOR Flash 8Mb QSPI, 8-pin USON 2x3mm, RoHS, T&R
+F https://componentsearchengine.com/Datasheets/1/IS25LP080D-JULE-TR.pdf
+$ENDCMP
+#
+$CMP LFXTAL016178
+D IQD FREQUENCY PRODUCTS - LFXTAL016178 - CRYSTAL, 32.768KHZ, 6PF, SMD
+F http://www.iqdfrequencyproducts.com/products/pn/LFXTAL016178Bulk.pdf
+$ENDCMP
+#
+$CMP MCP1501T-33E_CHY
+D Voltage References Precision Buffered Voltage Reference
+F https://componentsearchengine.com/Datasheets/1/MCP1501T-33E_CHY.pdf
+$ENDCMP
+#
+$CMP MCP1642B-50I_MS
+D Switching Voltage Regulators Step-up DC/DC Reg 1 MHz, 1.6A, 5Vout
+F http://ww1.microchip.com/downloads/en/DeviceDoc/20005253A.pdf
+$ENDCMP
+#
+$CMP MIC5323-3.3YD5_TR
+D Micrel MIC5323-3.3YD5 TR, LDO Voltage Regulator, 300mA, 3.3 V 2%, 2.65  5.5 Vin, 5-Pin TSOT-23
+F http://ww1.microchip.com/downloads/en/DeviceDoc/MIC5323.pdf
+$ENDCMP
+#
+$CMP MS563702BA03-50
+D Sensor Pressure 2bar Barometric SMD MS563702BA03-50, Barometric Pressure Sensor, 1200mbar 0 ??? 3.6 V Output, 4-Pin QFN
+F http://docs-europe.electrocomponents.com/webdocs/142c/0900766b8142cddb.pdf
+$ENDCMP
+#
+$CMP NE555D
+D NE555DG4, Timer, 4.5 To 16V, 8-Pin SOIC-8
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP NTB0104BQ,115
+D NXP - NTB0104BQ,115 - TRANSCEIVER, BIDIR TRANSLATOR, DHVQFN14
+F http://www.nxp.com/documents/data_sheet/NTB0104.pdf
+$ENDCMP
+#
+$CMP SN74LVC1G3157DCKR
+D SN74LVC1G3157DCKR, Analogue Switch Single SPDT, 3, 5V, 6-Pin, SC-70
+F http://www.ti.com/lit/ds/symlink/sn74lvc1g3157.pdf
+$ENDCMP
+#
+$CMP SSM3J338R,LF
+D MOSFET Small-signal MOSFET Vdss= -12V, ID= -6A
+F http://toshiba.semicon-storage.com/info/docget.jsp?did=30384&prodName=SSM3J338R
+$ENDCMP
+#
+$CMP Si7006-A20-IM1
+D Si7006 Digital RH temp sensor w filter Silicon Labs Si7006-A20-IM1 Temperature & Humidity Sensor, -40  +125 C, 6-Pin DFN
+F https://www.silabs.com/documents/public/data-sheets/Si7006-A20.pdf
+$ENDCMP
+#
+$CMP TCA9802DGKR
+D Level-Translating I2C Bus Buffer/Repeater
+F http://www.ti.com/lit/gpn/tca9802
+$ENDCMP
+#
+$CMP TXB0304RUTR
+D Texas Instruments TXB0304RUTR, Logic Level Translator, Voltage Level, 3-State, 0.9  3.6 V, 12-Pin UQFN
+F http://www.ti.com/lit/ds/symlink/txb0304.pdf
+$ENDCMP
+#
+$CMP 10132797-025100LF
+D Board to Board & Mezzanine Connectors 4.3mm Height,Dbl Rw 20P, Plug, Connector
+K
+F https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/10132797.pdf
+$ENDCMP
+#
+$CMP 10132798-022100LF
+D Board to Board & Mezzanine Connectors 2.7mm Height,Dbl Rw 20P,Recept,Connector
+K
+F https://cdn.amphenol-icc.com/media/wysiwyg/files/documentation/datasheet/boardwiretoboard/bwb_bergstak_05mm_mezzanine.pdf
+$ENDCMP
+#
+$CMP ESP32-WROOM-32D
+D WiFi Modules (802.11) SMD Module, ESP32-D0WD, 32Mbits SPI flash, UART mode, PCB antenna
+K
+F https://www.mouser.com/datasheet/2/891/esp32-wroom-32d_esp32-wroom-32u_datasheet_en-1365844.pdf
+$ENDCMP
+#
+$CMP 0915AT43A0026E
+D JOHANSON TECHNOLOGY - 0915AT43A0026E - ANTENNA, CERAMIC, 915MHZ
+K
+F http://www.johansontechnology.com/images/stories/ip/rf-antennas/Antenna_0915AT43A0026_v2.pdf
+$ENDCMP
+#
+#End Doc Library

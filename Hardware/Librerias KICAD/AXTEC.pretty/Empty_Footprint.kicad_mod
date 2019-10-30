@@ -1,0 +1,8 @@
+(module Empty_Footprint (layer F.Cu) (tedit 5BE1E6D3)
+  (fp_text reference REF** (at 0 0.5) (layer F.SilkS) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value Empty_Footprint (at 0 -0.5) (layer F.Fab) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+)

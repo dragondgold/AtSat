@@ -1,0 +1,18 @@
+appId: axtec.cansat
+productName: CanSat 
+asar: false
+files:
+  - "./build/worker.js"
+  - "./build/protocol.js"
+  - "./build/cc1101.js"
+win:
+  icon: "./cansat.ico"
+  extraResources:
+  - from: "./src/services/worker.js"
+    to: "./build/worker.js"
+  - from: "./src/services/protocol.js"
+    to: "./build/protocol.js"
+  - from: "./src/services/protocol.js"
+    to: "./build/cc1101.js"
+
+    

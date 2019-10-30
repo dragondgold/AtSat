@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name SamacSys_Parts)(type Legacy)(uri "${KIPRJMOD}/../../Librerias KICAD/SamacSys_Parts.lib")(options "")(descr ""))
+  (lib (name AXTEC_IC)(type Legacy)(uri "${KIPRJMOD}/../../Librerias KICAD/AXTEC_IC.lib")(options "")(descr ""))
+)

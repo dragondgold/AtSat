@@ -1,0 +1,17 @@
+{
+	"Add include guard": {
+		"prefix": "ESP32 Header",
+		"description": "Adds an ifndef include guard to a C header and basic functions",
+		"body": [
+			"#ifndef __${TM_FILENAME/^([^\\.]*)\\..*$/${1:/upcase}/}_${TM_FILENAME/^.*\\.([^\\.]*)$/${1:/upcase}/}__",
+			"#define __${TM_FILENAME/^([^\\.]*)\\..*$/${1:/upcase}/}_${TM_FILENAME/^.*\\.([^\\.]*)$/${1:/upcase}/}__",
+			"",
+			"#include \"esp_system.h\"",
+			"",
+			"esp_err_t ${TM_FILENAME_BASE}_init(void);",
+			"",
+			"#endif // __${TM_FILENAME/^([^\\.]*)\\..*$/${1:/upcase}/}_${TM_FILENAME/^.*\\.([^\\.]*)$/${1:/upcase}/}__",
+			""
+		]
+	}
+}

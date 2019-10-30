@@ -1,0 +1,15 @@
+- Altura de capa: 0.2 mm
+- Satélite:
+	- % relleno: al menos 50%
+	- Número de perímetros: 4
+	- Número de capas sólidas en parte superior: 4
+	- Número de capas sólidas en parte inferior: 4
+	- Material: PETG, ABS, PLA
+- baseSat.STL
+	- Para facilitar la impresión se recomienda partir a la mitad y luego pegar ambas partes para no tener que realizar
+		soportes
+- nuevo-brazo-servo.STL y nuevo-brazo-servo-espejado.STL
+	- Imprimir con fan de capa y a baja velocidad, con soportes, para obtener la mejor calidad
+- Estación Terrena:
+	- Ningún requerimiento especial
+	
