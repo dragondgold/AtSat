@@ -2620,34 +2620,34 @@
 // <e> NRFX_PWM_ENABLED - nrfx_pwm - PWM peripheral driver
 //==========================================================
 #ifndef NRFX_PWM_ENABLED
-#define NRFX_PWM_ENABLED 0
+#define NRFX_PWM_ENABLED 1
 #endif
 // <q> NRFX_PWM0_ENABLED  - Enable PWM0 instance
  
 
 #ifndef NRFX_PWM0_ENABLED
-#define NRFX_PWM0_ENABLED 0
+#define NRFX_PWM0_ENABLED 1
 #endif
 
 // <q> NRFX_PWM1_ENABLED  - Enable PWM1 instance
  
 
 #ifndef NRFX_PWM1_ENABLED
-#define NRFX_PWM1_ENABLED 0
+#define NRFX_PWM1_ENABLED 1
 #endif
 
 // <q> NRFX_PWM2_ENABLED  - Enable PWM2 instance
  
 
 #ifndef NRFX_PWM2_ENABLED
-#define NRFX_PWM2_ENABLED 0
+#define NRFX_PWM2_ENABLED 1
 #endif
 
 // <q> NRFX_PWM3_ENABLED  - Enable PWM3 instance
  
 
 #ifndef NRFX_PWM3_ENABLED
-#define NRFX_PWM3_ENABLED 0
+#define NRFX_PWM3_ENABLED 1
 #endif
 
 // <o> NRFX_PWM_DEFAULT_CONFIG_OUT0_PIN - Out0 pin  <0-31> 
@@ -4848,7 +4848,7 @@
 // <e> PWM_ENABLED - nrf_drv_pwm - PWM peripheral driver - legacy layer
 //==========================================================
 #ifndef PWM_ENABLED
-#define PWM_ENABLED 0
+#define PWM_ENABLED 1
 #endif
 // <o> PWM_DEFAULT_CONFIG_OUT0_PIN - Out0 pin  <0-31> 
 
@@ -4948,28 +4948,28 @@
  
 
 #ifndef PWM0_ENABLED
-#define PWM0_ENABLED 0
+#define PWM0_ENABLED 1
 #endif
 
 // <q> PWM1_ENABLED  - Enable PWM1 instance
  
 
 #ifndef PWM1_ENABLED
-#define PWM1_ENABLED 0
+#define PWM1_ENABLED 1
 #endif
 
 // <q> PWM2_ENABLED  - Enable PWM2 instance
  
 
 #ifndef PWM2_ENABLED
-#define PWM2_ENABLED 0
+#define PWM2_ENABLED 1
 #endif
 
 // <q> PWM3_ENABLED  - Enable PWM3 instance
  
 
 #ifndef PWM3_ENABLED
-#define PWM3_ENABLED 0
+#define PWM3_ENABLED 1
 #endif
 
 // </e>
@@ -6737,14 +6737,14 @@
  
 
 #ifndef LED_SOFTBLINK_ENABLED
-#define LED_SOFTBLINK_ENABLED 0
+#define LED_SOFTBLINK_ENABLED 1
 #endif
 
 // <q> LOW_POWER_PWM_ENABLED  - low_power_pwm - low_power_pwm module
  
 
 #ifndef LOW_POWER_PWM_ENABLED
-#define LOW_POWER_PWM_ENABLED 0
+#define LOW_POWER_PWM_ENABLED 1
 #endif
 
 // <e> MEM_MANAGER_ENABLED - mem_manager - Dynamic memory allocator

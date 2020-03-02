@@ -42,6 +42,7 @@
 #include "system_monitor.h"
 #include "time_manager.h"
 #include "rtc_manager.h"
+#include "led_manager.h"
 
 // Value used as error code on stack dump, can be used to identify stack location on stack unwind
 #define DEAD_BEEF                       0xDEADBEEF
@@ -213,15 +214,6 @@ void vApplicationGetTimerTaskMemory(StaticTask_t **ppxTimerTaskTCBBuffer,
 }
 
 /**
- * @brief Initializes LEDs.
- * @details Initializes LEDs on the development board
- */
-static void leds_init(void)
-{
-    bsp_board_init(BSP_INIT_LEDS);
-}
-
-/**
  * @brief Initialize the UART and Flash memory loggers.
  */
 static void log_init(void)
@@ -318,22 +310,48 @@ int main(void)
     // Activate deep sleep mode.
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 
-    // Initialize flash manager
-    NRF_LOG_INFO("Initializing flash manager");
-    ext_flash_manager_init(&flash_cfg);
+    // Init every system in the satellite
+    NRF_LOG_INFO("Initializing systems");
+    // ext_flash_manager_init(&flash_cfg);
 
     // Initialize power management.
-    power_management_init();
+    // power_management_init();
 
-    leds_init();
-    ble_manager_init();
-    time_manager_init();
-    rtc_manager_init();
+    // ble_manager_init();
+    // time_manager_init();
+    // rtc_manager_init();
+
+    led_manager_init();
+    led_manager_slow_blink(true);
+
+    //err += aux_ps_init();
+    //err += i2c_manager_init();
+    //err += spi_manager_init();
+    //err += sensor_manager_init();
+    //err += battery_manager_init();
+    //err += servo_manager_init();
+    //err += com_manager_init();
+    //err += power_monitor_init();
+    //err += sup_cmd_manager_init();
+
+    if(true)
+    {
+        NRF_LOG_INFO("Systems ready!");
+        //led_manager_on();
+
+        // Enable PSU now that the protections are enabled
+        //aux_ps_enable();
+    }
+    else
+    {
+        NRF_LOG_ERROR("------ System init failed! ------");
+        //led_manager_fast_blink(false);
+    }
 
     // Create a FreeRTOS task for the BLE stack.
     // The task will run advertising_start() before entering its loop.
-    nrf_sdh_freertos_init(advertising_start_thread, NULL);
-    system_monitor_init();
+    // nrf_sdh_freertos_init(advertising_start_thread, NULL);
+    // system_monitor_init();
 
     // Enable FPU exceptions interrupt
     NVIC_SetPriority(FPU_IRQn, APP_IRQ_PRIORITY_LOW);
