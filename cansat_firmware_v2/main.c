@@ -321,10 +321,20 @@ int main(void)
     // time_manager_init();
     // rtc_manager_init();
 
-    led_manager_init();
-    led_manager_slow_blink(true);
+    if(!led_manager_init())
+    {
+        NRF_LOG_ERROR("Failed initializing led_manager");
+        NRF_LOG_FLUSH();
+        while(true);
+    }
 
-    //err += aux_ps_init();
+    if(!aux_ps_manager_init())
+    {
+        NRF_LOG_ERROR("Failed initializing aux_ps_manager");
+        NRF_LOG_FLUSH();
+        while(true);
+    }
+
     //err += i2c_manager_init();
     //err += spi_manager_init();
     //err += sensor_manager_init();

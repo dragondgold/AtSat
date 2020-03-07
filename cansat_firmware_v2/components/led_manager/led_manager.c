@@ -1,11 +1,8 @@
 #include <limits.h>
 #include <string.h>
 #include "led_manager.h"
-#include "nrf_drv_pwm.h"
-
-#include "FreeRTOS.h"
 #include "semphr.h"
-#include "task.h"
+#include "nrf_drv_pwm.h"
 
 #define NRF_LOG_MODULE_NAME led_manager
 #include "nrf_log.h"
@@ -132,7 +129,7 @@ bool led_manager_init(void)
 
     mutex = xSemaphoreCreateMutexStatic(&mutex_buffer);
 
-    NRF_LOG_INFO("Ready!");
+    NRF_LOG_INFO("Initialized");
     return true;
 }
 
