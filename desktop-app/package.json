@@ -74,7 +74,7 @@
     "chalk": "2.4.1",
     "connect-history-api-fallback": "1.5.0",
     "copy-webpack-plugin": "4.5.2",
-    "electron": "^2.0.0",
+    "electron": "^9.4.0",
     "electron-rebuild": "^1.8.4",
     "eslint-friendly-formatter": "4.0.1",
     "eventsource-polyfill": "0.9.6",
